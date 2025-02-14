@@ -1,0 +1,75 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gap{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.selected-button-card {
+    background-color: #d1ebff;
+    color:black;
+    border-radius: 5px;
+    height: 40px;
+    // width:120px;
+}
+.button-card {
+    background-color: #525e80;
+    color:white;
+    border-radius: 5px;
+    height: 40px;
+    // width:120px;
+}
+.card-gap {
+    margin-top: 8px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.saved-items-card {
+    margin-top: -8px;
+    height: auto;
+    margin-left: 0px;
+    margin-right: 2px;
+    border-radius:8px;
+    width: 100%;
+    background: #d1ebff;
+}
+.img-banner {
+    width: 100%;
+    height: 110px;
+    border-radius: 6px;
+}
+.badge-color{
+    float: right;
+    background: #f5ebff;
+    height: 18px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+}
+.name-text {
+    color: black;
+    font-size: small;
+    margin-top: 3px;
+    font-weight: 800;
+}
+
+ion-segment {
+    --indicator-color: #26375f; /* Default bar color */
+}
+  
+ion-segment-button {
+    --color-checked: #fe9800; /* Color of selected text */
+    --ion-segment-button-background: transparent; /* Background color of unselected button */
+    --ion-segment-button-background-checked: transparent; /* Background color of selected button */
+    --indicator-color: #fe9800; /* Color of the indicator (bar) for the selected button */
+}
+.broadcast-card {
+    border-radius: 14px;
+}

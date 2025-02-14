@@ -1,0 +1,448 @@
+ion-toolbar {
+  --background: #071947;
+}
+
+.header {
+  color: black;
+  font-size: medium;
+  font-family: "Alef";
+  margin-top: 2px;
+}
+
+#container1 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  // top: 232px;
+  top:214px;
+  transform: translateY(-50%);
+  background: #071947;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  z-index: 1;
+  // height: 300px;
+  height: 319px;
+  overflow: hidden;
+}
+
+#container1 p{
+  color: #fff;
+  text-align: center;
+}
+
+
+#container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  // top:244px;
+  // top: 220px;
+  top: 196px;
+  // top:250px;
+  transform: translateY(-50%);
+  background: #071947;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  z-index: 1;
+  // height: 300px;
+  height:275px;
+  // height: 319px;
+  overflow: hidden;
+}
+
+#container p {
+  color: #fff;
+  text-align: center;
+}
+
+.name-txt {
+  font-size: 22px;
+  font-family: 'Poppins-Semibold';
+  margin-top: 3px;
+}
+
+.name-txt1 {
+  font-size: 13px;
+  font-family: 'Poppins-Semibold';
+  margin-top: -28px;
+}
+
+// .profile-img-avatar {
+//   background-color: #CECECE;
+//   border: 6px solid #28d728;
+//   border-radius: 50%;
+//   height: 110px;
+//   width: 110px;
+//   margin: 0 auto;
+//   display: block;
+// }
+.ribbon {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffd700;
+  color: black;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  z-index: 1;
+}
+.design-frame1{
+  display: inline-block;
+  padding: 10px; /* Thickness of the frame */
+  background: repeating-linear-gradient(
+    45deg,
+    #ffd700,
+    #ffd700 10px,
+    #ff8c00 10px,
+    #ff8c00 20px
+  ); /* Gold patterned gradient */
+  border-radius: 12px; /* Rounded corners for the frame */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 3D effect */
+}
+.design-frame {
+  display: inline-block;
+  border-radius: 50%;
+  padding: 8px; /* Thickness of the frame */
+  background: radial-gradient(circle at 50% 50%, #ffd700 20%, transparent 21%) 0 / 10px 10px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); /* Glow effect */
+}
+.profile-img-avatar {
+  border-radius: 50%;
+  height: 110px;
+  width: 110px;
+  margin: 0 auto;
+  display: block;
+  border: 6px solid transparent; /* Reserve space for border */
+  // border-image: linear-gradient(45deg, #ffd700, #ff8c00) 1; /* Gold gradient */
+}
+
+/* Silver Frame */
+.silver-frame {
+  background-image: linear-gradient(#e0e0e0, #c0c0c0); /* Silver gradient */
+}
+
+/* Gold Frame */
+.gold-frame {
+  background-image: linear-gradient(#ffd700, #daa520); /* Gold gradient */
+}
+
+/* Bronze Frame */
+.bronze-frame {
+  background-image: linear-gradient(#cd7f32, #8b4513); /* Bronze gradient */
+}
+
+.prof-margin {
+  margin-top: 80%;
+}
+
+.text {
+  font-size: smaller;
+  color: #00000087;
+}
+
+.ion-padding {
+  margin-left: 10px;
+}
+
+.text1 {
+  font-size: 14px;
+  color: #0f1f49;
+}
+
+.icon-circle {
+  --background: #39507c;
+  --border-radius: 50%;
+  // --padding: 10px;
+  --padding: 7px;
+  --box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  font-size: 24px;
+  width: 12px;
+  height: 12px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  box-shadow: var(--box-shadow);
+}
+
+.no-uppercase {
+  text-transform: none;
+}
+
+.custom_button {
+  --background: #071947;
+  --background-hover: #071947;
+  --background-activated: #071947;
+  --background-focused: #071947;
+  --color: white;
+  --border-radius: 5px;
+  --border-color: white;
+  --border-style: solid;
+  --border-width: 1px;
+  --ripple-color: deeppink;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  width: 156px;
+  height: 20px;
+  margin-top: 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.honeycomb-overlay {
+  position: absolute;
+  pointer-events: none;
+  top: -137px;
+  left: -152px;
+  right: 0;
+  bottom: 0;
+  // height: 100px;
+  background-image: url('../../assets/background/profile_bg1.svg'); /* Path to your honeycomb vector image */
+  background-size: cover;
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.camera-icon {
+  position: absolute;
+  top: 82px;
+  // right: 175px;
+  right:45%;
+  font-size: 24px;
+  background-color: #2d88ff;
+  border-radius: 50%;
+  padding: 6px;
+  z-index: 15;
+  cursor: pointer;
+  color: #ffffff;
+  border: 2px solid #FAFAFA;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// *{
+//     font-family: 'Poppins-Regular';
+//   }
+  
+// ion-toolbar{
+//     --background: #071947;
+//     ion-title{
+//       font-size: 16px;
+//     }
+//   }
+
+//   #header-icons{
+//     text-align: right;
+//     ion-icon{
+//         color:#50537a;
+//         font-size: 1.5rem;
+//     }
+//   }
+// .header {
+//     color: black;
+//     font-size: medium;
+//     font-family: "Alef";
+//     margin-top: 2px;
+// }
+
+//   .main-container {
+//     position: relative;
+//   }
+
+//   #container1 {
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     top: 206px;
+//     transform: translateY(-50%);
+//     background: #071947;
+//     border-bottom-left-radius: 30px;
+//     border-bottom-right-radius: 30px;
+//     z-index: 1;
+//     height: 300px; 
+//     overflow: hidden;
+//   }
+
+//   #container1 strong {
+//     font-size: 20px;
+//     line-height: 26px;
+//   }
+  
+//   #container1 p {
+//     color: #fff;
+//     margin-left: 20px;
+//   }
+  
+//   #container1 a {
+//     text-decoration: none;
+//   }
+  
+//   #container {
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     top: 232px;
+//     transform: translateY(-50%);
+//     background: #071947;
+//     border-bottom-left-radius: 30px;
+//     border-bottom-right-radius: 30px;
+//     z-index: 1;
+//     height: 300px; 
+//     overflow: hidden;
+//   }
+  
+//   #container strong {
+//     font-size: 20px;
+//     line-height: 26px;
+//   }
+  
+//   #container p {
+//     color: #fff;
+//     margin-left: 20px;
+//   }
+  
+//   #container a {
+//     text-decoration: none;
+//   }
+  
+//   .hello-txt{
+//     font-size: 14px;
+//     margin-bottom: 0;
+//   }
+//   .name-txt1{
+//     font-size: 13px;
+//     position: absolute;
+//     top:128px;
+//   }
+//   .name-txt{
+//     font-size: 22px;
+//     font-family: 'Poppins-Semibold';
+//     position: absolute;
+//     top:103px;
+//   }
+//   .img {
+//     width: 20px;
+//   }
+//   .margin_left{
+//     margin-left: 22px;
+//   }
+//   .profile-img-avatar {
+//     position: absolute;
+//     background-color: #CECECE;
+//     border: 5px solid #FAFAFA;
+//     border-radius: 50%;
+//     display: block;
+//     height: 110px;
+//     margin: 0 auto;
+//     width: 110px;
+//     top:25px;
+//     margin: auto;
+//     left: 148px;
+// }
+
+// .img1 {
+//   position: absolute;
+//   top: 0;
+//   left: 8px;
+//   width: 21px;
+//   height: 39px;
+// }
+
+// .prof-margin {
+//   margin-top: 72%;
+// }
+
+// .text {
+//   font-size: smaller;
+//   color: #00000087;
+// }
+
+// .ion-padding {
+//   margin-left: 10px;
+// }
+
+// .text1 {
+//   font-size: 14px;
+//   color:#0f1f49;
+// }
+
+// .icon-circle {
+//     --background: #53a2ff;
+//     --border-radius: 50%;
+//     --padding: 10px;
+//     --box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+//     font-size: 24px;
+//     width: 12px;
+//     height: 12px;
+//     align-items: center;
+//     justify-content: center;
+//     background-color: var(--background);
+//     border-radius: var(--border-radius);
+//     padding: var(--padding);
+//     box-shadow: var(--box-shadow);
+// }
+
+// .button-card {
+//     background-color: #071947;
+//     color:white;
+//     padding: 11px;
+//     border-radius: 8px;
+//     margin-bottom: 20px;
+//     position: relative; 
+//     max-width: 163px;
+//     margin-left: 124px;
+//     margin-top: 193px;
+//     height: auto;
+//     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+// }
+
+// .no-uppercase {
+//     text-transform: none;
+// }
+
+// .custom_button {
+//     --background: #071947;
+//     --background-hover: #071947;
+//     --background-activated: #071947;
+//     --background-focused: #071947;
+//     --color: white;
+//     --border-radius: 5px;
+//     --border-color: white;
+//     --border-style: solid;
+//     --border-width: 1px;
+//     --ripple-color: deeppink;
+//     --padding-top: 10px;
+//     --padding-bottom: 10px;
+//     width: 152px;
+//     height: 20px;
+//     margin-top: 153px;
+//     margin-left: 133px;
+// }

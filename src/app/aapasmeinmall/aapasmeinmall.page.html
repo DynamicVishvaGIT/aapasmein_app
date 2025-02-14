@@ -1,0 +1,395 @@
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" [pullFactor]="0.5" [pullMin]="100" [pullMax]="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="ion-padding-top ion-padding-horizontal">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center;margin-top: -3px;">
+          <strong class="header" style="color:white;">aapasmein Deals</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline"  style="color:white;margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div >
+    <ion-button  size="small" slot="start" style="float:left;font-size: small;margin-left: 24px;text-transform: none;"(click)=filterMall()><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button>
+    <ion-badge class="badge" slot="end" *ngIf="filterText" (click)="removeFilter()">
+      <ion-row>
+        <ion-col>
+          <span>{{filterText}} </span>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="close-outline" class="badge_icon"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-badge>
+    <ion-button class="button-property" size="small" color="tertiary" (click)="addMall()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
+  </div>
+  <div class="card-gap">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let data of mall_data;" (click)="goToMallDetails(data,'malllist')">
+          <ion-card class="mall-card">
+            <ion-card-header> 
+              <ion-card-title>
+                <!-- <img src="../../../assets/laptop.jpg" alt="" class="img-banner"> -->
+                <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                  <ng-template swiperSlide *ngFor="let img of data.images">
+                    <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
+                  </ng-template>
+                </swiper>
+              </ion-card-title>
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <span style="float:left;font-size: smaller;">{{data.description.substring(0,23)}}<span *ngIf="data.description.length>=23">...</span></span><br>
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;margin-left: -3px;"></ion-icon><span style="font-size: x-small;">{{data.location}}</span><br>
+              <span style="font-size: x-small;color: #272790;">{{data.status=='your_connection'?'Your Connection':'Public'}}</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;color:green;margin-left: -5px;">Rs.{{data.price}}/-</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- <ion-col size="6">
+          <ion-card class="mall-card">
+            <ion-card-header> 
+              <ion-card-title>
+                <img src="../../../assets/canon.webp" alt="" class="img-banner">
+              </ion-card-title>
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Canon 750d with</span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <span style="float:left;font-size: smaller;">Canon powershot s5 is 12x Optical Zoom Digital...</span>
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Thane</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col> -->
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size="6">
+          <ion-card class="mall-card">
+            <ion-card-header> 
+              <ion-card-title>
+                <img src="../../../assets/byke.avif" alt="" class="img-banner">
+              </ion-card-title>
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Royal Enfield</span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <span style="float:left;font-size: smaller;">Royal Enfield Byke, great color nice byke rider ...</span>
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Borivali</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="mall-card">
+            <ion-card-header> 
+              <ion-card-title>
+                <img src="../../../assets/canon.webp" alt="" class="img-banner">
+              </ion-card-title>
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Canon 750d with</span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <span style="float:left;font-size: smaller;">Canon powershot s5 is 12x Optical Zoom Digital...</span>
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Thane</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card class="mall-card">
+            <ion-card-header> 
+              <ion-card-title>
+                <img src="../../../assets/laptop.jpg" alt="" class="img-banner">
+              </ion-card-title>
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Dell Laptop</span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <span style="float:left;font-size: smaller;">Dell 7200 2-in-1 Core i7-8th Generation Ram 16gb SSD...</span>
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Pune</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="mall-card">
+            <ion-card-header> 
+              <ion-card-title>
+                <img src="../../../assets/byke.avif" alt="" class="img-banner">
+              </ion-card-title>
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Royal Enfield</span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <span style="float:left;font-size: smaller;">Royal Enfield Byke, great color nice byke rider byke ...</span>
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Borivali</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </div>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="card-gap">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card class="mall-card">
+            <ion-row>
+              <ion-col size="6"> 
+                <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+              </ion-col>
+              <ion-col size="6" class="col-align"> 
+                <ion-row>
+                  <span class="name-text"><b>Oppo A55</b></span>
+                </ion-row>
+                <ion-row>
+                  <span class="product-text">Mobile Phone</span>
+                </ion-row>
+                <ion-row>
+                  <span class="time-text">1 Years Old</span>
+                </ion-row>
+                <ion-row>
+                  <span class="amount-text">₹1500</span>
+                </ion-row>
+                <ion-row>
+                  <ion-badge class="badge-color" mode="md">Reach Out</ion-badge>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="mall-card">
+            <ion-row>
+              <ion-col size="6"> 
+                <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+              </ion-col>
+              <ion-col size="6" class="col-align"> 
+                <ion-row>
+                  <span class="name-text"><b>Oppo A55</b></span>
+                </ion-row>
+                <ion-row>
+                  <span class="product-text">Mobile Phone</span>
+                </ion-row>
+                <ion-row>
+                  <span class="time-text">1 Years Old</span>
+                </ion-row>
+                <ion-row>
+                  <span class="amount-text">₹1500</span>
+                </ion-row>
+                <ion-row>
+                  <ion-badge class="badge-color" mode="md">Reach Out</ion-badge>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="mall-card">
+            <ion-row>
+              <ion-col size="6"> 
+                <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+              </ion-col>
+              <ion-col size="6" class="col-align"> 
+                <ion-row>
+                  <span class="name-text"><b>Oppo A55</b></span>
+                </ion-row>
+                <ion-row>
+                  <span class="product-text">Mobile Phone</span>
+                </ion-row>
+                <ion-row>
+                  <span class="time-text">1 Years Old</span>
+                </ion-row>
+                <ion-row>
+                  <span class="amount-text">₹1500</span>
+                </ion-row>
+                <ion-row>
+                  <ion-badge class="badge-color" mode="md">Reach Out</ion-badge>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="mall-card">
+            <ion-row>
+              <ion-col size="6"> 
+                <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+              </ion-col>
+              <ion-col size="6" class="col-align"> 
+                <ion-row>
+                  <span class="name-text"><b>Oppo A55</b></span>
+                </ion-row>
+                <ion-row>
+                  <span class="product-text">Mobile Phone</span>
+                </ion-row>
+                <ion-row>
+                  <span class="time-text">1 Years Old</span>
+                </ion-row>
+                <ion-row>
+                  <span class="amount-text">₹1500</span>
+                </ion-row>
+                <ion-row>
+                  <ion-badge class="badge-color" mode="md">Reach Out</ion-badge>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="mall-card">
+            <ion-row>
+              <ion-col size="6"> 
+                <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+              </ion-col>
+              <ion-col size="6" class="col-align"> 
+                <ion-row>
+                  <span class="name-text"><b>Oppo A55</b></span>
+                </ion-row>
+                <ion-row>
+                  <span class="product-text">Mobile Phone</span>
+                </ion-row>
+                <ion-row>
+                  <span class="time-text">1 Years Old</span>
+                </ion-row>
+                <ion-row>
+                  <span class="amount-text">₹1500</span>
+                </ion-row>
+                <ion-row>
+                  <ion-badge class="badge-color" mode="md">Reach Out</ion-badge>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="mall-card">
+            <ion-row>
+              <ion-col size="6"> 
+                <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+              </ion-col>
+              <ion-col size="6" class="col-align"> 
+                <ion-row>
+                  <span class="name-text"><b>Oppo A55</b></span>
+                </ion-row>
+                <ion-row>
+                  <span class="product-text">Mobile Phone</span>
+                </ion-row>
+                <ion-row>
+                  <span class="time-text">1 Years Old</span>
+                </ion-row>
+                <ion-row>
+                  <span class="amount-text">₹1500</span>
+                </ion-row>
+                <ion-row>
+                  <ion-badge class="badge-color" mode="md">Reach Out</ion-badge>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="mall-card">
+            <ion-row>
+              <ion-col size="6"> 
+                <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+              </ion-col>
+              <ion-col size="6" class="col-align"> 
+                <ion-row>
+                  <span class="name-text"><b>Oppo A55</b></span>
+                </ion-row>
+                <ion-row>
+                  <span class="product-text">Mobile Phone</span>
+                </ion-row>
+                <ion-row>
+                  <span class="time-text">1 Years Old</span>
+                </ion-row>
+                <ion-row>
+                  <span class="amount-text">₹1500</span>
+                </ion-row>
+                <ion-row>
+                  <ion-badge class="badge-color" mode="md">Reach Out</ion-badge>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div> -->

@@ -1,0 +1,124 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">aapasmein Convenience</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <ion-row style="margin-left: 28px;margin-top: 12px;">
+    <span style="color:white;font-size: small;">{{profession}}</span>
+  </ion-row>
+  <div class="gap">
+    <ion-grid>
+      <ion-row class="border-bottom" *ngFor="let data of list">
+        <ion-col size="3">
+          <img src="../../../assets/avtar4.png" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">{{data.CONVENIENCE_NAME}}</span><br>
+          <!-- <ion-badge class="badge-color" mode="md">Request</ion-badge> -->
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.MOBILE_NO)" ></ion-icon>
+          <span class="designation-text">{{data.PROFESSION}}</span><br>
+          <span class="designation-text">{{data.LOCATION}}</span><br>
+          <!-- <span class="designation-text">9434478921</span> -->
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar6.avif" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mamta Dalvi</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('7718092699')"></ion-icon>
+          <span class="designation-text">Marol, Mumbai</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar3.png" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Akash Tupsaminder</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('9833293468')"></ion-icon>
+          <span class="designation-text">Bandra, Mumbai</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar7.jpg" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mamta Dalvi</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('7718092699')"></ion-icon>
+          <span class="designation-text">Thane, Mumbai</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Adinath Mehtar</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('8928504072')"></ion-icon>
+          <span class="designation-text">Bhiwandi, Mumbai</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Shalaka</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('7350678411')"></ion-icon>
+          <span class="designation-text">Gorakhgad Fort, Mumbai</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar6.webp" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Satyam Bandbe</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('9082355254')"></ion-icon>
+          <span class="designation-text">Navi, Mumbai</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mayur Sheler</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('9769646205')"></ion-icon>
+          <span class="designation-text">Bhimashankar Temple, Mumbai</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mamta Dalvi</span><br>
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall('7718092699')"></ion-icon>
+          <span class="designation-text">Lonavala, Mumbai</span><br>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </div>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

@@ -1,0 +1,147 @@
+ion-tab-bar {
+    border: 0;
+    margin-top: -1px;
+}
+
+.divider {
+    animation:mymove 0.5s ease-in forwards;
+    animation-iteration-count:1;
+    /* Safari and Chrome */
+    -webkit-animation:mymove 0.5s;
+    -webkit-animation-iteration-count:1;
+    // border-bottom: 1px solid #a08080c9;
+    border-bottom: 1px solid rgb(160 128 128 / 37%);
+    // border-bottom: 1px solid #ccc; /* Set your desired divider color and style */
+}
+.footer-toolbar {
+    position: relative;
+    z-index: 5;
+}
+.footer-fab {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed to position FAB above the tab bar */
+    transform: translateY(-50%);
+    z-index: 10; /* Ensure FAB is above other elements */
+}
+// .above-footer-fab {
+//     position: fixed;
+//     bottom: 33px; /* Adjust to place above the footer */
+//     z-index: 10; /* Ensure FAB is above other elements */
+// }
+ion-tab-bar {
+    --padding-bottom: 20px;  /* Adjust as needed */
+}
+.toolbar {
+    animation:mymove 0.5s ease-in forwards;
+    animation-iteration-count:1;
+    /* Safari and Chrome */
+    -webkit-animation:mymove 0.5s;
+    -webkit-animation-iteration-count:1;
+    // height: 150px; /* Adjust the value as needed */
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: flex-end;
+    // position: relative;
+    // --background: #0886fb05;
+    --color: #595959;
+  
+    --border-color: #0886fb05;
+    // --border-width: 4px 0;
+    // --border-style: double;
+  
+    // --min-height: 80px;
+    // --padding-top: 20px;
+    // --padding-bottom: 20px;
+}
+.right_align{
+    margin-right: 40px;
+}
+.left_align{
+    margin-left: 100px;
+}
+
+.custom-fab {
+    --background: #ff8730; /* Custom background color */
+    --color: #fff; /* Custom icon color */
+    border-radius: 50%; /* Ensure circular shape */
+    position: relative; /* For pseudo-element positioning */
+    z-index: 1; /* Ensure it is above the glow effect */
+  }
+  
+  /* Glowing effect using ::after */
+  .custom-fab::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 135, 48, 0.5); /* Light glow color */
+    z-index: -1; /* Place behind the button */
+    animation: circularGlow 1s infinite ease-in-out;
+    box-shadow: 0 0 15px rgba(255, 135, 48, 0.6),
+                0 0 30px rgba(255, 135, 48, 0.4),
+                0 0 45px rgba(255, 135, 48, 0.2);
+  }
+  
+  .above-footer-fab {
+    position: fixed;
+    bottom: 33px; /* Adjust to place above the footer */
+    z-index: 10; /* Ensure FAB is above other elements */
+  }
+  
+  /* Animation for glow effect */
+  @keyframes circularGlow {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.3);
+      opacity: 1;
+    }
+  }
+
+  .menu-icon1{
+    color: #fff;
+    width: 100%;
+    aspect-ratio: 2.5 / 1.5;
+    object-fit: contain;
+  }
+// .custom-fab{
+//     --background: #ff8730; /* Custom background color */
+//   --color: #fff; /* Custom icon color */
+//   --box-shadow: 0 0 15px rgba(255, 135, 48, 0.5); /* Add subtle shadow */
+//   border-radius: 50%; /* Ensure circular shape */
+// }
+// /* Highlight effect */
+// .highlight-fab .custom-fab {
+//     // animation: glowEffect 1.5s infinite ease-in-out;
+//     animation: circularGlow 1.5s infinite ease-in-out;
+// }
+
+// @keyframes circularGlow {
+//     0%, 100% {
+//       box-shadow: 0 0 10px 10px rgba(255, 135, 48, 0.8),
+//                   0 0 20px 20px rgba(255, 135, 48, 0.6);
+//       transform: scale(1);
+//     }
+//     50% {
+//       box-shadow: 0 0 20px 15px rgba(255, 135, 48, 1),
+//                   0 0 30px 25px rgba(255, 135, 48, 0.8);
+//       transform: scale(1.1);
+//     }
+//   }
+  
+//   @keyframes glowEffect {
+//     0%, 100% {
+//       box-shadow: 0 0 10px rgba(255, 135, 48, 0.8), 0 0 20px rgba(255, 135, 48, 0.6);
+//       transform: scale(1);
+//     }
+//     50% {
+//       box-shadow: 0 0 20px rgba(255, 135, 48, 1), 0 0 30px rgba(255, 135, 48, 0.8);
+//       transform: scale(1.1);
+//     }
+//   }

@@ -1,0 +1,210 @@
+ion-content {
+    --background: none;
+    // background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #F8F8F8;
+    background-color: #071947;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#header-icons{
+    text-align: right;
+    ion-icon{
+        color: black;
+        font-size: 1rem;
+        margin-left: 16px;
+    }
+}
+
+.menu-icon1{
+    // width: 87%;
+    // height: auto;
+    // color:white;
+    color: #fff;
+    width: 100%;
+    aspect-ratio: 2.5 / 1;
+    object-fit: contain;
+}
+
+.logo {
+    width: 93px;
+    height: 93px;
+    position: absolute;
+    top: 82%; 
+    left: 65%;
+    transform: translate(-50%,-50%);
+}
+#menu-items{
+    animation:mymove 2s ease-in forwards;
+    animation-iteration-count:1;
+    /* Safari and Chrome */
+    -webkit-animation:mymove 2s;
+    -webkit-animation-iteration-count:1;
+}
+
+.menu-color{
+    // padding: 16px;
+    padding: 7px;
+    background: #707ab7;
+    border-radius: 17px;
+}
+.text-color{
+    color:#211f1fba;
+    font-size: smaller;
+}
+.icon-style{
+    font-size: large;
+    color: white;
+}
+.menu {
+    margin-top: 10%;
+}
+
+// .tool-text {
+//     font-size: 10px;
+//     // color: #a66640d6;
+//     color: #ffffffff;
+// }
+
+.tool-text {
+    font-size: 13px;             /* Adjust the font size */
+    color: white;                /* Text color */
+    line-height: 1.4;            /* Adjust line-height to reduce the gap between lines */
+    display: block;              /* Ensure the text takes up its own block space */
+    text-align: center;          /* Center the text */
+    white-space: normal;         /* Allow text to wrap into two lines */
+    word-break: break-word;      /* Break long words if necessary */
+    width: 84px;                /* Set a fixed width to enforce two-line wrapping */
+    margin: 0 auto;              /* Center the text container */
+}
+
+.tool-text-mall {
+    font-size: 13px;             /* Adjust the font size */
+    color: white;                /* Text color */
+    line-height: 1.4;            /* Adjust line-height to reduce the gap between lines */
+    display: block;              /* Ensure the text takes up its own block space */
+    text-align: center;          /* Center the text */
+    white-space: normal;         /* Allow text to wrap into two lines */
+    word-break: break-word;      /* Break long words if necessary */
+    width: 84px;                /* Set a fixed width to enforce two-line wrapping */
+    margin: 0 auto;              /* Center the text container */
+}
+
+@media only screen and (max-width: 600px) {
+    .tool-text {
+        font-size: 13px;
+        width: 84px;
+    }
+    .tool-text-mall {
+        font-size: 13px;
+        width: 80px;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .tool-text {
+        font-size: 13px;
+        width: 100px;
+    }
+}
+
+#menu-card{
+    font-weight: bold;
+    border-radius: 18px;
+}
+.icon-size {
+    font-size: 30px;
+    color: var(--ion-color-secondary)
+}
+.icon-size-card {
+    font-size: 30px;
+    color: var(--ion-color-secondary)
+}
+
+.view-but{
+    position:absolute;
+    right: -15px;
+    font-size: 12px;
+    text-transform: none;
+    //padding-right: 7px;
+}
+.head-text{
+    font-size: 12px;
+    margin-left: 10px;
+}
+.panale-head{
+    margin-bottom: 15px;
+}
+
+.banner {
+    width:94%;
+    height:125px;
+    margin-left: 12px;
+    border-radius: 5px;
+}
+.graph-banner {
+    width:364px;
+    height:125px;
+    border-radius: 5px;
+}
+
+.gap{
+    margin-top: -20px;
+}
+.gap1{
+    margin-top: -13px;
+}
+
+.event-banner {
+    width:70px;
+    height:70px;
+    border-radius: 5px;
+}
+
+.event-tool-text {
+    font-size: 8px;
+    color: #00000091;
+}
+
+ion-searchbar.custom {
+    --background: #fff;
+    --color: black;
+    --icon-color: blue;
+    --clear-button-color: black;
+    --border-radius: 23px;
+    padding: 0px;
+  }
+  
+ion-searchbar.ios.custom {
+     --cancel-button-color: #19422d;
+}
+
+ion-tab-bar {
+    border: 0;
+    margin-top: -1px;
+}
+
+p {
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    background: white;
+}
+
+.gap{
+    margin-top: -23px;
+}
+
+.category-icon {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    /* top: 82%; */
+    /* left: 46%; */
+    transform: translate(-50%, -70%);
+}
+
+// .col-height {
+//     height: 80px;
+// }

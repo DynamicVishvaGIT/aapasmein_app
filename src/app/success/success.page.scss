@@ -1,0 +1,25 @@
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #071947;
+    // background-image: url('/assets/images/background.png');
+    background-size: cover;
+    z-index: -1;
+}
+
+.button-card {
+    background-color: white;
+    color:#071947;
+    padding: 11px;
+    border-radius: 8px;
+    // text-align: center;
+    margin-bottom: 20px;
+    position: relative; /* Ensure positioning for pseudo-element */
+    max-width: 90px;
+    margin-left: 155px;
+    height: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Existing shadow */
+}

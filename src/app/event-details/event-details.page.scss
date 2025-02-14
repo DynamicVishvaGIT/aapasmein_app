@@ -1,0 +1,168 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gap{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.selected-button-card {
+    background-color: #d1ebff;
+    color:black;
+    border-radius: 5px;
+    height: 40px;
+    // width:120px;
+}
+.button-card {
+    background-color: #525e80;
+    color:white;
+    border-radius: 5px;
+    height: 40px;
+    // width:120px;
+}
+.card-gap {
+    margin-top: 8px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.card-gap1 {
+    margin-top: -5px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.card-gap2 {
+    margin-top: 22px;
+    margin-left: 27px;
+    margin-right: 27px;
+    border-bottom: 1px solid white;
+}
+.card-gap3 {
+    margin-top: 22px;
+    margin-left: 27px;
+    margin-right: 27px;
+}
+.card-gap4 {
+    margin-left: 27px;
+    margin-right: 27px;
+}
+.event-card {
+    margin-top: 10px;
+    height: auto;
+    margin-left: 0px;
+    margin-right: 2px;
+    border-radius:20px;
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    position: relative; /* Needed for positioning the button */
+}
+.card-header-img {
+    padding: 0;
+    position: relative; /* Needed for positioning the button */
+}
+.img-banner {
+    width: 100%;
+    // height:50%;
+    // height: 150px;
+    // border-radius: 6px;
+    object-fit: cover; /* Ensures the image covers the area */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    // margin-top: -16px;
+    // margin-left: -17px;
+}
+.circle-img {
+    border-radius: 50%;
+    // width: 25%;
+    // height: 90%;
+    width: 40px;  /* or any desired fixed size */
+    height: 40px;
+    object-fit: cover;
+    margin-top: -8px;
+    margin-left: 5px;
+}
+.badge-color{
+    float: right;
+    background: #ffedee;
+    height: 18px;
+    --padding-end: 8px;
+    --padding-start: 8px;
+    color:#ee6737;
+    font-weight: 300;
+}
+.name-text {
+    color: black;
+    font-size: small;
+    margin-top: 3px;
+    font-weight: 800;
+}
+.button-time-icon {
+    --background: #ffb40a;
+    margin-left: 10px;
+    // margin-top: -50px;
+}
+.button-location-icon {
+    --background: #6941ec;
+    margin-left: 10px;
+    margin-top: -3px;
+    // margin-top: -50px;
+}
+.button-interest-icon {
+    --background: #4ab873;
+    margin-left: 10px;
+    margin-top: -3px;
+    // margin-top: -50px;
+}
+
+.login-btn {
+    width: 100%;
+    height: 40px;
+    --border-radius: 9px;
+    margin-left: 0px;
+    margin-top: 50px;
+    font-family: "Poppins-Regular";
+}
+
+// .circle-img {
+//     border-radius: 50%;
+//     width: 35%;
+//     // height: 58%;
+//     // margin-top: 1px;
+//     margin-left: 5px;
+// }
+.report-button {
+    // position: fixed;
+    position: absolute;
+    // bottom: 20px; /* Adjust distance from the bottom */
+    right: 20px;  /* Adjust distance from the right */
+    text-align: center;
+  }
+.icon-container {
+    background-color: red; /* Background color of the circle */
+    border-radius: 50%;    /* Makes the background circular */
+    display: inline-flex;  /* Aligns the icon inside the circle */
+    justify-content: center;
+    align-items: center;
+    width: 30px;           /* Circle width */
+    height: 30px;          /* Circle height */
+  }
+  
+  .icon-container ion-icon {
+    color: white;          /* Icon color */
+    font-size: 30px;       /* Adjust size to fit the container */
+  }
+  
+  .report-text {
+    display: block;
+    // margin-top: 8px;       /* Space between the icon and text */
+    color: #ffffff;           /* Text color */
+    font-size: 14px;       /* Text size */
+    font-weight: bold;     /* Text style */
+  }

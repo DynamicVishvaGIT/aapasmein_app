@@ -1,0 +1,249 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+ion-toolbar, ion-content, ion-header, ion-footer, ion-title, ion-label, ion-button, ion-input, p, span {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+// @import "@ionic/angular/css/palettes/dark.system.css";
+
+/* For Input Field */
+
+.error-toast {
+  // > div{
+  --background: var(--ion-color-danger) !important;
+  --color: white;
+  // }
+}
+
+.success-toast {
+  // > div{
+  --background: var(--ion-color-success) !important;
+  --color: white;
+  // }
+}
+.required:after {
+  content:" *";
+  color: red;
+}
+
+.input-container {
+    position: relative;
+    // width: 300px; 
+    width: 100%; 
+    margin-top: 20px; 
+  }
+  
+  .input-label {
+    position: absolute;
+    top: -10px; 
+    // left: 10px; 
+    left: 19px; 
+    font-size: 14px; 
+    background-color: #071947;
+    padding: 0 5px;
+    color: #fff; 
+    z-index: 1; 
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border: 1px solid #ffff;
+    // border-radius: 5px;
+    border-radius: 12px;
+    // padding: 2px;
+    padding-left: 12px;
+    box-sizing: border-box; 
+  }
+  
+  .country-select {
+    margin-right: 5px; 
+    --padding-end: 0;
+  }
+  
+  .flag-icon {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+  }
+  
+  .input-box {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 0; 
+    color: white;
+  }
+  
+  .input-box::placeholder {
+    // color: #ccc; 
+    color: #ffff;
+  }
+
+  .input-box:focus {
+    outline: none;
+    box-shadow: 0 0 5px white; /* Change the box shadow color to white */
+  }
+
+  // .input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md {
+  //   opacity: 0 !important;
+  // }
+
+  .input-highlight.sc-ion-input-md {
+    background: #3a96ff;
+  }
+
+  .select-highlight.sc-ion-select-md {
+    background: #3a96ff;
+  }
+  .textarea-highlight.sc-ion-textarea-md {
+    background: #3a96ff;
+  }
+
+  .sc-ion-input-ios-h {
+    min-height: 30px !important;
+  }
+
+// ion-select::part(icon) {
+//     color: #ffff;
+//     margin-left: 120px !important;
+//     position: absolute;
+// }
+
+// .ion-select::part(icon) {
+//     color: white;
+//     margin-left: 290px !important;
+// }
+
+// ion-select {
+//   --color: white; /* Change the selected text color to white */
+// }
+
+// ion-select-option {
+//   --color: white; /* Change the option text color to white */
+// }
+
+/* To ensure that the dropdown menu itself has the correct background and text color */
+// ion-select::part(placeholder) {
+//   color: white;
+// } 
+
+// ion-select::part(text) {
+//   color: white;
+// }
+
+// ion-select::part(select-text) {
+//   color: white;
+// }
+
+.input-fill-solid.sc-ion-input-md-h {
+  --background: none !important;
+  --border-color: none !important;
+  --border-radius: 4px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  min-height: 56px;
+  --color:white;
+}
+.input-box::-webkit-calendar-picker-indicator,
+.input-box::-webkit-datetime-edit,
+.input-box::-webkit-clear-button {
+  opacity: 0; /* Hide native date/time icon */
+}
+
+.custom-calendar-icon, .custom-time-icon {
+  position: absolute;
+  right: 12px;
+  color: white;
+  pointer-events: none; /* Prevents the icon from blocking input clicks */
+  z-index: 3;
+}
+
+.custom-modal {
+  --border-radius: 20px; /* Set the desired border radius */
+}
+.custom-alert .alert-button {
+  font-weight: bold;
+}
+
+.no-button {
+  color: #ffffff !important; /* Text color */
+  background-color: #fe9800 !important;   /* No background color to make text visible */
+  border-radius: 5px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  text-transform: none !important;
+}
+
+.yes-button {
+  color: #ffffff !important; /* Text color */
+  background-color: #2d88ff !important;   /* No background color to make text visible */
+  border-radius: 5px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  text-transform: none !important;
+}
+
+.ion-select {
+  flex-grow: 1;
+}
+.ion-select::part(icon) {
+  color: #333333;
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+}
+
+.custom_button {
+  width: 100%;
+  --border-radius: 9px;
+  margin-left: 0px;
+  height: 42px;
+  font-family: "Poppins-Regular";
+  --background: #5261d5;
+}

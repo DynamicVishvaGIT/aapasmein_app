@@ -1,0 +1,36 @@
+<ion-content>
+  <div class="honeycomb-overlay"></div>
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" >
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">Broadcast</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div >
+    <ion-button  size="small" slot="start" style="float:left;font-size: small;margin-left: 24px;text-transform: none;" (click)="filterBroadcast()"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button>
+    <ion-button class="button-property" size="small" color="tertiary" (click)="addBroadcast()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
+  </div>
+  <div class="card-gap">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" >
+          <ion-card  class="broadcast-card" style="background-color: #efefef;margin-top: 0px;" *ngFor="let data of broadcast_list" > <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
+            <h6 style="padding-left: 10px;color:#000000" (click)="goToBroadcastDetails(data.id)">{{data.title_name}}</h6>
+             <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;" (click)="goToBroadcastDetails(data.id)"> {{data.description}}</p>
+             <span style="float: right;color:#3180ea;padding-right:20px;padding-bottom:13px;margin-top: -15px;" (click)="shareDetails(data.id)">Share</span><ion-icon name="arrow-redo-outline" style="float: right;color:#3180ea;margin-top: -13px;"></ion-icon>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

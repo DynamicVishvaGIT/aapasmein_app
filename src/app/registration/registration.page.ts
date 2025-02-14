@@ -1,0 +1,246 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
+import { ActionSheetController, ToastController } from '@ionic/angular';
+import { Subject, takeUntil } from 'rxjs';
+import { ApiService } from '../api.service';
+import { CommonService } from '../common.service';
+
+@Component({
+  selector: 'app-registration',
+  templateUrl: './registration.page.html',
+  styleUrls: ['./registration.page.scss'],
+})
+export class RegistrationPage implements OnInit {
+
+  private _unsubscribeAll: Subject<any>;
+
+  user:any={name:'',city:'', location:'',mobile_no:'',email_id:'',profession:'',specialization:'',interest:''};
+  get_cities:any = [];
+  get_locations:any = [];
+  get_professions:any = [];
+  get_specializations:any = [];
+  get_interests:any = [];
+  inputFocused: boolean = false;
+  selectedImage:any={name:'', data:''};
+
+  constructor(private toastController: ToastController, private router:Router, private apiService: ApiService, private commonService: CommonService,
+    private actionSheetController: ActionSheetController,private camera: Camera) { 
+    this._unsubscribeAll = new Subject();
+  }
+
+  ngOnInit() {
+    this.get_city();
+    this.get_location();
+    this.get_profession();
+    this.get_specialization();
+    this.get_interest();
+  }
+
+  // onInputFocus() {
+  //   this.inputFocused = true;
+  // }
+
+  // onInputBlur() {
+  //   // Only remove focus if the input is empty
+  //   if (!this.user.name) {
+  //     this.inputFocused = false;
+  //   }
+  // }
+
+  get_city() {
+    this.apiService.get_city()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.get_cities = response.data;
+      // this.get_cities.unshift({id:'',NAME:'Select City'});
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+  get_location() {
+    this.apiService.get_location()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.get_locations = response.data;
+      // this.get_locations.unshift({id:'',NAME:'Select Location'});
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+  get_profession() {
+    this.apiService.get_profession()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.get_professions = response.data;
+      // this.get_professions.unshift({id:'',NAME:'Select Profession'});
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+  get_specialization() {
+    this.apiService.get_specialization()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.get_specializations = response.data;
+      // this.get_specializations.unshift({id:'',NAME:'Select Specialization'});
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+  get_interest() {
+    this.apiService.get_interest()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.get_interests = response.data;
+      // this.get_interests.unshift({id:'',NAME:'Select Interest'});
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Select Image Source',
+      buttons: [
+        {
+          text: 'Select photo from Gallery',
+          icon: 'images',
+          handler: () => {
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+          }
+        },
+        {
+          text: 'Open Camera',
+          icon: 'camera',
+          handler: () => {
+            this.takePicture(this.camera.PictureSourceType.CAMERA);
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+    await actionSheet.present();
+  }
+
+  takePicture(sourceType: PictureSourceType) {
+    const options: CameraOptions = {
+      quality: 100,
+      sourceType: sourceType,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is a base64 encoded string
+      //this.blogJson.blog_img = 'data:image/jpeg;base64,' + imageData; // Set base64 image
+      var d = new Date(),
+      n = d.getTime(),
+      fileName = n + ".jpg";
+      this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      // this.album_images.push(this.selectedImage1);
+      //alert(JSON.stringify(this.album_images));
+    }, (err) => {
+      console.log('Error obtaining picture', err);
+    });
+  }
+
+  async onRegister(){
+    if(this.user.name == '') {
+      this.commonService.showToastMessage('Please enter name.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if(this.user.city == '') {
+      this.commonService.showToastMessage('Please enter city.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if(this.user.location == '') {
+      this.commonService.showToastMessage('Please enter location.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if(this.user.mobile_no == '') {
+      this.commonService.showToastMessage('Please enter mobile number.', 'error-toast', 'top', 2000);
+      return;
+    }
+    let mpattern = /(^\d{10}$)/;
+    if (!mpattern.test(this.user.mobile_no)) {
+      this.commonService.showToastMessage('Please enter phone number in correct format.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if(this.user.email_id == '') {
+      this.commonService.showToastMessage('Please enter email.', 'error-toast', 'top', 2000);
+      return;
+    }
+    let epattern = /[A-Za-z0-9._%+-]{1,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})/;
+    if (!epattern.test(this.user.email_id)) {
+      this.commonService.showToastMessage('Please enter email in correct format.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if(this.user.profession == '') {
+      this.commonService.showToastMessage('Please enter Profession.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if(this.user.specialization == '') {
+      this.commonService.showToastMessage('Please enter specialization.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if(this.user.interest == '') {
+      this.commonService.showToastMessage('Please enter interest.', 'error-toast', 'top', 2000);
+      return;
+    }
+    console.log(this.user.interest);
+    let formData = new FormData();
+    formData.append('name',this.user.name);
+    formData.append('city',this.user.city);
+    formData.append('location',this.user.location);
+    formData.append('mobile_no',this.user.mobile_no);
+    formData.append('email_id',this.user.email_id);
+    formData.append('profession',this.user.profession);
+    formData.append('specialization',this.user.specialization);
+    formData.append('interest',this.user.interest);
+    let response = await fetch(this.selectedImage.data);
+    let blob = await response.blob();
+    if(this.selectedImage.name==''){
+      formData.append('profile_img','');
+    }
+    else{
+      formData.append('profile_img' , blob, this.selectedImage.name); 
+    }
+    formData.append('user_status','user');
+    formData.append('apptype',this.apiService.apptype);
+    this.apiService.add_user(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        localStorage.setItem('currentUser',JSON.stringify(response.user_data));
+        this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
+        this.router.navigate(['/dashboard']);
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+  
+  async presentToast(msg: any) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+    });
+    await toast.present();
+  }
+}

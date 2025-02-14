@@ -1,0 +1,232 @@
+<ion-content>
+  <ion-refresher slot="fixed" [pullFactor]="0.5" [pullMin]="100" [pullMax]="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">aapasmein Mall</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div style="margin-left: 5px;">
+    <ion-segment value="myproduct" [(ngModel)]="info">
+      <ion-segment-button value="myproduct" (click)="get_mall_products()">
+        <ion-label style="font-size: x-small;color:white;">My Product</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mywishlist" (click)="load_wishlist_product()">
+        <ion-label style="font-size: x-small;color:white;">My Wish List</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="info">
+    <!-- <div *ngIf="mallDataLoaded && mall_data.length > 0"> -->
+      <div class="gap" *ngSwitchCase="'myproduct'">
+        <ion-grid *ngIf="mallDataLoaded && mall_data.length > 0">
+          <ion-row>
+            <ion-col size="6" *ngFor="let data of mall_data;" (click)="goToMallDetails(data,'mymall')">
+              <ion-card class="mall-card">
+                <ion-card-header> 
+                  <ion-card-title>
+                    <!-- <img src="../../../assets/laptop.jpg" alt="" class="img-banner"> -->
+                    <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                      <ng-template swiperSlide *ngFor="let img of data.images">
+                        <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
+                      </ng-template>
+                    </swiper>
+                  </ion-card-title>
+                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name}}</span><br>
+                </ion-card-header>
+                <ion-card-content style="margin-top: -28px;">
+                  <span style="float:left;font-size: smaller;">{{data.description.substring(0,18)}}<span *ngIf="data.description.length>=18">...</span></span><br>
+                  <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">{{data.location}}</span><br>
+                  <span style="font-size: x-small;color: #272790;">{{data.status=='your_connection'?'Your Connection':'Public'}}</span>
+                  <ion-row>
+                    <ion-col>
+                      <span style="float:left;font-size: x-small;color:#37b630;margin-left: -5px;">Rs.{{data.price}}/-</span><!--₹-->
+                    </ion-col>
+                    <ion-col>
+                      <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div class="no-data" *ngIf="mallDataLoaded && mall_data.length == 0">
+          <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+          <span class="no-data-text">There are currently no products in your list. Add a products now to fill it up!.</span>
+        </div>
+        <!-- <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <ion-card class="mall-card">
+                <ion-row>
+                  <ion-col size="6"> 
+                    <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+                  </ion-col>
+                  <ion-col size="6" class="col-align"> 
+                    <ion-row>
+                      <span class="name-text"><b>Oppo A55</b></span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="product-text">Mobile Phone</span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="time-text">1 Years Old</span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="amount-text">₹1500</span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="count-text">Count: 20</span>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid> -->
+      </div>
+    <!-- </div> -->
+    
+    <!-- <div *ngIf="wishListDataLoaded && wish_list_data.length > 0"> -->
+      <div class="gap" *ngSwitchCase="'mywishlist'">
+        <ion-grid *ngIf="wishListDataLoaded && wish_list_data.length > 0">
+          <ion-row>
+            <ion-col size="6" *ngFor="let data of wish_list_data;" (click)="goToMallDetails(data,'mymall')">
+              <ion-card class="mall-card">
+                <ion-card-header> 
+                  <ion-card-title>
+                    <!-- <img src="../../../assets/laptop.jpg" alt="" class="img-banner"> -->
+                    <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                      <ng-template swiperSlide *ngFor="let img of data.images">
+                        <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
+                      </ng-template>
+                    </swiper>
+                  </ion-card-title>
+                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name}}</span><br>
+                </ion-card-header>
+                <ion-card-content style="margin-top: -28px;">
+                  <span style="float:left;font-size: smaller;">{{data.description.substring(0,18)}}<span *ngIf="data.description.length>=18">...</span></span><br>
+                  <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">{{data.location}}</span><br>
+                  <span style="font-size: x-small;color: #272790;">{{data.status=='your_connection'?'Your Connection':'Public'}}</span>
+                  <ion-row>
+                    <ion-col>
+                      <span style="float:left;font-size: x-small;color:#37b630;margin-left: -5px;">Rs.{{data.price}}/-</span><!--₹-->
+                    </ion-col>
+                    <ion-col>
+                      <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <!-- <ion-col size="6">
+              <ion-card class="mall-card">
+                <ion-card-header> 
+                  <ion-card-title>
+                    <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                      <ng-template swiperSlide>
+                        <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+                      </ng-template>
+                    </swiper>
+                  </ion-card-title>
+                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Vivo 40</span><br>
+                </ion-card-header>
+                <ion-card-content style="margin-top: -28px;">
+                  <span style="float:left;font-size: smaller;">Mobile Phone</span><br>
+                  <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Thane</span>
+                  <ion-row>
+                    <ion-col>
+                      <span style="float:left;font-size: x-small;color:#37b630;margin-left: -5px;">Rs.1500/-</span>
+                    </ion-col>
+                    <ion-col>
+                      <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card class="mall-card">
+                <ion-card-header> 
+                  <ion-card-title>
+                    <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                      <ng-template swiperSlide>
+                        <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+                      </ng-template>
+                    </swiper>
+                  </ion-card-title>
+                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Vivo 40</span><br>
+                </ion-card-header>
+                <ion-card-content style="margin-top: -28px;">
+                  <span style="float:left;font-size: smaller;">Mobile Phone</span><br>
+                  <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Thane</span>
+                  <ion-row>
+                    <ion-col>
+                      <span style="float:left;font-size: x-small;color:#37b630;margin-left: -5px;">RS.1500/-</span>
+                    </ion-col>
+                    <ion-col>
+                      <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+        <!-- <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <ion-card class="mall-card">
+                <ion-row>
+                  <ion-col size="6"> 
+                    <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+                  </ion-col>
+                  <ion-col size="6" class="col-align"> 
+                    <ion-row>
+                      <span class="name-text"><b>Vivo 40</b></span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="product-text">Mobile Phone</span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="time-text">1 Years Old</span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="amount-text">₹1500</span>
+                    </ion-row>
+                    <ion-row>
+                      <span class="count-text">Count: 20</span>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid> -->
+        <div class="no-data" *ngIf="wishListDataLoaded && wish_list_data.length == 0">
+          <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+          <span class="no-data-text">Your wishlist is empty at the moment. Explore our mall products and start adding your favorites!</span>
+        </div>
+      </div>
+    <!-- </div> -->
+  </div>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

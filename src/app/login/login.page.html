@@ -1,0 +1,86 @@
+<ion-content class="ion-padding">
+  <div class="login-div">
+    <!-- <ion-card mode="ios"> -->
+      <br>
+      <!-- <p style="color:#ffff;font-size: large;font-weight: 800;">Let's Sign You In</p>
+      <p style="color:#ffff;">Welcome back please sign in continue</p> -->
+      <p style="color:#ffff;font-size: large;font-weight: 800;">Welcome to aapasmein</p>
+      <p style="color:#ffff;">Sign-in to continue</p>
+      <!-- <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" class="flag-icon" /> -->
+      <!-- <ion-card-content> -->
+          <div class="login-input-container">
+            <ion-label class="login-input-label">Phone Number</ion-label>
+            <div class="login-input-group">
+              <app-flag-option></app-flag-option>
+              <ion-input class="login-input-box" type="number" [(ngModel)]="user.mobile_no"></ion-input>
+              <!-- <ion-icon name="checkmark-circle" style="float:right;color: #00b81e;font-size: xx-large;margin-right: 7px;" *ngIf="invite_code!=''"></ion-icon> -->
+            </div>
+            <div class="login-input-group" style="margin-top:10px;" *ngIf="referralFlag">
+              <ion-input class="login-input-box" type="text" placeholder="Enter Invite Code" [(ngModel)]="referral_code"></ion-input>
+              <ion-icon name="close" style="float:right;color: #ffffff;font-size: xx-large;margin-right: 7px;" *ngIf="referralFlag" (click)="hideInput()"></ion-icon>
+            </div>
+            <!-- <ion-item *ngIf="invite_code!=''" class="item">
+              <ion-label style="float:left">{{invite_code}}</ion-label>
+              <ion-icon name="checkmark-circle" style="float:right;color: #00b81e;"></ion-icon>
+            </ion-item> -->
+          </div>
+          <!-- <div class="fgt_pwd" *ngIf="!referralFlag">
+            <ion-label class="forgot-password" (click)="get_invite_code()"><u>Have an invite code?</u></ion-label>
+          </div> -->
+          <br>
+          <br>
+          <ion-button  type="submit" class="custom_button" (click)="login()"><b>Continue</b></ion-button>
+          <br>
+      <!-- </ion-card-content> -->
+    <!-- </ion-card> -->
+  </div>
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-header class="ion-no-border">
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="login-div">
+    <ion-card mode="ios">
+      <br>
+      <p style="color:#000000;font-size: large;font-weight: 800;">Let's Sign You In</p>
+      <p style="color:#000000;">Welcome back please sign in continue</p> -->
+      <!-- <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" class="flag-icon" /> -->
+      <!-- <ion-card-content>
+          <div class="login-input-container">
+            <ion-label class="login-input-label">Phone Number</ion-label>
+            <div class="login-input-group">
+              <app-flag-option></app-flag-option>
+              <ion-input class="login-input-box" type="number" ></ion-input>
+              <ion-icon name="checkmark-circle" style="float:right;color: #00b81e;font-size: xx-large;margin-right: 7px;" *ngIf="invite_code!=''"></ion-icon>
+            </div>
+            <ion-item *ngIf="invite_code!=''">
+              <ion-label style="float:left">{{invite_code}}</ion-label>
+              <ion-icon name="checkmark-circle" style="float:right;color: #00b81e;"></ion-icon>
+            </ion-item>
+          </div>
+          <div class="fgt_pwd" *ngIf="invite_code==''">
+            <ion-label class="forgot-password" (click)="get_invite_code()"><u>Have an invite code?</u></ion-label>
+          </div>
+          <br>
+          <br>
+          <ion-button  type="submit" color="primary" class="login-btn" (click)="verify_OTP()"><b>Continue</b></ion-button>
+          <br>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content> -->
+  

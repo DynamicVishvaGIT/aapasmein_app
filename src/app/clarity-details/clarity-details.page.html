@@ -1,0 +1,267 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" >
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">aapasmein Clarity</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="clarity-icon">
+            <ion-icon name="bulb-outline" *ngIf="clarity_id=='1'"></ion-icon>
+            <ion-icon name="people-outline" *ngIf="clarity_id=='2'"></ion-icon>
+            <!-- <ion-icon name="megaphone-outline" *ngIf="clarity_id=='1'"></ion-icon> -->
+            <!-- <ion-icon name="cart-outline" *ngIf="clarity_id=='2'"></ion-icon> -->
+            <ion-icon name="person-outline" *ngIf="clarity_id=='3'"></ion-icon>
+            <ion-icon name="briefcase-outline" *ngIf="clarity_id=='4'"></ion-icon>
+            <ion-icon name="calendar-number-outline" *ngIf="clarity_id=='5'"></ion-icon>
+            <ion-icon name="snow-outline" *ngIf="clarity_id=='6'"></ion-icon>
+            <img src="assets/accolades/deal.png" class="menu-icon1" *ngIf="clarity_id=='7'">
+            <!-- <ion-icon name="cart-outline" *ngIf="clarity_id=='7'"></ion-icon> -->
+            <ion-icon name="star-outline" *ngIf="clarity_id=='8'"></ion-icon>
+            <ion-icon name="trophy-outline" *ngIf="clarity_id=='9'"></ion-icon>
+            <ion-icon name="megaphone-outline" *ngIf="clarity_id=='10'"></ion-icon>
+            <!-- <ion-icon name="help-outline" *ngIf="clarity_id=='11'"></ion-icon>
+            <ion-icon name="help-outline" *ngIf="clarity_id=='12'"></ion-icon> -->
+            <img src="assets/icon/features/unwind.png" class="menu-icon1" *ngIf="clarity_id=='11'">
+            <img src="assets/icon/features/samvaad.png" class="menu-icon1" *ngIf="clarity_id=='12'">
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="gap">
+      <ion-row>
+        <ion-col size="12" >
+          <h6 style="padding-left: 10px;color:#ffffff">{{clarity_title?.TITLE.toLowerCase()}}</h6>
+          <p style="padding: 10px;margin-top:-16px;color:#ffffff;font-size: x-small;"> {{clarity_title?.DESCRIPTION}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="gap1">
+      <ion-row class="scroll">
+        <ion-col size="6" *ngFor="let data of clarity_cards">
+          <ion-card class="clarity-card">
+            <ion-card-header class="card-header-img"> 
+              <!-- <img src="{{imageUrl}}{{data.CLARITY_IMAGES}}" alt="" class="img-banner"> -->
+              <!-- <a href="{{data.CLARITY_IMAGES}}" target="_blank">
+                <img src="assets/youtube_logo.png" alt="" class="youtube-icon">
+              </a> -->
+              <!-- <div class="youtube-thumbnail-container">
+                <a href="youtube://www.youtube.com/watch?v={{data.CLARITY_VIDEO_ID}}" target="_system">
+                  <img [src]="getYouTubeThumbnail(data.CLARITY_IMAGES)" alt="YouTube Thumbnail" class="youtube-thumbnail">
+                  <div class="play-icon"></div>
+                </a>
+              </div> -->
+              <div class="youtube-thumbnail-container" (click)="openYouTube(data.CLARITY_IMAGES)">
+                <!-- Button or thumbnail to trigger YouTube video -->
+                <img [src]="getYouTubeThumbnail(data.CLARITY_IMAGES)" alt="YouTube Thumbnail" class="youtube-thumbnail" (click)="openYouTube(data.CLARITY_IMAGES)"/>
+                <div class="play-icon"></div>
+              </div>
+              <!-- <a href="youtube://www.youtube.com/watch?v={{data.CLARITY_VIDEO_ID}}" target="_system">
+                <img [src]="getYouTubeThumbnail(data.CLARITY_IMAGES)" alt="YouTube Thumbnail" class="youtube-icon">
+              </a> -->
+              <!-- <video controls="controls" width="100%" style="height: 72px;border-radius: 5px;" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                <source src="{{data.CLARITY_IMAGES}}" type="video/mp4" target="_blank"/>
+               </video> -->
+            </ion-card-header>
+            <ion-card-content style="margin-top: 10px;margin-left: -12px;">
+              <ion-row style="margin-top: -9px;">
+                <ion-col>
+                  <span style="float:left;font-size:small;color:#000000;font-weight: 700;">{{data.TITLE}}</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: 8px;">
+                <ion-col size="8">
+                  <h6 style="float:left;color:#b8b8b8;font-size: xx-small;">Was the result helpfull?</h6>
+                </ion-col>
+                <ion-col size="2" (click)="add_like_dislike('card', data, 'liked')" >
+                  <div class="thumbs-up-icon" [ngClass]="{'highlighted': data.isLiked}"><ion-icon name="thumbs-up-outline" style="font-size: x-small;"></ion-icon></div>
+                </ion-col>
+                <ion-col size="2" (click)="add_like_dislike('card', data, 'disliked')">
+                  <div class="thumbs-down-icon" [ngClass]="{'highlighted': data.isDisLiked}"><ion-icon name="thumbs-down-outline" style="font-size: x-small;"></ion-icon></div>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- <ion-col size="6">
+          <ion-card class="clarity-card">
+            <ion-card-header class="card-header-img"> 
+              <img src="../../../assets/broadcast1.jpg" alt="" class="img-banner">
+            </ion-card-header>
+            <ion-card-content style="margin-top: 10px;margin-left: -12px;">
+              <ion-row style="margin-top: -9px;">
+                <ion-col>
+                  <span style="float:left;font-size:small;color:#000000;font-weight: 700;">Mall</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: 8px;">
+                <ion-col size="8">
+                  <h6 style="float:left;color:#b8b8b8;font-size: xx-small;">Was the result helpfull?</h6>
+                </ion-col>
+                <ion-col size="2">
+                  <div class="thumbs-up-icon"><ion-icon name="thumbs-up-outline" style="font-size: x-small;"></ion-icon></div>
+                </ion-col>
+                <ion-col size="2">
+                  <div class="thumbs-down-icon"><ion-icon name="thumbs-down-outline" style="font-size: x-small;"></ion-icon></div>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="clarity-card">
+            <ion-card-header class="card-header-img"> 
+              <img src="../../../assets/broadcast.jpg" alt="" class="img-banner">
+            </ion-card-header>
+            <ion-card-content style="margin-top: 10px;margin-left: -12px;">
+              <ion-row style="margin-top: -9px;">
+                <ion-col>
+                  <span style="float:left;font-size:small;color:#000000;font-weight: 700;">Yellow Page</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: 8px;">
+                <ion-col size="8">
+                  <h6 style="float:left;color:#b8b8b8;font-size: xx-small;">Was the result helpfull?</h6>
+                </ion-col>
+                <ion-col size="2">
+                  <div class="thumbs-up-icon"><ion-icon name="thumbs-up-outline" style="font-size: x-small;"></ion-icon></div>
+                </ion-col>
+                <ion-col size="2">
+                  <div class="thumbs-down-icon"><ion-icon name="thumbs-down-outline" style="font-size: x-small;"></ion-icon></div>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div>
+    <ion-grid *ngFor="let question of clarity_faqQuestions" >
+      <ion-row class="border-bottom-color" >
+        <ion-col size="10">
+          <h6 style="padding-left: 10px; color: #ffffff">{{ question.QUESTION }}</h6>
+        </ion-col>
+        <ion-col size="2" class="col-align">
+          <ion-icon name="add-outline" style="color: white; cursor: pointer;" (click)="toggleContent(question.id)" *ngIf="!isContentVisible[question.id]"></ion-icon>
+          <ion-icon name="remove-outline" style="color: white; cursor: pointer;" (click)="toggleContent(question.id)" *ngIf="isContentVisible[question.id]"></ion-icon>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row *ngIf="isContentVisible[question.id]">
+        <ion-col size="12">
+          <h6 style="padding-left: 10px; color: #ffffff; font-size: xx-small;">
+            {{ getAnswerForQuestion(question.id) }}
+          </h6>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row style="margin-top: 8px; padding-left: 10px;" *ngIf="isContentVisible[question.id]">
+        <ion-col size="9">
+          <h6 style="float: left; color: #b8b8b8; font-size: xx-small;">Was the result helpful?</h6>
+        </ion-col>
+        <ion-col size="2" style="margin-top: 14px;" (click)="add_like_dislike('faq', question, 'liked')">
+          <div class="thumbs-up-icon-faq"  [ngClass]="{'highlighted': question.isLiked}">
+            <ion-icon name="thumbs-up-outline" style="font-size: x-small;"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="1" style="margin-top: 14px;" (click)="add_like_dislike('faq', question, 'disliked')">
+          <div class="thumbs-down-icon-faq" [ngClass]="{'highlighted': question.isDisLiked}">
+            <ion-icon name="thumbs-down-outline" style="font-size: x-small;"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- <div>
+    <ion-grid>
+      <ion-row class="border-bottom-color">
+        <ion-col size="10">
+          <h6 style="padding-left: 10px;color:#ffffff">Use service data to identify your most common questions.</h6>
+        </ion-col>
+        <ion-col size="2" class="col-align">
+          <ion-icon name="add-outline" style="color:white"></ion-icon>
+          <ion-icon name="remove-outline" style="color:white"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <h6 style="padding-left: 10px;color:#ffffff;font-size: xx-small;">We are all set to entertain you again! The entertainment will be more thrilling under all precautionaary measures as per government guidelines.We are eagerly waiting for government directives to start our operation which we will communicate on our web-sites.</h6>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 8px;padding-left: 10px;">
+        <ion-col size="8">
+          <h6 style="float:left;color:#b8b8b8;font-size: xx-small;">Was the result helpfull?</h6>
+        </ion-col>
+        <ion-col size="2" style="margin-top: 14px;">
+          <div class="thumbs-up-icon" style="left: 80px;"><ion-icon name="thumbs-up-outline" style="font-size: x-small;"></ion-icon></div>
+        </ion-col>
+        <ion-col size="2" style="margin-top: 14px;">
+          <div class="thumbs-down-icon" style="right: 12%;"><ion-icon name="thumbs-down-outline" style="font-size: x-small;"></ion-icon></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row class="border-bottom-color">
+        <ion-col size="10">
+          <h6 style="padding-left: 10px;color:#ffffff">Decide how you'll organize the FAQ page.</h6>
+        </ion-col>
+        <ion-col size="2" class="col-align">
+          <ion-icon name="add-outline" style="color:white"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row class="border-bottom-color">
+        <ion-col size="10">
+          <h6 style="padding-left: 10px;color:#ffffff">Include space for live support options.</h6>
+        </ion-col>
+        <ion-col size="2" class="col-align">
+          <ion-icon name="add-outline" style="color:white"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row class="border-bottom-color">
+        <ion-col size="10">
+          <h6 style="padding-left: 10px;color:#ffffff">Monitor the FAQ page's performance.</h6>
+        </ion-col>
+        <ion-col size="2" class="col-align">
+          <ion-icon name="add-outline" style="color:white"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div> -->
+  <div style="margin-top: 50px;">
+    <ion-grid (click)="goToSamvaad()">
+      <ion-row>
+        <ion-col>
+          <div class="feedback-icon"><ion-icon name="receipt-outline"></ion-icon></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

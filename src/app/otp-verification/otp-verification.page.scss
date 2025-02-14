@@ -1,0 +1,71 @@
+$image-size: 120px;
+
+ion-content {
+    --background: none;
+    // background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #F8F8F8;
+    background-color: #071947;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+ion-toolbar {
+    --background: #071947;
+    // border-bottom-right-radius: 28px;
+    // border-bottom-left-radius: 28px;
+    // height: 150px;
+    // color: white;
+    // text-align: center;
+  }
+
+.new-background-color{
+    --background: var(--ion-color-primary);
+}
+.otp-submit-button {
+    margin-left: 37%;
+    margin-top: 22px;
+}
+
+#header-icons{
+    text-align: right;
+    ion-icon{
+        color:#50537a;
+        font-size: 1.5rem;
+    }
+  }
+.header {
+    // float: left;
+    color: #50537a;
+    font-size: medium;
+    font-family: "Alef";
+    margin-top: 2px;
+    // margin-left: 25%;
+}
+
+.image-round {
+    background-color: #CECECE;
+    border: 2px solid #FAFAFA;
+    border-radius: 50%;
+    display: block;
+    height: $image-size;
+    margin: 0 auto;
+    width: $image-size;
+}
+
+.resend_otp {
+    text-align: right;
+    margin-top: 15px;
+    margin-right: 59px;
+}
+
+.login-btn {
+    width: 100%;
+    --border-radius: 9px;
+    margin-left: 0px;
+    font-family: "Poppins-Regular";
+}
+.align{
+    padding-left: 10px;
+    padding-right: 10px;
+}

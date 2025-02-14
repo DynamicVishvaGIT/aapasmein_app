@@ -1,0 +1,594 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>dashboard</ion-title>
+    <ion-icon name="log-out-outline" class="help_icon" (click)="logout()"></ion-icon>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <div id="profile-details">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="text-details" size="8">
+          <h3 style="margin-top: 0px;color: white;">
+            <img src="assets/logo/aapasmein_logo.svg" class="logo1">
+          </h3>
+        </ion-col>
+        <ion-col size="4" style="margin-left: -10px;">
+          <!-- <ion-icon ios="ios-log-out" name="log-out-outline" class="notificationIcon" style="margin-left: 10px;color: white;" (click)="logout()"></ion-icon> -->
+          <!-- <ion-icon name="megaphone-outline" class="notificationIcon" style="margin-left: 10px;color: white;" (click)="goToBroadcastList()"></ion-icon> -->
+          <!-- <ion-icon name="star-outline" class="notificationIcon" style="margin-left: 10px;color: white;" (click)="goToRewards()"></ion-icon> -->
+          <ion-icon name="notifications-outline" class="notificationIcon" style="color: white;" (click)="goToNotification()"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- <div style="text-align: center;color:white"></div> -->
+  <app-commonsearch class="animated-display" [URL]="true"></app-commonsearch>
+  <!-- <ion-row style="margin-left: 22px;margin-top: 12px;">
+    <span style="font-weight: 600;color:white">Aapasmein Features</span>
+  </ion-row> -->
+  <div id="menu-items" class="gap animated-display">
+    <ion-grid class="menu">
+      <ion-row class="scroll">
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToClarityList()">
+          <img src="assets/icon/features/clarity.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Clarity</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToRequestList()">
+          <!-- <ion-icon [name]='menu.icon' class="icon-size" is-active="false"></ion-icon> -->
+          <img src="assets/icon/features/request.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Request</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToConvenienceList()">
+          <!-- <ion-icon [name]='menu.icon' class="icon-size" is-active="false"></ion-icon> -->
+          <img src="assets/icon/features/convinenace.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Convenience</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAdvantageList()">
+          <img src="assets/icon/features/advantage.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Advantage</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToEventList()">
+          <img src="assets/icon/features/event.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Events</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToCommunityList()">
+          <img src="assets/icon/features/community.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Community</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAppasmeinMall()">
+          <!-- <img src="assets/icon/features/mall.svg" class="menu-icon1"> -->
+          <img src="assets/icon/features/deal.png" class="menu-icon1">
+          <br>
+          <span class="tool-text-mall"><b>aapasmein Deals</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToRateList()">
+          <img src="assets/icon/features/rate.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Recognition</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAccolades()">
+          <img src="assets/icon/features/trophy.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Accolades</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToBroadcastList()">
+          <img src="assets/icon/features/broadcast.svg" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Broadcast</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToUnwind()"><!--(click)="goToUnwind()"-->
+          <img src="assets/icon/features/unwind.png" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Unwind</b></span>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToSamvaad()">
+          <img src="assets/icon/features/samvaad.png" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Samvaad</b></span>
+        </ion-col>
+        <!-- <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToWall()">
+          <img src="assets/icon/features/no-data.png" class="menu-icon1">
+          <br>
+          <span class="tool-text"><b>aapasmein Wall</b></span>
+        </ion-col> -->
+        <ion-col size="3" style="text-align: center;" class="col-height" (click)="openFeatures()">
+          <img src="assets/icon/features/more.svg" class="menu-icon1">
+          <br>
+          <!-- <span class="tool-text"><b>More</b></span> -->
+        </ion-col>
+      </ion-row>
+      <ion-row></ion-row>
+    </ion-grid>
+  </div>
+  <div class="banner-gap animated-display" *ngIf="banner1_images.length>0">
+    <ion-grid>
+      <ion-row align-self-center>
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+          <ng-template swiperSlide  *ngFor="let img of banner1_images">
+            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+          </ng-template>
+          <!-- <ng-template swiperSlide *ngFor="let item of items">
+            <div class="content">{{item.title}}</div>
+          </ng-template> -->
+          <!-- <ng-template swiperSlide><img src="assets/icon/banner/rolex1.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/rolex.webp" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/health.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/graph.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner.jpg" alt="" class="banner"></ng-template> -->
+        </swiper>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-row style="margin-left: 22px;"  [ngClass]="{'yes-banner-gap': banner1_images.length>0, 'no-banner-gap': banner1_images.length==0}">
+    <span style="font-weight: 600;color:white">aapasmein Convenience</span>
+  </ion-row>
+  <div class="card-gap1">
+    <ion-grid  class="menu">
+      <ion-row class="scroll">
+        <ion-col size="3" style="text-align: center;" class="col-height" *ngFor="let data of convenience_list">
+          <img src="{{imageUrl}}{{data.IMAGE}}" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE!=null"> 
+          <img src="../../../assets/icon/dashboard/doctor.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==1"> 
+          <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==2"> 
+          <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==3"> 
+          <img src="../../../assets/icon/dashboard/electrician.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==4">
+          <span class="tool-text"><b>{{data.NAME}}</b></span>
+          <!-- <ion-card class="yellow-pages-card" (click)="goToConvenienceDetails(data)">
+            <ion-card-header>
+              <ion-card-title style="margin-left: 6px;">
+                <img src="{{imageUrl}}{{data.IMAGE}}" alt="" class="img-avatar" *ngIf="data.IMAGE!=null"> 
+                <img src="../../../assets/icon/dashboard/doctor.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==1"> 
+                <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==2"> 
+                <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==3"> 
+                <img src="../../../assets/icon/dashboard/electrician.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==4"> 
+              </ion-card-title>
+              <span style="font-size: x-small;text-align: center;color:white;">{{data.NAME}}</span>
+            </ion-card-header>
+          </ion-card> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="convenience-gap">
+    <ion-row (click)="goToConvenienceList()">
+      <ion-col size="11" style="float:right;">
+        <h6 class="view-but">View All &nbsp;</h6>
+      </ion-col>
+      <ion-col size="1">
+        <ion-badge style="margin-top: -16px;margin-right: 12px;float: right;background-color:#3180ea;" mode="md"><ion-icon name="arrow-forward-outline"></ion-icon></ion-badge>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="animated-display" *ngIf="banner2_images.length>0">
+    <ion-grid>
+      <ion-row align-self-center>
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+          <!-- <ng-template swiperSlide *ngFor="let item of items">
+            <div class="content">{{item.title}}</div>
+          </ng-template> -->
+          <ng-template swiperSlide  *ngFor="let img of banner2_images">
+            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+          </ng-template>
+          <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner3.webp" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner4.jpg" alt="" class="banner"></ng-template> -->
+        </swiper>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-row style="margin-left: 22px;margin-top: 12px;">
+    <span style="font-weight: 600;color:white">aapasmein Mall</span>
+  </ion-row>
+  <div class="card-gap">
+    <ion-grid>
+      <ion-row class="scroll">
+        <ion-col size="6" *ngFor="let data of mall_list_data;" >
+          <ion-card class="mall-card" >
+            <ion-card-header> 
+              <ion-card-title>
+                <!-- <img src="{{imageURL}}{{property.PROPERTY_IMG}}" alt="" class="img-banner"> -->
+                <!-- <img src="{{../../../assets/laptop.jpg}}" alt="" class="img-banner"> -->
+                <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                  <ng-template swiperSlide *ngFor="let img of data.images">
+                    <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
+                  </ng-template>
+                </swiper>
+              </ion-card-title>
+              <!-- <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name}}</span><br> -->
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <!-- <span style="float:left;font-size: smaller;">Dell 7200 2-in-1 Core i7-8th Generation Ram 16gb SSD...</span> -->
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">{{data.location}}</span>
+              <ion-row>
+                <ion-col size="10">
+                  <span style="float:left;font-size: 10px;color:blue;">{{data.date}}</span>
+                </ion-col>
+                <ion-col size="2" (click)="goToMallDetails(data,'dashboard')">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- <ion-col size="6">
+          <ion-card class="mall-card" (click)="goToAppasmeinMall()">
+            <ion-card-header> 
+              <ion-card-title>
+                <img src="../../../assets/canon.webp" alt="" class="img-banner">
+              </ion-card-title>
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Canon 750d with</span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Thane</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;color:blue;">05 Apr,2024</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="goToAppasmeinMall()">
+            <ion-card-header> 
+              <ion-card-title>
+                <img src="../../../assets/byke.avif" alt="" class="img-banner">
+              </ion-card-title>
+              <span style="color:black;font-size: large;margin-top: 3px;font-weight: 500;">Royal Enfield</span><br>
+            </ion-card-header>
+            <ion-card-content style="margin-top: -28px;">
+              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Borivali</span>
+              <ion-row>
+                <ion-col>
+                  <span style="float:left;font-size: x-small;color:blue;">05 Apr,2024</span>
+                </ion-col>
+                <ion-col>
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div>
+    <ion-row (click)="goToAppasmeinMall()">
+      <ion-col size="11" style="float:right;">
+        <h6 class="view-but">View All &nbsp;</h6>
+      </ion-col>
+      <ion-col size="1">
+        <!-- <ion-icon style="margin-top: 16px;float: right;color:#AECAFF;" name="chevron-forward-outline"></ion-icon> -->
+        <!-- <ion-icon style="margin-top: 16px;float: right;color:#0e5ef6;" name="chevron-forward-outline"></ion-icon> -->
+        <ion-badge style="margin-top: -16px;margin-right: 12px;float: right;background-color:#3180ea;" mode="md"><ion-icon name="arrow-forward-outline"></ion-icon></ion-badge>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="animated-display" *ngIf="banner3_images.length>0">
+    <ion-grid>
+      <ion-row align-self-center>
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+          <!-- <ng-template swiperSlide *ngFor="let item of items">
+            <div class="content">{{item.title}}</div>
+          </ng-template> -->
+          <ng-template swiperSlide  *ngFor="let img of banner3_images">
+            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+          </ng-template>
+          <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner3.webp" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner4.jpg" alt="" class="banner"></ng-template> -->
+        </swiper>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-row style="margin-left: 22px;margin-top: 12px;">
+    <span style="font-weight: 600;color:white">Events</span>
+  </ion-row>
+  <div class="card-gap">
+    <ion-grid>
+      <ion-row class="scroll">
+        <ion-col size="8" *ngFor="let event of event_list">
+          <ion-card class="event-card" (click)="goToEventList()">
+            <ion-card-header class="card-header-img"> 
+              <!-- <img src="../../../assets/swiggy_event.jpg" alt="" class="img-banner1"> -->
+              <img src="{{eventImageUrl}}{{event.event_image}}" alt="" class="img-banner1">
+              <!-- <ion-button class="interested-button" fill="solid" color="tertiary">
+                <ion-icon name="calendar-outline"></ion-icon>&nbsp;Interested
+              </ion-button> -->
+            </ion-card-header>
+            <!-- <ion-card-content style="margin-top: 10px;"> -->
+              <ion-row>
+                <ion-col size="6">
+                  <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.date | date:'dd MMMM, yyyy'}}</span>
+                </ion-col>
+                <ion-col size="6" style="margin-top: -6px;">
+                  <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.date | date:'hh:mm a'}}</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -9px;">
+                <ion-col>
+                  <span style="float:left;font-size:small;color:#000000;font-weight: 700;">{{event.event_name}}</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: 10px;">
+                <ion-col size="4">
+                  <img src="{{eventImageUrl}}{{event.event_created_image}}" alt="" class="circle-img1">
+                </ion-col>
+                <ion-col size="4">
+                  <span style="margin-left: -50px;color:#0f1f49;font-size: 9px;">{{event.event_created_by}}</span>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button class="interested-button" [color]="event.interest==true?'danger':'tertiary'">
+                    <ion-icon name="calendar-outline"></ion-icon>&nbsp;<span style="font-size: 10px;">{{event.interest==true?'Cancelled':'Interested'}}</span>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            <!-- </ion-card-content> -->
+          </ion-card>
+        </ion-col>
+        <!-- <ion-col size="8">
+          <ion-card class="event-card" (click)="goToEventList()">
+            <ion-card-header class="card-header-img"> 
+              <img src="../../../assets/calander_event.avif" alt="" class="img-banner1">
+            </ion-card-header>
+              <ion-row>
+                <ion-col size="6">
+                  <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">25 MAY 2024</span>
+                </ion-col>
+                <ion-col size="6" style="margin-top: -6px;">
+                  <span style="font-size: 9px;color:#ee6737;font-weight: 500;">6:00PM</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -9px;">
+                <ion-col>
+                  <span style="float:left;font-size:small;color:#000000;font-weight: 700;">Swiggy Food Festival</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: 10px;">
+                <ion-col size="4">
+                  <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img1">
+                </ion-col>
+                <ion-col size="4">
+                  <span style="margin-left: -50px;color:#0f1f49;font-size: 9px;">Prasenjit Chanda</span>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button class="interested-button" color="tertiary">
+                    <ion-icon name="calendar-outline"></ion-icon>&nbsp;<span style="font-size: 10px;">Interested</span>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col size="8">
+          <ion-card class="event-card" (click)="goToEventList()">
+            <ion-card-header class="card-header-img"> 
+              <img src="../../../assets/event1.jpg" alt="" class="img-banner1">
+            </ion-card-header>
+              <ion-row>
+                <ion-col size="6">
+                  <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">25 MAY 2024</span>
+                </ion-col>
+                <ion-col size="6" style="margin-top: -6px;">
+                  <span style="font-size: 9px;color:#ee6737;font-weight: 500;">6:00PM</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -9px;">
+                <ion-col>
+                  <span style="float:left;font-size:small;color:#000000;font-weight: 700;">Swiggy Food Festival</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: 10px;">
+                <ion-col size="4">
+                  <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img1">
+                </ion-col>
+                <ion-col size="4">
+                  <span style="margin-left: -50px;color:#0f1f49;font-size: 9px;">Prasenjit Chanda</span>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button class="interested-button" color="tertiary">
+                    <ion-icon name="calendar-outline"></ion-icon>&nbsp;<span style="font-size: 10px;">Interested</span>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+          </ion-card>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div>
+    <ion-row (click)="goToEventList()">
+      <ion-col size="11" style="float:right;">
+        <h6 class="view-but">View All &nbsp;</h6>
+      </ion-col>
+      <ion-col size="1">
+        <ion-badge style="margin-top: -16px;margin-right: 12px;float: right;background-color:#34c334;" mode="md"><ion-icon name="arrow-forward-outline"></ion-icon></ion-badge>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="animated-display" *ngIf="banner4_images.length>0">
+    <ion-grid>
+      <ion-row align-self-center>
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+          <!-- <ng-template swiperSlide *ngFor="let item of items">
+            <div class="content">{{item.title}}</div>
+          </ng-template> -->
+          <ng-template swiperSlide  *ngFor="let img of banner4_images">
+            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+          </ng-template>
+          <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner3.webp" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner4.jpg" alt="" class="banner"></ng-template> -->
+        </swiper>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-row style="margin-left: 22px;margin-top: 12px;">
+    <span style="font-weight: 600;color:white">Broadcast</span>
+  </ion-row>
+  <div class="card-gap2">
+    <ion-grid>
+      <ion-row class="scroll">
+        <ion-col size="12" *ngFor="let data of broadcast_list_data">
+          <ion-card style="margin-top: 0px;" class="broadcast-card" style="background-color: #efefef;" > <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
+            <h6 style="padding-left: 10px;color:#000000">{{data.title_name}}</h6>
+             <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;">{{data.description}}</p>
+             <span style="float: right;color:#3180ea;padding-right:20px;padding-bottom:13px;" (click)="shareDetails(data.id)">Share</span><ion-icon name="arrow-redo-outline" style="float: right;color:#3180ea;margin-top: 2px;"></ion-icon>
+          </ion-card>
+        </ion-col>
+        <!-- <ion-col size="12">
+          <ion-card style="margin-top: 0px;" class="broadcast-card" style="background-color: #efefef;"> 
+            <h6 style="padding-left: 10px;color:#000000">Power Outage announcement</h6>
+            <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;"> Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</p>
+            <span style="float: right;color:#3180ea;padding-right:20px;padding-bottom:13px;">Share</span><ion-icon name="arrow-redo-outline" style="float: right;color:#3180ea;margin-top: 2px;"></ion-icon>
+          </ion-card>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div (click)="goToBroadcastList()">
+    <ion-row>
+      <ion-col size="11" style="float:right;">
+        <h6 class="view-but">View All &nbsp;</h6>
+      </ion-col>
+      <ion-col size="1">
+        <ion-badge style="margin-top: -16px;margin-right: 21px;float: right;background-color:#ec3182;" mode="md"><ion-icon name="arrow-forward-outline"></ion-icon></ion-badge>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-row style="margin-left: 22px;margin-top: -12px;">
+    <span style="font-weight: 600;color:white">What's New</span>
+  </ion-row>
+  <div class="card-gap3">
+    <ion-grid>
+      <ion-row class="scroll">
+        <ion-col size="12">
+          <ion-card class="ion-margin-bottom whatsnew-card border-left-color" mode="ios" >
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-grid style="margin-top: -23px;margin-left: -10px;">
+                    <ion-row class="text-header-align">
+                      <ion-col size="12" style="text-align:start;">
+                       <h6 style="color:#000000;font-size: small;">Power Outage announcement</h6>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="text-body-align" style="margin-top: -15px;">
+                      <ion-col size="12" style="text-align: start;">
+                        <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="4">
+                  <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+                </ion-col>
+                <ion-col size="5">
+                  <span style="margin-left: -75px;">Prasenjit Chanda</span>
+                </ion-col>
+                <ion-col size="3">
+                  <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="8" style="text-align:start;">
+
+                </ion-col>
+                <ion-col size="4" style="text-align: center;">
+                  <ion-badge class="badge-color" style="margin-right: 11px;"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="ion-margin-bottom gift-card border-left-color" mode="ios" >
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-grid style="margin-top: -23px;margin-left: -10px;">
+                    <ion-row class="text-header-align">
+                      <ion-col size="12" style="text-align:start;">
+                       <h6 style="color:#000000;font-size: small;">Power Outage announcement</h6>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="text-body-align" style="margin-top: -15px;">
+                      <ion-col size="12" style="text-align: start;">
+                        <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="4">
+                  <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+                </ion-col>
+                <ion-col size="5">
+                  <span style="margin-left: -75px;">Prasenjit Chanda</span>
+                </ion-col>
+                <ion-col size="3">
+                  <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="8" style="text-align:start;">
+
+                </ion-col>
+                <ion-col size="4" style="text-align: center;">
+                  <ion-badge class="badge-color" style="margin-right: 11px;"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div (click)="goToWhatsnewList()">
+    <ion-row>
+      <ion-col size="11" style="float:right;">
+        <h6 class="view-but">View All &nbsp;</h6>
+      </ion-col>
+      <ion-col size="1">
+        <ion-badge style="margin-top: -16px;margin-right: 21px;float: right;background-color: #ec4b32;" mode="md"><ion-icon name="arrow-forward-outline"></ion-icon></ion-badge>
+      </ion-col>
+    </ion-row>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div style="margin-top: -50px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="text-details" size="8">
+          <h3 style="margin-top: 0px;color: white;">
+            <img src="assets/logo/aapasmein_logo.svg" class="logo">
+          </h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <h4 class="message"><b>ho jayega !!!</b></h4>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter [url]="footerUrl" *ngIf="showFooter"></app-commonfooter>

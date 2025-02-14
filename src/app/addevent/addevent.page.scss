@@ -1,0 +1,185 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    // background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#header-icons{
+    text-align: right;
+    ion-icon{
+        // color: black;
+        color: white;
+        font-size: 1.5rem;
+        margin-left: 16px;
+    }
+}
+.card-gap {
+    margin-top: 32px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+.help_icon{
+    float: right;
+    margin-right: 25px;
+    font-size: x-large;
+    margin-top: -22px;
+    color: red;
+}
+.form-div{
+    padding-left: 32px;
+    padding-right: 32px;;
+}
+
+.login-btn {
+    width: 100%;
+    --border-radius: 9px;
+    margin-left: 0px;
+    margin-top: 50px;
+    font-family: "Poppins-Regular";
+}
+
+.square-box {
+    height: 120px;
+    width: 120px;
+    border: 1px solid black;
+    border-radius: 11px;
+    border-style: dotted;
+    text-align: center;
+}
+.icon-center {
+    position: absolute;
+    top: 0;
+    bottom: 20px;
+    left: 15px;
+    right: 0;
+    margin: auto;
+    color: black;
+}
+
+.answer-btn {
+    // --background: #007bff;
+    --background: #ffffff;
+    // --color: #ffffff;
+    --color:black;
+    --border-radius: 9px;
+    // --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    // width: 207px;
+    width:153px;
+    // height: 40px;
+    height: 33px;
+    font-family: "Poppins-Regular";
+    margin-bottom: 10px;
+    cursor: pointer;
+    // transition: background-color 0.3s, box-shadow 0.3s;
+}
+.before_click {
+    --border-color: #f1f1f1;
+    // --border-style: solid;
+    // --border-width: 1px;
+    // --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  }
+.after_click {
+    --border-color: #e9e9e9;
+    --border-style: solid;
+    --border-width: 1px;
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+}
+
+.radio-selected {
+    --color: blue;
+}
+  
+.radio-unselected {
+    --color: #e9e9e9;
+}
+
+// for white background 
+.input-container {
+    position: relative;
+    // width: 300px; 
+    width: 100%; 
+    margin-top: 10px; 
+  }
+
+.input-label {
+    position: absolute;
+    top: -10px;
+    left: 19px;
+    font-size: 14px;
+    background-color: #ffffff !important;
+    padding: 0 5px;
+    color: #333333 !important;
+    z-index: 1;
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e9e9e9 !important;
+    border-radius: 12px;
+    padding-left: 12px;
+    box-sizing: border-box;
+}
+
+.input-box {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 0; 
+    color: #333333;
+}
+  
+.input-box::placeholder {
+    // color: #ccc; 
+    color: #333333;
+}
+
+.input-box:focus {
+    outline: none;
+    box-shadow: 0 0 5px #333333; /* Change the box shadow color to white */
+}
+ion-select::part(icon) {
+    color: #333333;
+    margin-left: 120px !important;
+    position: absolute;
+}
+
+.ion-select::part(icon) {
+    color: #333333;
+    margin-left: 290px !important;
+}
+
+ion-select {
+  --color: #333333; /* Change the selected text color to white */
+}
+
+ion-select-option {
+  --color: #333333; /* Change the option text color to white */
+}
+
+/* To ensure that the dropdown menu itself has the correct background and text color */
+ion-select::part(placeholder) {
+  color: #333333;
+} 
+
+ion-select::part(text) {
+  color: #333333;
+}
+
+ion-select::part(select-text) {
+  color: #333333;
+}
+
+.time-picker{
+    --background: none !important;
+    --border-color: none !important;
+    --border-radius: 4px !important;
+    --padding-start: 0px !important;
+    --padding-end: 30px !important;
+    min-height: 45px !important;
+    --color: black !important;
+}

@@ -1,0 +1,30 @@
+<ion-content [fullscreen]="true">
+  <div id="header-icons" class="ion-padding-top ion-padding-horizontal border-bottom">
+    <ion-row >
+      <ion-col size="11" style="text-align: center;">
+        <!-- <ion-row> -->
+          <strong class="header">aapasmein Broadcast</strong>
+        <!-- </ion-row> -->
+      </ion-col>
+      <ion-col size="1" (click)="dismiss()">
+        <ion-icon name="close-circle" style="color:blue;cursor:pointer;"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="form-div">
+    <ion-row>
+      <ion-col size="12">
+        <div class="input-container">
+          <ion-label class="input-label required">Categories</ion-label>
+          <div class="input-group">
+            <ion-select class="ion-select" [(ngModel)]="Category_id">
+              <ion-select-option *ngFor="let item of categories" [value]="item.id">{{item.name}}</ion-select-option>
+              <!-- <ion-select-option>Old</ion-select-option> -->
+            </ion-select>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-button expand="block" class="submit-button" (click)="onFilter()">Submit</ion-button>
+  </div>
+</ion-content>

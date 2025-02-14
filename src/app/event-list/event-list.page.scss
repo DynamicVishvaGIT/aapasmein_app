@@ -1,0 +1,103 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gap{
+    margin-top: 40px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.selected-button-card {
+    background-color: #d1ebff;
+    color:black;
+    border-radius: 5px;
+    height: 40px;
+    // width:120px;
+}
+.button-card {
+    background-color: #525e80;
+    color:white;
+    border-radius: 5px;
+    height: 40px;
+    // width:120px;
+}
+.card-gap {
+    margin-top: 8px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.event-card {
+    margin-top: 10px;
+    height: auto;
+    margin-left: 0px;
+    margin-right: 2px;
+    border-radius:20px;
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    position: relative; /* Needed for positioning the button */
+}
+.card-header-img {
+    padding: 0;
+    position: relative; /* Needed for positioning the button */
+}
+.img-banner {
+    width: 100%;
+    // height:50%;
+    height: 150px;
+    // border-radius: 6px;
+    object-fit: cover; /* Ensures the image covers the area */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    // margin-top: -16px;
+    // margin-left: -17px;
+}
+.interested-button {
+    position: absolute;
+    top: 125px;
+    right: 14px;
+    z-index: 10; /* Ensures the button is above the image */
+    text-transform: none;
+}
+.circle-img {
+    border-radius: 50%;
+    width: 25%;
+    height: 90%;
+    margin-top: -4px;
+}
+.badge-color{
+    float: right;
+    background: #ffedee;
+    height: 18px;
+    --padding-end: 8px;
+    --padding-start: 8px;
+    color:#ee6737;
+    font-weight: 300;
+}
+.name-text {
+    color: black;
+    font-size: small;
+    margin-top: 3px;
+    font-weight: 800;
+}
+.button-property {
+    float: right;
+    margin-right: 30px;
+}
+
+ion-segment {
+    --indicator-color: #26375f; /* Default bar color */
+}
+  
+ion-segment-button {
+    --color-checked: #fe9800; /* Color of selected text */
+    --ion-segment-button-background: transparent; /* Background color of unselected button */
+    --ion-segment-button-background-checked: transparent; /* Background color of selected button */
+    --indicator-color: #fe9800; /* Color of the indicator (bar) for the selected button */
+}

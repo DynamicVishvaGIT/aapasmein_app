@@ -1,0 +1,168 @@
+ion-toolbar {
+    --background: #071947;
+}
+
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#header-icons{
+    text-align: right;
+    ion-icon{
+        // color: black;
+        color: white;
+        font-size: 1.5rem;
+        margin-left: 16px;
+    }
+}
+.card-gap {
+    margin-top: 8px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+.help_icon{
+    float: right;
+    margin-right: 25px;
+    font-size: x-large;
+    margin-top: -22px;
+    color: red;
+}
+
+.align-left {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .align-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .card-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .left-card .index-container {
+    order: 2;
+    margin-left: 10px;
+  }
+  
+  .right-card .index-container {
+    order: -1;
+    margin-right: 10px;
+  }
+  
+  .mall-card, .selected-mall-card {
+    margin-top: -8px;
+    height: auto;
+    border-radius: 8px;
+    width: 68%;
+  }
+  
+  .mall-card {
+    background: #d1ebff;
+    border-left: 7px solid #00BCD4;
+    border-right: 7px solid #00BCD4;
+  }
+  
+  .selected-mall-card {
+    background: rgb(255 128 0);
+    border-left: 7px solid #f1db7f;
+    border-right: 7px solid #f1db7f;
+  }
+  
+  .circle-img {
+    border-radius: 50%;
+    width: 30%;
+    height: 90%;
+  }
+  
+  .index-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dotted-line {
+    border-top: 2px dotted #ffff;
+    width: 50px;
+  }
+  
+  .left-card .dotted-line {
+    margin-right: 10px;
+  }
+  
+  .right-card .dotted-line {
+    margin-left: 10px;
+  }
+  
+  .index-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #30bca4c7;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.honeycomb-overlay {
+  position: absolute;
+  pointer-events: none;
+  top: -137px;
+  left: -152px;
+  right: 0;
+  bottom: 0;
+  // height: 100px;
+  background-image: url('../../assets/background/profile_bg1.svg'); /* Path to your honeycomb vector image */
+  background-size: cover;
+  opacity: 0.5;
+  z-index: 2;
+}
+// .mall-card {
+//     margin-top: -8px;
+//     height: auto;
+//     margin-left: 0px;
+//     margin-right: 2px;
+//     border-radius:8px;
+//     width: 60%;
+//     background: #d1ebff;
+//     border-left: 7px solid #00BCD4;
+//     border-right: 7px solid #00BCD4;
+// }
+
+// .selected-mall-card {
+//     margin-top: -8px;
+//     height: auto;
+//     margin-left: 0px;
+//     margin-right: 2px;
+//     border-radius:8px;
+//     width: 60%;
+//     background: rgb(255 128 0);
+//     border-left: 7px solid #f1db7f;
+//     border-right: 7px solid #f1db7f;
+// }
+
+// .img-banner {
+//     width: 100%;
+//     height: 110px;
+//     border-radius: 6px;
+// }
+
+// .circle-img {
+//     border-radius: 50%;
+//     width: 30%;
+//     height: 90%;
+// }
+// .border-left-color {
+//     border-left: 7px solid #00BCD4;
+//     border-right: 7px solid #00BCD4;
+// }

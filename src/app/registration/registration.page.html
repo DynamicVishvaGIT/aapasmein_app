@@ -1,0 +1,143 @@
+<ion-content [fullscreen]="true">
+    <!-- <div class="img-block">
+        <div class="text-above-logo">
+            <p>Register an account to continue</p>
+            <p style="font-size: 20px;font-weight: 600;">Hello,</p>
+        </div>
+        <img src="../../assets/logo/logo.png" alt="">
+    </div> -->
+    <!-- <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1" style="text-align: start; margin-left: 10px;" >
+              <ion-icon name="arrow-back-outline" style="color:white;" ></ion-icon>
+            </ion-col>
+            <ion-col size="8" style="text-align: center; margin-top: -3px;">
+              <strong class="header" style="color:white;">Profile</strong>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div> -->
+      <!-- <div class="honeycomb-overlay"></div> -->
+    <!-- <div id="container" >
+        <div>
+            <ion-row>
+                <ion-col size="4">
+                    <div class="profile-img-wrapper">
+                        <img src="../../assets/Prasenjit_Chanda.png" class="profile-img-avatar border-white" alt="Profile Picture"/>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
+    </div> -->
+    <div id="container">
+        <div class="honeycomb-overlay"></div>
+        <div class="text-above-logo">
+            <p>Register an account to continue</p>
+            <p style="font-size: 20px;font-weight: 600;margin-top: -6px;">Hello,</p>
+        </div>
+        <div class="profile-img-wrapper">
+            <img [src]="selectedImage.data" class="profile-img-avatar border-white" alt="Profile Picture" *ngIf="selectedImage.data!=''"/>
+            <img src="../../assets/avtar4.png" class="profile-img-avatar border-white" *ngIf="selectedImage.data==''"/>
+            <ion-icon name="camera" class="camera-icon" (click)="presentActionSheet()"></ion-icon>
+        </div>
+    </div>
+
+    <div class="form-div" style="margin-top: 60px;">
+        <ion-row>
+            <ion-col size="12">
+                <div class="input-container" [class.focused]="user.name || inputFocused">
+                    <ion-label class="input-label required">Full Name</ion-label>
+                    <div class="input-group">
+                        <ion-input class="input-box" type="text" [(ngModel)]="user.name" ></ion-input>  <!--(focus)="onInputFocus()" (blur)="onInputBlur()"-->
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <div class="input-container" [class.focused]="user.city || inputFocused">
+                    <ion-label class="input-label required">City</ion-label>
+                    <div class="input-group">
+                        <ion-select class="ion-select" [(ngModel)]="user.city" >
+                            <ion-select-option *ngFor="let item of get_cities" [value]="item.id">{{item.NAME}}</ion-select-option>
+                            <!-- <ion-select-option>Durgapur</ion-select-option> -->
+                        </ion-select>
+                    </div>
+                </div>
+            </ion-col>
+            <ion-col size="6">
+                <div class="input-container" [class.focused]="user.location || inputFocused">
+                    <ion-label class="input-label required">Location</ion-label>
+                    <div class="input-group">
+                        <ion-select class="ion-select" [(ngModel)]="user.location">
+                            <ion-select-option *ngFor="let item of get_locations" [value]="item.id">{{item.NAME}}</ion-select-option>
+                        </ion-select>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <div class="input-container" [class.focused]="user.mobile_no || inputFocused">
+                    <ion-label class="input-label required">Mobile Number</ion-label>
+                    <div class="input-group">
+                        <ion-input class="input-box" type="number" [(ngModel)]="user.mobile_no"></ion-input>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <div class="input-container" [class.focused]="user.email_id || inputFocused">
+                    <ion-label class="input-label required">Email</ion-label>
+                    <div class="input-group">
+                        <ion-input class="input-box" type="text" [(ngModel)]="user.email_id"></ion-input>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <div class="input-container" [class.focused]="user.profession || inputFocused">
+                    <ion-label class="input-label required">Profession</ion-label>
+                    <div class="input-group">
+                        <ion-select class="ion-select" [(ngModel)]="user.profession">
+                            <ion-select-option *ngFor="let item of get_professions" [value]="item.id">{{item.NAME}}</ion-select-option>
+                        </ion-select>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <div class="input-container"  [class.focused]="user.specialization || inputFocused">
+                    <ion-label class="input-label required">Specialization</ion-label>
+                    <div class="input-group">
+                        <ion-input class="input-box" type="text" [(ngModel)]="user.specialization"></ion-input>
+                        <!-- <ion-select class="ion-select" multiple [(ngModel)]="user.specialization">
+                            <ion-select-option *ngFor="let item of get_specializations" [value]="item.id">{{item.NAME}}</ion-select-option>
+                        </ion-select> -->
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <div class="input-container" [class.focused]="user.interest || inputFocused">
+                    <ion-label class="input-label required">Interest</ion-label>
+                    <div class="input-group">
+                        <ion-select class="ion-select" multiple [(ngModel)]="user.interest">
+                            <ion-select-option *ngFor="let item of get_interests" [value]="item.id">{{item.NAME}}</ion-select-option>
+                        </ion-select>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button  type="submit" color="tertiary" class="login-btn" (click)="onRegister()"><b>Submit</b></ion-button>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

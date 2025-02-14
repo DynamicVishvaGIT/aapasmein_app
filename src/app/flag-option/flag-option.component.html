@@ -1,0 +1,47 @@
+<!-- <div class="option-container">
+  <img [src]="img" alt="{{ name }}" class="flag-icon" />
+  <span>{{ name }}</span>
+</div> -->
+
+<!-- <ion-list>
+  <ion-item *ngFor="let country of countries">
+    <ion-thumbnail slot="start">
+      <img [src]="country.img" alt="{{ country.name }}">
+    </ion-thumbnail>
+    <ion-label>
+      <h2>{{ country.name }}</h2>
+    </ion-label>
+  </ion-item>
+</ion-list> -->
+
+<!-- <ion-item lines="none">
+  <ion-label>Country</ion-label>
+  <ion-select [(ngModel)]="selectedCountry" interface="popover">
+    <ion-select-option *ngFor="let country of countries" [value]="country.number">
+      <div class="option-container">
+        <img [src]="country.flag" alt="{{ country.name }}" class="flag-icon" />
+        <span>{{ country.name }}</span>
+      </div>
+    </ion-select-option>
+  </ion-select>
+</ion-item> -->
+<ion-row>
+  <ion-col>
+    <img src="{{selectedCountry}}" class="flag-icon" id="popover-button"/>
+  </ion-col>
+  <ion-col>
+    <ion-icon name="chevron-down-outline" style="font-size: smaller;color:#fff"></ion-icon>   <!--style="margin-top: 2px;margin-left: -4px;font-size: x-small;"-->
+  </ion-col>
+</ion-row>
+<ion-popover trigger="popover-button" [dismissOnSelect]="true">
+  <ng-template class="temp">
+    <ion-content>
+      <ion-list>
+        <ion-item [button]="true" *ngFor="let country of countries" (click)="onSelectCountry(country)">
+          <img [src]="country.flag" alt="{{ country.name }}" class="flag-icon" />
+          <span>{{ country.name }}</span>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

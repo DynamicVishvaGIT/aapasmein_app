@@ -1,0 +1,208 @@
+ion-content {
+    --background: none;
+    // background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #F8F8F8;
+    background-color: #071947;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.backbutton{
+    margin-top: 10px !important;
+    float: left;
+}
+    
+.form-div{
+    width: 100%;
+    height: fit-content;
+    text-align: left;
+    // margin: 20px;
+}
+
+.list-div {
+    padding: 15px;
+}
+    
+.account-type-blocks{
+    text-align: center;
+    box-shadow: var(--ion-color-danger) 0px 1px 4px, var(--ion-color-danger) 0px 0px 0px 3px;
+    width: 100px;
+    height: 100px;
+    font-size: 75px;
+    border-radius: 5%;
+    color: var(--ion-color-danger);
+
+}
+    
+.account_type_container{
+    margin-top: 30px;
+    width: fit-content;
+    text-align: center;
+
+}
+    
+.button_type{
+    --background-activated: red;
+}
+    
+.icon{
+    padding-top: 10px;
+}
+    
+hr {
+    background: black !important;
+    display: block !important;
+    font-size: 2em !important;
+    visibility: visible !important;
+}
+    
+ion-item.item-has-focus > ion-label{
+    color: black !important;
+}
+    
+ion-slides{
+    height: auto;
+}
+.new-background-color{
+    --background: var(--ion-color-danger);
+}
+    
+// ion-item{
+//   --ion-background-color:whitesmoke;
+//   padding: 10px;
+//   --border-radius: 10px !important;
+// }
+    
+.item-align {
+    --ion-background-color:whitesmoke;
+    padding: 10px;
+    --border-radius: 10px !important;
+}
+    
+    
+.required:after {
+    content:" *";
+    color: red;
+}
+    
+#second_holder_section{
+    margin-bottom: 15px;
+}
+    
+p {
+    border: 2px solid #cdc5c545;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.border-bottom{
+    border-bottom: 1px solid rgba(0,0,0,.16);
+    //width: 90%;
+}
+.border-top{
+    border-top: 1px solid #92918c;
+    //width: 90%;
+}
+
+.text-header-align {
+  font-size: 15px;
+  color: #ffffff;
+//   margin-top: 7px;
+}
+
+.text-header-align1 {
+    font-size: 15px;
+    color: #ffffffff;
+    // margin-top: 7px;
+  }
+
+.text-body-align{
+  font-size: 11px;
+  margin-top: -8px;
+  color: #ffffff;
+  //text-align: center;
+}
+
+.calculation_div{
+    top: 5px;
+    border: 1px solid var(--ion-color-primary);
+    width: 94%;
+    margin: auto;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+// ion-segment {
+//     overflow: hidden;
+//   }
+  
+  /* Optional: If you want to hide the scrollbar handle completely */
+  ion-segment::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+.success_text {
+    color: #29db2f;
+}
+.error_text {
+    color: #f52b2b;
+}
+.info_text {
+    color: #2F96B4;
+}
+
+ion-segment-button {
+    color: white;
+    --background: transparent;
+}
+  
+ion-segment-button.selected {
+    --color: var(--ion-color-primary);
+    --background: white; /* Optional, if you want to change the background */
+}
+.bank_proof_image {
+    width:80px;
+    height:80px;
+    border-radius: 5px;
+}
+.pan_proof_image {
+    width:70px;
+    height:70px;
+    border-radius: 5px;
+}
+
+.scheme_background {
+    background: #8e8ed0;
+}
+.heading_color {
+    color: #ffc919;
+  }
+  .text_color{
+    color: #ffffff;
+  }
+  .card_color {
+    background-color: #3b3b3b;
+  }
+  .danger_color{
+    color: #f52b2b;
+  }
+  .toolbar_color{
+    --background: #071947;
+  }
+  .footer_color{
+    background: #071947;;
+  }
+
+.banner {
+    width:94%;
+    height:130px;
+    // height:160px;
+    margin-left: 12px;
+    // border-radius: 18px;
+    border-radius: 6px;
+}
+.banner-gap {
+    // margin-top: -20px;
+    margin-top: -68px;
+    // margin-top: -30px;
+}

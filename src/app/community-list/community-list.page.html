@@ -1,0 +1,232 @@
+<ion-content>
+  <div class="honeycomb-overlay"></div>
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" >
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">Community</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div>
+    <ion-button class="button-property-right" size="small" color="tertiary" (click)="addCommunityPage()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
+  </div>
+  <!-- <div >
+    <ion-button  size="small" slot="start" style="float:left;font-size: small;margin-left: 24px;text-transform: none;"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button>
+  </div> -->
+  <div class="card-gap">
+    <ion-card style="margin-top: 5px;" class="ion-margin-bottom community-card border-left-color" mode="ios" (click)="goToCommunityChatbox(data)" *ngFor="let data of community_list"> <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;margin-left: 4px;">
+          <ion-col size="4">
+            <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">{{data.USER__NAME}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -30px;margin-left: -7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: small;">{{data.TITLE}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="text-body-align" style="margin-top: -15px;">
+                <ion-col size="12" style="text-align: start;">
+                  <span style="font-size: smaller;color:#5c5a5f;">{{data.DESCRIPTION}}</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <!-- <ion-card style="margin-top: 5px;" class="ion-margin-bottom community-card border-left-color" mode="ios"> 
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;margin-left: 4px;">
+          <ion-col size="4">
+            <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">Prasenjit Chanda</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -30px;margin-left: -7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: small;">Water cut in andheri</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="text-body-align" style="margin-top: -15px;">
+                <ion-col size="12" style="text-align: start;">
+                  <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card style="margin-top: 5px;" class="ion-margin-bottom community-card border-left-color" mode="ios"> 
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;margin-left: 4px;">
+          <ion-col size="4">
+            <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">Prasenjit Chanda</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -30px;margin-left: -7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: small;">Power Outage announcement</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="text-body-align" style="margin-top: -15px;">
+                <ion-col size="12" style="text-align: start;">
+                  <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card style="margin-top: 5px;" class="ion-margin-bottom community-card border-left-color" mode="ios"> 
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;margin-left: 4px;">
+          <ion-col size="4">
+            <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">Prasenjit Chanda</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -30px;margin-left: -7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: small;">Water cut in andheri</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="text-body-align" style="margin-top: -15px;">
+                <ion-col size="12" style="text-align: start;">
+                  <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card style="margin-top: 5px;" class="ion-margin-bottom community-card border-left-color" mode="ios"> 
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;margin-left: 4px;">
+          <ion-col size="4">
+            <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">Prasenjit Chanda</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -30px;margin-left: -7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: small;">Water cut in andheri</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="text-body-align" style="margin-top: -15px;">
+                <ion-col size="12" style="text-align: start;">
+                  <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card style="margin-top: 5px;" class="ion-margin-bottom community-card border-left-color" mode="ios"> 
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;margin-left: 4px;">
+          <ion-col size="4">
+            <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">Prasenjit Chanda</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -30px;margin-left: -7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: small;">Power Outage announcement</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="text-body-align" style="margin-top: -15px;">
+                <ion-col size="12" style="text-align: start;">
+                  <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card style="margin-top: 5px;" class="ion-margin-bottom community-card border-left-color" mode="ios"> 
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;margin-left: 4px;">
+          <ion-col size="4">
+            <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">Prasenjit Chanda</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -30px;margin-left: -7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: small;">Water cut in andheri</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="text-body-align" style="margin-top: -15px;">
+                <ion-col size="12" style="text-align: start;">
+                  <span style="font-size: smaller;color:#5c5a5f;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card> -->
+  </div>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

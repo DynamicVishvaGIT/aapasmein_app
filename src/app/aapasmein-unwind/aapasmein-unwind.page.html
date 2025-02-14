@@ -1,0 +1,221 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md" class="toolbar_color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="{{routeURL=='features'?'aapasmein-features':'dashboard'}}" class="text_color"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end" *ngIf="profile_details?.CAN_STATUS!='AP'">
+      <ion-button (click)="editProfile()">
+        <ion-icon slot="icon-only" name="create-outline" class="text_color"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-title class="text_color" style="font-size: 20px;">Profile Details &nbsp;<ion-icon name="create-outline" class="text_color" style="font-size: 20px;" (click)="editProfile()" *ngIf="profile_details?.CAN_STATUS!='AP'"></ion-icon></ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+    <ion-title class="text_color" style="font-size: 20px;">aapasmein Unwind</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="animated-display">
+    <ion-grid>
+      <ion-row align-self-center>
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+          <!-- <ng-template swiperSlide *ngFor="let item of items">
+            <div class="content">{{item.title}}</div>
+          </ng-template> -->
+          <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner3.webp" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner4.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/rolex1.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/rolex.webp" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/health.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/graph.jpg" alt="" class="banner"></ng-template>
+          <ng-template swiperSlide><img src="assets/icon/banner/banner.jpg" alt="" class="banner"></ng-template>
+        </swiper>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div style="margin-left: 5px;">
+    <ion-segment [scrollable]="true" value="trivia" color="warning"  [(ngModel)]="info" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="trivia" [ngClass]="{'selected': selectedSegment === 'trivia'}">
+        <ion-label style="font-size: x-small;">Trivia</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="time" [ngClass]="{'selected': selectedSegment === 'time'}">
+        <ion-label style="font-size: x-small;">This day in time</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="future" [ngClass]="{'selected': selectedSegment === 'future'}">
+        <ion-label style="font-size: x-small;"> This day in future</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="fun" [ngClass]="{'selected': selectedSegment === 'fun'}">
+        <ion-label style="font-size: x-small;">Fun Facts</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="news" [ngClass]="{'selected': selectedSegment === 'news'}">
+        <ion-label style="font-size: x-small;">Quick News</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="games" [ngClass]="{'selected': selectedSegment === 'games'}">
+        <ion-label style="font-size: x-small;">Daily games</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="crossword" [ngClass]="{'selected': selectedSegment === 'crossword'}"> <!--*ngIf="mfu_details?.INVESTOR_CATEGORY_id!=2"-->
+        <ion-label style="font-size: x-small;">Quiz Crossword</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="kbc" [ngClass]="{'selected': selectedSegment === 'kbc'}"> <!--*ngIf="mfu_details?.INVESTOR_CATEGORY_id!=2"-->
+        <ion-label style="font-size: x-small;">Micro KBC</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="horoscope" [ngClass]="{'selected': selectedSegment === 'horoscope'}"> <!--*ngIf="mfu_details?.INVESTOR_CATEGORY_id!=2"-->
+        <ion-label style="font-size: x-small;">Horoscope</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="music" [ngClass]="{'selected': selectedSegment === 'music'}"> <!--*ngIf="mfu_details?.INVESTOR_CATEGORY_id!=2"-->
+        <ion-label style="font-size: x-small;">Music for the day</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="info">
+    <div class="list-div" *ngSwitchCase="'trivia'">
+      <p class="scheme_background">
+        <ion-grid >
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span style="font-size: small;">Trivia content is <b>information or facts that are considered to be of little value or are not well-known</b>. Trivia can be about a variety of topics, including people, events, and other subjects. Some examples of trivia content include: </span> 
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-wrap">
+              <ul>
+                <li>The capital of Australia is Canberra.</li>
+                <li>The world's largest music festival is Donauinselfest, which is held in Vienna. </li>
+                <li>The song with the most streams on Spotify is "Blinding Lights" by the Weeknd. </li>
+                <li>The mechanically-powered shark from Jaws was nicknamed "Bruce". </li>
+                <li>The first live-action Disney remake to get a PG-13 rating was Mulan. </li>
+                <li>Taylor Swift's middle name is Alison. </li>
+              </ul>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-wrap">
+              <span style="font-size: small;">Trivia can be fun and can provide a sense of knowledge and competition. It can be used in a variety of settings, including academic institutions, bars, restaurants, and businesses. Trivia can also be used to reinforce learning and check understanding of content.</span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-wrap">
+              <span><b>Some ways to make trivia more engaging include:</b></span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-wrap">
+              <ul>
+                <li>Using interactive technology, such as an online platform that allows participants to answer questions on their smartphones or tablets.</li>
+                <li>Hiring a professional team building company to host the trivia.</li>
+              </ul>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </p>
+    </div>
+  </div>
+  <div [ngSwitch]="info">
+    <div class="list-div" *ngSwitchCase="'time'">
+      <p class="scheme_background">
+        <ion-grid >
+          <ion-row>
+            <ion-col size="12">
+              <span style="font-size: 15px;"><b>This Day in History: {{today | date:'MMMM dd'}}</b></span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <img src="assets/current.webp">
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span><b>Premiere of Casablanca</b></span> 
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span style="font-size: small;">Set in occupied Morocco during World War II, directed by Michael Curtiz, and starring Humphrey Bogart, Ingrid Bergman, and Paul Henreid, Casablanca premiered this day in 1942 and became one of Hollywood's most-revered films.</span> 
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-wrap">
+              <span style="font-size: 10px;font-style: italic;color: #00000085;"> Image: Warner Brothers, Inc./The Museum of Modern Art Film Stills Archive, New York City</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </p>
+    </div>
+  </div>
+  <div [ngSwitch]="info">
+    <div class="list-div" *ngSwitchCase="'future'">
+      <p class="scheme_background">
+        <ion-grid >
+          <ion-row>
+            <ion-col size="12">
+              <span style="font-size: 15px;"><b>Here are some ways to express future time:</b></span>
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span><b>Time expressions</b></span> 
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span style="font-size: small;">These are often used at the end of a sentence or question. Some examples include "tomorrow," "next week," "in two days," and "the day after tomorrow". </span> 
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span><b>Future tense</b></span> 
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span style="font-size: small;">The formula for the simple future tense is "subject + will/shall + base form of the verb". The formula for the future continuous tense is "subject + will be + verb-ing (present participle)". The formula for the future perfect tense is "subject + will have + past participle of the verb". 
+              </span> 
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span><b>Specifying a future time of day</b></span> 
+            </ion-col>
+          </ion-row>
+          <ion-row >  <!--class="border-bottom"-->
+            <ion-col size="12" class="ion-text-wrap">
+              <span style="font-size: small;">You can specify a future time of day by using the 24-hour clock. You can select a time from the drop-down list, or you can enter the time to the nearest minute using the syntax "hour:minute". </span> 
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </p>
+    </div>
+  </div>
+  <div [ngSwitch]="info">
+    <div class="list-div" *ngSwitchCase="'fun'">
+      <p class="scheme_background">
+        <ion-grid >
+          <ion-row>
+            <ion-col size="12">
+              <span style="font-size: 15px;"><b>Interesting Facts for Adults:</b></span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-wrap">
+              <ul>
+                <li>The oldest living land animal on earth is a 192-year-old tortoise named Jonathan.</li>
+                <li>The hardest bone in the human body is the femur. </li>
+                <li>A group of owls is called a parliament. </li>
+                <li>The deepest part of the ocean is approximately 35,876 feet down.</li>
+                <li>A silverback gorilla can lift over 1,763 pounds.</li>
+              </ul>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </p>
+    </div>
+  </div>
+</ion-content>

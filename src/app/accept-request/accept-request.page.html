@@ -1,0 +1,74 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">My Accept Request</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div style="margin-left: 5px;">
+    <ion-segment value="accept" [(ngModel)]="info">
+      <ion-segment-button value="accept" (click)="load_friend_request()">
+        <ion-label style="font-size: x-small;color:white;">Accept Request</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="handshake" (click)="load_handshake_request()">
+        <ion-label style="font-size: x-small;color:white;">Handshake Request</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="info">
+    <div class="gap" *ngSwitchCase="'accept'">
+      <div *ngIf="friendRequestDataLoaded && friend_request_list.length > 0">
+        <ion-grid>
+          <ion-row class="border-bottom" *ngFor="let data of friend_request_list">
+            <ion-col size="3" >
+              <img src="{{imageUrl}}{{data.SENDER__PROFILE_IMAGE}}" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9">
+              <span class="name-text">{{data.SENDER__NAME}}</span><br>
+              <span class="designation-text">{{data.SENDER__PROFESSION__NAME}}</span><br>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="no-data" *ngIf="friendRequestDataLoaded && friend_request_list.length == 0">
+        <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+        <span class="no-data-text">No Request Accepted Data</span>
+      </div>
+    </div>
+    <div class="gap" *ngSwitchCase="'handshake'">
+      <div *ngIf="handshakeDataLoaded && handshake_request_list.length > 0">
+        <ion-grid>
+          <ion-row class="border-bottom" *ngFor="let data of handshake_request_list">
+            <ion-col size="3" >
+              <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9">
+              <span class="name-text">{{data.USER__NAME}}</span><br>
+              <span class="designation-text">{{data.USER__PROFESSION__NAME}}</span><br>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="no-data" *ngIf="handshakeDataLoaded && handshake_request_list.length == 0">
+        <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+        <span class="no-data-text">No Handshake Accepted Data</span>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

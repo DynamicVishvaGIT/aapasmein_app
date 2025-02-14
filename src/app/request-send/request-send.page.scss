@@ -1,0 +1,170 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gap{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.gap1{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.gap2{
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 15px;
+}
+.request-card {
+    margin-top: -8px;
+    height: auto;
+    margin-left: 0px;
+    margin-right: 2px;
+    border-radius:8px;
+    width: 100%;
+    background: #d1ebff;
+}
+
+.img-banner {
+    width: 100%;
+    height: 165px;
+    border-radius: 6px;
+}
+
+.scroll{
+    flex-wrap: nowrap;
+    overflow-x: scroll!important;
+    overflow-y: hidden;
+}
+.name-text {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: large;
+    // margin-left: -30px;
+}
+.short-description-text {
+    font-size: x-small;
+    color: #d1ebff;
+    // margin-left: -30px;
+}
+.description-text {
+    font-size: small;
+    color: #ffffff;
+    // margin-left: -30px;
+}
+.badge-color{
+    float: right;
+    background: #2d88ff;
+    height: 21px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+    color: #ffffff;
+    font-weight: 500;
+}
+.border-bottom {
+    border-bottom: 1px solid white;
+    margin-top: 6px;
+}
+.button-calendar-icon {
+    --background: #ee6737;
+    margin-left: 10px;
+    // margin-top: -50px;
+}
+.button-location-icon {
+    --background: #6941ec;
+    margin-left: 10px;
+    margin-top: -3px;
+    // margin-top: -50px;
+}
+.button-amount-icon {
+    --background: #49a498;
+    margin-left: 10px;
+    margin-top: -3px;
+    // margin-top: -50px;
+}
+.login-btn {
+    width: 100%;
+    height:50px;
+    --border-radius: 9px;
+    margin-left: 0px;
+    margin-top: 50px;
+    font-family: "Poppins-Regular";
+    text-transform: none;
+}
+.report-btn {
+    width: 100%;
+    height:50px;
+    --border-radius: 9px;
+    margin-left: 0px;
+    margin-top: 20px;
+    font-family: "Poppins-Regular";
+    text-transform: none;
+}
+
+.circle-img {
+    border-radius: 50%;
+    width: 35%;
+    height: 80%;
+    margin-left: 8px;
+}
+.button-icon {
+    --background: #d1ebff;
+    margin-left: 13px;
+    margin-top: -9px;
+}
+.shake-align{
+    float: right;
+    background: red;
+    height: 29px;
+    width: 29px;
+    /* --padding-end: 12px; */
+    /* --padding-start: 12px; */
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+    border-radius: 50%;
+}
+.menu-icon1{
+    color: #fff;
+    width: 100%;
+    aspect-ratio: 6.5 / 1;
+    object-fit: contain;
+}
+.report-button {
+    // position: fixed;
+    position: absolute;
+    // bottom: 20px; /* Adjust distance from the bottom */
+    right: 20px;  /* Adjust distance from the right */
+    text-align: center;
+  }
+  
+  .icon-container {
+    background-color: red; /* Background color of the circle */
+    border-radius: 50%;    /* Makes the background circular */
+    display: inline-flex;  /* Aligns the icon inside the circle */
+    justify-content: center;
+    align-items: center;
+    width: 30px;           /* Circle width */
+    height: 30px;          /* Circle height */
+  }
+  
+  .icon-container ion-icon {
+    color: white;          /* Icon color */
+    font-size: 30px;       /* Adjust size to fit the container */
+  }
+  
+  .report-text {
+    display: block;
+    // margin-top: 8px;       /* Space between the icon and text */
+    color: #ffffff;           /* Text color */
+    font-size: 14px;       /* Text size */
+    font-weight: bold;     /* Text style */
+  }

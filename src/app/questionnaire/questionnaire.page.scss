@@ -1,0 +1,227 @@
+ion-toolbar{
+    --background: #071947;
+    // --background: white;
+    ion-title{
+      font-size: 16px;
+    }
+  }
+
+  #header-icons{
+    text-align: right;
+    ion-icon{
+        color:#50537a;
+        font-size: 1.5rem;
+    }
+  }
+.header {
+    // float: left;
+    color: black;
+    font-size: medium;
+    font-family: "Alef";
+    margin-top: 2px;
+    // margin-left: 25%;
+}
+// .background-image {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background-image: url('/assets/images/background.png'); /* Set your image path here */
+//     background-size: cover;
+//     z-index: -1;
+// }
+
+// .card {
+//     background: white;
+//     margin: 50px auto;
+//     padding: 20px;
+//     border-radius: 10px;
+//     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+//     max-width: 325px;
+//     height:300px;
+// }
+
+.help_icon{
+    float: right;
+    margin-right: 25px;
+    font-size: x-large;
+    color: #ffffff;
+}
+
+.question-number {
+    position: absolute;
+    // top: -10px;
+    // left: -10px;
+    // background-color: #071947;
+    background-color: #ee6737 ;
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.blue-background {
+    --background: #071947;
+    // --background: url('/assets/images/questionnaire.svg') no-repeat center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .question-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 18px;
+    // text-align: center;
+    margin-bottom: 20px;
+    position: relative; /* Ensure positioning for pseudo-element */
+    max-width: 317px;
+    margin-left: 26px;
+    height: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Existing shadow */
+}
+  
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* Adjust distance from the bottom */
+    left: 0;
+    width: 100%;
+    height: 4px; /* Adjust height of the faint white shadow */
+    // background: rgba(255, 255, 255, 0.5); /* Faint white color shadow */
+    border-radius: 8px; /* Match card's border-radius */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Double shadow */
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Adjust the size as needed */
+    height: 80%; /* Adjust the size as needed */
+    background: url('/assets/images/watermark_logo.png') no-repeat center center; /* Set your watermark image path here */
+    background-size: contain; /* Adjust the size as needed */
+    opacity: 0.1; /* Adjust the transparency as needed */
+    pointer-events: none; /* So the watermark doesn't interfere with clicks */
+}
+
+.button-card {
+    background-color: white;
+    color:#ee6737;
+    padding: 11px;
+    border-radius: 8px;
+    // text-align: center;
+    margin-bottom: 20px;
+    position: relative; /* Ensure positioning for pseudo-element */
+    max-width: 144px;
+    // max-width: 163px;
+    margin-left: 100px;
+    height: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Existing shadow */
+}
+
+// .login-btn {
+//   // width: 100%;
+//   --border-radius: 9px;
+//   margin-left: 0px;
+//   // margin-top: 50px;
+//   font-family: "Poppins-Regular";
+//   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+// }
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.answer-btn {
+  // --background: #007bff;
+  --background: white;
+  // --color: #ffffff;
+  --color:black;
+  --border-radius: 9px;
+  // --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 207px;
+  height: 40px;
+  font-family: "Poppins-Regular";
+  margin-bottom: 10px;
+  cursor: pointer;
+  // transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+// .answer-btn:hover {
+//   --background: #0056b3;
+//   --box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+// }
+
+// .answer-btn:active {
+//   --background: #004085;
+//   --box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+// }
+
+.before_click {
+  --border-color: #f1f1f1;
+  // --border-style: solid;
+  // --border-width: 1px;
+  // --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+}
+
+.after_click {
+  --border-color: #ee6737;
+  --border-style: solid;
+  --border-width: 1px;
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+}
+
+.honeycomb-overlay {
+  position: absolute;
+  pointer-events: none;
+  top: -137px;
+  left: -152px;
+  right: 0;
+  bottom: 0;
+  // height: 100px;
+  background-image: url('../../assets/background/profile_bg1.svg'); /* Path to your honeycomb vector image */
+  background-size: cover;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+// .login-btn {
+//   width: 207px;
+//   height: 40px; /* Adjusted height for better clickability */
+//   border-radius: 9px;
+//   margin-left: 0px;
+//   font-family: "Poppins-Regular";
+//   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+//   background-color: #007bff; /* Primary button color */
+//   color: #ffffff; /* Text color */
+//   border: none; /* Remove border for outline fill */
+//   cursor: pointer; /* Show pointer cursor on hover */
+//   transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+// }
+
+// .login-btn:hover {
+//   background-color: #0056b3; /* Darker shade for hover */
+//   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+// }
+
+// .login-btn:active {
+//   background-color: #004085; /* Even darker shade for active state */
+//   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow for active state */
+// }

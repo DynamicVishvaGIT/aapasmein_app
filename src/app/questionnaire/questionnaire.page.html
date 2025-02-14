@@ -1,0 +1,64 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-row >
+      <ion-col size="1" style="text-align: start;margin-left: 10px;">
+        <ion-icon name="arrow-back" style="color:white" (click)="dismiss()"></ion-icon>
+      </ion-col>
+      <ion-col size="7" style="text-align: start;margin-top: -3px;">
+        <strong class="header" style="color:white;">Invite a friend to aapasmein !</strong>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="help-circle-outline" class="help_icon"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-content [fullscreen]="true">
+  <div class="background-image"></div>
+  <div *ngFor="let question of questions; let i = index" [hidden]="currentQuestion !== i">
+    <div class="card">
+      <div class="question-number">{{ i + 1 }}</div>
+      <div >
+        <h2>{{question.text}}</h2>
+        <ion-list>
+          <ion-item >  
+            <ion-button *ngFor="let option of question.options" shape="square" fill="outline" (click)="selectOption(i, option)"> {{option}}</ion-button>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
+</ion-content> -->
+
+<ion-content class="ion-padding blue-background">
+  <div class="honeycomb-overlay"></div>
+  <ion-row style="margin-left: 20px;">
+    <ion-col>
+      <strong style="color:white;">Before you Invite Prasenjit Chanda to aapasmein, here's something to ponder</strong>
+    </ion-col>
+  </ion-row>
+  <div *ngFor="let data of selectedQuestions; let i = index" [hidden]="currentQuestion !== i" style="margin-top: 70px;">
+    <div class="card">
+      <!-- <div class="watermark"></div> -->
+      <div class="question-number">{{ i + 1 }}</div>
+      <h2 style="margin-top: 55px;">{{data.question}}</h2>
+      <div class="options">
+        <ion-button *ngFor="let option of data.Answer; let j = index;" class="answer-btn after_click"  (click)="selectOption(i, option)">  <!--[class]="option.clickable?'after_click':'before_click'"-->
+          <ion-grid>
+            <!-- <ion-row> -->
+              <ion-col>
+                <b>{{option.ANSWER}}</b>
+              </ion-col>
+            <!-- </ion-row> -->
+          </ion-grid>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <div class="button-card">
+    <span style="margin-top: 55px;font-size: small;">Invite via Whatsapp</span>
+  </div>
+</ion-content>
+
+<!-- <ion-button  type="submit" color="primary" class="login-btn" (click)="onInvite()"><b>Next</b></ion-button> -->

@@ -1,0 +1,99 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#header-icons{
+    text-align: right;
+    ion-icon{
+        // color: black;
+        color: white;
+        font-size: 1.5rem;
+        margin-left: 16px;
+    }
+}
+.card-gap {
+    margin-top: 32px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.card-gap1 {
+    margin-top: 20px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+.help_icon{
+    float: right;
+    margin-right: 25px;
+    font-size: x-large;
+    margin-top: -22px;
+    color: red;
+}
+
+.whatsnew-card {
+    //background: #ffffff66;
+    //margin-top: -8px;
+    height: auto;
+    border-radius: 8px;
+    background: #d8ecff;
+}
+
+.text-align{
+    font-size: large;
+    text-align: center;
+    color: black;
+    font-weight: 600;
+}
+
+.honeycomb-overlay {
+    position: absolute;
+    pointer-events: none;
+    top: -137px;
+    left: -152px;
+    right: 0;
+    bottom: 0;
+    // height: 100px;
+    background-image: url('../../assets/background/profile_bg1.svg'); /* Path to your honeycomb vector image */
+    background-size: cover;
+    opacity: 0.5;
+    z-index: 2;
+}
+.button-property {
+    float: left;
+    margin-left: 25px;
+}
+
+.text-header-align {
+    font-size: smaller;
+    color: #00000087;
+    //margin-top: 7px;
+}
+  
+.text-body-align{
+    font-size: small;
+    //margin-top: -8px;
+    //text-align: center;
+}
+.circle-img {
+    border-radius: 50%;
+    width: 25%;
+    height: 90%;
+    margin-top: -4px;
+}
+.badge-color{
+    float: right;
+    background: #2d88ff;
+    height: 12px;
+    --padding-end: 8px;
+    --padding-start: 8px;
+    --padding-top: 1px;
+}
+.border-left-color{
+    border-left: 5px solid #1568fa;
+}

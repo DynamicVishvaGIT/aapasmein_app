@@ -1,0 +1,12 @@
+<div class="ion-padding-top ion-padding-horizontal" style="margin-top: -12px;">
+  <ion-grid>
+    <ion-row>
+      <ion-searchbar placeholder="Search aapasmein" mode="ios" class="custom" inputmode="none"  (keyup.enter)="onSearch($event,'type')" (click)="onSearch($event,'click')" ></ion-searchbar>  <!--virtualkeyboardpolicy="manual"-->
+    </ion-row>
+    <ion-row style="margin-top: -7px;">
+      <!-- <ion-icon name="location-outline" style="color:#3f93ff;font-size: x-small;" *ngIf="URL==true"></ion-icon><span style="font-size: x-small;" *ngIf="URL==true">Mumbai Suburban,</span><span style="font-size: x-small;color:#3f93ff;" *ngIf="URL==true">400059</span> -->
+      <ion-icon name="location-outline" style="color:#f52b2b;font-size: x-small;" *ngIf="URL==true"></ion-icon><span style="font-size: x-small;color:white" *ngIf="URL==true">{{address}}</span>
+      <!-- <ion-icon name="location-outline" style="color:#3f93ff;font-size: x-small;" *ngIf="URL==true"></ion-icon><span style="font-size: x-small;color:white" *ngIf="URL==true">Mumbai Suburban,</span><span *ngIf="URL==true" style="font-size: x-small;color:white;">400059</span> -->
+    </ion-row>
+  </ion-grid>
+</div>

@@ -1,0 +1,147 @@
+.category-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .trophy-card {
+    position: relative;
+    width: 100px;
+    text-align: center;
+  
+    .trophy {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: #f1f1f1;
+  
+      img {
+        width: 50px;
+        height: 50px;
+      }
+  
+      &.locked {
+        background-color: #ccc;
+        opacity: 0.5;
+  
+        .locked-icon {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5); /* Optional: semi-transparent overlay */
+          border-radius: 50%; /* Ensures the overlay matches the badge shape */
+  
+          img {
+            width: 30px; /* Adjust size */
+            height: 30px;
+          }
+        }
+      }
+    }
+  
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  }
+  
+//   .trophy-card {
+//     width: 100px;
+//     text-align: center;
+//   }
+  
+//   .trophy {
+//     width: 80px;
+//     height: 80px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 50%;
+//     background-color: #f1f1f1;
+//   }
+  
+//   .trophy img {
+//     width: 50px;
+//     height: 50px;
+//   }
+  
+  .trophy.locked {
+    background-color: #ccc;
+    opacity: 0.5;
+  }
+  
+  .trophy.unlocked {
+    background-color: #fff;
+  }
+  
+  .trophy.white {
+    border: 4px solid #e0e0e0;
+  }
+  
+  .trophy.green {
+    border: 4px solid green;
+  }
+  
+  .trophy.red {
+    border: 4px solid red;
+  }
+  
+  .trophy.blue {
+    border: 4px solid blue;
+  }
+
+  .trophy.bronze {
+    border: 4px solid #CD7F32;
+  }
+
+  .trophy.silver {
+    border: 4px solid #C0C0C0;
+  }
+  
+  .trophy.gold {
+    border: 4px solid gold;
+  }
+  .scroll{
+    flex-wrap: nowrap;
+    overflow-x: scroll!important;
+    overflow-y: hidden;
+}
+.card-gap1 {
+    margin-top:20px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+.clarity-box{
+    background: rgb(44 209 218 / 21%);
+    border-radius: 20px;
+}
+.request-box{
+    background: rgb(0 255 152 / 14%);
+    border-radius: 20px;
+    margin-top: 10px;
+}
+.request-handshake-box{
+    background: rgb(80 0 255 / 9%);
+    border-radius: 20px;
+    margin-top: 10px;
+}
+.convenience-box{
+    background: rgb(0 255 60 / 7%);
+    border-radius: 20px;
+    margin-top: 10px;
+}
+.recognition-box{
+    background: #ff000012;
+    border-radius: 20px;
+    margin-top: 10px;
+}

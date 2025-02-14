@@ -1,0 +1,63 @@
+<ion-content>
+  <!-- Your modal content goes here -->
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col style="text-align: end;" (click)="closeModal()">
+          <ion-icon name="close-outline" style="color:black;font-size: x-large;"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size="10" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:black;">Add Aapasmein Convenience</strong>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </div>
+  <div class="form-div">
+    <ion-row>
+      <ion-col size="6">
+        <ion-card class="mall-card" (click)="goToMyAapasmein()">
+          <ion-row>
+            <ion-col size="12" style="text-align: center;">
+              <img src="../../../assets/mobile.jpg" alt="" class="img-avatar">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" style="text-align: center;margin-top: -44px;">
+              <span class="name-text">My aapasmein</span>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+      <!-- <ion-col size="4">
+        <ion-card class="mall-card" (click)="goToFeedback()">
+          <ion-row>
+            <ion-col size="12" style="text-align: center;">
+              <img src="../../../assets/feedback.png" alt="" class="img-avatar">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" style="text-align: center;">
+              <span class="name-text">Feedback</span>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col> -->
+      <ion-col size="6">
+        <ion-card class="mall-card" (click)="goToProfile()">
+          <ion-row>
+            <ion-col size="12" style="text-align: center;">
+              <img src="../../../assets/avtar3.jpeg" alt="" class="img-avatar">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" style="text-align: center;margin-top: -44px;">
+              <span class="name-text">Profile</span>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

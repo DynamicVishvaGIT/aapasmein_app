@@ -1,0 +1,197 @@
+<ion-content>
+  <div class="honeycomb-overlay"></div>
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start; margin-left: 10px;" >
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">aapasmein Advantage</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <div >
+    <ion-button class="button-property" size="small" color="tertiary" (click)="addConveniencePage()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
+  </div> -->
+  <div class="card-gap">
+    <ion-grid>
+      <ion-row> 
+        <ion-col size="6" *ngFor="let data of list">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails(data)">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">  <!--{{imageUrl}}{{data.IMAGE}}-->
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">{{data.NAME}}</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- <ion-col size="6">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails()">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">Lawyer</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col></ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails()">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">Developer</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col></ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails()">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/electrician.svg" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">Electrician</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col></ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails()">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/doctor.svg" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">Doctors</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col></ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails()">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">Lawyer</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col></ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails()">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">Developer</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col></ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="viewAdvantageDetails()">
+            <div class="honeycomb-overlay"></div>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="../../../assets/icon/dashboard/electrician.svg" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin-top: -23px;">
+                <ion-col size="12" style="text-align: center;">
+                  <span class="text-align">Electrician</span></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align: center;">
+                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                </ion-col></ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

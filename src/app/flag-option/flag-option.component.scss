@@ -1,0 +1,34 @@
+// .option-container {
+//     display: flex;
+//     align-items: center;
+//   }
+  
+//   .flag-icon {
+//     width: 20px;
+//     height: auto;
+//     margin-right: 8px;
+//   }
+
+//   ion-thumbnail {
+//     --border-radius: 50%;
+//     --size: 50px;
+//     overflow: hidden;
+//   }
+
+.option-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .flag-icon {
+    width: 20px;
+    // width:33px;
+    // height: auto;
+    height:15px;
+    margin-right: 8px;
+  }
+  
+  ion-select-option {
+    display: flex;
+    align-items: center;
+  }

@@ -1,0 +1,7 @@
+{
+  "name": "project-session",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

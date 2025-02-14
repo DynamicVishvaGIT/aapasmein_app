@@ -1,0 +1,147 @@
+ion-content {
+  --background: none;
+  //background-image: url('../../assets/dashboard-bg.png');
+  // background-color: #c5e3ff;
+  background-color: #071947;
+  // background-color: #c5e3ffa6;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+swiper-container {
+  width: 100%;
+}
+
+ion-content, .swiper-slide {
+  height: 100vh; /* Full viewport height */
+}
+
+.mySwiper {
+  height: 100%; /* Ensure the swiper takes full height */
+}
+
+video {
+  width: 100%;
+  height: 100vh; /* Make the video cover full viewport height */
+  object-fit: cover; /* Ensures the video scales and fills the container */
+}
+
+.splash-image {
+  width: 100%; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  object-fit: cover;
+  // transform: scale(1.2); /* Scale the image up by 20% */
+  margin: 0;
+  padding: 0;
+}
+
+swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // justify-content: space-around;
+  height: 100%;
+}
+
+.top1 {
+  margin-top: 8px;
+  margin-left: 8px;
+}
+  
+h6{
+  margin-top: 2px;
+  font-family: 'RobotoCondensed';
+}
+
+.hello-txt{
+  font-size: 30px;
+  font-weight: 700;
+  font-family: cursive;
+}
+
+.no-results-text {
+  margin-top: 0;
+  margin-left: 8px;
+}
+
+swiper-container {
+  --swiper-pagination-color: #071947;
+  height: -webkit-fill-available !important;
+}
+
+swiper-slide img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+#header-icons{
+  text-align: right;
+  ion-icon{
+      color:#50537a;
+      font-size: 1.5rem;
+  }
+}
+
+.login-btn {
+  width: 94%;
+  --border-radius: 9px;
+  // margin-left: 0px;
+  font-family: "Poppins-Regular";
+  margin-left: 11px;
+}
+
+.login_button{
+  border-radius: 10px;
+  // border: 2px solid #a80663db;
+  border: 2px solid #2d88ff;
+  // border: 2px solid #0657A8;
+  margin-left: 4%;
+  // margin-top:-18px
+}
+.button-text-color{
+  width: 92%;
+  color:white;
+  border-radius: 6px;
+  height: 50px;
+}
+.instafundz3{
+  width: 92%;
+  //height: fit-content;
+  height: 50px;
+  // background-color: white;
+  // background-color: rgb(234 161 236 / 33%);
+  // border-radius: 20px;
+  border-radius: 10px;
+}
+
+.heading_color{
+  color:#2d88ff;
+  margin-top: 9px;
+}
+
+.next-button {
+  position: absolute;
+  bottom: 10px;  /* Adjust this value to position the button above the image */
+  right: 30px;   /* Adjust for horizontal positioning */
+  z-index: 10;
+  // color:#6677a2;
+  // color:#bbcbf5;
+  // font-size: 40px;
+}
+.next-button-vedio{
+  position: absolute;
+  bottom: 20px;  /* Adjust to place the button higher or lower */
+  right: 20px;   /* Adjust to place the button more left or right */
+  // z-index: 10;
+  --background: rgba(0, 0, 0, 0.7); /* Optional: translucent background */
+  color: white;
+}
+     
+  
+      
+    
+  
+    

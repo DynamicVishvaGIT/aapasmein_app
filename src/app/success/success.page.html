@@ -1,0 +1,15 @@
+
+<ion-content [fullscreen]="true">
+  <div class="background-image"></div>
+  <div style="margin-top: 25%;">
+    <ion-icon name="checkmark-circle-outline" style="font-size: 159px;color: #ffff;margin-left: 29%;" *ngIf="totalPoints>=50"></ion-icon>
+    <ion-icon name="close-circle-outline" style="font-size: 159px;color: #ffff;margin-left: 29%;" *ngIf="totalPoints<50"></ion-icon>
+    <h1 style="color:#ffff;padding: 10px;text-align: center;font-size: xx-large;" *ngIf="totalPoints>=50">Great Recommendation !</h1>
+    <h1 style="color:#ffff;padding: 10px;text-align: center;font-size: larger;">{{message}}</h1>
+  </div>
+  <div class="button-card" (click)="goToHome()">
+    <span style="margin-top: 55px;"><ion-icon name="home-outline"></ion-icon>&nbsp;Home</span>
+  </div>
+</ion-content>
+
+<!-- <app-commonfooter></app-commonfooter> -->

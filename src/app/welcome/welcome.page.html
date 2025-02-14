@@ -1,0 +1,150 @@
+<ion-content fullscreen class="no-padding" scroll-y="false" style="height: 100%; padding: 0;">
+  <!-- <div id="header-icons" class="ion-padding-top ion-padding-horizontal">
+    <ion-row >
+      <ion-col size="2" style="text-align: start;">
+        <ion-icon name="chevron-back" (click)="back()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div> -->
+  <!-- <div class="outer"> -->
+    <!-- <swiper-container [loop]="false" [observer]="true" [pagination]="true"  [cache]="false" (swiper)="onSwiper($event)"> -->
+      <swiper class="mySwiper" data-loop="false" [config]="config" (swiper)="setSwiperInstance($event)" (slideChange)="onSlideChange()">
+        <ng-template swiperSlide>
+          <img src="../../assets/images/introduction/splash.jpg" class="splash-image"/>
+          <!-- <ion-icon name="arrow-forward-outline" class="next-button" (click)="goNext()"></ion-icon> -->
+          <ion-button fill="solid" class="next-button" (click)="goNext()">Next</ion-button>
+        </ng-template>
+        <ng-template swiperSlide>
+          <video 
+          #videoElement
+          controls
+          autoplay
+          loop
+          muted
+          playsinline
+          style="width: 100%; height: 100%; object-fit: cover;">
+          <source src="../../assets/video/aapasmein.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <ion-button class="next-button-vedio" (click)="goNext()">Next</ion-button>
+        </ng-template>
+        <!-- <ng-template swiperSlide>
+          <h1 style="color:white">Set Your Best Planning Now</h1>
+          <img src="../../assets/images/introduction/introduction1.svg" style="margin-top: 24%;"/>
+          <p style="color:white;margin: 13px;margin-top: 24%;">
+            We offer you tailor-made options all under one roof to make your learning experience simple & fun.
+          </p>
+          <h6 style="margin-left: 83%;color:#2d88ff;" (click)="goNext()">Next</h6>
+        </ng-template>
+        <ng-template swiperSlide>
+          <h1 style="color:white">Monitor Your Connection</h1>
+          <img src="../../assets/images/introduction/introduction2.svg" style="margin-top: 24%;"/>
+          <p style="color:white;margin: 13px;margin-top: 24%;">
+            We offer you tailor-made options all under one roof to make your learning experience simple & fun.
+          </p>
+          <h6 style="margin-left: 83%;color:#2d88ff;" (click)="goNext()">Next</h6>
+        </ng-template>
+        <ng-template swiperSlide>
+          <h1 style="color:white">aapasmein Hai Na</h1>
+          <img src="../../assets/images/introduction/introduction1.svg" style="margin-top: 24%;"/>
+          <p style="color:white;margin: 13px;margin-top: 13%;">
+            We offer you tailor-made options all under one roof to make your learning experience simple & fun.
+          </p>
+          <ion-button expand="block" style="margin-bottom: 21px;" class="custom_button" (click)="goNext()">Get Started</ion-button>
+          <br>
+          <br>
+          <br>
+        </ng-template> -->
+        <ng-template swiperSlide>
+          <img src="../../assets/images/introduction/introduction3.svg" style="margin-top: 24%;"/>
+          <p style="color:#d1ebff;margin: 13px;font-size: 16px;text-align: center;;">
+            Welcome to the world of trust and goodwill, <br>
+            Welcome to aapasmein !
+          </p>
+          <!-- <div class="instafundz3 login_button card_color" (click)="login()">
+              <ion-row class="ion-text-center">
+                <ion-col><p class="heading_color"><strong>Login </strong>&nbsp;</p></ion-col>
+              </ion-row>
+          </div> -->
+          <ion-button fill="outline" class="login_button button-text-color" style="margin-bottom: 21px;" (click)="login()">Login</ion-button>
+        </ng-template>
+      </swiper>
+      <!-- <swiper-container [loop]="false" [observer]="true" [pagination]="true"  [cache]="false" (swiper)="onSwiper($event)">
+        <swiper-slide>
+          <h1 style="color:var(--ion-color-dark)">Set Your Best Planning Now</h1>
+            <img src="../../assets/images/introduction/introduction1.svg" style="margin-top: 24%;"/>
+            <p style="color:var(--ion-color-dark);margin: 13px;margin-top: 24%;">
+              We offer you tailor-made options all under one roof to make your learning experience simple & fun.
+            </p>
+            <h6 style="margin-left: 75%;color:#2d88ff;">Next</h6>
+        </swiper-slide>
+        <swiper-slide>
+          <h1 style="color:var(--ion-color-dark)">Monitor Your Connection</h1>
+            <img src="../../assets/images/introduction/introduction2.svg" style="margin-top: 24%;"/>
+            <p style="color:var(--ion-color-dark);margin: 13px;margin-top: 24%;">
+              We offer you tailor-made options all under one roof to make your learning experience simple & fun.
+            </p>
+            <h6 style="margin-left: 75%;color:#2d88ff;">Next</h6>
+        </swiper-slide>
+        <swiper-slide>
+          <h1 style="color:var(--ion-color-dark)">Aapasmein Hai Na</h1>
+            <img src="../../assets/images/introduction3.png" style="margin-top: 24%;"/>
+            <p style="color:var(--ion-color-dark);margin: 13px;margin-top: 24%;">
+              We offer you tailor-made options all under one roof to make your learning experience simple & fun.
+            </p>
+            <ion-button expand="block" style="margin-bottom: 21px;width:100%;">Get Started</ion-button>
+        </swiper-slide>
+        <swiper-slide>
+            <img src="../../assets/images/introduction4.png" style="margin-top: 24%;"/>
+            <p style="color:var(--ion-color-dark);margin: 13px;margin-top: 24%;">
+              We offer you tailor-made options all under one roof to make your learning experience simple & fun.
+            </p>
+            <ion-button fill="outline" class="login-btn" style="margin-bottom: 21px;width:100%;" (click)="login()">Login</ion-button>
+        </swiper-slide>
+      </swiper-container> -->
+    <!-- </swiper-container> -->
+  <!-- </div> -->
+</ion-content>
+
+
+
+<!-- <ion-content fullscreen class="ion-padding" scroll-y="false">
+  <ion-slides #mySlider pager="true" [options]="slideOpts">
+    <ion-slide style="background-color: white;border-radius: 20px;">
+      <div class="slide">
+        <h1 style="color:var(--ion-color-dark)">Welcome To Motorpark</h1>
+        <img src="{{images?.slide_1.slide_one}}" />
+        <p style="color:var(--ion-color-dark)">
+          We offer you tailor-made options all under one roof to make your learning experience
+simple & fun.
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide  style="background-color: white;border-radius: 20px;">
+      <h1 style="color:var(--ion-color-dark)">It’s About Them</h1>
+      <img src="{{images?.slide_2.slide_two}}" />
+      <p style="color:var(--ion-color-dark)">
+        Find Driving schools with 10+ years of experience.  
+      </p>
+    </ion-slide>
+
+    <ion-slide  style="background-color: white;border-radius: 20px;">
+      <h1 style="color:var(--ion-color-dark)">For Females, By Females </h1>
+      <img src="{{images?.slide_3.slide_three}}" />
+      <p style="color:var(--ion-color-dark)">
+        Ladies we got you, finding female trainers now made easy.
+      </p>
+    </ion-slide>
+    <ion-slide  style="background-color: white;border-radius: 20px;">
+      <h1 style="color:var(--ion-color-dark)">There You Go!</h1>
+      <img src="{{images?.slide_4.slide_four}}" />
+      <p style="color:var(--ion-color-dark)">
+        You are all set to learn a skill for Life. 
+      </p>
+      
+      <ion-button class="ion-float-right next" style="color:var(--ion-color-dark)" shape="round" color="medium" (click)="onClick()">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+
+    </ion-slide>
+  </ion-slides>
+</ion-content> -->

@@ -1,0 +1,127 @@
+<ion-content>
+  <div class="honeycomb-overlay"></div>
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <!-- <strong class="header" style="color:white;">Events</strong> -->
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div class="card-gap">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-row style="margin-top: -9px;">
+            <ion-col>
+              <span style="float:left;font-size:large;color:#ffffff;font-weight: 700;">{{event_details.EVENT_NAME}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-card class="event-card">
+            <ion-card-header class="card-header-img"> 
+              <img src="{{imageUrl}}{{event_details.EVENT_IMAGE}}" alt="" class="img-banner">
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="card-gap">
+    <ion-row >
+      <ion-col size="4">
+        <img src="{{imageUrl}}{{event_details.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+      </ion-col>
+      <ion-col size="8">
+        <span style="margin-left: -58px;color:#ffffff;font-size: 15px;">{{event_details.USER__NAME}}</span>
+      </ion-col>
+      <!-- <ion-col size="4">
+        <ion-button class="interested-button" color="tertiary" size="small">
+          <ion-icon name="calendar-outline"></ion-icon>&nbsp;<span style="font-size: 5px;">Interested</span>
+        </ion-button>
+      </ion-col> -->
+    </ion-row>
+  </div>
+  <div class="card-gap1">
+    <ion-row>
+      <ion-col size="2">
+        <ion-button class="button-time-icon" size="small">
+          <ion-icon slot="icon-only" name="time-outline" style="color:white"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <span style="float:left;margin-top: 9px;margin-left: -10px;font-size: smaller;color:#ffffff;font-weight: 500;">{{event_details.DATE | date:'dd MMMM, yyyy'}}</span>
+      </ion-col>
+      <ion-col size="3" style="margin-top: 6px;">
+        <span style="font-size: smaller;color:#ee6737;font-weight: 500;">{{event_details.DATE | date:'hh:mm a'}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="type=='myevent'">
+      <ion-col size="2">
+        <ion-button class="button-interest-icon" size="small">
+          <ion-icon slot="icon-only" name="people-outline" style="color:white"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="10" style="margin-top: 3px;">
+        <span style="float:left;margin-left: -10px;font-size: smaller;color:#ffffff;font-weight: 500;">Interested People: {{event_details.interested_count}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-button class="button-location-icon" size="small">
+          <ion-icon slot="icon-only" name="location-outline" style="color:white"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="10" style="margin-top: 3px;">
+        <span style="float:left;margin-left: -10px;font-size: smaller;color:#ffffff;font-weight: 500;">{{event_details.LOCATION}}</span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="card-gap2">
+    <ion-row>
+      <ion-col size="12">
+        <span style="font-size: large;color:#ffff;"><b>About</b></span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="card-gap3">
+    <ion-row>
+      <ion-col size="12">
+        <span style="font-size: small;color:#ffff;">{{event_details.DESCRIPTION}} </span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="card-gap4">
+    <ion-row>
+      <ion-button  type="submit" class="login-btn" *ngIf="type=='all'" [color]="event_details.interested_Status==true?'danger':'tertiary'" (click)="add_interested_event()"><b>{{event_details.interested_Status==true?'Cancelled':'Interested'}}</b></ion-button>
+    </ion-row>
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <ion-grid>
+      <ion-row>
+        <div class="report-button" (click)="goToReport()">
+          <div class="icon-container">
+            <ion-icon name="alert" size="large"></ion-icon>
+          </div>
+          <span class="report-text">Report</span>
+        </div>
+      </ion-row>
+    </ion-grid>
+    <!-- <ion-row>
+      <ion-button  type="submit" class="login-btn" color="warning" (click)="goToReport()"><b>Report To Admin</b></ion-button>
+    </ion-row> -->
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

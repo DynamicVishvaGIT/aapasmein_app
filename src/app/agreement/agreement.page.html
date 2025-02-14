@@ -1,0 +1,46 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>agreement</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <div style="padding: 20px;">
+    <p style="color:#fff;">Agreement</p>
+    <p style="font-size: medium;font-weight: 500;margin-top: -9px;color:#fff;">Terms and Conditions for aapasmein</p>
+    <p style="color:#fff;font-size: smaller;margin-top: -9px;">Last updated on 15/06/2024</p>
+    <br>
+    <p style="color:#fff;font-size: smaller;">Introduction</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, aapasmein
+    accessible at https://aapasmein.com/.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, aapasmein
+      accessible at https://aapasmein.com/.These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, aapasmein
+      accessible at https://aapasmein.com/.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage.</p>
+    <p style="font-size: medium;font-weight: 500;color:#fff;">Intellectual Property Rights</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, aapasmein
+      accessible at https://aapasmein.com/.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage.</p>
+    <p style="font-size: medium;font-weight: 500;color:#fff;">Restrictions</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage.</p>
+    <p style="color:#fff;font-size: smaller;">These Website Standard Terms and Conditions written on this webpage.</p>
+  </div>
+  <ion-row style="padding: 20px;">
+    <ion-col size="12">
+      <!-- <ion-item lines="none" mode="md"  class="ion-item"> -->
+        <ion-checkbox color="tertiary" #same [(ngModel)]="acceptTerms"></ion-checkbox>&nbsp;&nbsp;   <!--[(ngModel)]="acceptTerms"-->
+        <ion-label style="color:#fff;">I have read all the T&C and Code of Conduct of the platform and agree to abide by the same.</ion-label>
+      <!-- </ion-item> -->
+    </ion-col>
+  </ion-row>
+  <ion-button color="tertiary" class="login-btn" (click)="onRegiter()" [disabled]="!acceptTerms"><b>Accept</b></ion-button>
+</ion-content>
+<!-- <ion-footer class="ion-no-border" style="padding: 10px;">
+  <ion-toolbar position="bottom">
+    <ion-button color="primary" class="login-btn"><b>Accept</b></ion-button>
+  </ion-toolbar>
+</ion-footer> -->

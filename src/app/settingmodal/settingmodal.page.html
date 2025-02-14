@@ -1,0 +1,46 @@
+<ion-content [fullscreen]="true">
+  <div id="header-icons" class="ion-padding-top ion-padding-horizontal border-bottom">
+    <ion-row >
+      <ion-col size="11" style="text-align: center;">
+      </ion-col>
+      <ion-col size="1" (click)="dismiss()">
+        <ion-icon name="close" style="cursor:pointer;"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="gap">
+    <ion-row>
+      <ion-col size="2">
+        <ion-icon name="settings-outline" class="icon_setting"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <span style="margin-left: -7px;">Settings</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-icon name="information-circle-outline" class="icon_setting"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <span style="margin-left: -7px;">About</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-icon name="information-circle-outline" class="icon_setting"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <span style="margin-left: -7px;">Help</span>
+      </ion-col>
+    </ion-row>
+    <ion-row (click)="logout()" style="margin-top: 20px;">
+      <ion-col size="2">
+        <ion-icon name="log-out-outline" class="icon_setting"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <span style="margin-left: -7px;">Sign Out</span>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+

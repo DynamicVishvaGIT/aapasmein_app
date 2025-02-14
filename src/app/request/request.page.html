@@ -1,0 +1,367 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">Request</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div style="margin-left: 5px;">
+    <ion-segment value="reachout" [(ngModel)]="info">
+      <ion-segment-button value="reachout" (click)="load_friend_request()">
+        <ion-label style="font-size: x-small;color:white;">Reachout</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="handshake" (click)="load_handshake_request()">
+        <ion-label style="font-size: x-small;color:white;">Handshake</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="info">
+    <div class="gap" *ngSwitchCase="'reachout'">
+      <div *ngIf="friendRequestDataLoaded && friend_request_list.length > 0">
+        <ion-grid>
+          <ion-row *ngIf="friend_request_list.length>0">
+            <ion-col>
+              <ion-label style="float:left;font-size: small;color:white;text-transform: none;">Connection {{requestText}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-button size="small" style="float:right;font-size: small;margin-left: 24px;text-transform: none;margin-top: -5px;" (click)="openFilter()"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button>
+            </ion-col>
+            <!-- <ion-button  size="small" slot="end" style="float:right;font-size: small;margin-left: 24px;text-transform: none;"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button> -->
+          </ion-row>
+          <ion-row *ngIf="filterFlag">
+            <ion-col size="6">
+              <!-- <ion-button class="answer-btn after_click"> -->
+                <ion-grid>
+                    <ion-col >
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('1st')">
+                        <ion-radio 
+                        value="1st"
+                        color="tertiary"
+                        justify="space-between" 
+                        labelPlacement="end" 
+                        style="font-size: xx-small;"
+                        [ngClass]="{'radio-selected': selectedRadio === '1st', 'radio-unselected': selectedRadio !== '1st'}"
+                        >
+                        <span style="text-transform: none;color:white">Request in</span></ion-radio>
+                      </ion-radio-group>
+                    </ion-col>
+                </ion-grid>
+              <!-- </ion-button> -->
+            </ion-col>
+            <ion-col size="6">
+              <!-- <ion-button class="answer-btn after_click"> -->
+                <ion-grid>
+                    <ion-col>
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('2nd')">
+                        <ion-radio 
+                        value="2nd" 
+                        color="tertiary" 
+                        justify="space-between" 
+                        labelPlacement="end" 
+                        style="font-size: xx-small;"
+                        [ngClass]="{'radio-selected': selectedRadio === '2nd', 'radio-unselected': selectedRadio !== '2nd'}"
+                        
+                      >
+                        <span style="text-transform: none;color:white">Request out</span></ion-radio>
+                      </ion-radio-group>
+                    </ion-col>
+                </ion-grid>
+              <!-- </ion-button> -->
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let request of friend_request_list; let i = index">  <!--(click)="goToRequestMessage()"-->
+            <ion-col size="3" (click)="goToProfile()">
+              <img src="{{imageUrl}}{{request.SENDER__PROFILE_IMAGE}}" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text" (click)="goToProfile()">{{request.SENDER__NAME}}</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;" (click)="change_friend_request_status(request,'accept')">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" (click)="change_friend_request_status(request,'reject')">Reject</ion-badge>
+              <span class="designation-text">{{request.SENDER__PROFESSION__NAME}}</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <!-- <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar6.avif" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Mamta Dalvi</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Quality assurance (QA) tester</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar3.png" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Akash Tupsaminder</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Python Developer</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar7.jpg" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Mamta Dalvi</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Quality assurance (QA) tester</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Adinath Mehtar</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Quality assurance (QA) tester</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Shalaka</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Quality assurance (QA) tester</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar6.webp" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Satyam Bandbe</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Front-end Developer</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Mayur Sheler</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Designer</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 10px;" (click)="goToRequestMessage()">
+            <ion-col size="3">
+              <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+            </ion-col>
+            <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+              <span class="name-text">Mamta Dalvi</span><br>
+              <ion-badge class="badge-color" mode="md" style="margin-top: -18px;">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;">Reject</ion-badge>
+              <span class="designation-text">Quality assurance (QA) tester</span>
+              <span class="message-text"><u>View Message</u></span>
+            </ion-col>
+          </ion-row> -->
+        </ion-grid>
+      </div>
+      <div class="no-data" *ngIf="friendRequestDataLoaded && friend_request_list.length == 0">
+        <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+        <span class="no-data-text">No Accepted Request Data</span>
+      </div>
+    </div>
+    <div class="gap" *ngSwitchCase="'handshake'">
+      <div *ngIf="handshakeDataLoaded && handshake_request_list.length > 0">
+      <ion-grid>
+        <ion-row *ngIf="handshake_request_list.length>0"> 
+          <ion-col>
+            <ion-label style="float:left;font-size: small;color:white;text-transform: none;">Connection {{requestText}}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-button size="small" style="float:right;font-size: small;margin-left: 24px;text-transform: none;margin-top: -5px;" (click)="openFilter()"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button>
+          </ion-col>
+          <!-- <ion-button  size="small" slot="end" style="float:right;font-size: small;margin-left: 24px;text-transform: none;"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button> -->
+        </ion-row>
+        <ion-row *ngIf="filterFlag">
+          <ion-col size="6">
+            <!-- <ion-button class="answer-btn after_click"> -->
+              <ion-grid>
+                  <ion-col >
+                    <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('1st')">
+                      <ion-radio 
+                      value="1st"
+                      color="tertiary"
+                      justify="space-between" 
+                      labelPlacement="end" 
+                      style="font-size: xx-small;"
+                      [ngClass]="{'radio-selected': selectedRadio === '1st', 'radio-unselected': selectedRadio !== '1st'}"
+                      >
+                      <span style="text-transform: none;color:white">Request in</span></ion-radio>
+                    </ion-radio-group>
+                  </ion-col>
+              </ion-grid>
+            <!-- </ion-button> -->
+          </ion-col>
+          <ion-col size="6">
+            <!-- <ion-button class="answer-btn after_click"> -->
+              <ion-grid>
+                  <ion-col>
+                    <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('2nd')">
+                      <ion-radio 
+                      value="2nd" 
+                      color="tertiary" 
+                      justify="space-between" 
+                      labelPlacement="end" 
+                      style="font-size: xx-small;"
+                      [ngClass]="{'radio-selected': selectedRadio === '2nd', 'radio-unselected': selectedRadio !== '2nd'}"
+                      
+                     >
+                      <span style="text-transform: none;color:white">Request out</span></ion-radio>
+                    </ion-radio-group>
+                  </ion-col>
+              </ion-grid>
+            <!-- </ion-button> -->
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let request of handshake_request_list; let i = index" >  <!--(click)="goToRequestMessage()"-->
+          <ion-col size="3" (click)="goToProfile()">
+            <img src="{{imageUrl}}{{request.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text" (click)="goToProfile()">{{request.USER__NAME}}</span><br>
+            <ion-badge class="badge-color" mode="md" style="margin-top: -18px;" (click)="change_handshake_request_status(request,'accept')">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" (click)="change_handshake_request_status(request,'reject')">Reject</ion-badge>
+            <!-- <ion-badge class="shake-align" mode="md" style="margin-top: -18px;" (click)="change_handshake_request_status(request)"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge> -->
+            <span class="designation-text">{{request.USER__PROFESSION__NAME}}</span>
+            <span class="message-text"><u>View Message</u></span>
+          </ion-col>
+        </ion-row>
+        <!-- <ion-row (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Prasenjit Chanda</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Mobile App Developer</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar6.avif" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Mamta Dalvi</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Quality assurance (QA) tester</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar3.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Akash Tupsaminder</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Python Developer</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar7.jpg" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Mamta Dalvi</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Quality assurance (QA) tester</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Adinath Mehtar</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Quality assurance (QA) tester</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Shalaka</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Quality assurance (QA) tester</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar6.webp" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Satyam Bandbe</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Front-end Developer</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Mayur Sheler</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Designer</span>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;" (click)="goToProfile()">
+          <ion-col size="3">
+            <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="9" class="border-bottom" style="margin-left: -16px;margin-top: 1px;">
+            <span class="name-text">Mamta Dalvi</span><br>
+            <ion-badge class="shake-align" mode="md" style="margin-top: -18px;"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge>
+            <span class="designation-text">Quality assurance (QA) tester</span>
+          </ion-col>
+        </ion-row> -->
+      </ion-grid>
+    </div>
+    <div class="no-data" *ngIf="handshakeDataLoaded && handshake_request_list.length == 0">
+      <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+      <span class="no-data-text">No Hand Shake Data</span>
+    </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

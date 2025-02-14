@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="88" height="88" viewBox="0 0 88 88">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffde9b"/>
+      <stop offset="1" stop-color="#feb21b"/>
+    </linearGradient>
+    <filter id="Rectangle_250" x="0" y="0" width="88" height="88" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_3477" data-name="Group 3477" transform="translate(-124 -203)">
+    <g transform="matrix(1, 0, 0, 1, 124, 203)" filter="url(#Rectangle_250)">
+      <rect id="Rectangle_250-2" data-name="Rectangle 250" width="70" height="70" rx="21" transform="translate(9 6)" fill="url(#linear-gradient)"/>
+    </g>
+    <path id="Icon_ion-calendar-sharp" data-name="Icon ion-calendar-sharp" d="M2.25,32.063A1.687,1.687,0,0,0,3.937,33.75H32.063a1.688,1.688,0,0,0,1.688-1.687V12.375H2.25Zm22.5-17.156a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H25.031a.281.281,0,0,1-.281-.281Zm0,5.625a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H25.031a.281.281,0,0,1-.281-.281Zm-5.625-5.625a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H19.406a.281.281,0,0,1-.281-.281Zm0,5.625a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H19.406a.281.281,0,0,1-.281-.281Zm0,5.625a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H19.406a.281.281,0,0,1-.281-.281ZM13.5,20.531a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H13.781a.281.281,0,0,1-.281-.281Zm0,5.625a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H13.781a.281.281,0,0,1-.281-.281ZM7.875,20.531a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H8.156a.281.281,0,0,1-.281-.281Zm0,5.625a.281.281,0,0,1,.281-.281h2.813a.281.281,0,0,1,.281.281v2.813a.281.281,0,0,1-.281.281H8.156a.281.281,0,0,1-.281-.281ZM32.063,4.5H28.131V2.25H24.756V4.5H11.244V2.25H7.869V4.5H3.938A1.673,1.673,0,0,0,2.25,6.171v3.954h31.5V6.171A1.673,1.673,0,0,0,32.063,4.5Z" transform="translate(149.75 226.5)" fill="#fafafa"/>
+  </g>
+</svg>

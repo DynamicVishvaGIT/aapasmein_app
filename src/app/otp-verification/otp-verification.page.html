@@ -1,0 +1,48 @@
+<ion-header class="ion-no-border">
+</ion-header>
+<ion-content>
+  <!-- <div id="header-icons" class="ion-padding-top ion-padding-horizontal">
+    <ion-row >
+      <ion-col size="2" style="text-align: start;">
+        <ion-icon name="arrow-back-outline" (click)="dismiss()"></ion-icon>
+      </ion-col>
+      <ion-col size="8" style="text-align: center;">
+        <strong class="header">OTP</strong>
+      </ion-col>
+    </ion-row>
+  </div> -->
+  <div style="margin-top: 40%;text-align:center;">
+    <p style="color:#fff;font-size: large;font-weight: 800;">Verify with OTP</p>
+    <p style="color:#fff">OTP sent to your mobile no.  +91 {{mobile_no}}</p>
+    <p style="color:#fff">OTP is. {{user_otp}}</p>
+  </div>
+  <div class="ion-text-center">
+    <a >Change</a>
+    <!-- <img src="assets/otp_image.png" alt="" class="image-round border-white"> -->
+  </div>
+  <div style="margin-top:10%;text-align:center;">
+    <ng-otp-input #ngOtpInput (onInputChange)="onChangeOTP($event)"
+    [config]="{
+      allowNumbersOnly: true,
+      length: 4,
+      isPasswordInput: false,
+      disableAutoFocus: false,
+      placeholder:'',
+      inputStyles: {
+      'color':'#ffff',
+      'text-align':'center',
+      'background': '#071947',
+      'width': '50px',
+      'height': '50px',
+      'border-radius':'8px'
+      }
+    }">
+    </ng-otp-input>
+    <p class="resend_otp"><span style="color:white;font-size: smaller;">Resend OTP in 30s</span></p>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border" style="padding: 10px;background: #071947;">
+  <ion-toolbar position="bottom">
+    <ion-button class="custom_button align" (click)="verifyOTP()">Verify</ion-button>
+  </ion-toolbar>
+</ion-footer>

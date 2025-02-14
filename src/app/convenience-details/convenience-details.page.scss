@@ -1,0 +1,55 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gap{
+    margin-top: 20px;
+    margin-left: 9px;
+    margin-right: 25px;
+}
+.circle-img {
+    // border-radius: 50%;
+    // width: 50%;
+    // height: 75%;
+    // margin-left: 14px;
+    border-radius: 50%;
+    width: 50px;  /* or any desired fixed size */
+    height: 50px; /* ensure width and height are equal */
+    object-fit: cover; /* makes sure the image scales to cover the circle */
+    margin-left: 14px;
+}
+.name-text {
+    color: #ffffff;
+    font-weight: 800;
+    // margin-left: -30px;
+}
+.designation-text {
+    font-size: x-small;
+    color: #d1ebff;
+    // margin-left: -30px;
+}
+.badge-color{
+    float: right;
+    background: #2d88ff;
+    height: 21px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+    color: #ffffff;
+    font-weight: 500;
+}
+.border-bottom {
+    border-bottom: 1px solid #334067;
+    margin-top: 6px;
+}
+.icon-align {
+    float: right;
+    color: #54acff;
+    margin-top: -15px;
+    font-size: xx-large;
+}

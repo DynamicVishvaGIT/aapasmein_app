@@ -1,0 +1,100 @@
+<ion-content>
+  <!-- Your modal content goes here -->
+  <div class="ion-padding-top ion-padding-horizontal">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <ion-icon name="arrow-back-outline" style="color:black;font-size: x-large;" (click)="closeModal()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center;">
+          <strong class="header" style="color:black;">Rate Now</strong>
+        </ion-col>
+        <ion-col style="text-align: end;">
+          <!-- <ion-icon name="search-outline"  style="color:black;margin-right: 7px;"></ion-icon> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="question-container ">
+    <!-- Question 1 -->
+    <div class="question">
+      <p>1. Was your purpose served for which you got connected? (Yes / No)</p>
+      <ion-chip *ngFor="let option of options" 
+                [ngClass]="purpose_served === option.value? 'selected-chip':'chip'" 
+                (click)="selectPurposeServed(option.value, 1)">
+        <ion-label>{{ option.name }}</ion-label>
+      </ion-chip>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question">
+      <p>2. How would you rate the promptness in communication?</p>
+      <div class="stars">
+        <ion-icon *ngFor="let star of [1, 2, 3, 4, 5]" 
+                  [name]="star <= communication_rating ? 'star' : 'star-outline'" 
+                  (click)="selectCommunicationRate(star)">
+        </ion-icon>
+      </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question">
+      <p>3. Was the attitude genuine and helpful ?</p>
+      <div class="stars">
+        <ion-icon *ngFor="let star of [1, 2, 3, 4, 5]" 
+                  [name]="star <= attitude_rating ? 'star' : 'star-outline'" 
+                  (click)="selectAttitudeRate(star)">
+        </ion-icon>
+      </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question">
+      <p>4. How would you rate your overall ecperience ?</p>
+      <div class="stars">
+        <ion-icon *ngFor="let star of [1, 2, 3, 4, 5]" 
+                  [name]="star <= overall_experience ? 'star' : 'star-outline'" 
+                  (click)="selectOverallExperienceRate(star)">
+        </ion-icon>
+      </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question">
+      <p>5. Have you offered a 'Handshake' on aapasmein ?</p>
+      <div class="stars">
+        <ion-chip *ngFor="let option of options" 
+                [ngClass]="handshake_offered === option.value? 'selected-chip':'chip'"
+                (click)="selectHandshakeOffered(option.value, 1)">
+        <ion-label>{{ option.name }}</ion-label>
+      </ion-chip>
+      </div>
+    </div>
+
+    <ion-row>
+      <ion-button  type="submit" class="login-btn" [disabled]="disabled" (click)="onSubmit()"><b>Submit</b></ion-button>
+    </ion-row>
+  </div>
+  <!-- <div class="form-div">
+    <ion-row>
+      <ion-col size="2">
+        <ion-icon name="star-outline" style="color:black;font-size: x-large;"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon name="star-outline" style="color:black;font-size: x-large;"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon name="star-outline" style="color:black;font-size: x-large;"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon name="star-outline" style="color:black;font-size: x-large;"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon name="star-outline" style="color:black;font-size: x-large;"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-button  type="submit" class="login-btn" ><b>Submit</b></ion-button>
+    </ion-row>
+  </div> -->
+</ion-content>

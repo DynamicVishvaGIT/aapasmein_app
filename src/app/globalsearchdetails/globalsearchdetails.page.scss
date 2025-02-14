@@ -1,0 +1,167 @@
+ion-content {
+    --background: none;
+    // background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #F8F8F8;
+    background-color: #071947;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#header-icons{
+    text-align: right;
+    ion-icon{
+        // color:#50537a;
+        color: #ffff;
+        font-size: 1.5rem;
+    }
+  }
+.header {
+    // float: left;
+    color: #ffff;
+    // color: #50537a;
+    font-size: large;
+    font-family: "Alef";
+    margin-top: 2px;
+    // margin-left: 25%;
+}
+
+ion-searchbar.custom {
+    // --background: #cecbcb61;
+    --background: #fff;
+    --color: black;
+    // --icon-color: blue;
+    --clear-button-color: black;
+    // --border-radius: 23px;
+    padding: 0px;
+  }
+  
+ion-searchbar.ios.custom {
+     --cancel-button-color: #19422d;
+}
+
+.gap{
+    margin-left: 32px;
+}
+
+.gap1{
+    margin-left: 6px;
+    margin-top: -40px;
+}
+
+.gap2{
+    margin-left: 6px;
+    margin-top: -12px;
+}
+
+.card {
+    // margin-top: -8px;
+    height: auto;
+    margin-left: 0px;
+    margin-right: 2px;
+    border-radius:8px;
+    width: 90%;
+    background: #172855;
+}
+
+.button-card {
+    // background-color: #f8f8f8;
+    background-color: #ffff;
+    color:black;
+    // padding: 5px;
+    border-radius: 5px;
+    height: 27px;
+    width:65px;
+    padding-top: 2px;
+    text-align: center;
+}
+
+.img-medicalfair {
+    width: 100%;
+    height: 82px;
+    margin-top: 24%;
+    border-radius: 5px;
+    //border-radius: 15px;
+}
+
+.img-doctors {
+    // width: 60px;
+    // height: 60px;
+    // margin-top: 1%;
+    // border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    margin-top: 1%;
+    border-radius: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.doctor-col {
+    text-align: center;
+}
+  
+.doctor-name {
+    color: white;
+    font-size: x-small;
+    display: block;
+    text-align: center;
+    margin-top: -18px;
+}
+
+.col-height {
+    height: 80px;
+}
+
+.scroll{
+    flex-wrap: nowrap;
+    overflow-x: scroll!important;
+    overflow-y: hidden;
+}
+
+.broadcast-card {
+    height: auto;
+    border-radius: 5px;
+    background: #d1ebff;
+    // margin: 15px;
+}
+
+.card1 {
+    height: auto;
+    border-radius: 5px;
+    background: #374c73;
+    // margin: 15px;
+}
+
+.text-header-align {
+    font-size: smaller;
+    color: #00000087;
+    //margin-top: 7px;
+}
+  
+.text-body-align{
+    font-size: small;
+}
+
+.border-left-color{
+    border-left: 5px solid #1568fa;
+}
+
+.circle-img {
+    border-radius: 50%;
+    width: 25%;
+    height: 90%;
+    margin-top: -4px;
+}
+.advertisement-card{
+    height: 125px;
+    border-radius: 5px;
+    background: #374c73;
+}
+
+.add-gap{
+    margin-left: 15px;
+    margin-top: -33px;
+    margin-right: 10px;
+}

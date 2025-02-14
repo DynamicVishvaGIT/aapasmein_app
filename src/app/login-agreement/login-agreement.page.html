@@ -1,0 +1,26 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>agreement</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <div style="padding: 20px;">
+    <!-- <p style="color:#fff;text-align: center;">AGREEMENT</p> -->
+    <p style="color:#fff;font-size: 20px;">1. I am above 21 years of age and a resident citizen of India.</p>
+    <p style="color:#fff;font-size: 20px;">2. The phone number and the information provided for the sigh-up process is accurateand  belongs to me. </p>
+    <p style="color:#fff;font-size: 20px;">3. For my aapasmein account I have provided the same name that I use in everyday life and I will have only one account that I will use for personal purpose.</p>
+    <p style="color:#fff;font-size: 20px;">4. I will not share my password, give access to my aapasmein account to others or transfer my account to anyone else.</p>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border footer">
+  <ion-row style="padding: 10px;">
+    <ion-col size="12">
+      <!-- <ion-item lines="none" mode="md"  class="ion-item"> -->
+        <ion-checkbox color="tertiary" #same [(ngModel)]="acceptTerms"></ion-checkbox>&nbsp;&nbsp;   <!--[(ngModel)]="acceptTerms"-->
+        <ion-label style="color:#fff;">I have read  the <a  class="anchor_tag"><u>terms and conditions</u></a> of the platform and will abide with them while using the platform.</ion-label>
+      <!-- </ion-item> -->
+    </ion-col>
+  </ion-row>
+  <ion-button color="tertiary" class="login-btn" [disabled]="!acceptTerms" (click)="onAccept()"><b>Accept</b></ion-button>
+</ion-footer>

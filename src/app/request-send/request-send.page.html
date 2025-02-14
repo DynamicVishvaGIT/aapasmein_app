@@ -1,0 +1,142 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <!-- <strong class="header" style="color:white;">Request</strong> -->
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div class="gap">
+    <ion-grid>
+      <ion-row >
+        <ion-col size="12">
+          <span class="name-text">{{mall_data.PRODUCT_NAME}}</span><br>
+          <!-- <span class="short-description-text">{{mall_data.DESCRIPTION}}</span> -->
+        </ion-col>
+      </ion-row>
+      <ion-row class="scroll">
+        <ion-col size="12" *ngFor="let img of mall_data_images;">
+          <img src="{{imageUrl}}{{img.PRODUCT_IMG}}" alt="" class="img-banner">
+        </ion-col>
+        <!-- <ion-col size="12">
+          <img src="../../../assets/canon1.jpg" alt="" class="img-banner">
+        </ion-col>
+        <ion-col size="12">
+          <img src="../../../assets/canon2.jpeg" alt="" class="img-banner">
+        </ion-col>
+        <ion-col size="12">
+          <img src="../../../assets/canon.webp" alt="" class="img-banner">
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="gap1">
+    <ion-row >
+      <!-- <ion-col size="4">
+        <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+      </ion-col> -->
+      <ion-col size="10" style="margin-top: 8px;">
+        <span style="margin-left: 9px;color:#ffffff;font-size: 15px;"><b>{{mall_data.USER__NAME}}</b></span>
+      </ion-col>
+      <ion-col size="2" style="margin-top: 8px;">
+        <ion-button class="button-icon" size="small">
+          <ion-icon slot="icon-only" name="bookmark-outline" style="color:black;"></ion-icon>
+          <!-- <ion-icon slot="icon-only" name="star-outline" style="color:#f52b2b"></ion-icon> -->
+        </ion-button>
+        <!-- <ion-button class="button-icon" size="small" *ngIf="!wishlistFlag" (click)="showWishListDialog('removed')">
+          <ion-icon slot="icon-only" name="star" style="color:#39ce3e"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-button class="button-amount-icon" size="small">₹
+          <!-- <ion-icon slot="icon-only" name="location-outline" style="color:white"></ion-icon> -->
+        </ion-button>
+      </ion-col>
+      <ion-col size="8" style="margin-top: 3px;">
+        <span style="float:left;margin-left: -18px;font-size: smaller;color:#39ce3e;font-weight: 500;">Rs.{{mall_data.PRICE}}/-</span>
+      </ion-col>
+      <ion-col size="2" style="margin-top: 8px;">
+        <ion-button class="button-icon" size="small" *ngIf="wishlistFlag" (click)="showWishListDialog('added')">
+          <!-- <ion-icon slot="icon-only" name="bookmark-outline" style="color:black"></ion-icon> -->
+          <ion-icon slot="icon-only" name="star-outline" style="color:#f52b2b"></ion-icon>
+          <!-- <ion-icon slot="icon-only" name="heart-circle-outline" style="color: #39ce3e;font-size: 22px;"></ion-icon> -->
+        </ion-button>
+        <ion-button class="button-icon" size="small" *ngIf="!wishlistFlag" (click)="showWishListDialog('removed')">
+          <ion-icon slot="icon-only" name="star" style="color:#39ce3e"></ion-icon>
+          <!-- <ion-icon slot="icon-only" name="heart-dislike-circle-outline" style="color:#f52b2b;font-size: 22px;"></ion-icon> -->
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-button class="button-location-icon" size="small">
+          <ion-icon slot="icon-only" name="location-outline" style="color:white"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="10" style="margin-top: 3px;">
+        <span style="float:left;margin-left: -18px;font-size: smaller;color:#ffffff;font-weight: 500;">{{mall_data.LOCATION__NAME}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: -9px;">
+      <ion-col size="2">
+        <ion-button class="button-calendar-icon" size="small">
+          <ion-icon slot="icon-only" name="calendar-outline" style="color:white"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <span style="float:left;margin-top: 9px;margin-left: -18px;font-size: smaller;color:#ffffff;font-weight: 500;">{{mall_data.CREATED_DATE | date:'dd MMMM, yyyy'}}</span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="gap2">
+    <ion-row>
+      <ion-col size="12">
+        <span class="description-text">{{mall_data.DESCRIPTION}}</span>
+      </ion-col>
+    </ion-row>
+    <!-- <br>
+    <br>
+    <br> -->
+    <!-- <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br> -->
+    <ion-row>
+      <ion-col size="12">
+          <ion-button  type="submit" color="tertiary" class="login-btn"><b>Send Message</b></ion-button>
+      </ion-col>
+    </ion-row>
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <ion-grid>
+      <ion-row>
+        <div class="report-button" (click)="goToReport()">
+          <div class="icon-container">
+            <ion-icon name="alert" size="large"></ion-icon>
+          </div>
+          <span class="report-text">Report</span>
+        </div>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

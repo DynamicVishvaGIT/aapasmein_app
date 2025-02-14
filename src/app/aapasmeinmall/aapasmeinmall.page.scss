@@ -1,0 +1,150 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#header-icons{
+    text-align: right;
+    ion-icon{
+        // color: black;
+        color: white;
+        font-size: 1.5rem;
+        margin-left: 16px;
+    }
+}
+
+.help_icon{
+    float: right;
+    margin-right: 25px;
+    font-size: x-large;
+    margin-top: -22px;
+    color: red;
+}
+
+.button-property {
+    float: right;
+    margin-right: 25px;
+    text-transform: none;
+    // background:#2b87fe;
+}
+
+.card-gap {
+    margin-top: 45px;
+    // margin-left: 7px;
+    // margin-right: 7px;
+}
+
+.mall-card {
+    // margin-top: -8px;
+    height: auto;
+    margin-left: 0px;
+    margin-right: 2px;
+    border-radius:8px;
+    width: 100%;
+    background: #d1ebff;
+    margin-top: -7px;
+}
+.badge-color{
+    float: right;
+    // background: #f4ebff;
+    background: #f5ebff;
+    height: 18px;
+    // width: 25px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+}
+
+.view-but{
+    position:absolute;
+    // right:0;
+    right: 12px;
+    bottom:-2px;
+    font-size: 12px;
+    text-transform: none;
+    color:white;
+    //padding-right: 7px;
+}
+
+.img-banner {
+    width: 100%;
+    height: 110px;
+    border-radius: 6px;
+}
+
+.scroll{
+    flex-wrap: nowrap;
+    overflow-x: scroll!important;
+    overflow-y: hidden;
+}
+.badge_icon{
+    font-size: 14px;
+    font-weight: bold;
+}
+.badge{
+    border-radius: 5px;
+    margin-top: 2px;
+    background: orange;
+    color: black;
+    float: left;
+    margin-left: 9px;
+    height: 30px;
+    // border-radius: 5px;
+    // margin-top: 8px;
+    // background: orange;
+    // color: black;
+    // float: left;
+    // margin-left: 9px;
+}
+
+// FOR SINGLE COLUMN
+
+// .img-banner {
+//     width: 79%;
+//     height: 124px;
+//     border-radius: 10px;
+// }
+// .name-text{
+//     float:left;
+//     font-size: 15px;
+//     color:black;
+//     margin-top: 4px;
+// }
+// .product-text{
+//     font-size: 12px;
+//     margin-top: 6px;
+//     // margin-left: -73px;
+// }
+// .time-text{
+//     font-size: 12px;
+//     margin-top: 6px;
+//     color:black;
+//     // margin-left: -10px;
+// }
+
+// .amount-text{
+//     font-size: 12px;
+//     // margin-left: -10px;
+//     color:#37b630;
+//     margin-top: 6px;
+// }
+// .badge-color{
+//     float: right;
+//     background: #fe9800;
+//     height: 22px;
+//     --padding-end: 12px;
+//     --padding-start: 12px;
+//     color: #ffffff;
+//     font-weight: 500;
+//     font-size: small;
+//     margin-top: 10px;
+// }
+
+// .col-align{
+//     margin-left: -27px;
+// }

@@ -1,0 +1,68 @@
+<ion-content>
+  <ion-card *ngFor="let post of posts">
+    <!-- Post Header -->
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [src]="post.user.image" alt="User Avatar" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ post.user.name }}</h2>
+          <p>{{ post.timestamp }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-header>
+
+    <!-- Post Content -->
+    <ion-card-content>
+      <p>{{ post.content }}</p>
+      <img *ngIf="post.image" [src]="post.image" alt="Post Image" class="post-image" />
+    </ion-card-content>
+
+    <!-- Post Actions -->
+    <ion-footer>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4" text-center>
+            <ion-button fill="clear" (click)="likePost(post)">
+              <ion-icon name="thumbs-up" slot="start"></ion-icon>
+              Like ({{ post.likes }})
+            </ion-button>
+          </ion-col>
+          <ion-col size="4" text-center>
+            <ion-button fill="clear" (click)="toggleCommentSection(post)">
+              <ion-icon name="chatbubbles" slot="start"></ion-icon>
+              Comment ({{ post.comments.length }})
+            </ion-button>
+          </ion-col>
+          <ion-col size="4" text-center>
+            <ion-button fill="clear" (click)="sharePost(post)">
+              <ion-icon name="share-social" slot="start"></ion-icon>
+              Share
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+
+    <!-- Comment Section -->
+    <div *ngIf="post.showComments" class="comment-section">
+      <ion-item lines="none">
+        <ion-input
+          [(ngModel)]="post.newComment"
+          placeholder="Write a comment..."
+          (keydown.enter)="addComment(post)"
+        ></ion-input>
+        <ion-button fill="clear" color="primary" (click)="addComment(post)">
+          Post
+        </ion-button>
+      </ion-item>
+
+      <div class="comments-list">
+        <p *ngFor="let comment of post.comments" class="comment">
+          <strong>{{ comment.user }}</strong>: {{ comment.text }}
+        </p>
+      </div>
+    </div>
+  </ion-card>
+</ion-content>

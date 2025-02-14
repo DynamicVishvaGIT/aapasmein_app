@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="88" height="88" viewBox="0 0 88 88">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff94c8"/>
+      <stop offset="1" stop-color="#fe519a"/>
+    </linearGradient>
+    <filter id="Rectangle_236" x="0" y="0" width="88" height="88" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_3480" data-name="Group 3480" transform="translate(-32 -204)">
+    <g transform="matrix(1, 0, 0, 1, 32, 204)" filter="url(#Rectangle_236)">
+      <rect id="Rectangle_236-2" data-name="Rectangle 236" width="70" height="70" rx="21" transform="translate(9 6)" fill="url(#linear-gradient)"/>
+    </g>
+    <g id="Group_3421" data-name="Group 3421">
+      <path id="Icon_ion-md-person" data-name="Icon ion-md-person" d="M18,18a6.75,6.75,0,1,0-6.75-6.75A6.77,6.77,0,0,0,18,18Zm0,3.375c-4.472,0-13.5,2.278-13.5,6.75V31.5h27V28.125C31.5,23.653,22.472,21.375,18,21.375Z" transform="translate(65.75 226)" fill="#fafafa"/>
+      <path id="Icon_ion-md-person-2" data-name="Icon ion-md-person" d="M18,18a6.75,6.75,0,1,0-6.75-6.75A6.77,6.77,0,0,0,18,18Zm0,3.375c-4.472,0-13.5,2.278-13.5,6.75V31.5h27V28.125C31.5,23.653,22.472,21.375,18,21.375Z" transform="translate(50.25 226)" fill="#fafafa" stroke="#fafafa" stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>

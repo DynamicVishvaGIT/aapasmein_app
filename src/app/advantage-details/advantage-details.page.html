@@ -1,0 +1,126 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">aapasmein Advantage</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- <ion-row style="margin-left: 28px;margin-top: 12px;">
+    <span style="color:white;font-size: small;">Carpenter</span>
+  </ion-row> -->
+  <!-- <div class="ion-padding-top ion-padding-horizontal" style="margin-top: -12px;">
+    <ion-grid>
+      <ion-row>
+        <ion-searchbar placeholder="Search Advantage" mode="ios" class="custom" inputmode="none"></ion-searchbar>
+      </ion-row>
+    </ion-grid>
+  </div> -->
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <div class="gap"  *ngIf="dataLoaded && advantage_list.length > 0">
+    <ion-grid>
+      <ion-row class="border-bottom" *ngFor="let data of advantage_list">
+        <ion-col size="3">
+          <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">{{data.USER__NAME}}</span><br>
+          <!-- <ion-badge class="badge-color" mode="md">Request</ion-badge> -->
+          <!-- <ion-icon name="call-outline" class="icon-align"></ion-icon> -->
+          <span class="designation-text">{{data.USER__PROFESSION__NAME}}</span><br>
+          <!-- <span class="designation-text">9434478921</span> -->
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar6.avif" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mamta Dalvi</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar3.png" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Akash Tupsaminder</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar7.jpg" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mamta Dalvi</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Adinath Mehtar</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Shalaka</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar6.webp" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Satyam Bandbe</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar5.png" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mayur Sheler</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;" class="border-bottom">
+        <ion-col size="3">
+          <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">Mamta Dalvi</span><br>
+          <span class="designation-text">Doctors</span><br>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </div>
+  <div class="no-data" *ngIf="dataLoaded && advantage_list.length == 0">
+    <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+    <span class="no-data-text">No Data Found!</span>
+  </div>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

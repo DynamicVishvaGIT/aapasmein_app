@@ -1,0 +1,156 @@
+<ion-content>
+  <div class="ion-padding-top ion-padding-horizontal" >
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <ion-icon name="arrow-back-outline" style="color:black;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center;margin-top: -3px;">
+          <strong class="header" style="color:black;">Accolades</strong>
+        </ion-col>
+        <ion-col style="text-align: end;">
+          <ion-icon name="search-outline"  style="color:black;margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="card-gap1">
+    <ion-grid class="clarity-box">
+      <ion-row style="margin-left: 13px;padding-top: 5px;">
+        <span style="font-weight: 600;color:teal;font-size: 20px;">Clarity</span>
+      </ion-row>
+      <ion-row class="scroll" >
+        <ion-col size="4"  *ngFor="let badge of clarityTrophies">
+          <div class="category-container">
+            <div class="trophy-card">
+              <div class="trophy" [ngClass]="badge.class">
+                <img [src]="badge.icon" [alt]="badge.name" />
+                <div *ngIf="badge.locked" class="locked-icon">
+                  <img src="assets/accolades/lock.png" alt="Locked" />
+                </div>
+              </div>
+              <p>{{ badge.name }}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="request-box">
+      <ion-row style="margin-left: 13px;padding-top: 5px;">
+        <span style="font-weight: 600;color:teal;font-size: 20px;">Request( Invitation )</span>
+      </ion-row>
+      <ion-row class="scroll" >
+        <ion-col size="4"  *ngFor="let badge of requestTrophies.invitation">
+          <div class="category-container">
+            <div class="trophy-card">
+              <div class="trophy" [ngClass]="badge.class">
+                <img [src]="badge.icon" [alt]="badge.name" />
+                <div *ngIf="badge.locked" class="locked-icon">
+                  <img src="assets/accolades/lock.png" alt="Locked" />
+                </div>
+              </div>
+              <p>{{ badge.name }}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="request-handshake-box">
+      <ion-row style="margin-left: 13px;padding-top: 5px;">
+        <span style="font-weight: 600;color:teal;font-size: 20px;">Request( Handshake )</span>
+      </ion-row>
+      <ion-row class="scroll" >
+        <ion-col size="4"  *ngFor="let badge of requestTrophies.handshake">
+          <div class="category-container">
+            <div class="trophy-card">
+              <div class="trophy" [ngClass]="badge.class">
+                <img [src]="badge.icon" [alt]="badge.name" />
+                <div *ngIf="badge.locked" class="locked-icon">
+                  <img src="assets/accolades/lock.png" alt="Locked" />
+                </div>
+              </div>
+              <p>{{ badge.name }}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="convenience-box">
+      <ion-row style="margin-left: 13px;padding-top: 5px;">
+        <span style="font-weight: 600;color:teal;font-size: 20px;">Convenience</span>
+      </ion-row>
+      <ion-row class="scroll" >
+        <ion-col size="4"  *ngFor="let badge of convenienceTrophies">
+          <div class="category-container">
+            <div class="trophy-card">
+              <div class="trophy" [ngClass]="badge.class">
+                <img [src]="badge.icon" [alt]="badge.name" />
+                <div *ngIf="badge.locked" class="locked-icon">
+                  <img src="assets/accolades/lock.png" alt="Locked" />
+                </div>
+              </div>
+              <p>{{ badge.name }}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="recognition-box">
+      <ion-row style="margin-left: 13px;padding-top: 5px;">
+        <span style="font-weight: 600;color:teal;font-size: 20px;">Recognition</span>
+      </ion-row>
+      <ion-row class="scroll" >
+        <ion-col size="4"  *ngFor="let badge of recognition">
+          <div class="category-container">
+            <div class="trophy-card">
+              <div class="trophy" [ngClass]="badge.class">
+                <img [src]="badge.icon" [alt]="badge.name" />
+                <div *ngIf="badge.locked" class="locked-icon">
+                  <img src="assets/accolades/lock.png" alt="Locked" />
+                </div>
+              </div>
+              <p>{{ badge.name }}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- <ion-segment [(ngModel)]="selectedCategory">
+    <ion-segment-button value="clarity">Clarity</ion-segment-button>
+    <ion-segment-button value="request">Request</ion-segment-button>
+    <ion-segment-button value="convenience">Convenience</ion-segment-button>
+    <ion-segment-button value="recognition">Recognition</ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedCategory === 'clarity'" class="category-container">
+    <div class="trophy-card" *ngFor="let badge of clarityTrophies">
+      <div class="trophy" [ngClass]="badge.class">
+        <img [src]="badge.icon" [alt]="badge.name" />
+      </div>
+      <p>{{ badge.name }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="selectedCategory === 'request'" class="category-container">
+    <h3>Invitation</h3>
+    <div class="trophy-card" *ngFor="let badge of requestTrophies.invitation">
+      <div class="trophy" [ngClass]="badge.class">
+        <img [src]="badge.icon" [alt]="badge.name" />
+      </div>
+      <p>{{ badge.name }}</p>
+    </div>
+    <h3>Handshake</h3>
+    <div class="trophy-card" *ngFor="let badge of requestTrophies.handshake">
+      <div class="trophy" [ngClass]="badge.class">
+        <img [src]="badge.icon" [alt]="badge.name" />
+      </div>
+      <p>{{ badge.name }}</p>
+    </div>
+  </div> -->
+
+  <!-- Repeat similar structure for Convenience and Recognition -->
+
+</ion-content>

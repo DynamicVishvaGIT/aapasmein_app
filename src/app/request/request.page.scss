@@ -1,0 +1,171 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gap{
+    margin-top: 20px;
+    margin-left: 9px;
+    margin-right: 25px;
+}
+.circle-img {
+    // border-radius: 50%;
+    // width: 56%;
+    // height: 85%;
+    // margin-left: 14px;
+    border-radius: 50%;
+    width: 50px;  /* or any desired fixed size */
+    height: 50px; /* ensure width and height are equal */
+    object-fit: cover; /* makes sure the image scales to cover the circle */
+    margin-left: 14px;
+}
+.name-text {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: small;
+    // margin-left: -30px;
+}
+.designation-text {
+    font-size: x-small;
+    color: #d1ebff;
+    // margin-left: -30px;
+}
+.message-text {
+    font-size: x-small;
+    color: #d1ebff;
+    /* margin-left: 27px; */
+    float: right;
+    margin-top: 14px;
+    margin-right: -115px;
+    // margin-top: 6px;
+    // margin-right: -57px;
+}
+.badge-color{
+    float: right;
+    background: #2d88ff;
+    height: 19px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+}
+.badge-color-reject{
+    float: right;
+    background: #fe9800;
+    height: 19px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+}
+.request-in{
+    float: right;
+    background: #2d88ff;
+    height: 19px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+}
+.request-out{
+    float: right;
+    background: #fe9800;
+    height: 19px;
+    --padding-end: 12px;
+    --padding-start: 12px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+}
+.border-bottom {
+    border-bottom: 1px solid #334067;
+    margin-top: 6px;
+}
+ion-segment {
+    --indicator-color: #26375f; /* Default bar color */
+}
+  
+ion-segment-button {
+    --color-checked: #fe9800; /* Color of selected text */
+    --ion-segment-button-background: transparent; /* Background color of unselected button */
+    --ion-segment-button-background-checked: transparent; /* Background color of selected button */
+    --indicator-color: #fe9800; /* Color of the indicator (bar) for the selected button */
+}
+
+.shake-align{
+    float: right;
+    background: #26375f;
+    height: 29px;
+    width: 29px;
+    /* --padding-end: 12px; */
+    /* --padding-start: 12px; */
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+    border-radius: 50%;
+}
+
+.answer-btn {
+    // --background: #007bff;
+    --background: #ffffff;
+    // --color: #ffffff;
+    --color:black;
+    --border-radius: 9px;
+    // --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    // width: 207px;
+    width:153px;
+    // height: 40px;
+    height: 33px;
+    font-family: "Poppins-Regular";
+    margin-bottom: 10px;
+    cursor: pointer;
+    // transition: background-color 0.3s, box-shadow 0.3s;
+}
+.before_click {
+    --border-color: #f1f1f1;
+    // --border-style: solid;
+    // --border-width: 1px;
+    // --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  }
+.after_click {
+    --border-color: #e9e9e9;
+    --border-style: solid;
+    --border-width: 1px;
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+}
+
+.radio-selected {
+    --color: blue;
+}
+  
+.radio-unselected {
+    --color: #e9e9e9;
+}
+.no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // height: 100vh; /* Full height of the viewport */
+    flex: 1;
+    text-align: center;
+    margin-top: 50%;
+}
+.watermark-image {
+    // opacity: 0.08;
+    width: 109px; /* Adjust size as needed */
+    margin-bottom: 10px; /* Space between image and text */
+    margin-left: 12%;
+}
+.no-data-text {
+    font-size: 18px;
+    color: #ffffff; /* Adjust color as needed */
+}

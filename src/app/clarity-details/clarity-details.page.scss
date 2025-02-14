@@ -1,0 +1,359 @@
+ion-content {
+    --background: none;
+    //background-image: url('../../assets/dashboard-bg.png');
+    // background-color: #c5e3ff;
+    background-color: #071947;
+    // background-color: #c5e3ffa6;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.clarity-icon {
+    position: absolute;
+    top: 18px;
+    left: 47%;
+    // background-color: #071947;
+    background-color: #ffffff ;
+    color: #ee6737;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+.feedback-icon {
+    position: absolute;
+    // top: 18px;
+    left: 88%;
+    // background-color: #071947;
+    background-color: #fe9800 ;
+    color: #ffff;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+// .thumbs-up-icon {
+//     position: absolute;
+//     // top: 18px;
+//     // left: 47%;
+//     // background-color: #071947;
+//     background-color: #000000 ;
+//     color: #ffffff;
+//     width: 16px;
+//     height: 16px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 50%;
+//     font-weight: bold;
+//     left: 13px;
+// }
+.thumbs-up-icon {
+    position: absolute;
+    background-color: #2196F3;
+    // background-color: #071947; /* Black background for the icon */
+    color: #ffffff; /* White icon color for high contrast */
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 2px solid rgb(0 0 0 / 0%);
+    // border: 2px solid #071947; /* Dark grey border to give definition */
+    // left: 13px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); /* Dark shadow for subtle lift */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    top: 0px;
+}
+
+.thumbs-up-icon.highlighted:hover {
+    transform: scale(1.2);
+    box-shadow: 0px 6px 12px #00b62f; /* Brighter shadow on hover */
+}
+
+.thumbs-up-icon.highlighted {
+    background: linear-gradient(135deg, #28d07b, #28d07b); /* Gradient for depth */
+    color: #ffffff; /* Bright green color for highlighted icon */
+    border: 2px solid #28d07b; /* Green border */
+    box-shadow: 0px 4px 6px #28d07b; /* Soft shadow for floating effect */
+    transform: scale(1.1); /* Slight scale for emphasis */
+}
+.thumbs-up-icon-faq {
+    position: absolute;
+    background-color: #ffffff; /* Black background for the icon */
+    color: #000000; /* White icon color for high contrast */
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 2px solid #2e2e2e; /* Dark grey border to give definition */
+    // left: 13px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); /* Dark shadow for subtle lift */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    left: 25px;
+}
+
+.thumbs-up-icon-faq.highlighted:hover {
+    transform: scale(1.2);
+    box-shadow: 0px 6px 12px #00b62f; /* Brighter shadow on hover */
+}
+
+.thumbs-up-icon-faq.highlighted {
+    background: linear-gradient(135deg, #28d07b, #28d07b); /* Gradient for depth */
+    color: #ffffff; /* Bright green color for highlighted icon */
+    border: 2px solid #28d07b; /* Green border */
+    box-shadow: 0px 4px 6px #28d07b; /* Soft shadow for floating effect */
+    transform: scale(1.1); /* Slight scale for emphasis */
+}
+// .thumbs-up-icon-faq {
+//     position: absolute;
+//     background: linear-gradient(135deg, #00b62f, #28d07b); /* Gradient for depth */
+//     color: #ffffff;
+//     width: 20px;
+//     height: 20px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 50%;
+//     font-weight: bold;
+//     // left: 13px;
+//     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow for floating effect */
+//     transition: transform 0.3s ease; /* Smooth hover effect */
+//     cursor: pointer; /* Indicate clickability */
+// }
+
+// .thumbs-up-icon-faq:hover {
+//     transform: scale(1.2); /* Scale up on hover */
+//     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* More intense shadow on hover */
+// }
+
+// .thumbs-down-icon {
+//     position: absolute;
+//     // top: 18px;
+//     // left: 47%;
+//     // background-color: #071947;
+//     background-color: #f14a4a ;
+//     color: #ffffff;
+//     width: 16px;
+//     height: 16px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 50%;
+//     font-weight: bold;
+//     // left: 13px;
+// }
+
+.thumbs-down-icon {
+    position: absolute;
+    background-color: #2196F3; /* Black background for the icon */
+    color: #ffffff; /* White icon color for high contrast */
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 2px solid rgb(0 0 0 / 0%); /* Dark grey border to give definition */
+    left: 13px;
+    top: 0px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); /* Dark shadow for subtle lift */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+// .thumbs-down-icon:hover {
+//     transform: scale(1.2); /* Scale up on hover */
+//     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* More intense shadow on hover */
+// }
+.thumbs-down-icon.highlighted:hover {
+    transform: scale(1.2);
+    box-shadow: 0px 6px 12px #f14a4a; /* Brighter shadow on hover */
+}
+
+.thumbs-down-icon.highlighted {
+    background: linear-gradient(135deg, #f14a4a, #f14a4a); /* Gradient for depth */
+    color: #ffffff; /* Bright green color for highlighted icon */
+    border: 2px solid #f14a4a; /* Green border */
+    box-shadow: 0px 4px 6px #f14a4a; /* Soft shadow for floating effect */
+    transform: scale(1.1); /* Slight scale for emphasis */
+}
+
+.thumbs-down-icon-faq {
+    position: absolute;
+    background-color: #ffffff; /* Black background for the icon */
+    color: #000000; /* White icon color for high contrast */
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 2px solid #2e2e2e; /* Dark grey border to give definition */
+    // left: 13px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); /* Dark shadow for subtle lift */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.thumbs-down-icon-faq.highlighted:hover {
+    transform: scale(1.2);
+    box-shadow: 0px 6px 12px #f14a4a; /* Brighter shadow on hover */
+}
+
+.thumbs-down-icon-faq.highlighted {
+    background: linear-gradient(135deg, #f14a4a, #f14a4a); /* Gradient for depth */
+    color: #ffffff; /* Bright green color for highlighted icon */
+    border: 2px solid #f14a4a; /* Green border */
+    box-shadow: 0px 4px 6px #f14a4a; /* Soft shadow for floating effect */
+    transform: scale(1.1); /* Slight scale for emphasis */
+}
+
+// .thumbs-down-icon-faq {
+//     position: absolute;
+//     background: linear-gradient(135deg, #f14a4a, #f14a4a); /* Gradient for depth */
+//     color: #ffffff;
+//     width: 20px;
+//     height: 20px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 50%;
+//     font-weight: bold;
+//     // left: 13px;
+//     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow for floating effect */
+//     transition: transform 0.3s ease; /* Smooth hover effect */
+//     cursor: pointer; /* Indicate clickability */
+// }
+
+// .thumbs-down-icon-faq:hover {
+//     transform: scale(1.2); /* Scale up on hover */
+//     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* More intense shadow on hover */
+// }
+
+.gap{
+    margin-top: 20px;
+}
+.gap1{
+    margin-top: -31px;
+}
+.clarity-card {
+    // margin-top: 10px;
+    height: auto;
+    margin-left: 11px;
+    margin-right: 2px;
+    border-radius:9px;
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    position: relative; /* Needed for positioning the button */
+}
+.card-header-img {
+    padding: 0;
+    position: relative; /* Needed for positioning the button */
+}
+.img-banner {
+    width: 100%;
+    // height:50%;
+    height: 150px;
+    // border-radius: 6px;
+    object-fit: cover; /* Ensures the image covers the area */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    // margin-top: -16px;
+    // margin-left: -17px;
+}
+.interested-button {
+    position: absolute;
+    top: 125px;
+    right: 14px;
+    z-index: 10; /* Ensures the button is above the image */
+    text-transform: none;
+}
+.scroll{
+    flex-wrap: nowrap;
+    overflow-x: scroll!important;
+    overflow-y: hidden;
+}
+.col-align{
+    margin-top: 30px;
+    text-align: end;
+}
+.border-bottom-color{
+    border-bottom: 1px solid #ffffff;
+}
+
+.youtube-thumbnail-container {
+    position: relative; /* To position the play icon over the thumbnail */
+    display: inline-block; /* Keeps the container size limited to the thumbnail */
+  }
+  
+  .youtube-thumbnail {
+    width: 100%;       /* Adjust to container width */
+    max-width: 300px;  /* Limit the maximum size */
+    height: auto;      /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .play-icon {
+    position: absolute; /* Positioned relative to the container */
+    top: 50%;           /* Center vertically */
+    left: 50%;          /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the icon's center */
+    width: 60px;        /* Icon size */
+    height: 60px;       /* Icon size */
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent circle */
+    border-radius: 50%; /* Make it circular */
+    display: flex;      /* Flexbox to center the triangle */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;    /* Pointer cursor for interactivity */
+  }
+  
+  .play-icon::before {
+    content: ''; /* Add the play triangle */
+    width: 0;
+    height: 0;
+    border-left: 20px solid white; /* White triangle */
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
+
+  .menu-icon1{
+    color: #fff;
+    width: 100%;
+    aspect-ratio: 2.5 / 1.5;
+    object-fit: contain;
+  }
+
+// .youtube-icon {
+//     width: 100%;       /* Adjust to fit container width */
+//     max-width: 300px;  /* Maximum width for the image */
+//     height: auto;      /* Maintain aspect ratio */
+//     border-radius: 8px; /* Rounded corners */
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+//     cursor: pointer;   /* Pointer cursor on hover */
+//     transition: transform 0.2s ease, box-shadow 0.2s ease;
+//   }
+  
+//   /* Hover effect */
+//   .youtube-icon:hover {
+//     transform: scale(1.05); /* Slight zoom */
+//     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+//   }

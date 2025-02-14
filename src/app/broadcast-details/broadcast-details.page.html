@@ -1,0 +1,136 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" >
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">Broadcast</strong>
+        </ion-col>
+        <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <div >
+    <ion-button  size="small" slot="start" style="float:left;font-size: small;margin-left: 24px;text-transform: none;"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button>
+  </div> -->
+  <div class="card-gap">
+    <ion-card style="margin-top: 5px;" class="ion-margin-bottom details-card" mode="ios"> <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
+      <div class="honeycomb-overlay"></div>
+      <ion-grid>
+        <ion-row style="margin-top: 5px;">
+          <ion-col size="4">
+            <!-- <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img"> -->
+          </ion-col>
+          <ion-col size="5">
+            <!-- <span style="margin-left: -75px;color:#0f1f49">Prasenjit Chanda</span> -->
+          </ion-col>
+          <ion-col size="3">
+            <span style="float:right;font-size: x-small;color:#0f1f49">{{broadcast_details.CREATED_DATE | date:'dd MMM, yyyy'}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid style="margin-top: -20px;margin-left:7px;">
+              <ion-row class="text-header-align">
+                <ion-col size="12" style="text-align:start;">
+                 <h6 style="color:#000000;font-size: 20px;">{{broadcast_details.TITLE}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: -7px;margin-left: 16px;">
+          <ion-col size="4">
+            <img src="{{imageUrl}}{{broadcast_details.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+          </ion-col>
+          <ion-col size="8">
+            <span style="margin-left: -75px;color:#0f1f49">{{broadcast_details.USER__NAME}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
+  <div class="card-gap1">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10" style="margin-top: -11px;">
+          <span style="font-size: smaller;color:#ffff;">{{broadcast_details.DESCRIPTION}}</span>
+        </ion-col>
+        <!-- <ion-col size="2">
+          <ion-button class="button-icon" size="small" (click)="save_bookmarks()">
+            <ion-icon slot="icon-only" name="bookmark-outline" style="color:black"></ion-icon>
+          </ion-button>
+        </ion-col> -->
+        <ion-col size="2">
+          <ion-button class="button-icon" size="small" *ngIf="bookmarkFlag" (click)="showBookmarkDialog('saved')">
+            <ion-icon slot="icon-only" name="bookmark-outline" style="color:#f52b2b"></ion-icon>
+          </ion-button>
+          <ion-button class="button-icon" size="small" *ngIf="!bookmarkFlag" (click)="showBookmarkDialog('removed')">
+            <ion-icon slot="icon-only" name="bookmark" style="color:#39ce3e"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10">
+          <span style="font-size: smaller;color:#ffff;"></span>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button class="button-share-icon" size="small" (click)="shareDetails(broadcast_details.id)">
+            <ion-icon slot="icon-only" name="arrow-redo-outline" style="color:black"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size="10">
+          <span style="font-size: smaller;color:#ffff;">Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.</span>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button class="button-share-icon" size="small" (click)="shareDetails()">
+            <ion-icon slot="icon-only" name="arrow-redo-outline" style="color:black"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <span style="font-size: large;color:#ffff;"><b>Key Metrics to Gauge User Experience</b></span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <span style="font-size: small;color:#ffff;">Metrics in UX design are more than just numbers.they are invaluable tools for assessing the effectiveness of a design.</span>
+        </ion-col>
+      </ion-row> -->
+      &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <ion-grid>
+      <ion-row>
+        <div class="report-button" (click)="goToReport()">
+          <div class="icon-container">
+            <ion-icon name="alert" size="large"></ion-icon>
+          </div>
+          <span class="report-text">Report</span>
+        </div>
+      </ion-row>
+    </ion-grid>
+      <!-- <ion-row>
+        <ion-button  type="submit" class="custom_button" style="margin-top: 50px;" (click)="goToReport()"><b>Report to Admin</b></ion-button>
+      </ion-row> -->
+    </ion-grid>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <!-- <br>
+  <br>
+  <br>
+  <br> -->
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

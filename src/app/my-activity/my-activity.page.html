@@ -1,0 +1,50 @@
+<ion-content>
+  <!-- Your modal content goes here -->
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col style="text-align: end;" (click)="closeModal()">
+          <ion-icon name="close-outline" style="color:black;font-size: x-large;"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size="10" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:black;">Add Aapasmein Convenience</strong>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </div>
+  <div class="form-div">
+    <ion-row>
+      <ion-col size="4">
+        <ion-card class="mall-card" (click)="goToMyMall()">
+          <ion-row>
+            <ion-col size="12" style="text-align: center;">
+              <ion-icon name="cart" class="icon-align"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" style="text-align: center;margin-top: -10px;">
+              <span class="name-text">My Mall</span>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card class="mall-card" (click)="goToMyBroadcast()">
+          <ion-row>
+            <ion-col size="12" style="text-align: center;">
+              <ion-icon name="megaphone" class="icon-align"></ion-icon>
+              <!-- <img src="../../../assets/avtar3.jpeg" alt="" class="img-avatar"> -->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" style="text-align: center;margin-top: -10px;">
+              <span class="name-text">My Broadcast</span>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

@@ -1,0 +1,170 @@
+<ion-content [fullscreen]="true">
+  <div class="ion-padding-top ion-padding-horizontal">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <ion-icon name="arrow-back-outline" style="color:black;font-size: x-large;" (click)="dismiss()"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center;margin-top: -3px;">
+          <strong class="header" style="color:black;">Create Event</strong>
+        </ion-col>
+        <ion-col style="text-align: end;">
+          <ion-icon name="search-outline"  style="color:black;margin-right: 7px;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="form-div">
+    <ion-row>
+      <ion-col size="12">
+        <div class="input-container">
+          <ion-label class="input-label required">Event Name</ion-label>
+            <div class="input-group">
+              <ion-input class="input-box" type="text" [(ngModel)]="eventJson.event_name"></ion-input>
+            </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <div class="input-container">
+          <ion-label class="input-label required">Category</ion-label>
+            <div class="input-group">
+              <ion-select class="ion-select" [(ngModel)]="eventJson.category_id">
+                <ion-select-option *ngFor="let item of get_event_categories" [value]="item.id">{{item.NAME}}</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <div class="input-container">
+          <ion-label class="input-label required">Date</ion-label>
+            <div class="input-group">
+              <!-- <ion-datetime presentation="date" displayFormat="DD-MM-YYYY" name="date_of_birth" [(ngModel)]="someVar"></ion-datetime> -->
+              <ion-input class="input-box custom-date-input time-picker" type="date" label-placement="floating" fill="solid" [(ngModel)]="eventJson.date"></ion-input>
+              <!-- <ion-datetime class="input-box" display-format="MMM DD, YYYY" picker-format="MMM DD, YYYY"></ion-datetime> -->
+              <ion-icon name="calendar" class="custom-calendar-icon"></ion-icon>
+            </div>
+          </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="input-container">
+          <ion-label class="input-label required">Time</ion-label>
+            <div class="input-group">
+              <ion-input type="time" label-placement="floating" fill="solid" class="time-picker" [(ngModel)]="eventJson.time"></ion-input>
+              <ion-icon name="time" class="custom-calendar-icon"></ion-icon>
+            </div>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <div class="input-container">
+          <ion-label class="input-label required">Event Location</ion-label>
+          <div class="input-group">
+            <ion-input class="input-box" type="text" [(ngModel)]="eventJson.location" (ionInput)="updateGeoLocationSearchResults()"></ion-input>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="autocompleteItems.length>0">
+      <ion-col>
+        <ion-list [hidden]="autocompleteItems.length === 0">
+          <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectGeoLocationSearchResult(item)">
+            {{ item.description }}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <div class="input-container">
+          <ion-label class="input-label required">Description</ion-label>
+          <div class="input-group">
+            <ion-textarea class="input-box" type="text" rows="10" [(ngModel)]="eventJson.description"></ion-textarea>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-left: 7px;margin-top: 14px;">
+      <span style="color:black" class="required">Upload Image</span>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" *ngIf="selectedImage.name==''" (click)="presentActionSheet()">
+        <div class="square-box">
+          <ion-icon name="camera-outline" class="icon-center"></ion-icon><br>
+          <p style="margin-top: 42px;font-size: x-small;color: black;">Add Photo</p>
+        </div>
+      </ion-col>
+      <ion-col size="4" *ngIf="selectedImage.name!=''">
+        <div class="square-box">
+          <img [src]="selectedImage.data" alt="" class="mall-photo">
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-left: 7px;margin-top: 14px;">
+      <span style="color:black" class="required">Share With</span>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button class="answer-btn after_click">
+          <ion-grid>
+              <ion-col >
+                <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="eventJson.share_with" (ionChange)="onRadioSelect('your_connection')">
+                  <ion-radio 
+                  value="your_connection"
+                  color="tertiary"
+                  justify="space-between" 
+                  labelPlacement="end" 
+                  style="font-size: xx-small;"
+                  [ngClass]="{'radio-selected': eventJson.share_with === 'your_connection', 'radio-unselected': eventJson.share_with !== 'your_connection'}"
+                  >Your Connection</ion-radio>
+                </ion-radio-group>  <!--(ionSelect)="onRadioSelect('1st')"-->
+              </ion-col>
+          </ion-grid>
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button class="answer-btn after_click">
+          <ion-grid>
+              <ion-col>
+                <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="eventJson.share_with" (ionChange)="onRadioSelect('public')">
+                  <ion-radio 
+                  value="public" 
+                  color="tertiary" 
+                  justify="space-between" 
+                  labelPlacement="end" 
+                  style="font-size: xx-small;"
+                  [ngClass]="{'radio-selected': eventJson.share_with === 'public', 'radio-unselected': eventJson.share_with !== 'public'}"
+                  >Public</ion-radio>
+                </ion-radio-group><!--(ionSelect)="onRadioSelect('2nd')"-->
+              </ion-col>
+          </ion-grid>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-checkbox color="tertiary" #same [(ngModel)]="acceptTerms"></ion-checkbox>&nbsp;&nbsp;   <!--[(ngModel)]="acceptTerms"-->
+        <ion-label style="color:black;">I have read all the T&C and Code of Conduct of the platform and agree to abide by the same.</ion-label>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-icon name="information-circle" style="color:#fe9800"></ion-icon><p style="color: black;margin-top: -14px;margin-left: 32px;font-size: x-small;">If you want to share publicly, You need to spend your XP points.*</p>
+    </ion-row> -->
+    <ion-row>
+      <ion-button  type="submit" class="custom_button" style="margin-top: 50px;"  [disabled]="!acceptTerms || disabled" (click)="add_event()"><b>Submit</b></ion-button>
+    </ion-row>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</ion-content>
+
+<!-- <app-commonfooter></app-commonfooter> -->

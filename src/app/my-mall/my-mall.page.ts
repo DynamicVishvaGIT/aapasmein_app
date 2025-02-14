@@ -1,0 +1,120 @@
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import Swiper, { SwiperOptions } from 'swiper';
+import { ApiService } from '../api.service';
+import { CommonService } from '../common.service';
+import { filter } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-my-mall',
+  templateUrl: './my-mall.page.html',
+  styleUrls: ['./my-mall.page.scss'],
+})
+export class MyMallPage implements OnInit {
+
+  private _unsubscribeAll: Subject<any>;
+
+  currentUser:any;
+  info = 'myproduct';
+  searchFlag = false;
+  mall_data:any=[];
+  wish_list_data:any=[];
+  imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+  config: SwiperOptions = {
+    pagination: true,
+    slidesPerView:'auto',
+    effect: 'coverflow',
+    loop: true
+  }
+  mallDataLoaded: boolean = false;
+  wishListDataLoaded: boolean = false;
+
+  constructor(private router: Router, private apiService: ApiService, private commonService: CommonService) { 
+    this._unsubscribeAll = new Subject();
+  }
+
+  ngOnInit() {
+    let currentUser:any;
+    currentUser = localStorage.getItem('currentUser');
+    this.currentUser = JSON.parse(currentUser);
+    console.log(this.currentUser);
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
+      ).subscribe((event: NavigationEnd) => {
+        if (event.url === '/my-mall') { // Check if user navigated back to a specific URL
+          this.load_wishlist_product(); // Call your desired function
+        }
+    });
+    this.get_mall_products();
+    this.load_wishlist_product();
+  }
+
+  async setSwiperInstance(swiper: Swiper) {
+    if(swiper){
+      setInterval(() => {
+        swiper.slideNext();
+      }, 4000);
+    }
+  }
+
+  get_mall_products() {
+    this.commonService.presentLoading();
+    this.mallDataLoaded = false; 
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    this.apiService.get_mall_products('0', formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        this.mall_data = response.data;
+        this.mallDataLoaded = true; 
+        this.commonService.dismissLoading();
+      },
+      respError => {
+        this.commonService.dismissLoading();
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+
+  load_wishlist_product() {
+    this.commonService.presentLoading();
+    this.wishListDataLoaded = false; 
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    this.apiService.load_wishlist_product(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        this.wish_list_data = response.data;
+        this.wishListDataLoaded = true; 
+        this.commonService.dismissLoading();
+      },
+      respError => {
+        this.commonService.dismissLoading();
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.get_mall_products();
+      this.load_wishlist_product();
+      event.target.complete();
+    }, 100);
+  }
+
+  showSearch(){
+    this.searchFlag = !this.searchFlag;
+  }
+
+  goToMallDetails(data:any, route:string) {
+    this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
+  }
+
+  dismiss() {
+    this.router.navigate(['/profile']);
+  }
+
+}
