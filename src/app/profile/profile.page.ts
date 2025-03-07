@@ -22,7 +22,7 @@ export class ProfilePage implements OnInit {
   // @Input() search_id!: string;
 
   search_id:string='';
-  profile_details:any;
+  search_user_details:any;
   connection_details:any;
   connectionFlag:boolean = false;
   login_details:any;
@@ -32,7 +32,9 @@ export class ProfilePage implements OnInit {
   user_details:any;
   addAdvantage:boolean = false;
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+  imageURL = 'https://aapasmein.dvadminpanel.in';
   frameType: string = 'gold-frame';
+  searchText:string='';
 
   constructor(private router: Router, private modalCtrl: ModalController, private activatedRoute: ActivatedRoute, private apiService: ApiService,
     private commonService: CommonService, private actionSheetController: ActionSheetController, private camera: Camera) { 
@@ -47,14 +49,15 @@ export class ProfilePage implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.search_id = params['search_id'];
       this.routeURL = params['routeURL'];
+      this.searchText = params['searchText'];
       console.log(this.routeURL);
       console.log(this.search_id);
       // this.search_keyword_details();
       if(this.search_id!=undefined){
-        this.get_login_id();
+        this.search_keyword_details();
       }
       else{
-        this.profile_details={};
+        this.search_user_details={};
         this.get_user_details();
       }
     });
@@ -92,11 +95,14 @@ export class ProfilePage implements OnInit {
   }
 
   search_keyword_details() {
-    this.apiService.search_keyword_details(this.search_id, this.login_details)
+    let login_details:any={login_id:''};
+    login_details.login_id = this.currentUser.user_id;
+    this.apiService.search_keyword_details(this.search_id, login_details)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
         console.log('All Data',response);
-        this.profile_details = response.search_user_data;
+        this.search_user_details = response.search_user_data;
+        // this.search_user_details['image'] = 'avtar3.jpeg';
         this.connection_details = response.connection;
       },
       respError => {
@@ -145,7 +151,7 @@ export class ProfilePage implements OnInit {
     // this.connectionFlag = true;
     if(this.search_id){
       console.log(this.connection_details);
-      let modal = await this.modalCtrl.create({ component: ConnectionsPage, componentProps:{connections: this.connection_details, search_name:this.profile_details.NAME }});
+      let modal = await this.modalCtrl.create({ component: ConnectionsPage, componentProps:{connections: this.connection_details, search_name:this.search_user_details.NAME }});
       modal.onDidDismiss().then((modalItem) => {
         if (modalItem) {
           
@@ -253,9 +259,12 @@ export class ProfilePage implements OnInit {
     // else{
     //   this.router.navigate(['/dashboard']);
     // }
-    else if(this.search_id != undefined){
-      this.router.navigate(['/globalsearchdetails']);
+    else if(this.routeURL=='connections'){
+      this.router.navigate(['/connection-list'], { queryParams: { searchText: this.searchText} });
     }
+    // else if(this.search_id != undefined){
+    //   this.router.navigate(['/globalsearchdetails'], { queryParams: { searchText: this.searchText} });
+    // }
     else{
       this.router.navigate(['/dashboard']);
     }

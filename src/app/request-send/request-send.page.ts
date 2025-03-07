@@ -24,6 +24,7 @@ export class RequestSendPage implements OnInit {
   wishlistFlag:boolean = false;
   wishListStatus='';
   routeURL:string='';
+  searchText:string='';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService, private commonService: CommonService,
     private alertCtrl: AlertController, private modalCtrl: ModalController) { 
@@ -40,6 +41,7 @@ export class RequestSendPage implements OnInit {
       console.log(this.product_id);
       this.routeURL = params['routeURL'];
       console.log(this.routeURL);
+      this.searchText = params['searchText'];
       this.get_mall_products();
     });
   }
@@ -150,6 +152,9 @@ export class RequestSendPage implements OnInit {
     }
     else if(this.routeURL=='dashboard'){
       this.router.navigate(['/dashboard']);
+    }
+    else if(this.routeURL=='search'){
+      this.router.navigate(['/globalsearchdetails'], { queryParams: { searchText: this.searchText} });
     }
     else{
       this.router.navigate(['/my-mall']);

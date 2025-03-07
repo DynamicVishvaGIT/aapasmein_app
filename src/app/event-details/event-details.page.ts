@@ -21,6 +21,7 @@ export class EventDetailsPage implements OnInit {
   event_id:string='';
   type:string='';
   url:string='';
+  searchText:string='';
   event_details:any={USER__NAME:'',USER__PROFILE_IMAGE:'',EVENT_NAME:'',EVENT_IMAGE:'',LOCATION:'',DESCRIPTION:'',DATE:''};
 
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute,
@@ -35,6 +36,7 @@ export class EventDetailsPage implements OnInit {
       this.type = params['type'];
       this.url = params['url'];
       console.log(this.event_id);
+      this.searchText = params['searchText'];
     });
     let currentUser:any;
     currentUser = localStorage.getItem('currentUser');
@@ -109,6 +111,9 @@ export class EventDetailsPage implements OnInit {
   dismiss() {
     if(this.url=='categorylist'){
       this.router.navigate(['/event-category']);
+    }
+    else if(this.url=='search'){
+      this.router.navigate(['/globalsearchdetails'], { queryParams: { searchText: this.searchText} });
     }
     else{
       this.router.navigate(['/all-event-list']);

@@ -267,6 +267,10 @@ const routes: Routes = [
     path: 'portfolio-valuation',
     loadChildren: () => import('./portfolio-valuation/portfolio-valuation.module').then( m => m.PortfolioValuationPageModule)
   },
+  {
+    path: 'connection-list',
+    loadChildren: () => import('./connection-list/connection-list.module').then( m => m.ConnectionListPageModule)
+  },
 ];
 
 @NgModule({

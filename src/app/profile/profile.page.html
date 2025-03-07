@@ -51,9 +51,11 @@
         <ion-col size="12" style="text-align: center;">
           <div class="profile-img-wrapper"> <!--design-frame-->
             <!-- <img src="../../assets/Prasenjit_Chanda.png" class="profile-img-avatar border-white" alt="Profile Picture"/> -->
-            <img [src]="selectedImage.data" class="profile-img-avatar" alt="Profile Picture" *ngIf="selectedImage.data!=''"/>
+            <img [src]="selectedImage.data" class="profile-img-avatar" alt="Profile Picture" *ngIf="selectedImage.data!='' && user_details?.PROFILE_IMAGE"/>
             <!-- <img src="../../assets/avtar4.png" class="profile-img-avatar border-white" *ngIf="selectedImage.data==''"/> -->
-            <img src="{{imageUrl}}{{user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" *ngIf="selectedImage.data==''"/>
+            <img src="{{user_details?.PROFILE_IMAGE?imageUrl:imageURL}}{{user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" *ngIf="(selectedImage.data=='' && user_details?.PROFILE_IMAGE) || search_user_details?.PROFILE_IMAGE!=null"/>
+            <!-- <img src="{{imageUrl}}{{search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" *ngIf="search_user_details?.PROFILE_IMAGE && selectedImage.data==''"/> -->
+            <img src="../../assets/avtar3.jpeg" alt="" class="profile-img-avatar"  *ngIf="search_user_details?.PROFILE_IMAGE==null && selectedImage.data=='' && !user_details?.PROFILE_IMAGE">
             <ion-icon name="camera" class="camera-icon" (click)="presentActionSheet()"></ion-icon>
             <!-- <div class="ribbon">{{search_id!=undefined?profile_details?.NAME?profile_details?.NAME:'Prasenjit Chanda':user_details?.NAME}}</div> -->
           </div>
@@ -61,12 +63,12 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" style="text-align: center;">
-          <p class="name-txt"><b>{{search_id!=undefined?profile_details?.NAME?profile_details?.NAME:'Prasenjit Chanda':user_details?.NAME}}</b></p>
+          <p class="name-txt"><b>{{search_id!=undefined?search_user_details?.NAME?search_user_details?.NAME:'Prasenjit Chanda':user_details?.NAME}}</b></p>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" style="text-align: center;">
-          <p class="name-txt1">{{search_id!=undefined?profile_details?.KEYWORD?profile_details?.KEYWORD:'Software Developer':user_details?.PROFESSION__NAME}}</p>
+          <p class="name-txt1">{{search_id!=undefined?search_user_details?.KEYWORD?search_user_details?.KEYWORD:'Software Developer':user_details?.PROFESSION__NAME}}</p>
         </ion-col>
       </ion-row>
       <ion-row *ngIf="search_id!=undefined">
@@ -123,7 +125,7 @@
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?profile_details?.EMAIL_ID ? profile_details?.EMAIL_ID : 'No Data':user_details?.EMAIL_ID?user_details?.EMAIL_ID:'No Data'}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.EMAIL_ID ? search_user_details?.EMAIL_ID : 'No Data':user_details?.EMAIL_ID?user_details?.EMAIL_ID:'No Data'}}</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -133,7 +135,7 @@
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?profile_details?.MOBILE_NO ? profile_details?.MOBILE_NO : 'No Data':user_details?.MOBILE_NO?user_details?.MOBILE_NO:'No Data'}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.MOBILE_NO ? search_user_details?.MOBILE_NO : 'No Data':user_details?.MOBILE_NO?user_details?.MOBILE_NO:'No Data'}}</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -146,14 +148,14 @@
           <span class="text1">{{search_id!=undefined?'Mobile app and website design':user_details?.SPECIALIZATION__NAME?user_details?.SPECIALIZATION__NAME:'No Data'}}</span>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row >
         <ion-col size="12">
           <span class="text">Interest</span> <br>
         </ion-col>
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?'Football, Cricket, Reading Books':user_details?.INTEREST_NAME?user_details?.INTEREST_NAME:'No Data'}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.INTEREST_NAME?search_user_details?.INTEREST_NAME:'No Data':user_details?.INTEREST_NAME?user_details?.INTEREST_NAME:'No Data'}}</span>
         </ion-col>
       </ion-row>
       <ion-row style="margin-left: -7px;">

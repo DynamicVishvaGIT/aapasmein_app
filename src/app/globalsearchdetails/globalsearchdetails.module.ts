@@ -8,6 +8,7 @@ import { GlobalsearchdetailsPageRoutingModule } from './globalsearchdetails-rout
 
 import { GlobalsearchdetailsPage } from './globalsearchdetails.page';
 import { ShareModule } from '../share/share.module';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ShareModule } from '../share/share.module';
     FormsModule,
     IonicModule,
     GlobalsearchdetailsPageRoutingModule,
-    ShareModule
+    ShareModule,
+    SwiperModule
   ],
   declarations: [GlobalsearchdetailsPage]
 })
