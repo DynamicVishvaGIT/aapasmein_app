@@ -11,16 +11,16 @@
       </ion-row>
     </ion-grid>
   </div>
-  <div class="gap">
+  <div class="gap" *ngIf="dataLoaded && searched_events.length > 0 && searched_products.length>0">
     <ion-card class="card">
       <ion-card-header>
         <ion-card-title>
-          <span style="color: white;font-size: large;"><b>Doctor</b></span><br>
+          <span style="color: white;font-size: large;"><b>Connection</b></span><br>
         </ion-card-title>
       </ion-card-header>
       <ion-card-content style="margin-top: -15px;margin-left: -11px;">
         <ion-grid>
-          <ion-row>
+          <!-- <ion-row>
             <ion-col size="3">
               <div class="button-card">
                 <span style="font-size: x-small;">Connection</span>
@@ -51,10 +51,10 @@
               <p style="font-size: x-small;color:#ffff" >The Premier Healthcare Exhibition and Conference Returns to Mumbai for its 29th...</p>
               <p style="font-size: xx-small;color:#ffff" >05 Apr. 2024</p>
             </ion-col>
-          </ion-row>
-          <ion-row style="margin-left: 2px;margin-top: 10px;">
+          </ion-row> -->
+          <!-- <ion-row style="margin-left: 2px;margin-top: 10px;">
             <span style="color:#5c6171">Connection</span>
-          </ion-row>
+          </ion-row> -->
           <ion-row class="scroll">
             <ion-col size="4" class="doctor-col" (click)="goToConnectionList(data.id)" *ngFor="let data of searched_users">
               <img src="../../assets/{{data.image}}" alt="" class="img-doctors" *ngIf="!data.PROFILE_IMAGE"><br *ngIf="!data.PROFILE_IMAGE">
@@ -78,7 +78,7 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-row style="margin-left: 33px;margin-top: 12px;">
+  <ion-row style="margin-left: 33px;margin-top: 12px;" *ngIf="dataLoaded && searched_events.length > 0 && searched_products.length>0">
     <span style="font-weight: 600;color:white">Events</span>
   </ion-row>
   <div class="gap">
@@ -113,7 +113,7 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-row style="margin-left: 33px;margin-top: 12px;">
+  <ion-row style="margin-left: 33px;margin-top: 12px;" *ngIf="dataLoaded && searched_events.length > 0 && searched_products.length>0">
     <span style="font-weight: 600;color:white">Products</span>
   </ion-row>
   <div class="gap">
@@ -149,6 +149,11 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+  </div>
+
+  <div class="no-data" *ngIf="dataLoaded && searched_events.length == 0 && searched_products.length==0">
+    <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+    <span class="no-data-text">No Searched Data</span>
   </div>
   <!-- <div class="gap2">
     <ion-grid>

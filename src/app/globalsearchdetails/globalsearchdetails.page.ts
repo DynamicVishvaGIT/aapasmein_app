@@ -37,6 +37,7 @@ export class GlobalsearchdetailsPage implements OnInit {
   // images:any=['avtar1.png','Prasenjit_Chanda.png','avtar3.jpeg'];
   imageUrl = 'https://aapasmein.dvadminpanel.in';
   eventImageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+  dataLoaded:boolean = false;
 
   constructor(private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService,
     private router: Router, private activatedRoute: ActivatedRoute) { 
@@ -101,6 +102,7 @@ export class GlobalsearchdetailsPage implements OnInit {
 
   search_keyword() {
     // this.search_details=[];
+    this.dataLoaded = false;
     this.commonService.presentLoading();
     this.apiService.search_keyword(this.searchText, this.currentUser.user_id)
     .pipe(takeUntil(this._unsubscribeAll))
@@ -113,9 +115,11 @@ export class GlobalsearchdetailsPage implements OnInit {
         console.log(this.searched_users);
         this.searched_events = response.events;
         this.searched_products = response.products;
+        this.dataLoaded = true;
         this.commonService.dismissLoading();
       },
       respError => {
+        this.dataLoaded = false;
         this.commonService.dismissLoading();
         this.commonService.showToastMessage(respError, 'error-toast','', 2000);
       })
