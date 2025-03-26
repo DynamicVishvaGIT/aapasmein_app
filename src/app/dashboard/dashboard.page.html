@@ -6,6 +6,9 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div id="profile-details">
     <ion-grid>
       <ion-row>
@@ -58,11 +61,11 @@
           <br>
           <span class="tool-text"><b>aapasmein Events</b></span>
         </ion-col>
-        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToCommunityList()">
+        <!-- <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToCommunityList()">
           <img src="assets/icon/features/community.svg" class="menu-icon1">
           <br>
           <span class="tool-text"><b>aapasmein Community</b></span>
-        </ion-col>
+        </ion-col> -->
         <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAppasmeinMall()">
           <!-- <img src="assets/icon/features/mall.svg" class="menu-icon1"> -->
           <img src="assets/icon/features/deal.png" class="menu-icon1">
@@ -74,21 +77,21 @@
           <br>
           <span class="tool-text"><b>aapasmein Recognition</b></span>
         </ion-col>
-        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAccolades()">
+        <!-- <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAccolades()">
           <img src="assets/icon/features/trophy.svg" class="menu-icon1">
           <br>
           <span class="tool-text"><b>aapasmein Accolades</b></span>
-        </ion-col>
-        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToBroadcastList()">
+        </ion-col> -->
+        <!-- <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToBroadcastList()">
           <img src="assets/icon/features/broadcast.svg" class="menu-icon1">
           <br>
           <span class="tool-text"><b>aapasmein Broadcast</b></span>
-        </ion-col>
-        <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToUnwind()"><!--(click)="goToUnwind()"-->
+        </ion-col> -->
+        <!-- <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToUnwind()">
           <img src="assets/icon/features/unwind.png" class="menu-icon1">
           <br>
           <span class="tool-text"><b>aapasmein Unwind</b></span>
-        </ion-col>
+        </ion-col> -->
         <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToSamvaad()">
           <img src="assets/icon/features/samvaad.png" class="menu-icon1">
           <br>
@@ -108,10 +111,10 @@
       <ion-row></ion-row>
     </ion-grid>
   </div>
-  <div class="banner-gap animated-display" *ngIf="banner1_images.length>0">
+  <div class="banner-gap animated-display" *ngIf="banner1_images?.length>0">
     <ion-grid>
       <ion-row align-self-center>
-        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner1')">
           <ng-template swiperSlide  *ngFor="let img of banner1_images">
             <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
           </ng-template>
@@ -128,13 +131,13 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-row style="margin-left: 22px;"  [ngClass]="{'yes-banner-gap': banner1_images.length>0, 'no-banner-gap': banner1_images.length==0}">
+  <ion-row style="margin-left: 22px;"  [ngClass]="{'yes-banner-gap': banner1_images?.length>0, 'no-banner-gap': banner1_images?.length==0}">
     <span style="font-weight: 600;color:white">aapasmein Convenience</span>
   </ion-row>
   <div class="card-gap1">
     <ion-grid  class="menu">
       <ion-row class="scroll">
-        <ion-col size="3" style="text-align: center;" class="col-height" *ngFor="let data of convenience_list">
+        <ion-col size="3" style="text-align: center;" class="col-height" *ngFor="let data of convenience_list" (click)="goToConvenienceDetails(data)">
           <img src="{{imageUrl}}{{data.IMAGE}}" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE!=null"> 
           <img src="../../../assets/icon/dashboard/doctor.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==1"> 
           <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==2"> 
@@ -167,10 +170,10 @@
       </ion-col>
     </ion-row>
   </div>
-  <div class="animated-display" *ngIf="banner2_images.length>0">
+  <div class="animated-display" *ngIf="banner2_images?.length>0">
     <ion-grid>
       <ion-row align-self-center>
-        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner2')">
           <!-- <ng-template swiperSlide *ngFor="let item of items">
             <div class="content">{{item.title}}</div>
           </ng-template> -->
@@ -185,7 +188,7 @@
     </ion-grid>
   </div>
   <ion-row style="margin-left: 22px;margin-top: 12px;">
-    <span style="font-weight: 600;color:white">aapasmein Mall</span>
+    <span style="font-weight: 600;color:white">aapasmein Deals</span>
   </ion-row>
   <div class="card-gap">
     <ion-grid>
@@ -194,23 +197,19 @@
           <ion-card class="mall-card" >
             <ion-card-header> 
               <ion-card-title>
-                <!-- <img src="{{imageURL}}{{property.PROPERTY_IMG}}" alt="" class="img-banner"> -->
-                <!-- <img src="{{../../../assets/laptop.jpg}}" alt="" class="img-banner"> -->
-                <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setMallSwiperInstance($event, data.id, data.images)">
                   <ng-template swiperSlide *ngFor="let img of data.images">
                     <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
                   </ng-template>
                 </swiper>
               </ion-card-title>
-              <!-- <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name}}</span><br> -->
-              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
             </ion-card-header>
             <ion-card-content style="margin-top: -28px;">
-              <!-- <span style="float:left;font-size: smaller;">Dell 7200 2-in-1 Core i7-8th Generation Ram 16gb SSD...</span> -->
+              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
               <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">{{data.location}}</span>
               <ion-row>
                 <ion-col size="10">
-                  <span style="float:left;font-size: 10px;color:blue;">{{data.date}}</span>
+                  <span style="float:left;font-size: 8px;color:blue;">{{data.date}}</span>
                 </ion-col>
                 <ion-col size="2" (click)="goToMallDetails(data,'dashboard')">
                   <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
@@ -219,51 +218,46 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <!-- <ion-col size="6">
-          <ion-card class="mall-card" (click)="goToAppasmeinMall()">
-            <ion-card-header> 
-              <ion-card-title>
-                <img src="../../../assets/canon.webp" alt="" class="img-banner">
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- <div class="card-gap">
+    <ion-grid>
+      <ion-row class="scroll">
+        <ion-col size="6" *ngFor="let data of mall_list_data;">
+          <ion-card class="mall-card">
+            <ion-card-header>
+              <ion-card-title class="image-container">
+                <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                  <ng-template swiperSlide *ngFor="let img of data.images">
+                    <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
+                  </ng-template>
+                </swiper>
               </ion-card-title>
-              <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">Canon 750d with</span><br>
             </ion-card-header>
-            <ion-card-content style="margin-top: -28px;">
-              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Thane</span>
+  
+            <ion-card-content class="card-content">
+              <span class="product-name">{{ data.product_name.substring(0, 15) }}<span *ngIf="data.product_name.length >= 15">...</span></span>
+              <div class="location-date">
+                <ion-icon name="location-outline" class="location-icon"></ion-icon>
+                <span class="location-text">{{ data.location }}</span>
+              </div>
               <ion-row>
-                <ion-col>
-                  <span style="float:left;font-size: x-small;color:blue;">05 Apr,2024</span>
+                <ion-col size="10">
+                  <span class="date-text">{{ data.date }}</span>
                 </ion-col>
-                <ion-col>
-                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                <ion-col size="2" (click)="goToMallDetails(data, 'dashboard')">
+                  <ion-badge class="badge-color" mode="ios">
+                    <ion-icon name="arrow-forward-outline" class="arrow-icon"></ion-icon>
+                  </ion-badge>
                 </ion-col>
               </ion-row>
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col size="6">
-          <ion-card class="mall-card" (click)="goToAppasmeinMall()">
-            <ion-card-header> 
-              <ion-card-title>
-                <img src="../../../assets/byke.avif" alt="" class="img-banner">
-              </ion-card-title>
-              <span style="color:black;font-size: large;margin-top: 3px;font-weight: 500;">Royal Enfield</span><br>
-            </ion-card-header>
-            <ion-card-content style="margin-top: -28px;">
-              <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Borivali</span>
-              <ion-row>
-                <ion-col>
-                  <span style="float:left;font-size: x-small;color:blue;">05 Apr,2024</span>
-                </ion-col>
-                <ion-col>
-                  <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
-                </ion-col>
-              </ion-row>
-            </ion-card-content>
-          </ion-card>
-        </ion-col> -->
       </ion-row>
     </ion-grid>
-  </div>
+  </div> -->
   <div>
     <ion-row (click)="goToAppasmeinMall()">
       <ion-col size="11" style="float:right;">
@@ -276,10 +270,10 @@
       </ion-col>
     </ion-row>
   </div>
-  <div class="animated-display" *ngIf="banner3_images.length>0">
+  <div class="animated-display" *ngIf="banner3_images?.length>0">
     <ion-grid>
       <ion-row align-self-center>
-        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner3')">
           <!-- <ng-template swiperSlide *ngFor="let item of items">
             <div class="content">{{item.title}}</div>
           </ng-template> -->
@@ -300,7 +294,7 @@
     <ion-grid>
       <ion-row class="scroll">
         <ion-col size="8" *ngFor="let event of event_list">
-          <ion-card class="event-card" (click)="goToEventList()">
+          <ion-card class="event-card" (click)="goToDetails(event)">
             <ion-card-header class="card-header-img"> 
               <!-- <img src="../../../assets/swiggy_event.jpg" alt="" class="img-banner1"> -->
               <img src="{{eventImageUrl}}{{event.event_image}}" alt="" class="img-banner1">
@@ -324,15 +318,18 @@
               </ion-row>
               <ion-row style="margin-top: 10px;">
                 <ion-col size="4">
-                  <img src="{{eventImageUrl}}{{event.event_created_image}}" alt="" class="circle-img1">
+                  <img src="{{eventImageUrl}}{{event.event_created_image}}" alt="" class="circle-img2">
                 </ion-col>
                 <ion-col size="4">
                   <span style="margin-left: -50px;color:#0f1f49;font-size: 9px;">{{event.event_created_by}}</span>
                 </ion-col>
                 <ion-col size="4">
-                  <ion-button class="interested-button" [color]="event.interest==true?'danger':'tertiary'">
+                  <ion-button class="interested-button" [color]="event.interest==true?'danger':'tertiary'" *ngIf="event.interest_button">
                     <ion-icon name="calendar-outline"></ion-icon>&nbsp;<span style="font-size: 10px;">{{event.interest==true?'Cancelled':'Interested'}}</span>
                   </ion-button>
+                  <!-- <ion-button class="interested-button" [color]="event.interest==true?'danger':'tertiary'">
+                    <ion-icon name="calendar-outline"></ion-icon>&nbsp;<span style="font-size: 10px;">{{event.interest==true?'Cancelled':'Interested'}}</span>
+                  </ion-button> -->
                 </ion-col>
               </ion-row>
             <!-- </ion-card-content> -->
@@ -417,10 +414,10 @@
       </ion-col>
     </ion-row>
   </div>
-  <div class="animated-display" *ngIf="banner4_images.length>0">
+  <div class="animated-display" *ngIf="banner4_images?.length>0">
     <ion-grid>
       <ion-row align-self-center>
-        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+        <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner4')">
           <!-- <ng-template swiperSlide *ngFor="let item of items">
             <div class="content">{{item.title}}</div>
           </ng-template> -->
@@ -434,34 +431,23 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-row style="margin-left: 22px;margin-top: 12px;">
+  <!-- <ion-row style="margin-left: 22px;margin-top: 12px;">
     <span style="font-weight: 600;color:white">Broadcast</span>
   </ion-row>
   <div class="card-gap2">
     <ion-grid>
       <ion-row class="scroll">
         <ion-col size="12" *ngFor="let data of broadcast_list_data">
-          <ion-card style="margin-top: 0px;" class="broadcast-card" style="background-color: #efefef;" > <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
+          <ion-card style="margin-top: 0px;" class="broadcast-card" style="background-color: #efefef;" >
             <h6 style="padding-left: 10px;color:#000000">{{data.title_name?.substring(0,50)}}<span *ngIf="data.title_name?.length>=50">...</span></h6>
-             <!-- <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;">{{data.description}}</p> -->
              <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;">{{data.description?.substring(0,180)}}<span *ngIf="data.description?.length>=180">...</span></p>
              <ion-grid  (click)="shareDetails(data.id)">
               <ion-row class="row-align">
-                <!-- <div class="report-button"> -->
                   <ion-icon name="arrow-redo-outline"></ion-icon><span class="report-text">Share</span>
-                <!-- </div> -->
               </ion-row>
             </ion-grid>
-             <!-- <span style="float: right;color:#3180ea;padding-right:20px;padding-bottom:13px;" (click)="shareDetails(data.id)">Share</span><ion-icon name="arrow-redo-outline" style="float: right;color:#3180ea;margin-top: 2px;"></ion-icon> -->
           </ion-card>
         </ion-col>
-        <!-- <ion-col size="12">
-          <ion-card style="margin-top: 0px;" class="broadcast-card" style="background-color: #efefef;"> 
-            <h6 style="padding-left: 10px;color:#000000">Power Outage announcement</h6>
-            <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;"> Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text.Lorem Ipsum is simply dummy text</p>
-            <span style="float: right;color:#3180ea;padding-right:20px;padding-bottom:13px;">Share</span><ion-icon name="arrow-redo-outline" style="float: right;color:#3180ea;margin-top: 2px;"></ion-icon>
-          </ion-card>
-        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -575,7 +561,7 @@
         <ion-badge style="margin-top: -16px;margin-right: 21px;float: right;background-color: #ec4b32;" mode="md"><ion-icon name="arrow-forward-outline"></ion-icon></ion-badge>
       </ion-col>
     </ion-row>
-  </div>
+  </div> -->
   <br>
   <br>
   <br>
@@ -593,9 +579,9 @@
       </ion-row>
     </ion-grid>
   </div>
-  <br>
-  <br>
-  <br>
+  <!-- <br>
+  <br> -->
+  <!-- <br> -->
   <br>
 </ion-content>
 

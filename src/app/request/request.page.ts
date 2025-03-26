@@ -16,15 +16,19 @@ export class RequestPage implements OnInit {
   currentUser:any;
   friend_request_list:any=[];
   handshake_request_list:any=[];
+  filteredFriendRequestList: any[] = [];
+  filteredHandshakeList: any[] = [];
+  searchQuery: string = '';
   info = 'reachout';
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
-  filterFlag = false;
+  filterFlag = true;
   selectedRadio:string='1st';
   requestText:string='Request-in';
   searchFlag=false;
   friendRequestDataLoaded: boolean = false;
   handshakeDataLoaded: boolean = false;
   routeURL:string = '';
+  isFooterVisible: boolean = true;
 
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute) { 
     this._unsubscribeAll = new Subject();
@@ -56,6 +60,7 @@ export class RequestPage implements OnInit {
     else{
       this.requestText = 'Request-out';
     }
+    this.load_friend_request();
   }
 
   load_friend_request() {
@@ -63,12 +68,15 @@ export class RequestPage implements OnInit {
     this.friendRequestDataLoaded = false;
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
+    formData.append('request_type',this.requestText=='Request-in'?'reachin':'reachout');
     formData.append('type','pending');
     this.apiService.load_friend_request(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.friend_request_list = response.data;
+      this.filteredFriendRequestList = [...this.friend_request_list]; // Initialize filtered list
+      this.isFooterVisible = true;
       this.friendRequestDataLoaded = true;
       this.commonService.dismissLoading();
     },
@@ -105,6 +113,7 @@ export class RequestPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.handshake_request_list = response.data;
+      this.filteredHandshakeList = [...this.handshake_request_list]; // Initialize filtered list
       this.handshakeDataLoaded = true;
       this.commonService.dismissLoading();
     },
@@ -132,12 +141,41 @@ export class RequestPage implements OnInit {
     })
   }
 
+  filterList(event: any) {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      if(this.info=='reachout'){
+        this.filteredFriendRequestList = [...this.friend_request_list]; // Reset when search is empty
+      }
+      else{
+        this.filteredHandshakeList = [...this.handshake_request_list]; // Reset when search is empty
+      }
+      this.isFooterVisible = true;
+    } else {
+      if(this.info=='reachout'){
+        this.filteredFriendRequestList = this.friend_request_list.filter((item:any) => 
+          item.SENDER__NAME.toLowerCase().includes(query)
+        );
+      }
+      else{
+        this.filteredHandshakeList = this.handshake_request_list.filter((item:any) => 
+          item.SENDER__NAME.toLowerCase().includes(query)
+        );
+      }
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
+  }
+
   goToRequestMessage() {
     this.router.navigate(['/request-send']);
   }
 
-  goToProfile() {
-    this.router.navigate(['/profile'], { queryParams: { routeURL: 'request' } });
+  goToProfile(data:any) {console.log(data);
+    this.router.navigate(['/profile'], { queryParams: { routeURL: 'request', sender_id: this.requestText=='Request-in'?data.SENDER_id:data.id } });
   }
 
   openFilter() {

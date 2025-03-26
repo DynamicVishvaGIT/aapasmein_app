@@ -9,9 +9,9 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">aapasmein Advantage</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -20,9 +20,10 @@
     <ion-button class="button-property" size="small" color="tertiary" (click)="addConveniencePage()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
   </div> -->
   <div class="card-gap">
-    <ion-grid>
+    <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList($event)" placeholder="Search Profession" (click)="hideFooter()"></ion-searchbar>
+    <ion-grid *ngIf="dataLoaded && filteredList.length>0">
       <ion-row> 
-        <ion-col size="6" *ngFor="let data of list">
+        <ion-col size="6" *ngFor="let data of filteredList">
           <ion-card class="mall-card" (click)="viewAdvantageDetails(data)">
             <div class="honeycomb-overlay"></div>
             <ion-card-content>
@@ -43,6 +44,9 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
+        <ion-infinite-scroll (ionInfinite)="loadNextChunk($event)">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
         <!-- <ion-col size="6">
           <ion-card class="mall-card" (click)="viewAdvantageDetails()">
             <div class="honeycomb-overlay"></div>
@@ -191,7 +195,11 @@
         </ion-col> -->
       </ion-row>
     </ion-grid>
+    <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
+      <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+      <span class="no-data-text">No Profession Data</span>
+    </div>
   </div>
 </ion-content>
 
-<app-commonfooter></app-commonfooter>
+<app-commonfooter *ngIf="isFooterVisible"></app-commonfooter>

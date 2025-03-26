@@ -19,7 +19,7 @@
   <div class="gap">
     <div *ngIf="dataLoaded && connections.length > 0">
       <ion-grid>
-        <ion-row class="border-bottom" *ngFor="let data of connections" (click)="goToProfileDetails(data.id)">
+        <ion-row class="border-bottom" *ngFor="let data of connections" (click)="goToProfileDetails(data.id, data.MOBILE_NO)">
           <ion-col size="3" >
             <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE">
             <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE">

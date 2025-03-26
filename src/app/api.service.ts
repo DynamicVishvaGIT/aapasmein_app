@@ -110,11 +110,14 @@ export class ApiService {
     )
   }
 
-  search_keyword_details(search_id:string, login_details:any) {
+  search_keyword_details(search_id:string, login_details:any, mobile_no?:string) {console.log(mobile_no);
     let urlSearchParams = new URLSearchParams();
     // urlSearchParams.append('apptype', this.apptype);
     urlSearchParams.append('login_id', login_details.login_id);
     urlSearchParams.append('search_id', search_id);
+    if(mobile_no){
+      urlSearchParams.append('mobile_no',mobile_no);
+    }
     // urlSearchParams.append('maxlength', '2');
     return this.httpClient.get(this.baseUrl + 'search_keyword_details?'+urlSearchParams.toString())
     .pipe(
@@ -197,8 +200,32 @@ export class ApiService {
     )
   }
 
+  save_mall_products(product: any) {
+    return this.httpClient.post(this.baseUrl + 'save_mall_products', product)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  load_saved_products(product: any) {
+    return this.httpClient.post(this.baseUrl + 'load_saved_products', product)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   get_user(id:string) {
     return this.httpClient.get(this.baseUrl + 'get_user/'+id)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  edit_user(id:string, user:any) {
+    return this.httpClient.post(this.baseUrl + 'edit_user/'+id,user)
     .pipe(
       retry(1),
       catchError(this.errorHandler)
@@ -277,9 +304,11 @@ export class ApiService {
       catchError(this.errorHandler)
     )
   }
-  load_events(mobile_no:string, category_id?:string,user_id?:string) {
+  load_events(mobile_no?:string, category_id?:string,user_id?:string) {console.log(user_id);
     let urlSearchParams = new URLSearchParams();
-    urlSearchParams.append('mobile_no', mobile_no);
+    if(mobile_no){
+     urlSearchParams.append('mobile_no', mobile_no);
+    }
     if(category_id){
       urlSearchParams.append('category_id', category_id);
     }

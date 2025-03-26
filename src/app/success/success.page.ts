@@ -33,11 +33,11 @@ export class SuccessPage implements OnInit {
       console.log(this.totalPoints);
       console.log(this.friend_details);
       if(this.totalPoints>=50){
-        this.message = 'looks like Qwerty '+ this.currentUser.user_name+' would be an awesome addition to the aapasmein network!';
+        this.message = 'Looks like '+ this.friend_details.full_name+' would be an awesome addition to the aapasmein network!';
         this.invite_friend();
       }
       else{
-        this.message = 'Looks like today Qwerty '+ this.currentUser.user_name+' may not be the best fit for the distinguished aapasmein network you have built. We are sure you have many more friends who will be an excellent addition to your aapasmein network.';
+        this.message = 'Looks like today '+ this.friend_details.full_name+' may not be the best fit for the distinguished aapasmein network you have built. We are sure you have many more friends who will be an excellent addition to your aapasmein network.';
       }
     });
   }
@@ -50,6 +50,7 @@ export class SuccessPage implements OnInit {
     formData.append('mobile_number',this.friend_details.mobile_number);
     formData.append('email',this.friend_details.email);
     formData.append('user_id',this.currentUser.user_id);
+    formData.append('request_type','invitation');
     this.apiService.invite_friend(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
@@ -64,6 +65,15 @@ export class SuccessPage implements OnInit {
 
   goToHome() {
     this.router.navigate(['/dashboard']);
+  }
+
+  inviteViaWhatsApp() {
+    const message = encodeURIComponent("Hey! Check out this amazing app:");
+    const link = encodeURIComponent("https://your-app-link.com");
+    const whatsappUrl = `https://wa.me/?text=${message} ${link}`;
+    
+    // window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_system');
   }
 
 }

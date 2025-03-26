@@ -20,6 +20,10 @@ export class EventCategoryPage implements OnInit {
   list:any=[{category_name:'',category_id:'',events:[]}];
   myEventList:any=[{category_name:'',category_id:'',events:[]}];
   myInterestList:any=[{category_name:'',category_id:'',events:[]}];
+  filteredList: any[] = [];
+  filteredMyEventList: any[] = [];
+  filteredMyInterestList: any[] = [];
+  searchQuery: string = '';
   info = 'allevent';
   searchFlag=false;
   imageUrl = 'https://aapasmein.dvadminpanel.in';
@@ -28,6 +32,7 @@ export class EventCategoryPage implements OnInit {
   dataLoaded: boolean = false;
   today = new Date();
   routeURL:string='';
+  isFooterVisible: boolean = true;
   // lists=[{catname:'Music',events:[{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'},{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'}]},{catname:'Sports',events:[{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'},{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'}]}];
 
   constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute) { 
@@ -63,7 +68,7 @@ export class EventCategoryPage implements OnInit {
     // let formData = new FormData();
     // formData.append("mobile_no",this.currentUser.mobile_no),
     // formData.append('apptype',this.apiService.apptype);
-    this.apiService.load_events(this.currentUser.mobile_no)
+    this.apiService.load_events(this.currentUser.mobile_no,undefined,undefined)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
@@ -78,6 +83,8 @@ export class EventCategoryPage implements OnInit {
           }
         }
       }
+      this.filteredList = [...this.list]; // Initialize filtered list
+      this.isFooterVisible = true;
       this.dataLoaded = true;
       this.commonService.dismissLoading();
     },
@@ -93,11 +100,13 @@ export class EventCategoryPage implements OnInit {
     // let formData = new FormData();
     // formData.append("user_id",this.currentUser.user_id),
     // formData.append('apptype',this.apiService.apptype);
-    this.apiService.load_events(this.currentUser.user_id)
+    this.apiService.load_events(undefined,undefined,this.currentUser.user_id)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.myEventList = response.data;
+      this.filteredMyEventList = [...this.myEventList]; // Initialize filtered list
+      this.isFooterVisible = true;
       this.myEventDataLoaded = true;
       this.commonService.dismissLoading();
     },
@@ -127,6 +136,8 @@ export class EventCategoryPage implements OnInit {
           }
         }
       }
+      this.filteredMyInterestList = [...this.myInterestList]; // Initialize filtered list
+      this.isFooterVisible = true;
       this.myInterestDataLoaded = true;
       this.commonService.dismissLoading();
     },
@@ -159,6 +170,61 @@ export class EventCategoryPage implements OnInit {
     })
   }
 
+  filterEventList() {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      if(this.info=='allevent'){
+        this.filteredList = [...this.list]; // Reset when search is empty
+      }
+      else if(this.info=='myevent'){
+        this.filteredMyEventList = [...this.myEventList]; // Reset when search is empty
+      }
+      else{
+        this.filteredMyInterestList = [...this.myInterestList]; // Reset when search is empty
+      }
+      this.isFooterVisible = true;
+    } 
+    else {
+      if(this.info=='allevent'){
+        this.filteredList = this.list
+        .map((item:any) => ({
+          ...item,
+          events: item.events.filter((event:any) =>
+            event.event_name.toLowerCase().includes(query) ||
+            event.event_created_by.toLowerCase().includes(query) ||
+            event.location.toLowerCase().includes(query)
+          )
+        }))
+        .filter((item:any) => item.events.length > 0);
+      }
+      else if(this.info=='myevent'){
+        this.filteredMyEventList = this.myEventList
+        .map((item:any) => ({
+          ...item,
+          events: item.events.filter((event:any) =>
+            event.event_name.toLowerCase().includes(query) ||
+            event.event_created_by.toLowerCase().includes(query) ||
+            event.location.toLowerCase().includes(query)
+          )
+        }))
+        .filter((item:any) => item.events.length > 0);
+      }
+      else{
+        this.filteredMyInterestList = this.myInterestList
+        .map((item:any) => ({
+          ...item,
+          events: item.events.filter((event:any) =>
+            event.event_name.toLowerCase().includes(query) ||
+            event.event_created_by.toLowerCase().includes(query) ||
+            event.location.toLowerCase().includes(query)
+          )
+        }))
+        .filter((item:any) => item.events.length > 0);
+      }
+      this.isFooterVisible = true;
+    }
+  }
+
   doRefresh(event:any){
     setTimeout(() => {
       // Any calls to load data go here
@@ -171,6 +237,10 @@ export class EventCategoryPage implements OnInit {
 
   showSearch() {
     this.searchFlag = !this.searchFlag;
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
   }
 
   goToDetails(data:any, type:string) {

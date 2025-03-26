@@ -21,6 +21,7 @@ export class AapasmeinmallPage implements OnInit {
   currentUser:any;
   searchFlag = false;
   mall_data:any = [];
+  filteredList: any[] = [];
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
   config: SwiperOptions = {
     pagination: true,
@@ -28,9 +29,12 @@ export class AapasmeinmallPage implements OnInit {
     effect: 'coverflow',
     loop: true
   }
+  searchQuery: string = '';
   filteredData:string='';
   filterText:string='';
   routeURL:string='';
+  isFooterVisible: boolean = true;
+  dataLoaded:boolean = false;
 
   constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute) { 
     this._unsubscribeAll = new Subject();
@@ -75,6 +79,7 @@ export class AapasmeinmallPage implements OnInit {
     if(this.filteredData!=''){
       category_id = this.filteredData;
     }
+    this.dataLoaded = false;
     this.commonService.presentLoading();
     // formData.append('apptype',this.apiService.apptype),
     this.apiService.load_mall_products(this.currentUser.mobile_no,category_id )
@@ -82,12 +87,33 @@ export class AapasmeinmallPage implements OnInit {
     .subscribe((response:any) => {
         console.log(response);
         this.mall_data = response.data;
+        this.filteredList = [...this.mall_data]; // Initialize filtered list
+        this.dataLoaded = true;
+        this.isFooterVisible = true;
         this.commonService.dismissLoading();
       },
       respError => {
+        this.dataLoaded = false;
         this.commonService.dismissLoading();
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
       })
+  }
+
+  filterList(event: any) {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      this.filteredList = [...this.mall_data];
+      this.isFooterVisible = true;
+    } else {
+      this.filteredList = this.mall_data.filter((item:any) => 
+        item.product_name.toLowerCase().includes(query)
+      );
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
   }
 
   doRefresh(event:any){

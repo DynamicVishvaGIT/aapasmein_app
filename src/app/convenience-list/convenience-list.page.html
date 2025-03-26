@@ -9,26 +9,31 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">aapasmein Convenience</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <div >
     <ion-button class="button-property" size="small" color="tertiary" (click)="addConveniencePage()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
   </div>
   <div class="card-gap">
-    <ion-grid>
+    <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList($event)" placeholder="Search Convenience" (click)="hideFooter()"></ion-searchbar>
+    <ion-grid *ngIf="dataLoaded && filteredList.length>0">
       <ion-row>
-        <ion-col size="6" *ngFor="let data of list">
+        <ion-col size="6" *ngFor="let data of filteredList">
           <ion-card class="mall-card" (click)="viewConvenienceDetails(data)">
             <div class="honeycomb-overlay"></div>
             <ion-card-content>
               <ion-row>
                 <ion-col size="12" style="text-align: center;">
-                  <img src="{{imageUrl}}{{data.IMAGE}}" alt="" class="img-avatar">
+                  <img src="{{imageUrl}}{{data.IMAGE}}" alt="" class="img-avatar" *ngIf="data.IMAGE!=null">
+                  <img src="../../../assets/icon/dashboard/doctor.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==1"> 
+                  <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==2"> 
+                  <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==3"> 
+                  <img src="../../../assets/icon/dashboard/electrician.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==4">
                 </ion-col>
               </ion-row>
               <ion-row style="margin-top: -23px;">
@@ -190,7 +195,11 @@
         </ion-col>
       </ion-row> -->
     </ion-grid>
+    <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
+      <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+      <span class="no-data-text">No Convenience Data</span>
+    </div>
   </div>
 </ion-content>
 
-<app-commonfooter></app-commonfooter>
+<app-commonfooter *ngIf="isFooterVisible"></app-commonfooter>

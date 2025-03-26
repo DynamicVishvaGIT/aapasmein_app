@@ -10,15 +10,16 @@
           <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
         </ion-col>
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
-          <strong class="header" style="color:white;">aapasmein Mall</strong>
+          <strong class="header" style="color:white;">aapasmein Deals</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
+  <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterMallList()" placeholder="Search Deals" (click)="hideFooter()"></ion-searchbar>
   <div style="margin-left: 5px;">
     <ion-segment value="myproduct" [(ngModel)]="info">
       <ion-segment-button value="myproduct" (click)="get_mall_products()">
@@ -32,9 +33,9 @@
   <div [ngSwitch]="info">
     <!-- <div *ngIf="mallDataLoaded && mall_data.length > 0"> -->
       <div class="gap" *ngSwitchCase="'myproduct'">
-        <ion-grid *ngIf="mallDataLoaded && mall_data.length > 0">
+        <ion-grid *ngIf="mallDataLoaded && filteredList.length > 0">
           <ion-row>
-            <ion-col size="6" *ngFor="let data of mall_data;" (click)="goToMallDetails(data,'mymall')">
+            <ion-col size="6" *ngFor="let data of filteredList;" (click)="goToMallDetails(data,'mymall')">
               <ion-card class="mall-card">
                 <ion-card-header> 
                   <ion-card-title>
@@ -45,7 +46,7 @@
                       </ng-template>
                     </swiper>
                   </ion-card-title>
-                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name}}</span><br>
+                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
                 </ion-card-header>
                 <ion-card-content style="margin-top: -28px;">
                   <span style="float:left;font-size: smaller;">{{data.description.substring(0,18)}}<span *ngIf="data.description.length>=18">...</span></span><br>
@@ -64,7 +65,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div class="no-data" *ngIf="mallDataLoaded && mall_data.length == 0">
+        <div class="no-data" *ngIf="mallDataLoaded && filteredList.length == 0">
           <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
           <span class="no-data-text">There are currently no products in your list. Add a products now to fill it up!.</span>
         </div>
@@ -103,9 +104,9 @@
     
     <!-- <div *ngIf="wishListDataLoaded && wish_list_data.length > 0"> -->
       <div class="gap" *ngSwitchCase="'mywishlist'">
-        <ion-grid *ngIf="wishListDataLoaded && wish_list_data.length > 0">
+        <ion-grid *ngIf="wishListDataLoaded && filteredWishList.length > 0">
           <ion-row>
-            <ion-col size="6" *ngFor="let data of wish_list_data;" (click)="goToMallDetails(data,'mymall')">
+            <ion-col size="6" *ngFor="let data of filteredWishList;" (click)="goToMallDetails(data,'mymall')">
               <ion-card class="mall-card">
                 <ion-card-header> 
                   <ion-card-title>
@@ -116,7 +117,7 @@
                       </ng-template>
                     </swiper>
                   </ion-card-title>
-                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name}}</span><br>
+                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
                 </ion-card-header>
                 <ion-card-content style="margin-top: -28px;">
                   <span style="float:left;font-size: smaller;">{{data.description.substring(0,18)}}<span *ngIf="data.description.length>=18">...</span></span><br>
@@ -217,7 +218,7 @@
             </ion-col>
           </ion-row>
         </ion-grid> -->
-        <div class="no-data" *ngIf="wishListDataLoaded && wish_list_data.length == 0">
+        <div class="no-data" *ngIf="wishListDataLoaded && filteredWishList.length == 0">
           <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
           <span class="no-data-text">Your wishlist is empty at the moment. Explore our mall products and start adding your favorites!</span>
         </div>
@@ -229,4 +230,4 @@
   <br>
 </ion-content>
 
-<app-commonfooter></app-commonfooter>
+<app-commonfooter *ngIf="isFooterVisible"></app-commonfooter>

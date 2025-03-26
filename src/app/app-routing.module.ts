@@ -271,6 +271,14 @@ const routes: Routes = [
     path: 'connection-list',
     loadChildren: () => import('./connection-list/connection-list.module').then( m => m.ConnectionListPageModule)
   },
+  {
+    path: 'my-aapasmein',
+    loadChildren: () => import('./my-aapasmein/my-aapasmein.module').then( m => m.MyAapasmeinPageModule)
+  },
+  {
+    path: 'view-image',
+    loadChildren: () => import('./view-image/view-image.module').then( m => m.ViewImagePageModule)
+  },
 ];
 
 @NgModule({

@@ -31,6 +31,10 @@ export class DashboardPage implements OnInit {
     effect: 'coverflow',
     loop: true
   }
+  // Store interval references for each swiper instance
+  intervals: { [key: string]: any } = {};
+  // Store interval references for each mall item
+  mallIntervals: { [key: string]: any } = {}; 
   convenience_list:any=[];
   mall_list_data:any=[];
   event_list:any=[];
@@ -45,6 +49,7 @@ export class DashboardPage implements OnInit {
   footerUrl = 'dashboard';
   showFooter:boolean = false;
   isBackNavigation = false;
+  today = new Date();
 
   constructor(private router: Router, private modalCtrl: ModalController, private geolocation: Geolocation, private http: HttpClient,
     private apiService: ApiService, private commonService: CommonService, private loadingCtrl: LoadingController, private navigationService: NavigationService) { 
@@ -86,6 +91,17 @@ export class DashboardPage implements OnInit {
     // this.load_mall_products();
     // this.load_events();
     // this.load_broadcast_list();
+  }
+
+  doRefresh(event:any) {
+    this.showFooter = false;
+    setTimeout(() => (this.showFooter = true));
+    this.load_convenience_category();
+    this.load_mall_products();
+    this.load_events();
+    this.load_broadcast_list(); // Call your desired function
+    this.load_banners();
+    event.target.complete();
   }
 
   async presentLoading() {   // Call this For Advertisement Banner
@@ -153,12 +169,19 @@ export class DashboardPage implements OnInit {
     // let formData = new FormData();
     // formData.append("mobile_no",this.currentUser.mobile_no),
     // formData.append('apptype',this.apiService.apptype);
+    this.event_list = [];
     this.apiService.load_events(this.currentUser.mobile_no)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       for(let i=0;i<response.data.length;i++){
         for(let j=0;j<response.data[i].events.length;j++){
+          if(new Date(response.data[i].events[j].date) > this.today){
+            response.data[i].events[j].interest_button = true;
+          }
+          else{
+            response.data[i].events[j].interest_button = false;
+          }
           this.event_list.push(response.data[i].events[j]);
         }
       }
@@ -223,13 +246,50 @@ export class DashboardPage implements OnInit {
   //   });
   // }
 
-  async setSwiperInstance(swiper: Swiper) {
-    if(swiper){
-      setInterval(() => {
+  async setSwiperInstance(swiper: Swiper, bannerType: 'banner1' | 'banner2' | 'banner3' | 'banner4') {
+    let imagesArray = this.getImagesArray(bannerType);
+  
+    if (swiper && imagesArray.length > 1) {
+      // Clear existing interval if it exists
+      if (this.intervals[bannerType]) clearInterval(this.intervals[bannerType]);
+  
+      // Start sliding only if more than one image exists
+      this.intervals[bannerType] = setInterval(() => {
         swiper.slideNext();
       }, 4000);
     }
   }
+  
+  // Helper method to get the appropriate banner array
+  getImagesArray(bannerType: string): any[] {
+    switch (bannerType) {
+      case 'banner1': return this.banner1_images;
+      case 'banner2': return this.banner2_images;
+      case 'banner3': return this.banner3_images;
+      case 'banner4': return this.banner4_images;
+      default: return [];
+    }
+  }
+
+  async setMallSwiperInstance(swiper: Swiper, mallId: string, images: string[]) {
+    if (swiper && images.length > 1) {
+      // Clear any existing interval for this mall item
+      if (this.mallIntervals[mallId]) clearInterval(this.mallIntervals[mallId]);
+  
+      // Start sliding only if more than one image exists
+      this.mallIntervals[mallId] = setInterval(() => {
+        swiper.slideNext();
+      }, 4000);
+    }
+  }
+
+  // async setSwiperInstance(swiper: Swiper) {
+  //   if(swiper){
+  //     setInterval(() => {
+  //       swiper.slideNext();
+  //     }, 4000);
+  //   }
+  // }
 
   goToAppasmeinMall() {
     this.router.navigate(['/aapasmeinmall']);
@@ -322,6 +382,10 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/aapasmein-wall']);
   }
 
+  goToDetails(data:any) {
+    this.router.navigate(['/event-details'], { queryParams: {event_id: data.id, type: 'all', url: 'dashboard'} });
+  }
+  
   logout() {
     localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);

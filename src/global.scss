@@ -31,6 +31,24 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+// /* Default (Light Mode) */
+// .light-theme {
+//   --ion-background-color: #ffffff;
+//   --ion-text-color: #000000;
+// }
+
+// /* Dark Mode */
+// .dark-theme {
+//   --ion-background-color: #001f3f; /* Dark Blue */
+//   --ion-text-color: #ffffff;
+// }
+
+// /* Apply background and text color */
+// body {
+//   background-color: var(--ion-background-color);
+//   color: var(--ion-text-color);
+// }
+
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -246,4 +264,19 @@ ion-toolbar, ion-content, ion-header, ion-footer, ion-title, ion-label, ion-butt
   height: 42px;
   font-family: "Poppins-Regular";
   --background: #5261d5;
+}
+
+ion-searchbar.custom {
+  --background: #fff;
+  --color: #00000096;
+  // --icon-color: blue;
+  --clear-button-color: black;
+  // --border-radius: 23px;
+  // border: 1px solid black;
+  // border-radius: 3px;
+  padding: 9px;
+}
+
+ion-searchbar.ios.custom {
+   --cancel-button-color: #19422d;
 }

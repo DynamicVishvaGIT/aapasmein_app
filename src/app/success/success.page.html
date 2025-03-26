@@ -7,8 +7,11 @@
     <h1 style="color:#ffff;padding: 10px;text-align: center;font-size: xx-large;" *ngIf="totalPoints>=50">Great Recommendation !</h1>
     <h1 style="color:#ffff;padding: 10px;text-align: center;font-size: larger;">{{message}}</h1>
   </div>
+  <div class="whatsapp-button-card" (click)="inviteViaWhatsApp()" *ngIf="totalPoints>=50">
+    <span style="margin-top: 55px;font-size: small;">Invite via Whatsapp</span>
+  </div>
   <div class="button-card" (click)="goToHome()">
-    <span style="margin-top: 55px;"><ion-icon name="home-outline"></ion-icon>&nbsp;Home</span>
+    <span style="margin-top: 80px;"><ion-icon name="home-outline"></ion-icon>&nbsp;Home</span>
   </div>
 </ion-content>
 

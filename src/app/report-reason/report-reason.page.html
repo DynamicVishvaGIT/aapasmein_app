@@ -14,7 +14,7 @@
   </div>
   <ion-list>
     <ion-radio-group [(ngModel)]="selectedReason" (ionChange)="onReasonChange($event)">
-      <ion-item *ngFor="let reason of reasons">
+      <ion-item *ngFor="let reason of reasons" (click)="selectedReason = reason">
         <ion-label>{{ reason }}</ion-label>
         <ion-radio slot="start" [value]="reason"></ion-radio>
       </ion-item>

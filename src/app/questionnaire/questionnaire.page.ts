@@ -68,6 +68,10 @@ export class QuestionnairePage implements OnInit {
     .subscribe((response:any) => {
         console.log(response);
         this.questions = response;
+        this.questions = response.map((item: any) => ({
+          ...item,
+          question: item.question.replace(/Qwerty/g, this.friend_details.full_name) // Replacing all occurrences of 'Qwerty' with invite friend's name
+        }));
         this.generateQuizQuestions();
       },
       respError => {console.log(respError);
@@ -116,6 +120,15 @@ export class QuestionnairePage implements OnInit {
       this.router.navigate(['/success'], { queryParams: { totalPoints: this.totalPoints, friend_details: JSON.stringify(this.friend_details)} });
     }
   }
+
+  // inviteViaWhatsApp() {
+  //   const message = encodeURIComponent("Hey! Check out this amazing app:");
+  //   const link = encodeURIComponent("https://your-app-link.com");
+  //   const whatsappUrl = `https://wa.me/?text=${message} ${link}`;
+    
+  //   // window.open(whatsappUrl, '_blank');
+  //   window.open(whatsappUrl, '_system');
+  // }
 
   dismiss() {
     // this.modalCtrl.dismiss();

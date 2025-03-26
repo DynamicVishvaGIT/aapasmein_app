@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
 import { ReportReasonPage } from '../report-reason/report-reason.page';
+import { ViewImagePage } from '../view-image/view-image.page';
 
 @Component({
   selector: 'app-request-send',
@@ -25,6 +26,8 @@ export class RequestSendPage implements OnInit {
   wishListStatus='';
   routeURL:string='';
   searchText:string='';
+  bookmarkFlag:boolean = false;
+  productListStatus = '';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService, private commonService: CommonService,
     private alertCtrl: AlertController, private modalCtrl: ModalController) { 
@@ -61,6 +64,13 @@ export class RequestSendPage implements OnInit {
         }
         else{
           this.wishlistFlag = true;
+        }
+        this.productListStatus= response.data.product_saved_status;
+        if(this.productListStatus=='saved' || this.productListStatus!=null){
+          this.bookmarkFlag = false;
+        }
+        else{
+          this.bookmarkFlag = true;
         }
       },
       respError => {
@@ -117,6 +127,56 @@ export class RequestSendPage implements OnInit {
    await  confirm.present();
   }
 
+  async showBookmarkDialog(status:string) {
+    let showStatus='';
+    let what = '';
+    if(status=='saved'){
+      showStatus = 'save';
+      what = 'to';
+    }
+    else{
+      showStatus = 'remove';
+      what = 'from';
+    }
+    const confirm = await this.alertCtrl.create({
+      header: showStatus=='remove'?'Remove':'Save'+' '+what+' saved products',
+      message: 'Do you want to '+showStatus+' this product '+what+' saved products?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Ok, '+showStatus+' it',
+          handler: () => {
+            this.save_mall_products(status);
+          }
+        }
+      ]
+    });
+   await  confirm.present();
+  }
+
+  save_mall_products(status:string) {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('product_id',this.product_id);
+    formData.append('status',status);
+    this.apiService.save_mall_products(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        this.bookmarkFlag=!this.bookmarkFlag;
+        this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+    // this.commonService.showToastMessage('Bookmark has been saved to saved items.', 'success-toast','', 5000);
+  }
+
   showSearch() {
     this.searchFlag = !this.searchFlag;
   }
@@ -141,6 +201,17 @@ export class RequestSendPage implements OnInit {
         }
         else{
         }
+      }
+    })
+    return await modal.present();
+  }
+
+  async zoomImage(image:string) {
+    console.log(image);
+    let modal = await this.modalCtrl.create({component:ViewImagePage, componentProps:{ imageUrl: 'https://aapasmein.dvadminpanel.in/media/'+image }});
+    //modal.present();
+    modal.onDidDismiss().then((modalItem) => {
+      if (modalItem) {console.log(modalItem);
       }
     })
     return await modal.present();

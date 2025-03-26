@@ -21,7 +21,8 @@ export class FooterModalPage implements OnInit {
 
   goToMyAapasmein() {
     this.closeModal();
-    this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'dashboard' } });
+    this.router.navigate(['/my-aapasmein'],  { queryParams: { routeURL: 'dashboard' } });
+    // this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'dashboard' } });
   }
 
   goToProfile() {

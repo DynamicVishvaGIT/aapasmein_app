@@ -35,7 +35,7 @@
   <div class="honeycomb-overlay"></div>
   <ion-row style="margin-left: 20px;">
     <ion-col>
-      <strong style="color:white;">Before you Invite Prasenjit Chanda to aapasmein, here's something to ponder</strong>
+      <strong style="color:white;">Before you Invite {{friend_details.full_name}} to aapasmein, here's something to ponder</strong>
     </ion-col>
   </ion-row>
   <div *ngFor="let data of selectedQuestions; let i = index" [hidden]="currentQuestion !== i" style="margin-top: 70px;">
@@ -56,9 +56,9 @@
       </div>
     </div>
   </div>
-  <div class="button-card">
+  <!-- <div class="button-card" (click)="inviteViaWhatsApp()">
     <span style="margin-top: 55px;font-size: small;">Invite via Whatsapp</span>
-  </div>
+  </div> -->
 </ion-content>
 
 <!-- <ion-button  type="submit" color="primary" class="login-btn" (click)="onInvite()"><b>Next</b></ion-button> -->

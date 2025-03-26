@@ -1,0 +1,9 @@
+<ion-content class="content1">
+  <div id="header-icons" >
+    <ion-icon name="close-outline" style="float:right;font-size: xx-large;" (click)="dismiss()"></ion-icon>
+  </div>
+  <swiper #swiper class="mySwiper" [config]="config" [spaceBetween]="15" *ngIf="urls.length>1">
+    <ng-template *ngFor="let image of url;" swiperSlide><img src="{{image}}" alt="" class="image-swiper-size"></ng-template>
+  </swiper>
+  <img [src]="url" class="image-size" *ngIf="(url && !type) || urls.length==1">
+</ion-content>

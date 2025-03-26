@@ -23,6 +23,10 @@ export class BroadcastListPage implements OnInit {
   searchFlag=false;
   routeURL:string='';
   filteredData:string='';
+  searchQuery: string = '';
+  filteredList: any[] = [];
+  dataLoaded:boolean = false;
+  isFooterVisible: boolean = true;
 
   constructor(private modalCtrl: ModalController, private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService, 
   private commonService: CommonService) { 
@@ -65,12 +69,32 @@ export class BroadcastListPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.broadcast_list = response.data;
+      this.filteredList = [...this.broadcast_list]; // Initialize filtered list
+      this.dataLoaded = true;
+      this.isFooterVisible = true;
       this.commonService.dismissLoading();
     },
     respError => {
       this.commonService.dismissLoading();
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterList(event: any) {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      this.filteredList = [...this.broadcast_list];
+      this.isFooterVisible = true;
+    } else {
+      this.filteredList = this.broadcast_list.filter((item:any) => 
+        item.title_name.toLowerCase().includes(query)
+      );
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
   }
 
   showSearch() {
@@ -98,8 +122,8 @@ export class BroadcastListPage implements OnInit {
   }
 
   dismiss() {
-    if(this.routeURL=='profile'){
-      this.router.navigate(['/profile']);
+    if(this.routeURL=='myaapasmein'){
+      this.router.navigate(['/my-aapasmein']);
     }
     else if(this.routeURL=='features'){
       this.router.navigate(['/aapasmein-features']);

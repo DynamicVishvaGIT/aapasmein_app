@@ -33,7 +33,7 @@
             <strong class="header" style="color:white;">Your Profile</strong>
           </ion-col>
           <ion-col style="text-align: end;">
-            <ion-icon name="pencil" style="color:white;margin-right: 15px;" *ngIf="!search_id" (click)="editProfile()"></ion-icon>
+            <ion-icon name="pencil" style="color:white;margin-right: 15px;" *ngIf="(currentUser.user_id==search_id || currentUser.user_id==user_details?.id || currentUser.user_id==sender_id)" (click)="editProfile()"></ion-icon>
             <!-- <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon> -->
             <ion-icon name="ellipsis-vertical-outline" style="color:white; margin-right: -8px;" (click)="openModal()"></ion-icon>        
           </ion-col>
@@ -53,7 +53,7 @@
             <!-- <img src="../../assets/Prasenjit_Chanda.png" class="profile-img-avatar border-white" alt="Profile Picture"/> -->
             <img [src]="selectedImage.data" class="profile-img-avatar" alt="Profile Picture" *ngIf="selectedImage.data!='' && user_details?.PROFILE_IMAGE"/>
             <!-- <img src="../../assets/avtar4.png" class="profile-img-avatar border-white" *ngIf="selectedImage.data==''"/> -->
-            <img src="{{user_details?.PROFILE_IMAGE?imageUrl:imageURL}}{{user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" *ngIf="(selectedImage.data=='' && user_details?.PROFILE_IMAGE) || search_user_details?.PROFILE_IMAGE!=null"/>
+            <img src="{{user_details?.PROFILE_IMAGE?imageUrl:imageURL}}{{user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" (click)="zoomImage(user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE)" *ngIf="(selectedImage.data=='' && user_details?.PROFILE_IMAGE) || search_user_details?.PROFILE_IMAGE!=null"/>
             <!-- <img src="{{imageUrl}}{{search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" *ngIf="search_user_details?.PROFILE_IMAGE && selectedImage.data==''"/> -->
             <img src="../../assets/avtar3.jpeg" alt="" class="profile-img-avatar"  *ngIf="search_user_details?.PROFILE_IMAGE==null && selectedImage.data=='' && !user_details?.PROFILE_IMAGE">
             <ion-icon name="camera" class="camera-icon" (click)="presentActionSheet()"></ion-icon>
@@ -63,17 +63,18 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" style="text-align: center;">
-          <p class="name-txt"><b>{{search_id!=undefined?search_user_details?.NAME?search_user_details?.NAME:'Prasenjit Chanda':user_details?.NAME}}</b></p>
+          <p class="name-txt"><b>{{search_id!=undefined?search_user_details?.NAME?search_user_details?.NAME:'No Name':user_details?.NAME}}</b></p>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" style="text-align: center;">
-          <p class="name-txt1">{{search_id!=undefined?search_user_details?.KEYWORD?search_user_details?.KEYWORD:'Software Developer':user_details?.PROFESSION__NAME}}</p>
+          <p class="name-txt1">{{search_id!=undefined?search_user_details?.KEYWORD?search_user_details?.KEYWORD:'No Profession':user_details?.PROFESSION__NAME}}</p>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="search_id!=undefined">
+      <ion-row>
         <ion-col >
-          <ion-button fill="outline" class="custom_button no-uppercase">Send a message</ion-button>
+          <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'">Send a message</ion-button>
+          <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='no'" (click)="showReachoutDialog()">Reach-out</ion-button>
         </ion-col>
         <!-- <ion-col size="6">
           <ion-button fill="outline" class="custom_button no-uppercase" (click)="add_advantage()">Add Advantage</ion-button>
@@ -86,21 +87,28 @@
       </ion-row> -->
       <ion-row>
         <ion-col size="4" style="text-align: center;" (click)="goToConnections()">
-          <ion-icon name="people-outline" style="font-size: x-large; color: white;"></ion-icon>
+          <ion-icon name="people-outline" style="font-size: xx-large; color: white;"></ion-icon>
           <p>Connections</p>
         </ion-col>
-        <ion-col size="4" *ngIf="!search_id" style="text-align: center;" (click)="openActivity()"> 
+        <ion-col size="4" style="text-align: center;">
+
+        </ion-col>
+        <!-- <ion-col size="3" *ngIf="!search_id" style="text-align: center;" (click)="openActivity()"> 
           <ion-icon name="briefcase-outline" style="font-size: x-large; color: white;"></ion-icon>
           <p>Activity</p>
         </ion-col>
-        <ion-col size="4" *ngIf="!search_id" style="text-align: center;" (click)="goToSavedItems()">
+        <ion-col size="3" *ngIf="!search_id" style="text-align: center;" (click)="goToSavedItems()">
           <ion-icon name="bookmark-outline" style="font-size: x-large; color: white;"></ion-icon>
           <p>Saved Item</p>
+        </ion-col> -->
+        <ion-col size="4" style="text-align: center;" (click)="goToAccolade()">
+          <ion-icon name="trophy-outline" style="font-size: xx-large; color: white;"></ion-icon>
+          <p>Accolades</p>
         </ion-col>
       </ion-row>
     </div>
   </div>
-  <div class="ion-padding prof-margin">
+  <div class="ion-padding prof-margin" *ngIf="search_id==undefined || (search_id!=undefined && search_user_details?.REACHOUT=='yes')">
     <ion-grid>
       <ion-row>
         <ion-col size="6">
@@ -112,10 +120,10 @@
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="6">
-          <span class="text1">{{search_id!=undefined?'Mumbai':user_details?.CITY__NAME?user_details?.CITY__NAME:'No Data'}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.CITY__NAME?search_user_details?.CITY__NAME:'No City':user_details?.CITY__NAME?user_details?.CITY__NAME:'No Data'}}</span>
         </ion-col>
         <ion-col size="6">
-          <span class="text1">{{search_id!=undefined?'Andheri':user_details?.LOCATION__NAME?user_details?.LOCATION__NAME:'No Data'}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.LOCATION__NAME?search_user_details?.LOCATION__NAME:'No Location':user_details?.LOCATION__NAME?user_details?.LOCATION__NAME:'No Location'}}</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -125,7 +133,7 @@
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.EMAIL_ID ? search_user_details?.EMAIL_ID : 'No Data':user_details?.EMAIL_ID?user_details?.EMAIL_ID:'No Data'}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.EMAIL_ID ? search_user_details?.EMAIL_ID : 'No Email':user_details?.EMAIL_ID?user_details?.EMAIL_ID:'No Email'}}</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -140,12 +148,22 @@
       </ion-row>
       <ion-row>
         <ion-col size="12">
+          <span class="text">Profession</span> <br>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: -8px;">
+        <ion-col size="12">
+          <span class="text1">{{search_id!=undefined?search_user_details?.KEYWORD?search_user_details?.KEYWORD:'No Profession':user_details?.PROFESSION__NAME}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
           <span class="text">Specialization</span> <br>
         </ion-col>
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?'Mobile app and website design':user_details?.SPECIALIZATION__NAME?user_details?.SPECIALIZATION__NAME:'No Data'}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.SPECIALIZATION__NAME?search_user_details?.SPECIALIZATION__NAME:'No Data':user_details?.SPECIALIZATION__NAME}}</span>
         </ion-col>
       </ion-row>
       <ion-row >
@@ -158,7 +176,7 @@
           <span class="text1">{{search_id!=undefined?search_user_details?.INTEREST_NAME?search_user_details?.INTEREST_NAME:'No Data':user_details?.INTEREST_NAME?user_details?.INTEREST_NAME:'No Data'}}</span>
         </ion-col>
       </ion-row>
-      <ion-row style="margin-left: -7px;">
+      <ion-row style="margin-left: -7px;" *ngIf="(currentUser.user_id==search_id || currentUser.user_id==user_details?.id || currentUser.user_id==sender_id)">
         <ion-col size="12">
           <ion-chip (click)="add_advantage()">
             <!-- <ion-avatar>

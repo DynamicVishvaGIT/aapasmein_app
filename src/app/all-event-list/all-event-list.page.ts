@@ -66,7 +66,11 @@ export class AllEventListPage implements OnInit {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      this.list = response.data[0].events;
+      // this.list = response.data[0].events;
+      let index = this.commonService.findItem(response.data,'category_id',this.category_id);
+      if(index!=-1){
+        this.list = response.data[index].events;
+      }
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -81,7 +85,10 @@ export class AllEventListPage implements OnInit {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      this.myEventList = response.data[0].events;
+      let index = this.commonService.findItem(response.data,'category_id',this.category_id);
+      if(index!=-1){
+        this.myEventList = response.data[index].events;
+      }
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -95,7 +102,11 @@ export class AllEventListPage implements OnInit {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      this.myInterestList = response.data[0].events;
+      // this.myInterestList = response.data[0].events;
+      let index = this.commonService.findItem(response.data,'category_id',this.category_id);
+      if(index!=-1){
+        this.myInterestList = response.data[index].events;
+      }
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);

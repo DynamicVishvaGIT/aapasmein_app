@@ -105,10 +105,18 @@ ion-segment-button {
 .radio-unselected {
     --color: #e9e9e9;
 }
+// .img-banner {
+//     width: 100%;
+//     height: 110px;
+//     border-radius: 6px;
+// }
 .img-banner {
     width: 100%;
-    height: 110px;
-    border-radius: 6px;
+    height: auto;
+    max-height: 120px; /* Adjust max height if needed */
+    object-fit: contain;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 // .img-banner {
 //     width: 79%;
@@ -173,7 +181,8 @@ ion-segment-button {
 
 .mall-card {
     // margin-top: -8px;
-    height: auto;
+    // height: auto;
+    height: 282px;
     margin-left: 0px;
     margin-right: 2px;
     border-radius:8px;

@@ -1,0 +1,40 @@
+.content1 {
+    --background: none;
+    // background-image: url('../../assets/dashboard-bg.png');
+    background-color: #F8F8F8;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  #header-icons{
+    text-align: right;
+    ion-icon{
+        // color: #fff;
+        color:#50537a;
+        font-size: 1.5rem;
+        //margin-left: 16px;
+    }
+  }
+.image-swiper-size{
+//   margin-top: 37px;
+//   width: 100%;
+//   height: 75%;
+
+// margin-top: 37px;
+margin-top: 50%;
+width: 94%;
+height: 185px;
+margin-left: 22px;
+// margin-top: -2px;
+// width: 90%;
+// height: 100%;
+// margin-left: 17px;
+}
+
+.image-size {
+  margin-top: 50%;
+  width: 90%;
+  //   height: 185px;
+  height: auto;
+  margin-left: 22px;
+}

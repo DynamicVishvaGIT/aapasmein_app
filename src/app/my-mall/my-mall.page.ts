@@ -29,6 +29,10 @@ export class MyMallPage implements OnInit {
   }
   mallDataLoaded: boolean = false;
   wishListDataLoaded: boolean = false;
+  searchQuery: string = '';
+  filteredList: any[] = [];
+  filteredWishList: any[] = [];
+  isFooterVisible: boolean = true;
 
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService) { 
     this._unsubscribeAll = new Subject();
@@ -43,11 +47,11 @@ export class MyMallPage implements OnInit {
       filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
       ).subscribe((event: NavigationEnd) => {
         if (event.url === '/my-mall') { // Check if user navigated back to a specific URL
-          this.load_wishlist_product(); // Call your desired function
+          this.get_mall_products(); // Call your desired function
         }
     });
-    this.get_mall_products();
-    this.load_wishlist_product();
+    // this.get_mall_products();
+    // this.load_wishlist_product();
   }
 
   async setSwiperInstance(swiper: Swiper) {
@@ -68,6 +72,8 @@ export class MyMallPage implements OnInit {
     .subscribe((response:any) => {
         console.log(response);
         this.mall_data = response.data;
+        this.filteredList = [...this.mall_data]; // Initialize filtered list
+        this.isFooterVisible = true;
         this.mallDataLoaded = true; 
         this.commonService.dismissLoading();
       },
@@ -87,6 +93,8 @@ export class MyMallPage implements OnInit {
     .subscribe((response:any) => {
         console.log(response);
         this.wish_list_data = response.data;
+        this.filteredWishList = [...this.wish_list_data]; // Initialize filtered list
+        this.isFooterVisible = true;
         this.wishListDataLoaded = true; 
         this.commonService.dismissLoading();
       },
@@ -94,6 +102,36 @@ export class MyMallPage implements OnInit {
         this.commonService.dismissLoading();
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
       })
+  }
+
+  filterMallList() {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      if(this.info=='myproduct'){
+        this.filteredList = [...this.mall_data]; // Reset when search is empty
+      }
+      else{
+        this.filteredWishList = [...this.wish_list_data]; // Reset when search is empty
+      }
+      this.isFooterVisible = true;
+    } 
+    else {
+      if(this.info=='myproduct'){
+        this.filteredList = this.mall_data.filter((item:any) => 
+          item.product_name.toLowerCase().includes(query)
+        );
+      }
+      else{
+        this.filteredWishList = this.wish_list_data.filter((item:any) => 
+          item.product_name.toLowerCase().includes(query)
+        );
+      }
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
   }
 
   doRefresh(event:any){
@@ -114,7 +152,7 @@ export class MyMallPage implements OnInit {
   }
 
   dismiss() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/my-aapasmein']);
   }
 
 }

@@ -9,22 +9,23 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">Broadcast</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <div >
     <ion-button  size="small" slot="start" style="float:left;font-size: small;margin-left: 24px;text-transform: none;" (click)="filterBroadcast()"><ion-icon name="filter-outline"></ion-icon> &nbsp;Filter</ion-button>
     <ion-button class="button-property" size="small" color="tertiary" (click)="addBroadcast()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
   </div>
   <div class="card-gap">
-    <ion-grid>
+    <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList($event)" placeholder="Search Broadcast" (click)="hideFooter()"></ion-searchbar>
+    <ion-grid *ngIf="dataLoaded && filteredList.length>0">
       <ion-row>
         <ion-col size="12" >
-          <ion-card  class="broadcast-card" style="background-color: #efefef;margin-top: 0px;" *ngFor="let data of broadcast_list" > <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
+          <ion-card  class="broadcast-card" style="background-color: #efefef;margin-top: 0px;" *ngFor="let data of filteredList" > <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
             <h6 style="padding-left: 10px;color:#000000" (click)="goToBroadcastDetails(data.id)">{{data.title_name}}</h6>
              <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;" (click)="goToBroadcastDetails(data.id)"> {{data.description}}</p>
              <span style="float: right;color:#3180ea;padding-right:20px;padding-bottom:13px;margin-top: -15px;" (click)="shareDetails(data.id)">Share</span><ion-icon name="arrow-redo-outline" style="float: right;color:#3180ea;margin-top: -13px;"></ion-icon>
@@ -32,5 +33,12 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
+      <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+      <span class="no-data-text">No Broadcast Data</span>
+    </div>
   </div>
 </ion-content>
+
+
+<app-commonfooter *ngIf="isFooterVisible"></app-commonfooter>

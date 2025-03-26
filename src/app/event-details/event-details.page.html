@@ -27,7 +27,7 @@
           </ion-row>
           <ion-card class="event-card">
             <ion-card-header class="card-header-img"> 
-              <img src="{{imageUrl}}{{event_details.EVENT_IMAGE}}" alt="" class="img-banner">
+              <img src="{{imageUrl}}{{event_details.EVENT_IMAGE}}" alt="" class="img-banner" (click)="zoomImage(event_details.EVENT_IMAGE)">
             </ion-card-header>
           </ion-card>
         </ion-col>

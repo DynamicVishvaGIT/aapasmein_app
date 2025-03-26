@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
 import { ModalController } from '@ionic/angular';
 import { ReportReasonPage } from '../report-reason/report-reason.page';
+import { ViewImagePage } from '../view-image/view-image.page';
 
 @Component({
   selector: 'app-event-details',
@@ -108,6 +109,17 @@ export class EventDetailsPage implements OnInit {
     return await modal.present();
   }
 
+  async zoomImage(image:string) {
+    console.log(image);
+    let modal = await this.modalCtrl.create({component:ViewImagePage, componentProps:{ imageUrl: 'https://aapasmein.dvadminpanel.in/media/'+image }});
+    //modal.present();
+    modal.onDidDismiss().then((modalItem) => {
+      if (modalItem) {console.log(modalItem);
+      }
+    })
+    return await modal.present();
+  }
+
   dismiss() {
     if(this.url=='categorylist'){
       this.router.navigate(['/event-category']);
@@ -115,8 +127,11 @@ export class EventDetailsPage implements OnInit {
     else if(this.url=='search'){
       this.router.navigate(['/globalsearchdetails'], { queryParams: { searchText: this.searchText} });
     }
+    else if(this.url=='dashboard'){
+      this.router.navigate(['/dashboard']);
+    }
     else{
-      this.router.navigate(['/all-event-list']);
+      this.router.navigate(['/all-event-list'], { queryParams: { urlType: this.type}});
     }
   }
 

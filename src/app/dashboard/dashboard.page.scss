@@ -225,14 +225,29 @@ ion-content {
 .card-gap3{
     margin-top: -23px;
 }
+// .mall-card {
+//     // margin-top: -8px;
+//     // height: auto;
+//     height: 185px;
+//     margin-left: 0px;
+//     margin-right: 2px;
+//     border-radius:8px;
+//     width: 100%;
+//     background: #d1ebff;
+// }
+
 .mall-card {
-    // margin-top: -8px;
-    height: auto;
+    height: auto; /* Allow height to adjust dynamically */
+    // min-height: 185px; /* Ensure a minimum height */
+    min-height: 228px; /* Ensure a minimum height */
     margin-left: 0px;
     margin-right: 2px;
-    border-radius:8px;
+    border-radius: 8px;
     width: 100%;
     background: #d1ebff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures the content is spaced properly */
 }
 
 .img-banner {
@@ -333,7 +348,9 @@ ion-content {
 }
 .event-card {
     margin-top: 10px;
-    height: auto;
+    // height: auto;
+    height: 180px;
+    // height: 155px;
     margin-left: 0px;
     margin-right: 2px;
     border-radius:10px;
@@ -346,22 +363,31 @@ ion-content {
     padding: 0;
     position: relative; /* Needed for positioning the button */
 }
+// .img-banner {
+//     width: 100%;
+//     // height: 68px;
+//     height: auto;
+//     // object-fit: cover; /* Ensures the image covers the area */
+//     max-height: 150px; /* Set a reasonable maximum height */
+//     object-fit: contain; /* Ensures the entire image is visible without cropping */
+//     border-top-left-radius: 8px;
+//     border-top-right-radius: 8px;
+    
+// }
 .img-banner {
     width: 100%;
-    // height: 150px;
-    height: 68px;
-    // border-radius: 6px;
-    object-fit: cover; /* Ensures the image covers the area */
+    height: auto;
+    max-height: 120px; /* Adjust max height if needed */
+    object-fit: contain;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    // margin-top: -16px;
-    // margin-left: -17px;
 }
 .img-banner1 {
     width: 100%;
     // height: 150px;
     // aspect-ratio: 16 / 9;
-    height: 50px;
+    height: 80px;
+    // height: 50px;
     // border-radius: 6px;
     object-fit: cover; /* Ensures the image covers the area */
     border-top-left-radius: 8px;
@@ -383,6 +409,14 @@ ion-content {
     width: 37%;
     height: 74%;
     margin-top: -4px;
+}
+.circle-img2 {
+    border-radius: 50%;
+    width: 27px;  /* or any desired fixed size */
+    height: 27px; /* ensure width and height are equal */
+    object-fit: cover; /* makes sure the image scales to cover the circle */
+    margin-top: -4px;
+    // margin-left: 14px;
 }
 .badge-color{
     float: right;

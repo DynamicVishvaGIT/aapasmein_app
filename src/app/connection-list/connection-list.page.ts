@@ -66,9 +66,9 @@ export class ConnectionListPage implements OnInit {
     this.searchFlag = !this.searchFlag;
   }
 
-  goToProfileDetails(search_id:string) {
+  goToProfileDetails(search_id:string, mobile_no:string) {
     // this.modalCtrl.dismiss();
-    this.router.navigate(['/profile'], { queryParams: { search_id: search_id, routeURL:'connections', searchText: this.searchText} });
+    this.router.navigate(['/profile'], { queryParams: { search_id: search_id, routeURL:'connections', searchText: this.searchText, mobile_no: mobile_no} });
   }
 
   dismiss() {

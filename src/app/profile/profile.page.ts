@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController, ModalController, NavParams } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController, NavParams } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
@@ -9,6 +9,7 @@ import { ConnectionsPage } from '../connections/connections.page';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { MyActivityPage } from '../my-activity/my-activity.page';
 import { SettingmodalPage } from '../settingmodal/settingmodal.page';
+import { ViewImagePage } from '../view-image/view-image.page';
 
 @Component({
   selector: 'app-profile',
@@ -35,9 +36,12 @@ export class ProfilePage implements OnInit {
   imageURL = 'https://aapasmein.dvadminpanel.in';
   frameType: string = 'gold-frame';
   searchText:string='';
+  advantage_status:boolean = false;
+  sender_id:string='';
+  mobile_no:string='';
 
   constructor(private router: Router, private modalCtrl: ModalController, private activatedRoute: ActivatedRoute, private apiService: ApiService,
-    private commonService: CommonService, private actionSheetController: ActionSheetController, private camera: Camera) { 
+    private commonService: CommonService, private actionSheetController: ActionSheetController, private camera: Camera, private alertCtrl: AlertController) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -50,8 +54,11 @@ export class ProfilePage implements OnInit {
       this.search_id = params['search_id'];
       this.routeURL = params['routeURL'];
       this.searchText = params['searchText'];
+      this.sender_id = params['sender_id'];
+      this.mobile_no = params['mobile_no'];
       console.log(this.routeURL);
       console.log(this.search_id);
+      console.log('seneder_id',this.sender_id);
       // this.search_keyword_details();
       if(this.search_id!=undefined){
         this.search_keyword_details();
@@ -83,11 +90,17 @@ export class ProfilePage implements OnInit {
   }
 
   get_user_details() {
-    this.apiService.get_user(this.currentUser.user_id)
+    this.apiService.get_user(this.sender_id==undefined?this.currentUser.user_id:this.sender_id)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
         console.log('user details',response);
         this.user_details = response.user_data[0];
+        if(response.advantage_status.length>0){
+          this.advantage_status = response.advantage_status[0].ADDED;
+          if(this.advantage_status==true){
+            this.addAdvantage = true;
+          }
+        }
       },
       respError => {
         this.commonService.showToastMessage(respError, 'error-toast','', 2000);
@@ -97,7 +110,7 @@ export class ProfilePage implements OnInit {
   search_keyword_details() {
     let login_details:any={login_id:''};
     login_details.login_id = this.currentUser.user_id;
-    this.apiService.search_keyword_details(this.search_id, login_details)
+    this.apiService.search_keyword_details(this.search_id, login_details, this.mobile_no)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
         console.log('All Data',response);
@@ -112,13 +125,23 @@ export class ProfilePage implements OnInit {
 
   add_advantage() {
     let formData = new FormData();
-    formData.append("user_id",this.currentUser.user_id),
-    formData.append("status",'added'),
+    formData.append("user_id",this.currentUser.user_id)
+    if(this.addAdvantage){
+      formData.append("status",'removed')
+    }
+    else{
+      formData.append("status",'added')
+    }
     this.apiService.add_advantage(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
         console.log('user details',response);
-        this.addAdvantage = true;
+        if(response.message=='Added To Advantage'){
+          this.addAdvantage = true;
+        }
+        else{
+          this.addAdvantage = false;
+        }
         // this.goToadvantageDetails();
       },
       respError => {
@@ -188,9 +211,9 @@ export class ProfilePage implements OnInit {
 
   async editProfile() {
     let modal = await this.modalCtrl.create({ component: EditProfilePage});
-    modal.onDidDismiss().then((modalItem) => {
+    modal.onDidDismiss().then((modalItem) => {console.log(modalItem);
       if (modalItem) {
-        
+        this.get_user_details();
       }
     })
     return await modal.present();
@@ -251,6 +274,17 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['/advantage-details'], { queryParams: { routeURL: 'profile', profession_id: this.user_details.PROFESSION__id } });
   }
 
+  async zoomImage(image:string) {
+    console.log(image);
+    let modal = await this.modalCtrl.create({component:ViewImagePage, componentProps:{ imageUrl: this.user_details?.PROFILE_IMAGE?this.imageUrl+image:this.imageURL+image }});
+    //modal.present();
+    modal.onDidDismiss().then((modalItem) => {
+      if (modalItem) {console.log(modalItem);
+      }
+    })
+    return await modal.present();
+  }
+
   dismiss() {
     console.log(this.search_id);
     if(this.routeURL=='request'){
@@ -270,8 +304,78 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  invite_friend(reason:string) {
+    let formData = new FormData();
+    formData.append('full_name',this.search_user_details .NAME);
+    formData.append('city',this.search_user_details.CITY__id);
+    formData.append('location',this.search_user_details.LOCATION__id);
+    formData.append('mobile_number',this.search_user_details.MOBILE_NO);
+    formData.append('email',this.search_user_details.EMAIL_ID);
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('request_type','reachout');
+    formData.append('custom_msg',reason);
+    this.apiService.invite_friend(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        // localStorage.setItem('currentUser',JSON.stringify(response.user_data));
+        this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+
+  async showReachoutDialog() {
+    const confirm = await this.alertCtrl.create({
+      header: 'Reachout',
+      inputs: [
+        {
+          name: 'reason',
+          type: 'text',
+          placeholder: 'Enter your reason'
+        }
+      ],
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Reachout',
+          handler: async (data) => {
+            console.log('User reason:', data.reason);
+            // this.invite_friend(data.reason);
+            const reason = data.reason.trim();
+            if (!reason) {
+              this.commonService.showToastMessage('Please enter a reason.', 'error-toast', 'top', 2000);
+              return false; // Prevents the alert from closing
+            }
+            try {
+              await this.invite_friend(reason);
+              confirm.dismiss(); // ✅ Dismisses only after success
+              return true; // ✅ Ensure success case returns true
+            } catch (error) {
+              this.commonService.showToastMessage('Submission failed. Try again.', 'error-toast', 'top', 2000);
+              return false; // ❌ Keeps the alert open on failure
+            }
+          }
+        }
+      ]
+    });
+    await confirm.present();
+  }
+
+  
+
   goToSavedItems() {
     this.router.navigate(['/saved-items-list']);
+  }
+
+  goToAccolade() {
+    this.router.navigate(['/aapasmein-accolades'], { queryParams: { routeURL: 'profile'} });
   }
 
 }

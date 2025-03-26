@@ -9,20 +9,23 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">My Accept Request</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <div style="margin-left: 5px;">
-    <ion-segment value="accept" [(ngModel)]="info">
-      <ion-segment-button value="accept" (click)="load_friend_request()">
+    <ion-segment value="accept" [(ngModel)]="info" scrollable>
+      <ion-segment-button value="accept" (click)="load_friend_request('accept')">
         <ion-label style="font-size: x-small;color:white;">Accept Request</ion-label>
       </ion-segment-button>
       <ion-segment-button value="handshake" (click)="load_handshake_request()">
         <ion-label style="font-size: x-small;color:white;">Handshake Request</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="invite" (click)="load_friend_request('invite')">
+        <ion-label style="font-size: x-small;color:white;">Invitation Request</ion-label>
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -32,7 +35,8 @@
         <ion-grid>
           <ion-row class="border-bottom" *ngFor="let data of friend_request_list">
             <ion-col size="3" >
-              <img src="{{imageUrl}}{{data.SENDER__PROFILE_IMAGE}}" alt="" class="circle-img">
+              <img src="{{imageUrl}}{{data.SENDER__PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.SENDER__PROFILE_IMAGE">
+              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.SENDER__PROFILE_IMAGE">
             </ion-col>
             <ion-col size="9">
               <span class="name-text">{{data.SENDER__NAME}}</span><br>
@@ -63,6 +67,26 @@
       <div class="no-data" *ngIf="handshakeDataLoaded && handshake_request_list.length == 0">
         <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
         <span class="no-data-text">No Handshake Accepted Data</span>
+      </div>
+    </div>
+    <div class="gap" *ngSwitchCase="'invite'">
+      <div *ngIf="friendRequestDataLoaded && friend_request_list.length > 0">
+        <ion-grid>
+          <ion-row class="border-bottom" *ngFor="let data of friend_request_list">
+            <ion-col size="3" >
+              <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE">
+              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE">
+            </ion-col>
+            <ion-col size="9">
+              <span class="name-text">{{data.NAME}}</span><br>
+              <span class="designation-text">{{data.PROFESSION__NAME}}</span><br>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="no-data" *ngIf="friendRequestDataLoaded && friend_request_list.length == 0">
+        <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+        <span class="no-data-text">No Request Accepted Data</span>
       </div>
     </div>
   </div>

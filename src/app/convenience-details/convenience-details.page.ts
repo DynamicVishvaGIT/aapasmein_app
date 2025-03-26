@@ -21,6 +21,7 @@ export class ConvenienceDetailsPage implements OnInit {
   currentUser:any;
   list:any=[];
   convenience_id:string='';
+  dataLoaded:boolean=false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private callNumber: CallNumber, private platform: Platform,
     private apiService: ApiService, private commonService: CommonService) { 
@@ -45,13 +46,18 @@ export class ConvenienceDetailsPage implements OnInit {
     // let formData = new FormData();
     // formData.append("convenience_category_id",this.convenience_id),
     // formData.append("apptype",this.apiService.apptype),
+    this.dataLoaded = false;
+    this.commonService.presentLoading();
     this.apiService.load_convenience(this.convenience_id)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.list = response.data;
+      this.dataLoaded = true;
+      this.commonService.dismissLoading();
     },
     respError => {
+      this.commonService.dismissLoading();
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }

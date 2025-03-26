@@ -191,3 +191,114 @@ ion-toolbar{
   opacity: 0.6;
   z-index: 2;
 }
+
+// .custom-accordion {
+//   --background: transparent; /* Removes background color */
+//   --border-width: 1px; /* Sets the border width */
+//   --border-style: solid; /* Defines border style */
+//   --border-color: black; /* Adjusts border color */
+// }
+
+// ion-accordion::part(header) {
+//   background: transparent !important; /* Removes background */
+//   border: 1px solid #b5baed; /* Adds border */
+//   border-bottom: none !important;
+// }
+
+// ion-accordion::part(content) {
+//   background: transparent !important; /* Removes background */
+//   border: 1px solid #b5baed; /* Adds border */
+//   border-top: none !important;
+//   // border-bottom: none !important;
+// }
+
+ion-accordion-group.accordion-group-expand-inset>ion-accordion:first-of-type {
+  border-top-left-radius: 6px !important;
+  border-top-right-radius: 6px !important;
+  border: 1px solid #b5baed;
+}
+ion-accordion-group.accordion-group-expand-inset>ion-accordion:last-of-type {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+ion-item {
+  --border-width: 0px; /* Remove all borders */
+  --inner-border-width: 0px;
+  border-bottom: none !important;
+}
+
+.label{
+  color:#747fdd;
+}
+
+.custom-accordion::part(header) {
+  border-bottom: none !important;
+}
+
+.accordian-align{
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: -8px;
+}
+
+.invited-card{
+  border-radius:8px;
+  width: 100%;
+  height: 90px;
+  background: #ffffff;
+  margin-left: 0px;
+  margin-top: 2px;
+  box-shadow: rgb(149 157 165 / 40%) 0px 8px 24px;
+}
+.img-card {
+  width: 68px;
+  height: 68px;
+  border-radius: 5px;
+}
+
+.name-section{
+  color: black;
+  // font-style: italic;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 0px;
+  // margin-left: -19px;
+}
+
+.other-section{
+  color: black;
+  // font-style: italic;
+  font-size: 10px;
+  // font-weight: 600;
+  margin-top: 0px;
+  // margin-left: -19px;
+}
+
+// .invited-friends {
+//   margin: 20px;
+//   padding: 10px;
+//   background: #ffffff;
+//   border-radius: 8px;
+//   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+// }
+
+// .invited-friends h3 {
+//   color: #071947;
+//   font-size: 18px;
+//   font-weight: bold;
+//   margin-bottom: 10px;
+// }
+
+// .empty-msg {
+//   text-align: center;
+//   color: gray;
+//   font-size: 14px;
+// }
+
+// ion-item {
+//   border-bottom: 1px solid #ccc;
+// }
+
+// ion-button {
+//   margin-left: auto;
+// }

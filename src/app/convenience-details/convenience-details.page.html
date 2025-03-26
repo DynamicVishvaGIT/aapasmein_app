@@ -19,7 +19,7 @@
   <ion-row style="margin-left: 28px;margin-top: 12px;">
     <span style="color:white;font-size: small;">{{profession}}</span>
   </ion-row>
-  <div class="gap">
+  <div class="gap" *ngIf="dataLoaded && list.length > 0">
     <ion-grid>
       <ion-row class="border-bottom" *ngFor="let data of list">
         <ion-col size="3">
@@ -115,6 +115,10 @@
         </ion-col>
       </ion-row> -->
     </ion-grid>
+  </div>
+  <div class="no-data" *ngIf="dataLoaded && list.length == 0">
+    <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+    <span class="no-data-text">No Convenience Data</span>
   </div>
   <br>
   <br>

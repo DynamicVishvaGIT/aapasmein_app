@@ -36,15 +36,16 @@ export class AcceptRequestPage implements OnInit {
       this.routeURL = params['routeURL'];
       console.log(this.routeURL);
     });
-    this.load_friend_request();
+    this.load_friend_request('accept');
     // this.load_handshake_request();
   }
 
-  load_friend_request() {
+  load_friend_request(type:string) {
     this.commonService.presentLoading();
     this.friendRequestDataLoaded = false;
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
+    formData.append('request_type',type=='accept'?'reachin':'invitation');
     formData.append('type','accept');
     this.apiService.load_friend_request(formData)
     .pipe(takeUntil(this._unsubscribeAll))

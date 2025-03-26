@@ -19,6 +19,7 @@ export class SavedItemsListPage implements OnInit {
   infoSegment:string='mall';
   currentUser:any;
   broadcast_list:any=[];
+  deals_list:any=[];
 
   constructor(private router: Router, private apiService:ApiService, private commonService: CommonService) { 
     this._unsubscribeAll = new Subject();
@@ -36,7 +37,8 @@ export class SavedItemsListPage implements OnInit {
     //       this.load_saved_broadcast(); // Call your desired function
     //     }
     // });
-    this.load_saved_broadcast();
+    // this.load_saved_broadcast();
+    this.load_saved_products();
   }
 
   load_saved_broadcast() {
@@ -53,6 +55,20 @@ export class SavedItemsListPage implements OnInit {
     })
   }
 
+  load_saved_products() {
+    let formData = new FormData();
+    formData.append("user_id",this.currentUser.user_id),
+    this.apiService.load_saved_products(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.deals_list = response.data;
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
   goToBroadcastDetails(broadcast_id:string) {
     this.router.navigate(['/broadcast-details'], { queryParams: { broadcast_id: broadcast_id, url: 'savedlist'} });
   }
@@ -62,7 +78,7 @@ export class SavedItemsListPage implements OnInit {
   }
 
   dismiss() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/my-aapasmein']);
   }
 
 }

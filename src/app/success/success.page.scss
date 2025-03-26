@@ -19,7 +19,22 @@
     margin-bottom: 20px;
     position: relative; /* Ensure positioning for pseudo-element */
     max-width: 90px;
-    margin-left: 155px;
+    margin-left: 38%;
+    height: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Existing shadow */
+}
+
+.whatsapp-button-card {
+    background-color: #24d366;
+    // color:#071947;
+    color: white;
+    padding: 11px;
+    border-radius: 8px;
+    // text-align: center;
+    margin-bottom: 20px;
+    position: relative; /* Ensure positioning for pseudo-element */
+    max-width: 150px;
+    margin-left: 30%;
     height: auto;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Existing shadow */
 }

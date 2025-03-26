@@ -20,6 +20,10 @@ export class ConvenienceListPage implements OnInit {
   searchFlag=false;
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
   routeURL:string='';
+  searchQuery: string = '';
+  filteredList: any[] = [];
+  dataLoaded:boolean = false;
+  isFooterVisible: boolean = true;
 
   constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService,
     private activatedRoute: ActivatedRoute) { 
@@ -38,18 +42,40 @@ export class ConvenienceListPage implements OnInit {
   }
 
   load_convenience_category() {
+    this.dataLoaded = false;
     this.commonService.presentLoading();
     this.apiService.load_convenience_category()
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.list = response.data;
+      this.filteredList = [...this.list]; // Initialize filtered list
+      this.dataLoaded = true;
+      this.isFooterVisible = true;
       this.commonService.dismissLoading();
     },
     respError => {
+      this.dataLoaded = false;
       this.commonService.dismissLoading();
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterList(event: any) {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      this.filteredList = [...this.list];
+      this.isFooterVisible = true;
+    } else {
+      this.filteredList = this.list.filter((item:any) => 
+        item.NAME.toLowerCase().includes(query)
+      );
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
   }
 
   showSearch() {

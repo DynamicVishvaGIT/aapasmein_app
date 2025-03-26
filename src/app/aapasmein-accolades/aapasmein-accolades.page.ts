@@ -56,8 +56,11 @@ export class AapasmeinAccoladesPage implements OnInit {
   }
 
   dismiss() {
-    if(this.routeURL=='features'){
-      this.router.navigate(['/aapasmein-features']);
+    // if(this.routeURL=='features'){
+    //   this.router.navigate(['/aapasmein-features']);
+    // }
+    if(this.routeURL=='profile'){
+      this.router.navigate(['/profile']);
     }
     else{
       this.router.navigate(['/dashboard']);

@@ -53,3 +53,24 @@ ion-content {
     margin-top: -15px;
     font-size: xx-large;
 }
+
+.no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // height: 100vh; /* Full height of the viewport */
+    flex: 1;
+    text-align: center;
+    margin-top: 50%;
+}
+.watermark-image {
+    // opacity: 0.08;
+    width: 109px; /* Adjust size as needed */
+    margin-bottom: 10px; /* Space between image and text */
+    margin-left: 12%;
+}
+.no-data-text {
+    font-size: 18px;
+    color: #ffffff; /* Adjust color as needed */
+}

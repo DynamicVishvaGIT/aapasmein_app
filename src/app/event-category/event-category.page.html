@@ -12,13 +12,15 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">Events</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
+  <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterEventList()" placeholder="Search Events" (click)="hideFooter()"></ion-searchbar>
+
   <div style="margin-left: 5px;">
     <ion-segment value="allevent" [(ngModel)]="info">
       <ion-segment-button value="allevent" (click)="load_events()">
@@ -37,11 +39,11 @@
   </div>
   <div [ngSwitch]="info">
     <div class="card-gap1" *ngSwitchCase="'allevent'">
-      <div *ngIf="dataLoaded && list.length > 0">
+      <div *ngIf="dataLoaded && filteredList.length > 0">
         <!-- <ion-row style="margin-left: 13px;margin-top: 17px;">
           <span style="font-weight: 600;color:white;font-size: 12px;">Music</span>
         </ion-row> -->
-        <ion-grid *ngFor="let data of list">
+        <ion-grid *ngFor="let data of filteredList">
           <ion-row style="margin-left: 13px;">
             <span style="font-weight: 600;color:white;font-size: 12px;">{{data.category_name}}</span>
           </ion-row>
@@ -92,14 +94,14 @@
           </div>
         </ion-grid>
       </div>
-      <div class="no-data" *ngIf="dataLoaded && list.length == 0">
+      <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
         <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
         <span class="no-data-text">No events yet, but great moments are waiting. Create your first event now!.</span>
       </div>
     </div>
     <div class="card-gap1" *ngSwitchCase="'myevent'">
-      <div *ngIf="myEventDataLoaded && myEventList.length > 0">
-        <ion-grid *ngFor="let data of myEventList">
+      <div *ngIf="myEventDataLoaded && filteredMyEventList.length > 0">
+        <ion-grid *ngFor="let data of filteredMyEventList">
           <ion-row style="margin-left: 13px;">
             <span style="font-weight: 600;color:white;font-size: 12px;">{{data.category_name}}</span>
           </ion-row>
@@ -150,14 +152,14 @@
           </div>
         </ion-grid>
       </div>
-      <div class="no-data" *ngIf="myEventDataLoaded && myEventList.length == 0">
+      <div class="no-data" *ngIf="myEventDataLoaded && filteredMyEventList.length == 0">
         <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
         <span class="no-data-text">No events yet, but great moments are waiting. Create your first event now!.</span>
       </div>
     </div>
     <div class="card-gap1" *ngSwitchCase="'myinterest'">
-      <div *ngIf="myInterestDataLoaded && myInterestList.length > 0">
-        <ion-grid *ngFor="let data of myInterestList">
+      <div *ngIf="myInterestDataLoaded && filteredMyInterestList.length > 0">
+        <ion-grid *ngFor="let data of filteredMyInterestList">
           <ion-row style="margin-left: 13px;">
             <span style="font-weight: 600;color:white;font-size: 12px;">{{data.category_name}}</span>
           </ion-row>
@@ -208,7 +210,7 @@
           </div>
         </ion-grid>
       </div>
-      <div class="no-data" *ngIf="myInterestDataLoaded && myInterestList.length == 0">
+      <div class="no-data" *ngIf="myInterestDataLoaded && filteredMyInterestList.length == 0">
         <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
         <span class="no-data-text">Discover your passions! Start by adding your event interests to personalize your experience.</span>
       </div>
@@ -219,4 +221,4 @@
   <br>
 </ion-content>
 
-<app-commonfooter></app-commonfooter>
+<app-commonfooter *ngIf="isFooterVisible"></app-commonfooter>

@@ -20,7 +20,10 @@ export class InvitationPage implements OnInit {
   friend:any={full_name:'',city:'', location:'',mobile_number:'',email:''};
   get_cities:any = [];
   get_locations:any = [];
+  accepted_data:any=[];
   inputFocused:boolean=false;
+  invitedFriends:any=[];
+  imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
 
   constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private keyboardService: KeyboardService) { 
     this._unsubscribeAll = new Subject();
@@ -33,6 +36,7 @@ export class InvitationPage implements OnInit {
     console.log(this.currentUser);
     this.get_city();
     this.get_location();
+    this.load_friend_request();
   }
 
   onFocus() {
@@ -66,6 +70,25 @@ export class InvitationPage implements OnInit {
       // this.get_locations.unshift({id:'',NAME:'Select Location'});
     },
     respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  load_friend_request() {
+    // this.commonService.presentLoading();
+    let formData = new FormData();
+    formData.append('mobile_no',this.currentUser.mobile_no);
+    formData.append('request_type','invitation');
+    formData.append('type','accept');
+    this.apiService.load_friend_request(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.accepted_data = response.data;
+      // this.commonService.dismissLoading();
+    },
+    respError => {
+      this.commonService.dismissLoading();
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }

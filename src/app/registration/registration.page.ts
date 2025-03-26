@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController, ToastController } from '@ionic/angular';
+import { ActionSheetController, IonPopover, ToastController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
@@ -15,7 +15,9 @@ export class RegistrationPage implements OnInit {
 
   private _unsubscribeAll: Subject<any>;
 
-  user:any={name:'',city:'', location:'',mobile_no:'',email_id:'',profession:'',specialization:'',interest:''};
+  @ViewChild('professionPopover') professionPopover!: IonPopover;
+
+  user:any={name:'',city:'', location:'',mobile_no:'',email_id:'',profession:'',specialization:''};
   get_cities:any = [];
   get_locations:any = [];
   get_professions:any = [];
@@ -23,6 +25,11 @@ export class RegistrationPage implements OnInit {
   get_interests:any = [];
   inputFocused: boolean = false;
   selectedImage:any={name:'', data:''};
+
+  selectedProfessionName = '';
+  searchTerm = '';
+  filteredProfessions :any[] = [];
+  isPopoverOpen = false;
 
   constructor(private toastController: ToastController, private router:Router, private apiService: ApiService, private commonService: CommonService,
     private actionSheetController: ActionSheetController,private camera: Camera) { 
@@ -47,6 +54,10 @@ export class RegistrationPage implements OnInit {
   //     this.inputFocused = false;
   //   }
   // }
+
+  openPopover(event: Event) {
+    this.isPopoverOpen = true;
+  }
 
   get_city() {
     this.apiService.get_city()
@@ -78,11 +89,24 @@ export class RegistrationPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_professions = response.data;
+      this.filteredProfessions = [...this.get_professions];
       // this.get_professions.unshift({id:'',NAME:'Select Profession'});
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterProfessions() {
+    this.filteredProfessions = this.get_professions.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  selectProfession(item: any) {
+    this.user.profession = item.id;
+    this.selectedProfessionName = item.NAME;
+    this.isPopoverOpen = false;
   }
   get_specialization() {
     this.apiService.get_specialization()
@@ -199,11 +223,11 @@ export class RegistrationPage implements OnInit {
       this.commonService.showToastMessage('Please enter specialization.', 'error-toast', 'top', 2000);
       return;
     }
-    if(this.user.interest == '') {
-      this.commonService.showToastMessage('Please enter interest.', 'error-toast', 'top', 2000);
-      return;
-    }
-    console.log(this.user.interest);
+    // if(this.user.interest == '') {
+    //   this.commonService.showToastMessage('Please enter interest.', 'error-toast', 'top', 2000);
+    //   return;
+    // }
+    // console.log(this.user.interest);
     let formData = new FormData();
     formData.append('name',this.user.name);
     formData.append('city',this.user.city);
@@ -212,7 +236,7 @@ export class RegistrationPage implements OnInit {
     formData.append('email_id',this.user.email_id);
     formData.append('profession',this.user.profession);
     formData.append('specialization',this.user.specialization);
-    formData.append('interest',this.user.interest);
+    // formData.append('interest',this.user.interest);
     let response = await fetch(this.selectedImage.data);
     let blob = await response.blob();
     if(this.selectedImage.name==''){

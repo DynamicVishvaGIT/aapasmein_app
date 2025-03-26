@@ -60,22 +60,23 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
     else{
       this.showFab = true;
     }
-    this.load_friend_request();
+    // this.load_friend_request();
     const POLLING_INTERVAL = 5000; // 5 seconds
     // Start polling
     this.pollingSubscription = interval(POLLING_INTERVAL).subscribe(() => {
-      this.load_friend_request();
+      // this.load_friend_request();
     });
   }
 
   load_friend_request() {
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
+    formData.append('request_type','invitation');
     formData.append('type','accept');
     this.apiService.load_friend_request(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
-      // console.log(response);
+      console.log(response);
       this.request_list = response.data;
       if(this.request_list.length>=4){
         this.handShake = true;

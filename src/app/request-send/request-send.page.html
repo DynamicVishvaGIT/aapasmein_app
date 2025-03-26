@@ -26,7 +26,8 @@
       </ion-row>
       <ion-row class="scroll">
         <ion-col size="12" *ngFor="let img of mall_data_images;">
-          <img src="{{imageUrl}}{{img.PRODUCT_IMG}}" alt="" class="img-banner">
+          <!-- <img src="{{imageUrl}}{{img.PRODUCT_IMG}}" alt="" class="img-banner"> -->
+          <ion-img [src]="imageUrl + img.PRODUCT_IMG" class="img-banner" (click)="zoomImage(img.PRODUCT_IMG)"></ion-img>
         </ion-col>
         <!-- <ion-col size="12">
           <img src="../../../assets/canon1.jpg" alt="" class="img-banner">
@@ -49,14 +50,18 @@
         <span style="margin-left: 9px;color:#ffffff;font-size: 15px;"><b>{{mall_data.USER__NAME}}</b></span>
       </ion-col>
       <ion-col size="2" style="margin-top: 8px;">
+        <ion-button class="button-icon" size="small" *ngIf="bookmarkFlag" (click)="showBookmarkDialog('saved')">
+          <ion-icon slot="icon-only" name="bookmark-outline" style="color:#f52b2b"></ion-icon>
+        </ion-button>
+        <ion-button class="button-icon" size="small" *ngIf="!bookmarkFlag" (click)="showBookmarkDialog('removed')">
+          <ion-icon slot="icon-only" name="bookmark" style="color:#39ce3e"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <!-- <ion-col size="2" style="margin-top: 8px;">
         <ion-button class="button-icon" size="small">
           <ion-icon slot="icon-only" name="bookmark-outline" style="color:black;"></ion-icon>
-          <!-- <ion-icon slot="icon-only" name="star-outline" style="color:#f52b2b"></ion-icon> -->
         </ion-button>
-        <!-- <ion-button class="button-icon" size="small" *ngIf="!wishlistFlag" (click)="showWishListDialog('removed')">
-          <ion-icon slot="icon-only" name="star" style="color:#39ce3e"></ion-icon>
-        </ion-button> -->
-      </ion-col>
+      </ion-col> -->
     </ion-row>
     <ion-row>
       <ion-col size="2">

@@ -14,8 +14,11 @@ export class EditProfilePage implements OnInit {
 
   private _unsubscribeAll: Subject<any>;
 
+  currentUser:any;
+  user_details:any;
   searchFlag = false;
-  user:any={name:'',city:'', location:'',mobile_no:'',email_id:'',profession:'',specialization:'',interest:''};
+  // user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:'',edit_interest:''};
+  user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:''};
   inputFocused: boolean = false;
   get_cities:any = [];
   get_locations:any = [];
@@ -28,11 +31,16 @@ export class EditProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    let currentUser:any;
+    currentUser = localStorage.getItem('currentUser');
+    this.currentUser = JSON.parse(currentUser);
+    console.log(this.currentUser);
     this.get_city();
     this.get_location();
     this.get_profession();
     this.get_specialization();
-    this.get_interest();
+    // this.get_interest();
+    this.get_user_details();
   }
 
   get_city() {
@@ -90,6 +98,92 @@ export class EditProfilePage implements OnInit {
       console.log(response);
       this.get_interests = response.data;
       // this.get_interests.unshift({id:'',NAME:'Select Interest'});
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  get_user_details() {
+    this.apiService.get_user(this.currentUser.user_id)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log('user details',response);
+        this.user_details = response.user_data[0];
+        this.user.edit_name = this.user_details.NAME;
+        this.user.edit_city = this.user_details.CITY__id;
+        this.user.edit_location = this.user_details.LOCATION__id;
+        this.user.edit_mobile_no = this.user_details.MOBILE_NO;
+        this.user.edit_email_id = this.user_details.EMAIL_ID;
+        this.user.edit_profession = this.user_details.PROFESSION__id;
+        this.user.edit_specialization = this.user_details.SPECIALIZATION__NAME;
+        // if (typeof this.user_details.USER_INTEREST_ID === 'string') {
+        //   this.user.edit_interest = this.user_details.USER_INTEREST_ID.split(',').map(Number);
+        // }
+
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 2000);
+      })
+  }
+
+  update_user() {
+    if (this.user.edit_name == '') {
+      this.commonService.showToastMessage('Please enter name.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.user.edit_city == '') {
+      this.commonService.showToastMessage('Please select city.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.user.edit_location == '') {
+      this.commonService.showToastMessage('Please select location.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.user.edit_mobile_no == '') {
+      this.commonService.showToastMessage('Please enter mobile number.', 'error-toast', 'top', 2000);
+      return;
+    }
+    let mpattern = /(^\d{10}$)/;
+    if (!mpattern.test(this.user.edit_mobile_no)) {
+      this.commonService.showToastMessage('Please enter phone number in correct format.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.user.edit_email_id == '') {
+      this.commonService.showToastMessage('Please enter email-id.', 'error-toast', 'top', 2000);
+      return;
+    }
+    let epattern = /[A-Za-z0-9._%+-]{1,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})/;
+    if (!epattern.test(this.user.edit_email_id)) {
+      this.commonService.showToastMessage('Please enter email in correct format.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.user.edit_profession == '') {
+      this.commonService.showToastMessage('Please select profession.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.user.edit_specialization == '') {
+      this.commonService.showToastMessage('Please enter specialization.', 'error-toast', 'top', 2000);
+      return;
+    }
+    let formData = new FormData();
+    formData.append("edit_name",this.user.edit_name),
+    formData.append("edit_city",this.user.edit_city),
+    formData.append("edit_location",this.user.edit_location),
+    formData.append("edit_mobile_no",this.user.edit_mobile_no),
+    formData.append("edit_email_id",this.user.edit_email_id),
+    formData.append("edit_profession",this.user.edit_profession),
+    formData.append("edit_specialization",this.user.edit_specialization)
+    // for(let i=0;i<this.user.edit_interest.length;i++){
+    //   formData.append('edit_interest' , this.user.edit_interest[i]); 
+    // }
+    // formData.append("edit_interest",this.user.edit_interest),
+    this.apiService.edit_user(this.currentUser.user_id, formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.dismiss();
+      
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);

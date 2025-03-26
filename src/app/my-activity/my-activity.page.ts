@@ -21,7 +21,7 @@ export class MyActivityPage implements OnInit {
 
   goToMyBroadcast() {
     this.closeModal();
-    this.router.navigate(['/broadcast-list'],  { queryParams: { routeURL: 'profile' } });
+    this.router.navigate(['/broadcast-list'],  { queryParams: { routeURL: 'myaapasmein' } });
   }
 
   closeModal() {
