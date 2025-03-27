@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-aapasmein-accolades',
@@ -7,6 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./aapasmein-accolades.page.scss'],
 })
 export class AapasmeinAccoladesPage implements OnInit {
+
+  @Input() connections: any;
+  @Input() search_user_details!: string;
 
   selectedCategory: string = 'clarity';
 
@@ -47,7 +51,7 @@ export class AapasmeinAccoladesPage implements OnInit {
 
   routeURL:string='';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private modalCtrl:ModalController) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -56,15 +60,13 @@ export class AapasmeinAccoladesPage implements OnInit {
   }
 
   dismiss() {
-    // if(this.routeURL=='features'){
-    //   this.router.navigate(['/aapasmein-features']);
+    // if(this.routeURL=='profile'){
+    //   this.router.navigate(['/profile']);
     // }
-    if(this.routeURL=='profile'){
-      this.router.navigate(['/profile']);
-    }
-    else{
-      this.router.navigate(['/dashboard']);
-    }
+    // else{
+    //   this.router.navigate(['/dashboard']);
+    // }
+    this.modalCtrl.dismiss();
   }
 
 }

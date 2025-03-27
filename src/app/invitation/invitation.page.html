@@ -84,7 +84,7 @@
   <!-- Invited Friend List -->
   <!-- <div class="invited-friends"> -->
     <!-- <h3>Invited Friends</h3> -->
-    <ion-accordion-group expand="inset" mode="ios" value="accordian1" class="accordian-align">
+    <ion-accordion-group expand="inset" mode="ios" value="accordian1" class="accordian-align" *ngIf="accepted_data.length>0">
       <ion-accordion value="accordian1" class="custom-accordion">
         <ion-item slot="header" lines="none">
           <ion-label class="label">Invited Friend</ion-label>

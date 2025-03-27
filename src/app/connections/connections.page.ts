@@ -12,6 +12,8 @@ export class ConnectionsPage implements OnInit {
   @Input() connections: any;
   @Input() search_name!: string;
 
+  imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {

@@ -68,9 +68,26 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" style="text-align: center;">
-          <p class="name-txt1">{{search_id!=undefined?search_user_details?.KEYWORD?search_user_details?.KEYWORD:'No Profession':user_details?.PROFESSION__NAME}}</p>
+          <p class="name-txt1">{{search_id!=undefined?search_user_details?.PROFESSION__NAME?search_user_details?.PROFESSION__NAME:'No Profession':user_details?.PROFESSION__NAME}}</p>
         </ion-col>
       </ion-row>
+      <!-- Scholarship Section -->
+      <div class="scholarship-section">
+        <!-- <h3>Scholarships</h3> -->
+        <div class="scroll-container">
+          <!-- <button class="scroll-left" >&#9665;</button> -->
+          <ion-icon name="chevron-back-outline" class="forward-back-icon" (click)="scrollLeft()"></ion-icon>
+          <div class="scholarship-list" #scrollableContainer>
+            <div class="scholarship-item" *ngFor="let scholarship of scholarships">
+              <ion-icon name="{{scholarship.name}}" class="{{scholarship.classname}}"></ion-icon>
+              <!-- <img [src]="scholarship.image" alt="Scholarship Image" class="scholarship-img"> -->
+              <!-- <p>{{ scholarship.name }}</p> -->
+            </div>
+          </div>
+          <!-- <button class="scroll-right" (click)="scrollRight()">&#9655;</button> -->
+          <ion-icon name="chevron-forward-outline" class="forward-back-icon" (click)="scrollRight()"></ion-icon>
+        </div>
+      </div>
       <ion-row>
         <ion-col >
           <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'">Send a message</ion-button>
@@ -91,7 +108,8 @@
           <p>Connections</p>
         </ion-col>
         <ion-col size="4" style="text-align: center;">
-
+          <ion-icon name="call-outline" style="font-size: xx-large; color: white;" (click)="makeCall()" *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'"></ion-icon>
+          <p *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'">Want a Call</p>
         </ion-col>
         <!-- <ion-col size="3" *ngIf="!search_id" style="text-align: center;" (click)="openActivity()"> 
           <ion-icon name="briefcase-outline" style="font-size: x-large; color: white;"></ion-icon>
@@ -108,7 +126,7 @@
       </ion-row>
     </div>
   </div>
-  <div class="ion-padding prof-margin" *ngIf="search_id==undefined || (search_id!=undefined && search_user_details?.REACHOUT=='yes')">
+  <div class="ion-padding" [ngClass]="{'prof-margin1': search_id, 'prof-margin': !search_id}" *ngIf="search_id==undefined || (search_id!=undefined && search_user_details?.REACHOUT=='yes')">
     <ion-grid>
       <ion-row>
         <ion-col size="6">
@@ -153,7 +171,7 @@
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.KEYWORD?search_user_details?.KEYWORD:'No Profession':user_details?.PROFESSION__NAME}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.PROFESSION__NAME?search_user_details?.PROFESSION__NAME:'No Profession':user_details?.PROFESSION__NAME}}</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -163,7 +181,7 @@
       </ion-row>
       <ion-row style="margin-top: -8px;">
         <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.SPECIALIZATION__NAME?search_user_details?.SPECIALIZATION__NAME:'No Data':user_details?.SPECIALIZATION__NAME}}</span>
+          <span class="text1">{{search_id!=undefined?search_user_details?.SPECIALIZATION__NAME?search_user_details?.SPECIALIZATION__NAME:'No Data':user_details?.SPECIALIZATION}}</span>
         </ion-col>
       </ion-row>
       <ion-row >

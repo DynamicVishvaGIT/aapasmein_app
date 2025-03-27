@@ -39,14 +39,17 @@
               <div class="index-circle"><b>{{ i + 1 }}</b></div>
               <div class="dotted-line"></div>
             </div>
-            <ion-card [ngClass]="{ 'mall-card': connection.NAME != search_name, 'selected-mall-card': connection.NAME == search_name }">
+            <ion-card [ngClass]="{ 'connection-card': connection.NAME != search_name, 'selected-connection-card': connection.NAME == search_name }">
               <ion-card-content>
                 <ion-row>
                   <ion-col size="4">
-                    <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+                    <!-- <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img"> -->
+                    <img src="{{imageUrl}}{{connection.PROFILE_IMAGE}}"  class="circle-img" *ngIf="connection.PROFILE_IMAGE"/>
+                    <img src="../../assets/avtar3.jpeg" alt="" class="circle-img"  *ngIf="!connection.PROFILE_IMAGE">
+
                   </ion-col>
                   <ion-col size="8">
-                    <span style="margin-left: -38px;">{{connection.NAME}}</span><br>
+                    <span style="margin-left: -24px;">{{connection.NAME}}</span><br>
                     <!-- <span style="margin-left: -62px;font-size: x-small;">{{connection.MOBILE_NO}}</span> -->
                   </ion-col>
                 </ion-row>

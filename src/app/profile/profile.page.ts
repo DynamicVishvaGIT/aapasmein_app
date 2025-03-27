@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController, AlertController, ModalController, NavParams } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController, NavParams, Platform } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
@@ -10,6 +10,8 @@ import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { MyActivityPage } from '../my-activity/my-activity.page';
 import { SettingmodalPage } from '../settingmodal/settingmodal.page';
 import { ViewImagePage } from '../view-image/view-image.page';
+import { AapasmeinAccoladesPage } from '../aapasmein-accolades/aapasmein-accolades.page';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +19,8 @@ import { ViewImagePage } from '../view-image/view-image.page';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+
+  @ViewChild('scrollableContainer', { static: false }) scrollableContainer!: ElementRef;
 
   private _unsubscribeAll: Subject<any>;
 
@@ -39,11 +43,35 @@ export class ProfilePage implements OnInit {
   advantage_status:boolean = false;
   sender_id:string='';
   mobile_no:string='';
+  segment_type:string='';
+
+  // scholarships = [
+  //   { name: 'Scholarship 1', image: 'assets/accolades/badge.png' },
+  //   { name: 'Scholarship 2', image: 'assets/accolades/shield.png' },
+  //   { name: 'Scholarship 3', image: 'assets/accolades/trophy.png' },
+  //   { name: 'Scholarship 4', image: 'assets/accolades/medal.png' }
+  // ];
+
+  scholarships = [
+    { name: 'medal-outline', classname:'medal-color' },
+    { name: 'trophy-outline', classname: 'trophy-color' },
+    { name: 'ribbon-outline', classname: 'ribbon-color' },
+    { name: 'shield-checkmark-outline', classname: 'shield-color' }
+  ];
 
   constructor(private router: Router, private modalCtrl: ModalController, private activatedRoute: ActivatedRoute, private apiService: ApiService,
-    private commonService: CommonService, private actionSheetController: ActionSheetController, private camera: Camera, private alertCtrl: AlertController) { 
+    private commonService: CommonService, private actionSheetController: ActionSheetController, private camera: Camera, private alertCtrl: AlertController,
+    private platform:Platform, private callNumber: CallNumber) { 
     this._unsubscribeAll = new Subject();
   }
+
+    scrollLeft() {
+      this.scrollableContainer.nativeElement.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+
+    scrollRight() {
+      this.scrollableContainer.nativeElement.scrollBy({ left: 200, behavior: 'smooth' });
+    }
 
   ngOnInit() {
     let currentUser:any;
@@ -56,6 +84,7 @@ export class ProfilePage implements OnInit {
       this.searchText = params['searchText'];
       this.sender_id = params['sender_id'];
       this.mobile_no = params['mobile_no'];
+      this.segment_type = params['segment_type'];
       console.log(this.routeURL);
       console.log(this.search_id);
       console.log('seneder_id',this.sender_id);
@@ -148,6 +177,14 @@ export class ProfilePage implements OnInit {
         this.addAdvantage = true;
         this.commonService.showToastMessage(respError, 'error-toast','', 2000);
       })
+  }
+
+  makeCall() {
+    this.platform.ready().then(() => {
+      this.callNumber.callNumber(this.search_user_details.MOBILE_NO, true)
+        .then(res => console.log('Dialing succeeded!', res))
+        .catch(err => console.log('Dialing failed', err));
+    });
   }
 
   async openModal() {
@@ -290,6 +327,12 @@ export class ProfilePage implements OnInit {
     if(this.routeURL=='request'){
       this.router.navigate(['/request']);
     }
+    else if(this.routeURL=='acceptrequest'){
+      this.router.navigate(['/accept-request'], { queryParams: { segment_type: this.segment_type} });
+    }
+    // else if(this.routeURL=='activity'){
+    //   this.router.navigate(['/activities']);
+    // }
     // else{
     //   this.router.navigate(['/dashboard']);
     // }
@@ -374,8 +417,15 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['/saved-items-list']);
   }
 
-  goToAccolade() {
-    this.router.navigate(['/aapasmein-accolades'], { queryParams: { routeURL: 'profile'} });
+  async goToAccolade() {
+    // this.router.navigate(['/aapasmein-accolades'], { queryParams: { routeURL: 'profile'} });
+    let modal = await this.modalCtrl.create({ component: AapasmeinAccoladesPage, componentProps:{connections: this.connection_details, search_user_details:this.search_user_details }});
+      modal.onDidDismiss().then((modalItem) => {
+        if (modalItem) {
+          
+        }
+      })
+      return await modal.present();
   }
 
 }

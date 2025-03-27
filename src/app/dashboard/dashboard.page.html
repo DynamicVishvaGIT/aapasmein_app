@@ -187,7 +187,7 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-row style="margin-left: 22px;margin-top: 12px;">
+  <ion-row style="margin-left: 22px;margin-top: 12px;" *ngIf="mall_list_data.length>0">
     <span style="font-weight: 600;color:white">aapasmein Deals</span>
   </ion-row>
   <div class="card-gap">
@@ -258,7 +258,7 @@
       </ion-row>
     </ion-grid>
   </div> -->
-  <div>
+  <div *ngIf="mall_list_data.length>0">
     <ion-row (click)="goToAppasmeinMall()">
       <ion-col size="11" style="float:right;">
         <h6 class="view-but">View All &nbsp;</h6>
@@ -270,7 +270,7 @@
       </ion-col>
     </ion-row>
   </div>
-  <div class="animated-display" *ngIf="banner3_images?.length>0">
+  <div class="animated-display" *ngIf="banner3_images?.length>0 && mall_list_data.length>0">
     <ion-grid>
       <ion-row align-self-center>
         <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner3')">
@@ -287,7 +287,7 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-row style="margin-left: 22px;margin-top: 12px;">
+  <ion-row style="margin-left: 22px;margin-top: 12px;" *ngIf="event_list.length>0">
     <span style="font-weight: 600;color:white">Events</span>
   </ion-row>
   <div class="card-gap">
@@ -404,7 +404,7 @@
       </ion-row>
     </ion-grid>
   </div>
-  <div>
+  <div *ngIf="event_list.length>0">
     <ion-row (click)="goToEventList()">
       <ion-col size="11" style="float:right;">
         <h6 class="view-but">View All &nbsp;</h6>
@@ -414,7 +414,7 @@
       </ion-col>
     </ion-row>
   </div>
-  <div class="animated-display" *ngIf="banner4_images?.length>0">
+  <div class="animated-display" *ngIf="banner4_images?.length>0 && event_list.length>0">
     <ion-grid>
       <ion-row align-self-center>
         <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner4')">

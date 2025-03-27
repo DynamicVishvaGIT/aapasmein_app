@@ -11,7 +11,7 @@
       </ion-row>
     </ion-grid>
   </div>
-  <div class="gap" *ngIf="dataLoaded && searched_events.length > 0 && searched_products.length>0">
+  <div class="gap" *ngIf="dataLoaded && searched_users.length>0">
     <ion-card class="card" *ngIf="searched_users.length>0">
       <ion-card-header>
         <ion-card-title>
@@ -78,10 +78,10 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-row style="margin-left: 33px;margin-top: 12px;" *ngIf="dataLoaded && searched_events.length > 0 && searched_products.length>0">
+  <ion-row style="margin-left: 33px;margin-top: 12px;" *ngIf="dataLoaded && searched_events.length > 0">
     <span style="font-weight: 600;color:white">Events</span>
   </ion-row>
-  <div class="gap">
+  <div class="gap" *ngIf="dataLoaded && searched_events.length > 0">
     <ion-grid>
       <ion-row class="scroll">
         <ion-col size="8" *ngFor="let event of searched_events"  (click)="goToDetails(event,'all')">
@@ -113,10 +113,10 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-row style="margin-left: 33px;margin-top: 12px;" *ngIf="dataLoaded && searched_events.length > 0 && searched_products.length>0">
+  <ion-row style="margin-left: 33px;margin-top: 12px;" *ngIf="dataLoaded && searched_products.length>0">
     <span style="font-weight: 600;color:white">Deals</span>
   </ion-row>
-  <div class="gap">
+  <div class="gap" *ngIf="dataLoaded && searched_products.length>0">
     <ion-grid>
       <ion-row class="scroll">
         <ion-col size="6" *ngFor="let data of searched_products;" (click)="goToMallDetails(data,'search')">
@@ -151,7 +151,7 @@
     </ion-grid>
   </div>
 
-  <div class="no-data" *ngIf="dataLoaded && searched_events.length == 0 && searched_products.length==0">
+  <div class="no-data" *ngIf="dataLoaded && searched_events.length == 0 && searched_products.length==0 && searched_users.length==0">
     <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
     <span class="no-data-text">No Searched Data</span>
   </div>

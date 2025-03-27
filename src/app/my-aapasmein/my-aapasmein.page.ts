@@ -46,6 +46,14 @@ export class MyAapasmeinPage implements OnInit {
     return await modal.present();
   }
 
+  goToActivity() {
+    this.router.navigate(['/activities']);
+  }
+
+  goToMyDeals() {
+    this.router.navigate(['/my-mall']);
+  }
+
   goToSavedItems() {
     this.router.navigate(['/saved-items-list']);
   }

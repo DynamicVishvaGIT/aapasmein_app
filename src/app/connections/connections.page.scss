@@ -60,28 +60,34 @@ ion-content {
     margin-right: 10px;
   }
   
-  .mall-card, .selected-mall-card {
+  .connection-card, .selected-connection-card {
     margin-top: -8px;
     height: auto;
     border-radius: 8px;
     width: 68%;
   }
   
-  .mall-card {
-    background: #d1ebff;
-    border-left: 7px solid #00BCD4;
-    border-right: 7px solid #00BCD4;
+  .connection-card {
+    // background: #d1ebff;
+    // border-left: 7px solid #00BCD4;
+    // border-right: 7px solid #00BCD4;
+    background: #F4EBFF;
+    border-left: 7px solid #b586ef;
+    border-right: 7px solid #b586ef;
   }
   
-  .selected-mall-card {
-    background: rgb(255 128 0);
-    border-left: 7px solid #f1db7f;
-    border-right: 7px solid #f1db7f;
+  .selected-connection-card {
+    // background: rgb(255 128 0);
+    // border-left: 7px solid #f1db7f;
+    // border-right: 7px solid #f1db7f;
+    background: #F4EBFF;
+    border-left: 7px solid #b586ef;
+    border-right: 7px solid #b586ef;
   }
   
   .circle-img {
     border-radius: 50%;
-    width: 30%;
+    width: 60%;
     height: 90%;
   }
   
@@ -107,7 +113,7 @@ ion-content {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: #30bca4c7;
+    background-color: #b586ef;
     border: 2px solid #000;
     display: flex;
     align-items: center;

@@ -15,11 +15,14 @@
       </ion-row>
     </ion-grid>
   </div>
+  <div class="searchbar_align">
+    <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList($event)" placeholder="Search Request" (click)="hideFooter()"></ion-searchbar>
+  </div>
   <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <div style="margin-left: 5px;">
     <ion-segment value="accept" [(ngModel)]="info" scrollable>
       <ion-segment-button value="accept" (click)="load_friend_request('accept')">
-        <ion-label style="font-size: x-small;color:white;">Accept Request</ion-label>
+        <ion-label style="font-size: x-small;color:white;">Accept Reachout</ion-label>
       </ion-segment-button>
       <ion-segment-button value="handshake" (click)="load_handshake_request()">
         <ion-label style="font-size: x-small;color:white;">Handshake Request</ion-label>
@@ -31,60 +34,147 @@
   </div>
   <div [ngSwitch]="info">
     <div class="gap" *ngSwitchCase="'accept'">
-      <div *ngIf="friendRequestDataLoaded && friend_request_list.length > 0">
+      <!-- <div>
         <ion-grid>
-          <ion-row class="border-bottom" *ngFor="let data of friend_request_list">
-            <ion-col size="3" >
-              <img src="{{imageUrl}}{{data.SENDER__PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.SENDER__PROFILE_IMAGE">
-              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.SENDER__PROFILE_IMAGE">
+          <ion-row >
+            <ion-col size="6">
+                <ion-grid>
+                    <ion-col >
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('1st')">
+                        <ion-radio 
+                        value="1st"
+                        color="tertiary"
+                        justify="space-between" 
+                        labelPlacement="end" 
+                        style="font-size: xx-small;"
+                        [ngClass]="{'radio-selected': selectedRadio === '1st', 'radio-unselected': selectedRadio !== '1st'}"
+                        >
+                        <span style="text-transform: none;color:white">Request in</span></ion-radio>
+                      </ion-radio-group>
+                    </ion-col>
+                </ion-grid>
+            </ion-col>
+            <ion-col size="6">
+                <ion-grid>
+                    <ion-col>
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('2nd')">
+                        <ion-radio 
+                        value="2nd" 
+                        color="tertiary" 
+                        justify="space-between" 
+                        labelPlacement="end" 
+                        style="font-size: xx-small;"
+                        [ngClass]="{'radio-selected': selectedRadio === '2nd', 'radio-unselected': selectedRadio !== '2nd'}"
+                        
+                      >
+                        <span style="text-transform: none;color:white">Request out</span></ion-radio>
+                      </ion-radio-group>
+                    </ion-col>
+                </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div> -->
+      <div *ngIf="friendRequestDataLoaded && filteredFriendRequestList.length > 0">
+        <ion-grid>
+          <ion-row class="border-bottom" *ngFor="let data of filteredFriendRequestList">
+            <ion-col size="3" (click)="goToProfile(data)">
+              <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE" >
+              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
+              <!-- <img src="{{imageUrl}}{{requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE">
+              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!data.SENDER__PROFILE_IMAGE:!data.PROFILE_IMAGE"> -->
             </ion-col>
             <ion-col size="9">
-              <span class="name-text">{{data.SENDER__NAME}}</span><br>
-              <span class="designation-text">{{data.SENDER__PROFESSION__NAME}}</span><br>
+              <span class="name-text" (click)="goToProfile(data)">{{data.NAME}}</span><br>
+              <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.MOBILE_NO)" ></ion-icon>
+              <span class="designation-text">{{data.PROFESSION__NAME}}</span><br>
+              <!-- <span class="name-text">{{requestText=='Request-in'?data.SENDER__NAME:data.NAME}}</span><br>
+              <span class="designation-text">{{requestText=='Request-in'?data.SENDER__PROFESSION__NAME:data.PROFESSION__NAME}}</span><br> -->
             </ion-col>
           </ion-row>
         </ion-grid>
       </div>
-      <div class="no-data" *ngIf="friendRequestDataLoaded && friend_request_list.length == 0">
+      <div class="no-data" *ngIf="friendRequestDataLoaded && filteredFriendRequestList.length == 0">
         <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
         <span class="no-data-text">No Request Accepted Data</span>
       </div>
     </div>
     <div class="gap" *ngSwitchCase="'handshake'">
-      <div *ngIf="handshakeDataLoaded && handshake_request_list.length > 0">
+      <!-- <div>
         <ion-grid>
-          <ion-row class="border-bottom" *ngFor="let data of handshake_request_list">
-            <ion-col size="3" >
+          <ion-row >
+            <ion-col size="6">
+                <ion-grid>
+                    <ion-col >
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('1st')">
+                        <ion-radio 
+                        value="1st"
+                        color="tertiary"
+                        justify="space-between" 
+                        labelPlacement="end" 
+                        style="font-size: xx-small;"
+                        [ngClass]="{'radio-selected': selectedRadio === '1st', 'radio-unselected': selectedRadio !== '1st'}"
+                        >
+                        <span style="text-transform: none;color:white">Request in</span></ion-radio>
+                      </ion-radio-group>
+                    </ion-col>
+                </ion-grid>
+            </ion-col>
+            <ion-col size="6">
+                <ion-grid>
+                    <ion-col>
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('2nd')">
+                        <ion-radio 
+                        value="2nd" 
+                        color="tertiary" 
+                        justify="space-between" 
+                        labelPlacement="end" 
+                        style="font-size: xx-small;"
+                        [ngClass]="{'radio-selected': selectedRadio === '2nd', 'radio-unselected': selectedRadio !== '2nd'}"
+                        
+                      >
+                        <span style="text-transform: none;color:white">Request out</span></ion-radio>
+                      </ion-radio-group>
+                    </ion-col>
+                </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div> -->
+      <div *ngIf="handshakeDataLoaded && filteredHandshakeList.length > 0">
+        <ion-grid>
+          <ion-row class="border-bottom" *ngFor="let data of filteredHandshakeList">
+            <ion-col size="3" (click)="goToProfile(data)">
               <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
             </ion-col>
             <ion-col size="9">
-              <span class="name-text">{{data.USER__NAME}}</span><br>
+              <span class="name-text" (click)="goToProfile(data)">{{data.USER__NAME}}</span><br>
               <span class="designation-text">{{data.USER__PROFESSION__NAME}}</span><br>
             </ion-col>
           </ion-row>
         </ion-grid>
       </div>
-      <div class="no-data" *ngIf="handshakeDataLoaded && handshake_request_list.length == 0">
+      <div class="no-data" *ngIf="handshakeDataLoaded && filteredHandshakeList.length == 0">
         <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
         <span class="no-data-text">No Handshake Accepted Data</span>
       </div>
     </div>
     <div class="gap" *ngSwitchCase="'invite'">
-      <div *ngIf="friendRequestDataLoaded && friend_request_list.length > 0">
+      <div *ngIf="friendRequestDataLoaded && filteredFriendRequestList.length > 0">
         <ion-grid>
-          <ion-row class="border-bottom" *ngFor="let data of friend_request_list">
-            <ion-col size="3" >
-              <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE">
-              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE">
+          <ion-row class="border-bottom" *ngFor="let data of filteredFriendRequestList">
+            <ion-col size="3" (click)="goToProfile(data)">
+              <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE" >
+              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
             </ion-col>
             <ion-col size="9">
-              <span class="name-text">{{data.NAME}}</span><br>
+              <span class="name-text" (click)="goToProfile(data)">{{data.NAME}}</span><br>
               <span class="designation-text">{{data.PROFESSION__NAME}}</span><br>
             </ion-col>
           </ion-row>
         </ion-grid>
       </div>
-      <div class="no-data" *ngIf="friendRequestDataLoaded && friend_request_list.length == 0">
+      <div class="no-data" *ngIf="friendRequestDataLoaded && filteredFriendRequestList.length == 0">
         <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
         <span class="no-data-text">No Request Accepted Data</span>
       </div>

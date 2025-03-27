@@ -1,0 +1,49 @@
+<ion-content>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">My Activity</strong>
+        </ion-col>
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
+          <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="searchbar_align">
+    <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList()" placeholder="Search Activity" (click)="hideFooter()"></ion-searchbar>
+  </div>
+  <div *ngIf="dataLoaded && filteredActivityList.length > 0">
+    <ion-grid>
+      <ion-row class="border-bottom" *ngFor="let data of filteredActivityList">
+        <ion-col size="3" >
+          <img src="{{imageUrl}}{{data.SENDER__PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.SENDER__PROFILE_IMAGE" >
+          <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.SENDER__PROFILE_IMAGE" >
+          <!-- <img src="{{imageUrl}}{{requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE">
+          <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!data.SENDER__PROFILE_IMAGE:!data.PROFILE_IMAGE"> -->
+        </ion-col>
+        <ion-col size="9">
+          <span class="name-text">{{data.SENDER__NAME}}</span><br>
+          <!-- <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.MOBILE_NO)" ></ion-icon> -->
+          <span class="designation-text">{{data.SENDER__PROFESSION__NAME}}</span><br>
+          <!-- <span class="name-text">{{requestText=='Request-in'?data.SENDER__NAME:data.NAME}}</span><br>
+          <span class="designation-text">{{requestText=='Request-in'?data.SENDER__PROFESSION__NAME:data.PROFESSION__NAME}}</span><br> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="no-data" *ngIf="dataLoaded && filteredActivityList.length == 0">
+    <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+    <span class="no-data-text">No Activity Data</span>
+  </div>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

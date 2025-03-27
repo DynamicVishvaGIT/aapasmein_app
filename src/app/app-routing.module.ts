@@ -279,6 +279,10 @@ const routes: Routes = [
     path: 'view-image',
     loadChildren: () => import('./view-image/view-image.module').then( m => m.ViewImagePageModule)
   },
+  {
+    path: 'activities',
+    loadChildren: () => import('./activities/activities.module').then( m => m.ActivitiesPageModule)
+  },
 ];
 
 @NgModule({

@@ -23,7 +23,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <ion-card class="mall-card" (click)="openActivity()">
+          <ion-card class="mall-card" (click)="goToActivity()">
             <ion-card-header> 
               <ion-card-title>
                 <span style="color:black;font-size: 10px;margin-top: 3px;font-weight: 300;">Activity</span><br>
@@ -38,6 +38,25 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
+        <ion-col size="6">
+          <ion-card class="mall-card" (click)="goToMyDeals()">
+            <ion-card-header> 
+              <ion-card-title>
+                <span style="color:black; font-size: 10px; font-weight: 300;">My Deals</span><br>
+                <!-- <span style="color:black; font-size: 10px; font-weight: 300;display: block;">Request</span> -->
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12" style="text-align: center;">
+                  <img src="assets/icon/features/deal.png" alt="" class="img-avatar">
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col size="6">
           <ion-card class="mall-card" (click)="goToSavedItems()">
             <ion-card-header> 

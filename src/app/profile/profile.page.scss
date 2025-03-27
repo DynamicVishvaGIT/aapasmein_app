@@ -13,21 +13,23 @@ ion-toolbar {
   position: absolute;
   left: 0;
   right: 0;
-  // top: 232px;
-  top:214px;
+  // top:214px;
+  top:257px;
   transform: translateY(-50%);
   background: #071947;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   z-index: 1;
   // height: 300px;
-  height: 340px;
+  // height: 340px;
+  height: 400px;
   overflow: hidden;
 }
 
 #container1 p{
   color: #fff;
   text-align: center;
+  // margin-top: 0px;
 }
 
 
@@ -35,16 +37,15 @@ ion-toolbar {
   position: absolute;
   left: 0;
   right: 0;
-  // top:244px;
-  // top: 220px;
-  top: 196px;
-  // top:250px;
+  // top: 196px;
+  top: 236px;
   transform: translateY(-50%);
   background: #071947;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   z-index: 1;
-  height: 300px;
+  // height: 300px;
+  height: 353px;
   // height:275px;
   // height: 319px;
   overflow: hidden;
@@ -54,6 +55,7 @@ ion-toolbar {
   color: #fff;
   text-align: center;
   font-size: 14px;
+  // margin-top: 0px;
   // font-size: 12px;
 }
 
@@ -138,7 +140,13 @@ ion-toolbar {
 }
 
 .prof-margin {
-  margin-top: 80%;
+  // margin-top: 80%;
+  margin-top: 88%;
+}
+
+.prof-margin1 {
+  // margin-top: 80%;
+  margin-top: 100%;
 }
 
 .text {
@@ -226,6 +234,68 @@ ion-toolbar {
   border: 2px solid #FAFAFA;
 }
 
+
+.scholarship-section {
+  margin: 20px;
+  text-align: center;
+}
+
+.scroll-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -34px;
+}
+
+.scholarship-list {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  width: 37%;
+}
+
+.scholarship-item {
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+}
+
+.scroll-left, .scroll-right {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.scholarship-img{
+  width: 30px;
+  height: 30px;
+}
+
+.medal-color{
+  color:#3f7e65;
+  font-size: 24px;
+}
+.ribbon-color{
+  color:#7f88a5;
+  font-size: 24px;
+}
+.trophy-color{
+  color:#b69756;
+  font-size: 24px;
+}
+.shield-color{
+  color:rgb(224, 163, 163);
+  font-size: 24px;
+}
+.forward-back-icon{
+  color:#b5956a;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: -7px;
+}
 
 
 
