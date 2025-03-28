@@ -297,6 +297,41 @@ ion-toolbar {
   margin-top: -7px;
 }
 
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.info-col {
+  display: flex;
+  align-items: flex-start; /* Align icon and text properly */
+  gap: 8px; /* Space between icon and text */
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  font-size: 18px;
+  color: #54acff;
+  margin-top: 4px; /* Align icon properly */
+}
+
+// strong {
+//   font-size: smaller;
+//   color: 00000087;
+// }
+
+// p {
+//   margin: 0;
+//   font-size: 14px;
+//   color: #0f1f49;
+// }
+
 
 
 

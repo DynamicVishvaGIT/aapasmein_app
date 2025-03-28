@@ -133,8 +133,18 @@ export class ApiService {
       catchError(this.errorHandler)
     )
   }
+
   get_location() {
     return this.httpClient.get(this.baseUrl + 'load_location')
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+  load_location(city_id:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('city_id', city_id);
+    return this.httpClient.get(this.baseUrl + 'load_location?'+urlSearchParams.toString())
     .pipe(
       retry(1),
       catchError(this.errorHandler)
@@ -441,6 +451,20 @@ export class ApiService {
     )
   }
 
+  get_handshake(mobile_no:string,type:string,referral_code:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('mobile_no', mobile_no);
+    urlSearchParams.append('type', type);
+    if(referral_code!=''){
+      urlSearchParams.append('refer_code', referral_code);
+    }
+    return this.httpClient.get(this.baseUrl + 'get_handshake?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   load_clarity(clarity_id:string, user_id:string) {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('user_id', user_id);
@@ -484,6 +508,16 @@ export class ApiService {
   }
   add_samvaad(samvaad: any) {
     return this.httpClient.post(this.baseUrl + 'add_samvaad', samvaad)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  load_recognition(mobile_no:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('mobile_no', mobile_no);
+    return this.httpClient.get(this.baseUrl + 'load_recognition?'+urlSearchParams.toString())
     .pipe(
       retry(1),
       catchError(this.errorHandler)

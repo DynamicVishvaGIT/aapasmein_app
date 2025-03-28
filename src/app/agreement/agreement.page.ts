@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-agreement',
@@ -9,14 +9,21 @@ import { Router } from '@angular/router';
 export class AgreementPage implements OnInit {
 
   acceptTerms:boolean = false;
+  mobile_no:string='';
+  referral_code:string='';
   
-  constructor(private router: Router) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.mobile_no = params['mobile_no'];
+      this.referral_code = params['referral_code'];
+      // console.log(this.user_details);
+    });
   }
 
   onRegiter() {
-    this.router.navigate(['/registration']);
+    this.router.navigate(['/registration'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:''} });
   }
 
 }

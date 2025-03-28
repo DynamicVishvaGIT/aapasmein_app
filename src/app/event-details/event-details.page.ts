@@ -131,7 +131,7 @@ export class EventDetailsPage implements OnInit {
       this.router.navigate(['/dashboard']);
     }
     else{
-      this.router.navigate(['/all-event-list'], { queryParams: { urlType: this.type}});
+      this.router.navigate(['/event-view'], { queryParams: { urlType: this.type}});
     }
   }
 

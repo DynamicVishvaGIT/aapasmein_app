@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
 import { ActionSheetController, IonPopover, ToastController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
@@ -30,15 +30,24 @@ export class RegistrationPage implements OnInit {
   searchTerm = '';
   filteredProfessions :any[] = [];
   isPopoverOpen = false;
+  mobile_no:string='';
+  referral_code:string='';
+  handshake_data:any;
 
   constructor(private toastController: ToastController, private router:Router, private apiService: ApiService, private commonService: CommonService,
-    private actionSheetController: ActionSheetController,private camera: Camera) { 
+    private actionSheetController: ActionSheetController,private camera: Camera, private activatedRoute: ActivatedRoute) { 
     this._unsubscribeAll = new Subject();
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.mobile_no = params['mobile_no'];
+      this.referral_code = params['referral_code'];
+      // console.log(this.user_details);
+    });
+    this.get_handshake();
     this.get_city();
-    this.get_location();
+    // this.get_location();
     this.get_profession();
     this.get_specialization();
     this.get_interest();
@@ -59,6 +68,27 @@ export class RegistrationPage implements OnInit {
     this.isPopoverOpen = true;
   }
 
+  get_handshake() {
+    this.commonService.presentLoading();
+    this.apiService.get_handshake(this.mobile_no, 'register', this.referral_code)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.handshake_data = response[0];
+      this.user.name=this.handshake_data.FULL_NAME;
+      this.user.city=this.handshake_data.CITY_id;
+      this.load_location();
+      // this.user.location=this.handshake_data.LOCATION_id;
+      this.user.mobile_no=this.handshake_data.MOBILE_NO;
+      this.user.email_id = this.handshake_data.EMAIL_ID;
+      this.commonService.dismissLoading();
+    },
+    respError => {
+      this.commonService.dismissLoading();
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
   get_city() {
     this.apiService.get_city()
     .pipe(takeUntil(this._unsubscribeAll))
@@ -71,12 +101,18 @@ export class RegistrationPage implements OnInit {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }
-  get_location() {
-    this.apiService.get_location()
+  load_location() {
+    this.apiService.load_location(this.user.city)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.get_locations = response.data;
+      if(this.handshake_data.LOCATION_id){
+        let index= this.commonService.findItem(this.get_locations,'id',this.handshake_data.LOCATION_id);
+        if(index!=-1){
+          this.user.location=this.get_locations[index].id;
+        }
+      }
       // this.get_locations.unshift({id:'',NAME:'Select Location'});
     },
     respError => {

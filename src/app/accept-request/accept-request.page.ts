@@ -108,6 +108,7 @@ export class AcceptRequestPage implements OnInit {
     this.handshakeDataLoaded = false;
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
+    formData.append('request_type','reachout');
     formData.append('type','accept');
     this.apiService.load_hanshake_request(formData)
     .pipe(takeUntil(this._unsubscribeAll))

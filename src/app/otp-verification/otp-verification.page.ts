@@ -60,7 +60,7 @@ export class OtpVerificationPage implements OnInit {
           this.router.navigate(['/dashboard']);
         }
         else{
-          this.router.navigate(['/agreement']);
+          this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:''} });
         }
         // localStorage.setItem('currentUser',JSON.stringify(response.user_data));
         // this.commonService.setLoggedInUser(JSON.stringify(response.user_data));

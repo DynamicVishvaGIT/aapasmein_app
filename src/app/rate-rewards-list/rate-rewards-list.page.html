@@ -9,26 +9,28 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">aapasmein Recognition</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <!-- <div >
     <ion-button class="button-property" size="small" color="tertiary" (click)="addRateRewardsPage()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
   </div> -->
+  <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList()" placeholder="Search Recognition" (click)="hideFooter()"></ion-searchbar>
   <div class="gap">
-    <ion-grid>
-      <ion-row>
+    <ion-grid  *ngIf="dataLoaded && filteredList.length > 0">
+      <ion-row *ngFor="let data of filteredList">
         <ion-col size="3">
-          <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="circle-img">
+          <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE">
+          <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE">
         </ion-col>
         <ion-col size="9" class="border-bottom">
           <ion-row>
             <ion-col size="10">
-              <span class="name-text">Prasenjit Chanda</span><br>
+              <span class="name-text">{{data.NAME}}</span><br>
             </ion-col>
             <ion-col size="2">
               <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
@@ -36,213 +38,23 @@
           </ion-row>
           <ion-row>
             <ion-col size="10">
-              <span class="designation-text">Mobile App Developer</span>
+              <span class="designation-text">{{data.PROFESSION__NAME}}</span>
             </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar6.avif" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Mamta Dalvi</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-              <span class="designation-text">Quality assurance (QA) tester</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <!-- <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar6.avif" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <span class="name-text">Mamta Dalvi</span><br>
-          <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-          <span class="designation-text">Quality assurance (QA) tester</span>
-        </ion-col>
-      </ion-row> -->
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar3.png" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Akash Tupsaminder</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-              <span class="designation-text">Python Developer</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar7.jpg" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Mamta Dalvi</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-               <span class="designation-text">Quality assurance (QA) tester</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar5.png" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Adinath Mehtar</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-              <span class="designation-text">Quality assurance (QA) tester</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Shalaka</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-              <span class="designation-text">Quality assurance (QA) tester</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar6.webp" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Satyam Bandbe</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-              <span class="designation-text">Front-end Developer</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar5.png" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Mayur Sheler</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-              <span class="designation-text">Designer</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: 10px;">
-        <ion-col size="3">
-          <img src="../../../assets/avtar1.jpg" alt="" class="circle-img">
-        </ion-col>
-        <ion-col size="9" class="border-bottom">
-          <ion-row>
-            <ion-col size="10">
-              <span class="name-text">Mamta Dalvi</span><br>
-            </ion-col>
-            <ion-col size="2">
-              <ion-badge class="badge-color" mode="md" (click)="addRateRewardsPage('103191')"><ion-icon name="star-outline" style="font-size: smaller;padding-top: 2px;"></ion-icon>&nbsp;Rate now</ion-badge>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="10">
-              <span class="designation-text">Quality assurance (QA) tester</span>
-            </ion-col>
-            <ion-col  size="2">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;"><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
+            <ion-col  size="2" (click)="add_handshake(data)">
+              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;" ><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
             </ion-col>
           </ion-row>
         </ion-col>
       </ion-row>
     </ion-grid>
+    <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
+      <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+      <span class="no-data-text">No Recognition Data</span>
+    </div>
   </div>
   <br>
   <br>
   <br>
 </ion-content>
 
-<app-commonfooter></app-commonfooter>
+<app-commonfooter *ngIf="isFooterVisible"></app-commonfooter>

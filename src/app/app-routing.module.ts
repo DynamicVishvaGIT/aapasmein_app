@@ -283,6 +283,14 @@ const routes: Routes = [
     path: 'activities',
     loadChildren: () => import('./activities/activities.module').then( m => m.ActivitiesPageModule)
   },
+  {
+    path: 'send-handshake',
+    loadChildren: () => import('./send-handshake/send-handshake.module').then( m => m.SendHandshakePageModule)
+  },
+  {
+    path: 'event-view',
+    loadChildren: () => import('./event-view/event-view.module').then( m => m.EventViewPageModule)
+  },
 ];
 
 @NgModule({

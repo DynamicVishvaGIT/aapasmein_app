@@ -1,0 +1,317 @@
+ion-toolbar{
+    --background: #071947;
+    ion-title{
+      font-size: 16px;
+    }
+  }
+
+  #header-icons{
+    text-align: right;
+    ion-icon{
+        color:#50537a;
+        font-size: 1.5rem;
+    }
+  }
+.header {
+    // float: left;
+    color: black;
+    font-size: medium;
+    font-family: "Alef";
+    margin-top: 2px;
+    // margin-left: 25%;
+}
+
+  .main-container {
+    position: relative;
+  }
+  
+  #container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 110px;
+    transform: translateY(-50%);
+    background: #071947;
+    border-bottom-left-radius: 27px;
+    border-bottom-right-radius: 27px;
+    z-index: 1;
+    height: 220px; /* Set your desired height here */
+    overflow: hidden;
+  }
+  
+  #container strong {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  #container p {
+    color: #fff;
+    margin-left: 20px;
+  }
+  
+#container a {
+    text-decoration: none;
+}
+
+.help_icon{
+    float: right;
+    margin-right: 25px;
+    font-size: x-large;
+    color: #ffffff;
+}
+
+.form-div{
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-top:40%;
+}
+
+.login-btn {
+    width: 100%;
+    --border-radius: 9px;
+    margin-left: 0px;
+    margin-top: 50px;
+    height: 42px;
+    font-family: "Poppins-Regular";
+}
+
+.watermark {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* Adjust the size as needed */
+  height: 80%; /* Adjust the size as needed */
+  background: url('/assets/images/invite.svg') no-repeat center center; /* Set your watermark image path here */
+  background-size: contain; /* Adjust the size as needed */
+  // opacity: 0.1; /* Adjust the transparency as needed */
+  pointer-events: none; /* So the watermark doesn't interfere with clicks */
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.input-label {
+  position: absolute;
+  top: 14px;
+  left: 19px;
+  font-size: 16px;
+  background-color: #ffffff;
+  padding: 0 5px;
+  color: #333333;
+  z-index: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+.input-container.focused .input-label,
+.input-container .input-box:not(:placeholder-shown) + .input-label {
+  top: -10px;
+  font-size: 12px;
+  color: #333333;
+  background-color: white;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e9e9e9;
+  border-radius: 12px;
+  padding-left: 12px;
+  box-sizing: border-box;
+}
+
+.input-box {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 0;
+  color: #333333;
+}
+
+.input-box::placeholder {
+  color: transparent;
+}
+
+.input-box:focus {
+  outline: none;
+  box-shadow: 0 0 5px #333333;
+}
+
+// .input-label {
+//   position: absolute;
+//   top: -10px; 
+//   // left: 10px; 
+//   left: 19px; 
+//   font-size: 14px; 
+//   background-color: #ffff;
+//   padding: 0 5px;
+//   color: #071947; 
+//   z-index: 1; 
+// }
+
+// .input-group {
+//   display: flex;
+//   align-items: center;
+//   border: 1px solid #ccc;
+//   // border-radius: 5px;
+//   border-radius: 12px;
+//   // padding: 2px;
+//   padding-left: 12px;
+//   box-sizing: border-box; 
+// }
+
+// .input-box {
+//   flex-grow: 1;
+//   border: none;
+//   outline: none;
+//   font-size: 16px;
+//   padding: 0; 
+//   color: #071947;
+// }
+
+// .input-box::placeholder {
+//   // color: #ccc; 
+//   color: #071947 !important;
+// }
+
+.honeycomb-overlay {
+  position: absolute;
+  pointer-events: none;
+  top: -137px;
+  left: -152px;
+  right: 0;
+  bottom: 0;
+  // height: 100px;
+  background-image: url('../../assets/background/profile_bg1.svg'); /* Path to your honeycomb vector image */
+  background-size: cover;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+// .custom-accordion {
+//   --background: transparent; /* Removes background color */
+//   --border-width: 1px; /* Sets the border width */
+//   --border-style: solid; /* Defines border style */
+//   --border-color: black; /* Adjusts border color */
+// }
+
+// ion-accordion::part(header) {
+//   background: transparent !important; /* Removes background */
+//   border: 1px solid #b5baed; /* Adds border */
+//   border-bottom: none !important;
+// }
+
+// ion-accordion::part(content) {
+//   background: transparent !important; /* Removes background */
+//   border: 1px solid #b5baed; /* Adds border */
+//   border-top: none !important;
+//   // border-bottom: none !important;
+// }
+
+ion-accordion-group.accordion-group-expand-inset>ion-accordion:first-of-type {
+  border-top-left-radius: 6px !important;
+  border-top-right-radius: 6px !important;
+  border: 1px solid #b5baed;
+}
+ion-accordion-group.accordion-group-expand-inset>ion-accordion:last-of-type {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+ion-item {
+  --border-width: 0px; /* Remove all borders */
+  --inner-border-width: 0px;
+  border-bottom: none !important;
+}
+
+.label{
+  color:#747fdd;
+}
+
+.custom-accordion::part(header) {
+  border-bottom: none !important;
+}
+
+.accordian-align{
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: -8px;
+}
+
+.invited-card{
+  border-radius:8px;
+  width: 100%;
+  height: 90px;
+  background: #ffffff;
+  margin-left: 0px;
+  margin-top: 2px;
+  box-shadow: rgb(149 157 165 / 40%) 0px 8px 24px;
+}
+.img-card {
+  width: 68px;
+  height: 68px;
+  border-radius: 5px;
+}
+
+.name-section{
+  color: black;
+  // font-style: italic;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 0px;
+  // margin-left: -19px;
+}
+
+.other-section{
+  color: black;
+  // font-style: italic;
+  font-size: 10px;
+  // font-weight: 600;
+  margin-top: 0px;
+  // margin-left: -19px;
+}
+
+.verify_button{
+  width: 100%;
+  --border-radius: 9px;
+  margin-left: 0px;
+  height: 42px;
+  --background: #fe9800;
+}
+
+.invited-card{
+  border-radius:8px;
+  width: 100%;
+  height: 65px;
+  background: #ffffff;
+  margin-left: 0px;
+  margin-top: 2px;
+  box-shadow: rgb(149 157 165 / 40%) 0px 8px 24px;
+}
+.img-card {
+  width: 68px;
+  height: 68px;
+  border-radius: 5px;
+  margin-top: -14px;
+}
+
+.name-section{
+  color: black;
+  // font-style: italic;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 0px;
+  // margin-left: -19px;
+}
+
+.other-section{
+  color: black;
+  // font-style: italic;
+  font-size: 10px;
+  // font-weight: 600;
+  margin-top: 0px;
+  // margin-left: -19px;
+}

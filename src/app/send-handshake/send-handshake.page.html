@@ -1,0 +1,82 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-row >
+      <ion-col size="1" style="text-align: start;margin-left: 10px;">
+        <ion-icon name="arrow-back" style="color:white;" (click)="back()"></ion-icon>
+      </ion-col>
+      <ion-col size="7" style="text-align: start;margin-top: -3px;">
+        <strong class="header" style="color:white;">Send a handshake !</strong>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="help-circle-outline" class="help_icon"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="honeycomb-overlay"></div>
+  <div id="container" >
+    <div class="watermark"></div>
+  </div>
+  <div class="ion-padding form-div">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+            <div class="input-container" [class.focused]="friend.mobile_no || inputFocused">
+              <ion-label class="input-label required">Mobile Number</ion-label>
+              <div class="input-group">
+                <ion-input class="input-box" type="number" [(ngModel)]="friend.mobile_no" (ionFocus)="onFocus()" (ionBlur)="onBlur()"></ion-input>
+              </div>
+            </div>
+        </ion-col>
+        <ion-col size="4" style="margin-top: 6px;">
+          <ion-button  type="button" class="verify_button" (click)="verify()"><b>Verify</b></ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="ion-padding">
+            <ion-card class="invited-card" *ngFor="let data of handshake_data">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="3">
+                    <img src="{{imageUrl}}{{data?.PROFILE_IMAGE}}" alt="" class="img-card" *ngIf="data.PROFILE_IMAGE">
+                    <img src="../../assets/avtar3.jpeg" alt="" class="img-card" *ngIf="!data.PROFILE_IMAGE">
+                  </ion-col>
+                  <ion-col size="9">
+                    <span class="name-section">{{data?.NAME}}</span><br>
+                    <span class="other-section">{{data?.EMAIL_ID}}</span><br>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button  type="submit" class="custom_button" [disabled]="handshake_data.length==0" (click)="add_handshake()"><b>Send Handshake</b></ion-button>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  </div>
+    <br>
+    <br>
+    <br>
+    <!-- <ion-list *ngIf="invitedFriends.length > 0">
+      <ion-item *ngFor="let friend of invitedFriends; let i = index">
+        <ion-label>
+          <h2>{{ friend.full_name }}</h2>
+          <p>{{ friend.email }} | {{ friend.mobile_number }}</p>
+        </ion-label>
+        <ion-button fill="clear" color="danger" (click)="removeFriend(i)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <p *ngIf="invitedFriends.length === 0" class="empty-msg">No friends invited yet.</p> -->
+  <!-- </div> -->
+</ion-content>
+
+<app-commonfooter url="handshake"></app-commonfooter>

@@ -59,7 +59,7 @@
                 <div class="input-container" [class.focused]="user.city || inputFocused">
                     <ion-label class="input-label required">City</ion-label>
                     <div class="input-group">
-                        <ion-select class="ion-select" [(ngModel)]="user.city" >
+                        <ion-select class="ion-select" [(ngModel)]="user.city" (ionChange)="load_location()">
                             <ion-select-option *ngFor="let item of get_cities" [value]="item.id">{{item.NAME}}</ion-select-option>
                             <!-- <ion-select-option>Durgapur</ion-select-option> -->
                         </ion-select>
@@ -82,7 +82,7 @@
                 <div class="input-container" [class.focused]="user.mobile_no || inputFocused">
                     <ion-label class="input-label required">Mobile Number</ion-label>
                     <div class="input-group">
-                        <ion-input class="input-box" type="number" [(ngModel)]="user.mobile_no"></ion-input>
+                        <ion-input class="input-box" type="number" [(ngModel)]="user.mobile_no" disabled></ion-input>
                     </div>
                 </div>
             </ion-col>

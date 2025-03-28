@@ -248,7 +248,8 @@ export class EventCategoryPage implements OnInit {
   }
 
   goToEventList(data:any, url:string) {console.log(data);
-    this.router.navigate(['/all-event-list'], { queryParams: {category_id: data.category_id, urlType: url} });
+    // this.router.navigate(['/all-event-list'], { queryParams: {category_id: data.category_id, urlType: url} });
+    this.router.navigate(['/event-view'], { queryParams: {category_id: data.category_id, category_name: data.category_name, urlType: url} });
   }
 
   async addEvent() {

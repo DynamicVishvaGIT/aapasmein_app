@@ -49,14 +49,14 @@
               <!-- <ion-button class="answer-btn after_click"> -->
                 <ion-grid>
                     <ion-col >
-                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('1st')">
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedReachinRadio" (ionChange)="onReachinRadioSelect('1st')">
                         <ion-radio 
                         value="1st"
                         color="tertiary"
                         justify="space-between" 
                         labelPlacement="end" 
                         style="font-size: xx-small;"
-                        [ngClass]="{'radio-selected': selectedRadio === '1st', 'radio-unselected': selectedRadio !== '1st'}"
+                        [ngClass]="{'radio-selected': selectedReachinRadio === '1st', 'radio-unselected': selectedReachinRadio !== '1st'}"
                         >
                         <span style="text-transform: none;color:white">Request in</span></ion-radio>
                       </ion-radio-group>
@@ -68,14 +68,14 @@
               <!-- <ion-button class="answer-btn after_click"> -->
                 <ion-grid>
                     <ion-col>
-                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('2nd')">
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedReachinRadio" (ionChange)="onReachinRadioSelect('2nd')">
                         <ion-radio 
                         value="2nd" 
                         color="tertiary" 
                         justify="space-between" 
                         labelPlacement="end" 
                         style="font-size: xx-small;"
-                        [ngClass]="{'radio-selected': selectedRadio === '2nd', 'radio-unselected': selectedRadio !== '2nd'}"
+                        [ngClass]="{'radio-selected': selectedReachinRadio === '2nd', 'radio-unselected': selectedReachinRadio !== '2nd'}"
                         
                       >
                         <span style="text-transform: none;color:white">Request out</span></ion-radio>
@@ -126,14 +126,14 @@
               <!-- <ion-button class="answer-btn after_click"> -->
                 <ion-grid>
                     <ion-col >
-                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('1st')">
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedReachoutRadio" (ionChange)="onReachoutRadioSelect('1st')">
                         <ion-radio 
                         value="1st"
                         color="tertiary"
                         justify="space-between" 
                         labelPlacement="end" 
                         style="font-size: xx-small;"
-                        [ngClass]="{'radio-selected': selectedRadio === '1st', 'radio-unselected': selectedRadio !== '1st'}"
+                        [ngClass]="{'radio-selected': selectedReachoutRadio === '1st', 'radio-unselected': selectedReachoutRadio !== '1st'}"
                         >
                         <span style="text-transform: none;color:white">Request in</span></ion-radio>
                       </ion-radio-group>
@@ -145,14 +145,14 @@
               <!-- <ion-button class="answer-btn after_click"> -->
                 <ion-grid>
                     <ion-col>
-                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('2nd')">
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedReachoutRadio" (ionChange)="onReachoutRadioSelect('2nd')">
                         <ion-radio 
                         value="2nd" 
                         color="tertiary" 
                         justify="space-between" 
                         labelPlacement="end" 
                         style="font-size: xx-small;"
-                        [ngClass]="{'radio-selected': selectedRadio === '2nd', 'radio-unselected': selectedRadio !== '2nd'}"
+                        [ngClass]="{'radio-selected': selectedReachoutRadio === '2nd', 'radio-unselected': selectedReachoutRadio !== '2nd'}"
                         
                       >
                         <span style="text-transform: none;color:white">Request out</span></ion-radio>
@@ -204,14 +204,14 @@
               <!-- <ion-button class="answer-btn after_click"> -->
                 <ion-grid>
                     <ion-col >
-                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('1st')">
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedHandshakeRadio" (ionChange)="onHandshakeRadioSelect('1st')">
                         <ion-radio 
                         value="1st"
                         color="tertiary"
                         justify="space-between" 
                         labelPlacement="end" 
                         style="font-size: xx-small;"
-                        [ngClass]="{'radio-selected': selectedRadio === '1st', 'radio-unselected': selectedRadio !== '1st'}"
+                        [ngClass]="{'radio-selected': selectedHandshakeRadio === '1st', 'radio-unselected': selectedHandshakeRadio !== '1st'}"
                         >
                         <span style="text-transform: none;color:white">Request in</span></ion-radio>
                       </ion-radio-group>
@@ -223,14 +223,14 @@
               <!-- <ion-button class="answer-btn after_click"> -->
                 <ion-grid>
                     <ion-col>
-                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedRadio" (ionChange)="onRadioSelect('2nd')">
+                      <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="selectedHandshakeRadio" (ionChange)="onHandshakeRadioSelect('2nd')">
                         <ion-radio 
                         value="2nd" 
                         color="tertiary" 
                         justify="space-between" 
                         labelPlacement="end" 
                         style="font-size: xx-small;"
-                        [ngClass]="{'radio-selected': selectedRadio === '2nd', 'radio-unselected': selectedRadio !== '2nd'}"
+                        [ngClass]="{'radio-selected': selectedHandshakeRadio === '2nd', 'radio-unselected': selectedHandshakeRadio !== '2nd'}"
                         
                        >
                         <span style="text-transform: none;color:white">Request out</span></ion-radio>
@@ -247,7 +247,8 @@
         
         <ion-row *ngFor="let request of filteredHandshakeList; let i = index" >  <!--(click)="goToRequestMessage()"-->
           <ion-col size="3" (click)="goToProfile(request)">
-            <img src="{{imageUrl}}{{request.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+            <img src="{{imageUrl}}{{request.USER__PROFILE_IMAGE}}" alt="" class="circle-img"  *ngIf="request.USER__PROFILE_IMAGE">
+            <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!request.USER__PROFILE_IMAGE">
           </ion-col>
           <ion-col size="9" class="border-bottom" style="margin-top: 1px;">
             <span class="name-text" (click)="goToProfile(request)">{{request.USER__NAME}}</span><br>

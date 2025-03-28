@@ -17,6 +17,8 @@ export class SettingmodalPage implements OnInit {
   logout() {
     this.dismiss();
     localStorage.removeItem('currentUser');
+    localStorage.clear();  // Clear all local storage data
+    sessionStorage.clear(); // Clear session storage
     this.router.navigate(['/welcome']);
   }
 

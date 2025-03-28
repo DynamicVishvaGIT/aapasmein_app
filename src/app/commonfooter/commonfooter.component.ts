@@ -54,13 +54,13 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
     // else{
     //   this.handShake = false;
     // }
-    if(this.url=='invitation'){
+    if(this.url=='invitation' || this.url=='handshake'){
       this.showFab = false;
     }
     else{
       this.showFab = true;
     }
-    // this.load_friend_request();
+    this.load_friend_request();
     const POLLING_INTERVAL = 5000; // 5 seconds
     // Start polling
     this.pollingSubscription = interval(POLLING_INTERVAL).subscribe(() => {
@@ -104,6 +104,11 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
     //   }
     // })
     // return await modal.present();
+  }
+
+  handshakeYourFriend() {
+    this.showFab = false;
+    this.router.navigate(['/send-handshake']);
   }
 
   goToHome() {

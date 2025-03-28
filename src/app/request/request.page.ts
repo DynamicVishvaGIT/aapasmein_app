@@ -22,7 +22,9 @@ export class RequestPage implements OnInit {
   info = 'reachout';
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
   filterFlag = true;
-  selectedRadio:string='1st';
+  selectedReachinRadio:string='1st';
+  selectedHandshakeRadio:string='1st';
+  selectedReachoutRadio:string='1st';
   requestText:string='Request-in';
   searchFlag=false;
   friendRequestDataLoaded: boolean = false;
@@ -51,9 +53,9 @@ export class RequestPage implements OnInit {
     this.searchFlag = !this.searchFlag;
   }
 
-  onRadioSelect(value: string) {
+  onReachinRadioSelect(value: string) {
     console.log(value);
-    this.selectedRadio = value;
+    this.selectedReachinRadio = value;
     if(value=='1st'){
       this.requestText = 'Request-in';
     }
@@ -61,6 +63,30 @@ export class RequestPage implements OnInit {
       this.requestText = 'Request-out';
     }
     this.load_friend_request();
+  }
+
+  onReachoutRadioSelect(value: string) {
+    console.log(value);
+    this.selectedReachoutRadio = value;
+    if(value=='1st'){
+      this.requestText = 'Request-in';
+    }
+    else{
+      this.requestText = 'Request-out';
+    }
+    this.load_friend_request();
+  }
+
+  onHandshakeRadioSelect(value: string) {
+    console.log(value);
+    this.selectedHandshakeRadio = value;
+    if(value=='1st'){
+      this.requestText = 'Request-in';
+    }
+    else{
+      this.requestText = 'Request-out';
+    }
+    this.load_handshake_request();
   }
 
   load_friend_request() {
@@ -107,6 +133,7 @@ export class RequestPage implements OnInit {
     this.handshakeDataLoaded = false;
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
+    formData.append('request_type',this.requestText=='Request-in'?'reachin':'reachout');  
     formData.append('type','pending');
     this.apiService.load_hanshake_request(formData)
     .pipe(takeUntil(this._unsubscribeAll))

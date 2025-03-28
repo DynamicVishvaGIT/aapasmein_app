@@ -29,8 +29,8 @@
         </ion-col>
         <ion-col size="9">
           <span class="name-text">{{data.SENDER__NAME}}</span><br>
-          <!-- <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.MOBILE_NO)" ></ion-icon> -->
           <span class="designation-text">{{data.SENDER__PROFESSION__NAME}}</span><br>
+          <ion-badge [ngClass]="{'badge-color': data.REQUEST_STATUS=='accept', 'badge-color-reject': data.REQUEST_STATUS=='reject'}" mode="md">{{data.REQUEST_STATUS=='accept'?'Request Accepted':'Request Rejected'}}</ion-badge>
           <!-- <span class="name-text">{{requestText=='Request-in'?data.SENDER__NAME:data.NAME}}</span><br>
           <span class="designation-text">{{requestText=='Request-in'?data.SENDER__PROFESSION__NAME:data.PROFESSION__NAME}}</span><br> -->
         </ion-col>
