@@ -80,7 +80,7 @@
           <ion-row class="border-bottom" *ngFor="let data of filteredFriendRequestList">
             <ion-col size="3" (click)="goToProfile(data)">
               <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE" >
-              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
+              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
               <!-- <img src="{{imageUrl}}{{requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE">
               <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!data.SENDER__PROFILE_IMAGE:!data.PROFILE_IMAGE"> -->
             </ion-col>
@@ -145,7 +145,8 @@
         <ion-grid>
           <ion-row class="border-bottom" *ngFor="let data of filteredHandshakeList">
             <ion-col size="3" (click)="goToProfile(data)">
-              <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+              <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img"  *ngIf="data.USER__PROFILE_IMAGE">
+              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.USER__PROFILE_IMAGE" >
             </ion-col>
             <ion-col size="9">
               <span class="name-text" (click)="goToProfile(data)">{{data.USER__NAME}}</span><br>
@@ -165,7 +166,7 @@
           <ion-row class="border-bottom" *ngFor="let data of filteredFriendRequestList">
             <ion-col size="3" (click)="goToProfile(data)">
               <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE" >
-              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
+              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
             </ion-col>
             <ion-col size="9">
               <span class="name-text" (click)="goToProfile(data)">{{data.NAME}}</span><br>

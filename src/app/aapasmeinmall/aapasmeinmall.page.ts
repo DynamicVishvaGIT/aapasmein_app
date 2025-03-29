@@ -80,6 +80,7 @@ export class AapasmeinmallPage implements OnInit {
       category_id = this.filteredData;
     }
     this.dataLoaded = false;
+    console.log('category_id', category_id);
     this.commonService.presentLoading();
     // formData.append('apptype',this.apiService.apptype),
     this.apiService.load_mall_products(this.currentUser.mobile_no,category_id )

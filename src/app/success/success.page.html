@@ -7,7 +7,7 @@
     <h1 style="color:#ffff;padding: 10px;text-align: center;font-size: xx-large;" *ngIf="totalPoints>=50">Great Recommendation !</h1>
     <h1 style="color:#ffff;padding: 10px;text-align: center;font-size: larger;">{{message}}</h1>
   </div>
-  <div class="whatsapp-button-card" (click)="inviteViaWhatsApp()" *ngIf="totalPoints>=50">
+  <div class="whatsapp-button-card" (click)="invite_to_whatsapp()" *ngIf="totalPoints>=50 && show_whatsapp">
     <span style="margin-top: 55px;font-size: small;">Invite via Whatsapp</span>
   </div>
   <div class="button-card" (click)="goToHome()">

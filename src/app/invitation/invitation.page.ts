@@ -35,7 +35,7 @@ export class InvitationPage implements OnInit {
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
     this.get_city();
-    this.get_location();
+    // this.get_location();
     this.load_friend_request();
   }
 
@@ -61,8 +61,8 @@ export class InvitationPage implements OnInit {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }
-  get_location() {
-    this.apiService.get_location()
+  load_location() {
+    this.apiService.load_location(this.friend.city)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);

@@ -9,47 +9,15 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">Save Items</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
-  <!-- <div class="gap">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="4">
-          <div class="selected-button-card" [ngClass]="selected?'selected-button-card':'button-card'">  
-            <ion-row>
-              <ion-col size="12" style="text-align: center;padding: 9px;">
-                <span style="font-size: smaller;">Mall</span>
-              </ion-col>
-            </ion-row>
-          </div>
-        </ion-col>
-        <ion-col size="4">
-          <div class="button-card">
-            <ion-row>
-              <ion-col size="12" style="text-align: center;padding: 9px;">
-                <span style="font-size: smaller;">Broadcast</span>
-              </ion-col>
-            </ion-row>
-          </div>
-        </ion-col>
-        <ion-col size="4">
-          <div class="button-card">
-            <ion-row>
-              <ion-col size="12" style="text-align: center;padding: 9px;">
-                <span style="font-size: smaller;">What's New</span>
-              </ion-col>
-            </ion-row>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div> -->
-  <div style="margin-left: 5px;">
+  <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList()" placeholder="Search Deals" (click)="hideFooter()"></ion-searchbar>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
+  <!-- <div style="margin-left: 5px;">
     <ion-segment value="allevent" [(ngModel)]="infoSegment">
       <ion-segment-button value="mall">
         <ion-label style="font-size: x-small;color:white;">Mall</ion-label>
@@ -61,48 +29,32 @@
         <ion-label style="font-size: x-small;color:white;">What's New</ion-label>
       </ion-segment-button>
     </ion-segment>
-  </div>
-  <div [ngSwitch]="infoSegment">
-    <div class="card-gap" *ngSwitchCase="'mall'">
-      <ion-grid>
+  </div> -->
+  <div>
+    <div class="card-gap">
+      <ion-grid *ngIf="dataLoaded && filteredList.length > 0">
         <ion-row>
-          <ion-col size="6">
+          <ion-col size="6" *ngFor="let data of filteredList" >  <!--(click)="goToMallDetails(data,'saveditem')"-->
             <ion-card class="saved-items-card">
               <ion-card-header> 
                 <ion-card-title>
+                  <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                    <ng-template swiperSlide *ngFor="let img of data.images">
+                      <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
+                    </ng-template>
+                  </swiper>
                   <!-- <img src="{{imageURL}}{{property.PROPERTY_IMG}}" alt="" class="img-banner"> -->
-                  <img src="../../../assets/oppophone.webp" alt="" class="img-banner">
+                  <!-- <img src="../../../assets/oppophone.webp" alt="" class="img-banner"> -->
                 </ion-card-title>
-                <span class="name-text">Oppo A55</span><br>
+                <span class="name-text">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
               </ion-card-header>
               <ion-card-content style="margin-top: -28px;">
-                <span style="float:left;font-size: smaller;">Good condition 6 gb ram 125 storage...</span>
-                <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Mumbai</span>
+                <span style="float:left;font-size: smaller;">{{data.description.substring(0,23)}}<span *ngIf="data.description.length>=23">...</span></span><br>
+                <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">{{data.location}}</span>
                 <ion-row>
                   <ion-col>
-                    <span style="float:left;font-size: x-small;">05 Apr,2024</span>
-                  </ion-col>
-                  <ion-col>
-                    <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
-                  </ion-col>
-                </ion-row>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col size="6">
-            <ion-card class="saved-items-card">
-              <ion-card-header> 
-                <ion-card-title>
-                  <img src="../../../assets/byke.avif" alt="" class="img-banner">
-                </ion-card-title>
-                <span class="name-text">Royal Enfield Hunter</span><br>
-              </ion-card-header>
-              <ion-card-content style="margin-top: -28px;">
-                <span style="float:left;font-size: smaller;">Hunter 350 Brand new condition...</span>
-                <ion-icon name="location-outline" style="float:left;color: red;margin-top: 5px;"></ion-icon><span style="font-size: x-small;">Thane</span>
-                <ion-row>
-                  <ion-col>
-                    <span style="float:left;font-size: x-small;">05 Apr,2024</span>
+                    <!-- <span style="float:left;font-size: x-small;">{{data.created_date}}</span> -->
+                    <span style="float:left;font-size: x-small;color:green;">Rs.{{data.price}}/-</span>
                   </ion-col>
                   <ion-col>
                     <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
@@ -113,20 +65,23 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
+        <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+        <span class="no-data-text">No Deals Data</span>
+      </div>
     </div>
-    <div class="card-gap" *ngSwitchCase="'broadcast'">
+    <!-- <div class="card-gap" *ngSwitchCase="'broadcast'">
       <ion-grid>
         <ion-row>
           <ion-col size="12" >
-            <ion-card  class="broadcast-card" style="background-color: #efefef;margin-top: 0px;" *ngFor="let data of broadcast_list" > <!--[ngStyle]="{'background-color': getBackgroundColor(i)}" -->
+            <ion-card  class="broadcast-card" style="background-color: #efefef;margin-top: 0px;" *ngFor="let data of broadcast_list" >
               <h6 style="padding-left: 10px;color:#000000" (click)="goToBroadcastDetails(data.id)">{{data.BROADCAST__TITLE}}</h6>
                <p style="padding: 10px;margin-top:-16px;color:#5c5a5f;font-size: small;" (click)="goToBroadcastDetails(data.id)"> {{data.BROADCAST__DESCRIPTION}}</p>
-               <!-- <span style="float: right;color:#3180ea;padding-right:20px;padding-bottom:13px;margin-top: -15px;" (click)="shareDetails(data.id)">Share</span><ion-icon name="arrow-redo-outline" style="float: right;color:#3180ea;margin-top: -13px;"></ion-icon> -->
             </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
-    </div>
+    </div> -->
   </div>
 </ion-content>
 <app-commonfooter></app-commonfooter>

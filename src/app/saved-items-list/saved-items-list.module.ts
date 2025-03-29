@@ -8,6 +8,7 @@ import { SavedItemsListPageRoutingModule } from './saved-items-list-routing.modu
 
 import { SavedItemsListPage } from './saved-items-list.page';
 import { ShareModule } from '../share/share.module';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ShareModule } from '../share/share.module';
     FormsModule,
     IonicModule,
     SavedItemsListPageRoutingModule,
-    ShareModule
+    ShareModule,
+    SwiperModule
   ],
   declarations: [SavedItemsListPage]
 })

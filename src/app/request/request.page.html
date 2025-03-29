@@ -170,7 +170,7 @@
           <ion-row *ngFor="let request of filteredFriendRequestList; let i = index">  <!--(click)="goToRequestMessage()"-->
             <ion-col size="3" (click)="goToProfile(request)">
               <img src="{{imageUrl}}{{requestText=='Request-in'?request.SENDER__PROFILE_IMAGE:request.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestText=='Request-in'?request.SENDER__PROFILE_IMAGE:request.PROFILE_IMAGE">
-              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!request.SENDER__PROFILE_IMAGE:!request.PROFILE_IMAGE">
+              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!request.SENDER__PROFILE_IMAGE:!request.PROFILE_IMAGE">
             </ion-col>
             <ion-col size="9" class="border-bottom" style="margin-top: 1px;">
               <span class="name-text" (click)="goToProfile(request)">{{requestText=='Request-in'?request.SENDER__NAME:request.NAME}}</span><br>
@@ -248,7 +248,7 @@
         <ion-row *ngFor="let request of filteredHandshakeList; let i = index" >  <!--(click)="goToRequestMessage()"-->
           <ion-col size="3" (click)="goToProfile(request)">
             <img src="{{imageUrl}}{{request.USER__PROFILE_IMAGE}}" alt="" class="circle-img"  *ngIf="request.USER__PROFILE_IMAGE">
-            <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="!request.USER__PROFILE_IMAGE">
+            <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!request.USER__PROFILE_IMAGE">
           </ion-col>
           <ion-col size="9" class="border-bottom" style="margin-top: 1px;">
             <span class="name-text" (click)="goToProfile(request)">{{request.USER__NAME}}</span><br>

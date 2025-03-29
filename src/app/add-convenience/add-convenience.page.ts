@@ -218,12 +218,23 @@ export class AddConveniencePage implements OnInit {
         this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
         this.dismiss();
         this.router.navigate(['/convenience-list']);
+        this.inviteViaWhatsApp(response.status_msg);
       },
       respError => {
         this.disabled = false;
         console.log(respError)
         this.commonService.showToastMessage(respError, 'error-toast','', 2000);
       })
+  }
+
+  inviteViaWhatsApp(msg:string) {
+    const message = encodeURIComponent(msg);
+    // const link = encodeURIComponent("https://your-app-link.com");
+    // const whatsappUrl = `https://wa.me/?text=${message} ${link}`;
+    const whatsappUrl = `https://wa.me/?text=${message}`;
+    
+    // window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_system');
   }
 
   dismiss() {

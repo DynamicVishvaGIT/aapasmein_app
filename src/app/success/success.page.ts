@@ -17,6 +17,7 @@ export class SuccessPage implements OnInit {
   totalPoints:number=0;
   message:string='';
   friend_details: any;
+  show_whatsapp:boolean=false;
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private commonService: CommonService) { 
     this._unsubscribeAll = new Subject();
@@ -33,7 +34,7 @@ export class SuccessPage implements OnInit {
       console.log(this.totalPoints);
       console.log(this.friend_details);
       if(this.totalPoints>=50){
-        this.message = 'Looks like '+ this.friend_details.full_name+' would be an awesome addition to the aapasmein network!';
+        // this.message = 'Looks like '+ this.friend_details.full_name+' would be an awesome addition to the aapasmein network!';
         this.invite_friend();
       }
       else{
@@ -55,8 +56,28 @@ export class SuccessPage implements OnInit {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
         console.log(response);
+        this.message = 'Looks like '+ this.friend_details.full_name+' would be an awesome addition to the aapasmein network!';
+        this.show_whatsapp = true;
         // localStorage.setItem('currentUser',JSON.stringify(response.user_data));
         this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
+      },
+      respError => {
+        this.show_whatsapp = false;
+        this.message = 'Looks like '+ this.friend_details.full_name+' has already been added to the aapasmein network!';
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+
+  invite_to_whatsapp() {
+    let formData = new FormData();
+    formData.append('mobile_no',this.friend_details.mobile_number);
+    formData.append('sender_id',this.currentUser.user_id);
+    this.apiService.invite_to_whatsapp(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        this.inviteViaWhatsApp(response);
+        // this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
       },
       respError => {
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -67,10 +88,11 @@ export class SuccessPage implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  inviteViaWhatsApp() {
-    const message = encodeURIComponent("Hey! Check out this amazing app:");
-    const link = encodeURIComponent("https://your-app-link.com");
-    const whatsappUrl = `https://wa.me/?text=${message} ${link}`;
+  inviteViaWhatsApp(msg:string) {
+    const message = encodeURIComponent(msg);
+    const phoneNumber = this.friend_details.mobile_number.replace(/\+/g, ""); // Remove '+'
+    // const link = encodeURIComponent("https://your-app-link.com");
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     
     // window.open(whatsappUrl, '_blank');
     window.open(whatsappUrl, '_system');

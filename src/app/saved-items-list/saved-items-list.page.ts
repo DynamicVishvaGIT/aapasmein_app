@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
+import Swiper, { SwiperOptions } from 'swiper';
 
 @Component({
   selector: 'app-saved-items-list',
@@ -20,6 +21,17 @@ export class SavedItemsListPage implements OnInit {
   currentUser:any;
   broadcast_list:any=[];
   deals_list:any=[];
+  imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+  config: SwiperOptions = {
+    pagination: true,
+    slidesPerView:'auto',
+    effect: 'coverflow',
+    loop: true
+  }
+  isFooterVisible: boolean = true;
+  filteredList: any[] = [];
+  dataLoaded: boolean = false;
+  searchQuery: string = '';
 
   constructor(private router: Router, private apiService:ApiService, private commonService: CommonService) { 
     this._unsubscribeAll = new Subject();
@@ -41,6 +53,14 @@ export class SavedItemsListPage implements OnInit {
     this.load_saved_products();
   }
 
+  async setSwiperInstance(swiper: Swiper) {
+    if(swiper){
+      setInterval(() => {
+        swiper.slideNext();
+      }, 4000);
+    }
+  }
+
   load_saved_broadcast() {
     let formData = new FormData();
     formData.append("user_id",this.currentUser.user_id),
@@ -56,6 +76,7 @@ export class SavedItemsListPage implements OnInit {
   }
 
   load_saved_products() {
+    this.commonService.presentLoading();
     let formData = new FormData();
     formData.append("user_id",this.currentUser.user_id),
     this.apiService.load_saved_products(formData)
@@ -63,14 +84,40 @@ export class SavedItemsListPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.deals_list = response.data;
+      this.filteredList = [...this.deals_list]; // Initialize filtered list
+      this.dataLoaded = true;
+      this.isFooterVisible = true;
+      this.commonService.dismissLoading();
     },
     respError => {
+      this.commonService.dismissLoading();
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }
 
+  filterList() {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      this.filteredList = [...this.deals_list];
+      this.isFooterVisible = true;
+    } else {
+      this.filteredList = this.deals_list.filter((item:any) => 
+        item.product_name.toLowerCase().includes(query)
+      );
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
+  }
+
   goToBroadcastDetails(broadcast_id:string) {
     this.router.navigate(['/broadcast-details'], { queryParams: { broadcast_id: broadcast_id, url: 'savedlist'} });
+  }
+
+  goToMallDetails(data:any, route:string) {
+    this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
   }
 
   showSearch() {

@@ -184,7 +184,7 @@ export class ApiService {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('mobile_no', mobile_no);
     if(category_id){
-      urlSearchParams.append('category_id', category_id);
+      urlSearchParams.append('Category_id', category_id);
     }
     urlSearchParams.append('apptype', this.apptype);
     return this.httpClient.get(this.baseUrl + 'load_mall_products?'+urlSearchParams.toString())
@@ -518,6 +518,22 @@ export class ApiService {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('mobile_no', mobile_no);
     return this.httpClient.get(this.baseUrl + 'load_recognition?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  activity_api(activity: any) {
+    return this.httpClient.post(this.baseUrl + 'activity_api', activity)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  invite_to_whatsapp(invite: any) {
+    return this.httpClient.post(this.baseUrl + 'invite_to_whatsapp', invite)
     .pipe(
       retry(1),
       catchError(this.errorHandler)
