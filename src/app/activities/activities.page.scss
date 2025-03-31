@@ -40,7 +40,16 @@ ion-content {
     margin-top: 4px;/* Adjust this value to vertically center the dot */
     margin-left: 7px;
 }
-
+.badge-color{
+    float: right;
+    // background: #f4ebff;
+    background: #2c61b6;
+    color:white;
+    height: 20px;
+    // width: 25px;
+    --padding-end: 7px;
+    --padding-start: 7px;
+}
 
 // ion-content {
 //     --background: none;

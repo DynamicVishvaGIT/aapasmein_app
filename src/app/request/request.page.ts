@@ -31,6 +31,8 @@ export class RequestPage implements OnInit {
   handshakeDataLoaded: boolean = false;
   routeURL:string = '';
   isFooterVisible: boolean = true;
+  viewMsgFlag:boolean=false;
+  viewHandShakeMsgFlag:boolean= false;
 
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute) { 
     this._unsubscribeAll = new Subject();
@@ -92,6 +94,7 @@ export class RequestPage implements OnInit {
   load_friend_request() {
     this.commonService.presentLoading();
     this.friendRequestDataLoaded = false;
+    this.viewMsgFlag = false;
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
     formData.append('request_type',this.requestText=='Request-in'?'reachin':'reachout');
@@ -131,6 +134,7 @@ export class RequestPage implements OnInit {
   load_handshake_request() {
     this.commonService.presentLoading();
     this.handshakeDataLoaded = false;
+    this.viewHandShakeMsgFlag = false;
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
     formData.append('request_type',this.requestText=='Request-in'?'reachin':'reachout');  
@@ -202,7 +206,14 @@ export class RequestPage implements OnInit {
   }
 
   goToProfile(data:any) {console.log(data);
-    this.router.navigate(['/profile'], { queryParams: { routeURL: 'request', sender_id: this.requestText=='Request-in'?data.SENDER_id:data.id } });
+    this.router.navigate(['/profile'], { queryParams: { routeURL: 'request', sender_id: this.requestText=='Request-in'?data.SENDER_id:data.id, REQUEST_STATUS: data.REQUEST_STATUS } });
+  }
+
+  viewMessage() {
+    this.viewMsgFlag =! this.viewMsgFlag;
+  }
+  viewHandShakeMessage() {
+    this.viewHandShakeMsgFlag =! this.viewHandShakeMsgFlag;
   }
 
   openFilter() {

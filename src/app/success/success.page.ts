@@ -90,12 +90,23 @@ export class SuccessPage implements OnInit {
 
   inviteViaWhatsApp(msg:string) {
     const message = encodeURIComponent(msg);
-    const phoneNumber = this.friend_details.mobile_number.replace(/\+/g, ""); // Remove '+'
     // const link = encodeURIComponent("https://your-app-link.com");
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    // const whatsappUrl = `https://wa.me/?text=${message} ${link}`;
+    const whatsappUrl = `https://wa.me/?text=${message}`;
     
     // window.open(whatsappUrl, '_blank');
     window.open(whatsappUrl, '_system');
   }
+
+  // inviteViaWhatsApp(msg:string) {
+  //   const message = encodeURIComponent(msg);
+  //   // const phoneNumber = this.friend_details.mobile_number.replace(/\+/g, ""); // Remove '+'
+  //   const phoneNumber = String(this.friend_details.mobile_number).replace(/\+/g, "");
+  //   // const link = encodeURIComponent("https://your-app-link.com");
+  //   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    
+  //   // window.open(whatsappUrl, '_blank');
+  //   window.open(whatsappUrl, '_system');
+  // }
 
 }

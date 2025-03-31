@@ -177,8 +177,9 @@
               <ion-badge class="badge-color" mode="md" style="margin-top: -18px;" (click)="change_friend_request_status(request,'accept')" *ngIf="requestText=='Request-in'">Accept</ion-badge>
               <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" *ngIf="requestText=='Request-in'" (click)="change_friend_request_status(request,'reject')">Reject</ion-badge>
               <span class="designation-text">{{requestText=='Request-in'?request.SENDER__PROFESSION__NAME:request.PROFESSION__NAME}}</span><br>
-              <span class="designation-text">{{requestText=='Request-in'?'':request.REQUEST_STATUS}}</span>
-              <span class="message-text"  *ngIf="requestText=='Request-in'"><u>View Message</u></span>
+              <span class="designation-text" *ngIf="requestText!='Request-in'">Status: {{requestText=='Request-in'?'':request.REQUEST_STATUS | titlecase}}</span>
+              <span class="message-text"  *ngIf="requestText=='Request-in'" (click)="viewMessage()"><u>View Message</u></span><br>
+              <span class="view-message-text"  *ngIf="viewMsgFlag">{{request.CUSTOM_MSG}}</span>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -256,7 +257,8 @@
               <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" (click)="change_handshake_request_status(request,'reject')">Reject</ion-badge>
             <!-- <ion-badge class="shake-align" mode="md" style="margin-top: -18px;" (click)="change_handshake_request_status(request)"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge> -->
             <span class="designation-text">{{request.USER__PROFESSION__NAME}}</span>
-            <span class="message-text"><u>View Message</u></span>
+            <span class="message-text"  *ngIf="requestText=='Request-in'" (click)="viewHandShakeMessage()"><u>View Message</u></span><br>
+              <span class="view-message-text"  *ngIf="viewHandShakeMsgFlag">{{request.CUSTOM_MSG}}</span>
           </ion-col>
         </ion-row>
         <!-- <ion-row (click)="goToProfile()">

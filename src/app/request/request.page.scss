@@ -40,10 +40,16 @@ ion-content {
     color: #d1ebff;
     /* margin-left: 27px; */
     float: right;
-    margin-top: 14px;
-    margin-right: -115px;
+    // margin-top: 14px;
+    margin-top: -10px;
+    // margin-right: -115px;
     // margin-top: 6px;
     // margin-right: -57px;
+}
+.view-message-text {
+    font-size: x-small;
+    color: #d1ebff;
+    margin-top: 14px;
 }
 .badge-color{
     float: right;

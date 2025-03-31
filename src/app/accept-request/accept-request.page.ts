@@ -31,6 +31,7 @@ export class AcceptRequestPage implements OnInit {
   searchQuery: string = '';
   isFooterVisible: boolean = true;
   segment_type:string='';
+  sender_id:string='';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService, private commonService: CommonService,
     private platform: Platform, private callNumber: CallNumber
@@ -47,6 +48,7 @@ export class AcceptRequestPage implements OnInit {
       this.routeURL = params['routeURL'];
       console.log(this.routeURL);
       this.segment_type = params['segment_type'];
+      this.sender_id = params['sender_id'];
       if(this.segment_type!==undefined){
         this.info = this.segment_type;
       }
@@ -165,7 +167,12 @@ export class AcceptRequestPage implements OnInit {
 
   dismiss() {
     if(this.routeURL=='profile'){
-      this.router.navigate(['/profile']);
+      if(this.sender_id){
+        this.router.navigate(['/profile'], {queryParams:{sender_id: this.sender_id, REQUEST_STATUS:'pending'}});
+      }
+      else{
+        this.router.navigate(['/profile']);
+      }
     }
     else{
       this.router.navigate(['/dashboard']);

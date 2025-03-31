@@ -44,6 +44,7 @@ export class ProfilePage implements OnInit {
   sender_id:string='';
   mobile_no:string='';
   segment_type:string='';
+  REQUEST_STATUS:string='';
 
   // scholarships = [
   //   { name: 'Scholarship 1', image: 'assets/accolades/badge.png' },
@@ -85,6 +86,8 @@ export class ProfilePage implements OnInit {
       this.sender_id = params['sender_id'];
       this.mobile_no = params['mobile_no'];
       this.segment_type = params['segment_type'];
+      this.REQUEST_STATUS = params['REQUEST_STATUS'];
+      console.log(this.REQUEST_STATUS);
       console.log(this.routeURL);
       console.log(this.search_id);
       console.log('seneder_id',this.sender_id);
@@ -220,7 +223,7 @@ export class ProfilePage implements OnInit {
       return await modal.present();
     }
     else{
-      this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'profile' } });
+      this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'profile', sender_id: this.sender_id } });
     }
   }
 
