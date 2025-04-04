@@ -109,7 +109,7 @@ export class GlobalsearchdetailsPage implements OnInit {
     .subscribe((response:any) => {
         console.log('All Data',response);
         for(let i=0;i<response.users.length;i++){
-          response.users[i].image = 'avtar3.jpeg';
+          response.users[i].image = 'avtar4.png';
         }
         this.searched_users = response.users;
         console.log(this.searched_users);

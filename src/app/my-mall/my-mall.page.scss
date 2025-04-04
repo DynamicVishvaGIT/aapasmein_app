@@ -200,6 +200,15 @@ ion-segment-button {
     --padding-start: 12px;
 }
 
+.sold-badge-color{
+    background: green;
+    height: 22px;
+    --padding-end: 9px;
+    --padding-start: 8px;
+    --padding-top: 5px;
+    margin-left: 30%;
+}
+
 .no-data {
     display: flex;
     flex-direction: column;

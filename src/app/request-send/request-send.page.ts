@@ -28,6 +28,7 @@ export class RequestSendPage implements OnInit {
   searchText:string='';
   bookmarkFlag:boolean = false;
   productListStatus = '';
+  sold_unsold_text:string='';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService, private commonService: CommonService,
     private alertCtrl: AlertController, private modalCtrl: ModalController) { 
@@ -59,6 +60,12 @@ export class RequestSendPage implements OnInit {
         this.mall_data = response.data.Mall_products[0];
         this.mall_data_images = response.data.Product_images;
         this.wishListStatus= response.data.wishlist_product_status;
+        if(this.mall_data.IS_SOLD==true){
+          this.sold_unsold_text = 'Mark as Unsold';
+        }
+        else{
+          this.sold_unsold_text = 'Mark as Sold';
+        }
         if(this.wishListStatus=='added' || this.wishListStatus!=null){
           this.wishlistFlag = false;
         }
@@ -89,6 +96,57 @@ export class RequestSendPage implements OnInit {
         console.log(response);
         this.wishlistFlag=!this.wishlistFlag;
         this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+  sold_delete_mall_products() {
+    let status = '';
+    let type = '';
+    if(this.sold_unsold_text=='Mark as Sold'){
+      // this.sold_unsold_text = 'Mark as Unsold';
+      status = 'sold';
+      type = 'mark_sold';
+    }
+    else{
+      status = 'unsold';
+      type = 'mark_sold';
+    }
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('product_id',this.product_id);
+    formData.append('status',status);
+    formData.append('type',type);
+    this.apiService.sold_delete_mall_products(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        if(response.checkin=='sold'){
+          this.sold_unsold_text='Mark as Unsold';
+        }
+        else if(response.checkin=='unsold'){
+          this.sold_unsold_text='Mark as Sold';
+        }
+        this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+
+  delete_mall_products() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('product_id',this.product_id);
+    formData.append('type','delete');
+    this.apiService.sold_delete_mall_products(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
+        this.router.navigate(['/aapasmeinmall']);
+
       },
       respError => {
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);

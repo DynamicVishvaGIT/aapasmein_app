@@ -48,6 +48,7 @@ export class AcceptRequestPage implements OnInit {
       this.routeURL = params['routeURL'];
       console.log(this.routeURL);
       this.segment_type = params['segment_type'];
+      console.log(this.segment_type);
       this.sender_id = params['sender_id'];
       if(this.segment_type!==undefined){
         this.info = this.segment_type;
@@ -55,6 +56,9 @@ export class AcceptRequestPage implements OnInit {
     });
     if(this.info=='accept'){
       this.load_friend_request('accept');
+    }
+    else if(this.info=='handshake'){
+      this.load_handshake_request();
     }
     else{
       this.load_friend_request('invite');
@@ -153,6 +157,21 @@ export class AcceptRequestPage implements OnInit {
     }
   }
 
+  add_handshake(data:any) {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('mobile_no',data.MOBILE_NO);
+    this.apiService.add_handshake(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
   hideFooter() {
     this.isFooterVisible = false;
   }
@@ -166,6 +185,8 @@ export class AcceptRequestPage implements OnInit {
   }
 
   dismiss() {
+    console.log(this.routeURL);
+    console.log(this.sender_id);
     if(this.routeURL=='profile'){
       if(this.sender_id){
         this.router.navigate(['/profile'], {queryParams:{sender_id: this.sender_id, REQUEST_STATUS:'pending'}});

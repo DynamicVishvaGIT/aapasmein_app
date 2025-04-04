@@ -69,6 +69,30 @@ ion-content {
     font-size: x-small;
     border-radius: 50%;
 }
+.accept-shake-align{
+    float: right;
+    background: #57d6e6;
+    height: 29px;
+    width: 29px;
+    /* --padding-end: 12px; */
+    /* --padding-start: 12px; */
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+    border-radius: 50%;
+}
+.reject-shake-align{
+    float: right;
+    background: #dd3c3cfc;
+    height: 29px;
+    width: 29px;
+    /* --padding-end: 12px; */
+    /* --padding-start: 12px; */
+    color: #ffffff;
+    font-weight: 500;
+    font-size: x-small;
+    border-radius: 50%;
+}
 .menu-icon1{
     color: #fff;
     width: 100%;

@@ -33,6 +33,7 @@ export class RequestPage implements OnInit {
   isFooterVisible: boolean = true;
   viewMsgFlag:boolean=false;
   viewHandShakeMsgFlag:boolean= false;
+  requestHandshakeText:string='Request-in';
 
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute) { 
     this._unsubscribeAll = new Subject();
@@ -48,7 +49,7 @@ export class RequestPage implements OnInit {
       console.log(this.routeURL);
     });
     this.load_friend_request();
-    // this.load_handshake_request();
+    this.load_handshake_request();
   }
 
   showSearch(){
@@ -83,10 +84,10 @@ export class RequestPage implements OnInit {
     console.log(value);
     this.selectedHandshakeRadio = value;
     if(value=='1st'){
-      this.requestText = 'Request-in';
+      this.requestHandshakeText = 'Request-in';
     }
     else{
-      this.requestText = 'Request-out';
+      this.requestHandshakeText = 'Request-out';
     }
     this.load_handshake_request();
   }
@@ -137,7 +138,7 @@ export class RequestPage implements OnInit {
     this.viewHandShakeMsgFlag = false;
     let formData = new FormData();
     formData.append('mobile_no',this.currentUser.mobile_no);
-    formData.append('request_type',this.requestText=='Request-in'?'reachin':'reachout');  
+    formData.append('request_type',this.requestHandshakeText=='Request-in'?'reachin':'reachout');  
     formData.append('type','pending');
     this.apiService.load_hanshake_request(formData)
     .pipe(takeUntil(this._unsubscribeAll))
@@ -205,8 +206,13 @@ export class RequestPage implements OnInit {
     this.router.navigate(['/request-send']);
   }
 
-  goToProfile(data:any) {console.log(data);
-    this.router.navigate(['/profile'], { queryParams: { routeURL: 'request', sender_id: this.requestText=='Request-in'?data.SENDER_id:data.id, REQUEST_STATUS: data.REQUEST_STATUS } });
+  goToProfile(data:any,type:string) {console.log(data);
+    if(type=='reachout'){
+      this.router.navigate(['/profile'], { queryParams: { routeURL: 'request', sender_id: this.requestText=='Request-in'?data.SENDER_id:data.id, REQUEST_STATUS: data.REQUEST_STATUS } });
+    }
+    else if(type=='handshake'){
+      this.router.navigate(['/profile'], { queryParams: { routeURL: 'request', sender_id: this.requestHandshakeText=='Request-in'?data.USER_id:data.id, REQUEST_STATUS: data.REQUEST_STATUS } });   
+    }
   }
 
   viewMessage() {

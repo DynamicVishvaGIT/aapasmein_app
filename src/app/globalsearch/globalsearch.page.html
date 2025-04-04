@@ -34,27 +34,19 @@
   <div class="left-gap">
     <ion-grid>
       <ion-row class="scroll">
-        <ion-col size="3">
-          <!-- <ion-card class="yellow-pages-card">
-            <ion-card-header>
-              <ion-card-title style="margin-left: 6px;">
-                <img src="../../../assets/icon/dashboard/doctor.svg" alt="" class="img-avatar"> 
-                <span style="font-size: x-small;text-align: center;color:white;">Doctors</span>
-              </ion-card-title>
-            </ion-card-header>
-          </ion-card> -->
-          <div class="button-card">
+        <ion-col size="3" [ngClass]="{'col1': i !== 0}" *ngFor="let data of convenience_list; let i = index">
+          <div class="button-card" (click)="goToDetails(data.NAME)">
             <ion-row>
               <ion-col size="4">
-                <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="img-avatar">
+                <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">
               </ion-col>
               <ion-col size="8">
-                <span style="font-size: smaller;">Lawyers</span>
+                <span style="font-size: smaller;">{{data.NAME}}</span>
               </ion-col>
             </ion-row>
           </div>
         </ion-col>
-        <ion-col size="3" style="margin-left: 37px;">
+        <!-- <ion-col size="3" style="margin-left: 37px;">
           <div class="button-card">
             <ion-row>
               <ion-col size="4">
@@ -89,9 +81,9 @@
               </ion-col>
             </ion-row>
           </div>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
-      <ion-row class="scroll" >
+      <!-- <ion-row class="scroll" >
         <ion-col size="3" (click)="goToDetails('doctor')">
           <div class="button-card">
             <ion-row>
@@ -140,7 +132,7 @@
             </ion-row>
           </div>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
     </ion-grid>
   </div>
   <div class="border-top">  <!--class="gap"-->
@@ -154,14 +146,14 @@
     </ion-row>
   </div>
   <div style="margin-left: 4%;" class="gsearch"> 
-    <ion-row class="ion-no-padding">
+    <ion-row class="ion-no-padding" *ngFor="let data of recent_search">
       <ion-col size="2">
         <ion-icon name="time-outline" style="font-size: 15px;margin-top: 12px;margin-left: 5px;color: white;"></ion-icon>
       </ion-col>
       <ion-col size="6">
-        <ion-card-title style="font-size: 11px;margin-top:12px;color: white;margin-left: -21px;">hhjbhjj</ion-card-title>
+        <ion-card-title style="font-size: 11px;margin-top:12px;color: white;margin-left: -21px;">{{data.KEYWORDS}}</ion-card-title>
       </ion-col>
-      <ion-col size="4">
+      <ion-col size="4" (click)="goToDetails(data.KEYWORDS)">
         <ion-icon name="trending-up-outline" style="font-size: 15px;margin-top:12px;float:right;color: white;margin-right:-15px;"></ion-icon>
       </ion-col>
     </ion-row>

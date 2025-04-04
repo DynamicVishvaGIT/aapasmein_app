@@ -303,11 +303,34 @@ export class ProfilePage implements OnInit {
       n = d.getTime(),
       fileName = n + ".jpg";
       this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      this.upload_image();
       // this.album_images.push(this.selectedImage1);
       //alert(JSON.stringify(this.album_images));
     }, (err) => {
       console.log('Error obtaining picture', err);
     });
+  }
+
+  async upload_image() {
+    let formData = new FormData();
+    let response = await fetch(this.selectedImage.data);
+    let blob = await response.blob();
+    if(this.selectedImage.name==''){
+      formData.append('profile_img','');
+    }
+    else{
+      formData.append('profile_img' , blob, this.selectedImage.name); 
+    }
+    formData.append('type','profile_img');
+    this.apiService.edit_user(this.currentUser.user_id, formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
   }
 
   goToadvantageDetails() {
@@ -332,6 +355,7 @@ export class ProfilePage implements OnInit {
     }
     else if(this.routeURL=='acceptrequest'){
       this.router.navigate(['/accept-request'], { queryParams: { segment_type: this.segment_type} });
+      // this.router.navigate(['/accept-request'], { queryParams: { segment_type: this.segment_type, routeURL: 'profile'} });
     }
     // else if(this.routeURL=='activity'){
     //   this.router.navigate(['/activities']);
@@ -374,23 +398,27 @@ export class ProfilePage implements OnInit {
 
   async showReachoutDialog() {
     const confirm = await this.alertCtrl.create({
-      header: 'Reachout',
+      header: 'Reachout Request',
+      cssClass: 'custom-alert-buttons', // Add a custom class
       inputs: [
         {
           name: 'reason',
           type: 'text',
-          placeholder: 'Enter your reason'
+          placeholder: 'type...'
         }
       ],
       buttons: [
         {
-          text: 'No',
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'cancel-button', // Assign class to Cancel button
           handler: () => {
             console.log('Disagree clicked');
           }
         },
         {
           text: 'Reachout',
+          cssClass: 'reachout-button', // Assign class to Reachout button
           handler: async (data) => {
             console.log('User reason:', data.reason);
             // this.invite_friend(data.reason);

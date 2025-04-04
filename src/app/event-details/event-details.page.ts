@@ -24,6 +24,7 @@ export class EventDetailsPage implements OnInit {
   url:string='';
   searchText:string='';
   event_details:any={USER__NAME:'',USER__PROFILE_IMAGE:'',EVENT_NAME:'',EVENT_IMAGE:'',LOCATION:'',DESCRIPTION:'',DATE:''};
+  complete_incomplete_text:string = '';
 
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute,
     private modalCtrl: ModalController
@@ -37,6 +38,7 @@ export class EventDetailsPage implements OnInit {
       this.type = params['type'];
       this.url = params['url'];
       console.log(this.event_id);
+      console.log(this.type);
       this.searchText = params['searchText'];
     });
     let currentUser:any;
@@ -55,6 +57,12 @@ export class EventDetailsPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.event_details = response.event_list[0];
+      if(this.event_details.COMPLETED==true){
+        this.complete_incomplete_text = 'Event Completed';
+      }
+      else{
+        this.complete_incomplete_text = 'Mark as Completed';
+      }
       console.log(this.event_details);
     },
     respError => {
@@ -82,6 +90,56 @@ export class EventDetailsPage implements OnInit {
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  complete_and_delete_event() {
+    // let status = '';
+    // let type = '';
+    // if(this.complete_incomplete_text=='Mark as Completed'){
+    //   status = 'complete';
+    //   type = 'complete';
+    // }
+    // else{
+    //   status = 'incomplete';
+    //   type = 'complete';
+    // }
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('event_id',this.event_id);
+    // formData.append('status',status);
+    formData.append('type','complete');
+    this.apiService.complete_and_delete_event(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        if(response.checkin=='complete'){
+          this.complete_incomplete_text='Event Completed';
+        }
+        // else if(response.checkin=='incomplete'){
+        //   this.complete_incomplete_text='Mark as Completed';
+        // }
+        this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+
+  delete_event() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('event_id',this.event_id);
+    formData.append('type','delete');
+    this.apiService.complete_and_delete_event(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
+       this.dismiss();
+      },
+      respError => {
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
   }
 
   showSearch() {

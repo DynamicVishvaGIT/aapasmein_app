@@ -8,9 +8,9 @@
         <ion-col size="9" style="text-align: center;margin-top: -3px;">
           <strong class="header" style="color:black;">Create Event</strong>
         </ion-col>
-        <ion-col style="text-align: end;">
+        <!-- <ion-col style="text-align: end;">
           <ion-icon name="search-outline"  style="color:black;margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -40,10 +40,11 @@
     <ion-row>
       <ion-col size="6">
         <div class="input-container">
-          <ion-label class="input-label required">Date</ion-label>
+          <ion-label class="input-label required">From Date</ion-label>
             <div class="input-group">
               <!-- <ion-datetime presentation="date" displayFormat="DD-MM-YYYY" name="date_of_birth" [(ngModel)]="someVar"></ion-datetime> -->
-              <ion-input class="input-box custom-date-input time-picker" type="date" label-placement="floating" fill="solid" [(ngModel)]="eventJson.date"></ion-input>
+              <ion-input class="input-box custom-date-input time-picker" type="date" [min]="today"
+              [max]="maxDate" label-placement="floating" fill="solid" [(ngModel)]="eventJson.from_date" (ngModelChange)="updateToDate()"></ion-input>
               <!-- <ion-datetime class="input-box" display-format="MMM DD, YYYY" picker-format="MMM DD, YYYY"></ion-datetime> -->
               <ion-icon name="calendar" class="custom-calendar-icon"></ion-icon>
             </div>
@@ -51,9 +52,32 @@
       </ion-col>
       <ion-col size="6">
         <div class="input-container">
-          <ion-label class="input-label required">Time</ion-label>
+          <ion-label class="input-label required">From Time</ion-label>
             <div class="input-group">
-              <ion-input type="time" label-placement="floating" fill="solid" class="time-picker" [(ngModel)]="eventJson.time"></ion-input>
+              <ion-input type="time" label-placement="floating" fill="solid" class="time-picker" [(ngModel)]="eventJson.from_time"></ion-input>
+              <ion-icon name="time" class="custom-calendar-icon"></ion-icon>
+            </div>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <div class="input-container">
+          <ion-label class="input-label required">To Date</ion-label>
+            <div class="input-group">
+              <!-- <ion-datetime presentation="date" displayFormat="DD-MM-YYYY" name="date_of_birth" [(ngModel)]="someVar"></ion-datetime> -->
+              <ion-input class="input-box custom-date-input time-picker" type="date" [min]="eventJson.from_date"
+              [max]="maxToDate" label-placement="floating" fill="solid" [(ngModel)]="eventJson.to_date"></ion-input>
+              <!-- <ion-datetime class="input-box" display-format="MMM DD, YYYY" picker-format="MMM DD, YYYY"></ion-datetime> -->
+              <ion-icon name="calendar" class="custom-calendar-icon"></ion-icon>
+            </div>
+          </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="input-container">
+          <ion-label class="input-label required">To Time</ion-label>
+            <div class="input-group">
+              <ion-input type="time" label-placement="floating" fill="solid" class="time-picker" [(ngModel)]="eventJson.to_time"></ion-input>
               <ion-icon name="time" class="custom-calendar-icon"></ion-icon>
             </div>
           </div>
@@ -101,6 +125,8 @@
       <ion-col size="4" *ngIf="selectedImage.name!=''">
         <div class="square-box">
           <img [src]="selectedImage.data" alt="" class="mall-photo">
+          <!-- <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="mall-photo"> -->
+          <ion-icon name="close-outline" class="close-button" (click)="remove_image()"></ion-icon>
         </div>
       </ion-col>
     </ion-row>

@@ -22,7 +22,7 @@ export class AddeventPage implements OnInit {
   inputFocused:boolean=false;
   acceptTerms:boolean=false;
   currentUser:any;
-  eventJson:any={event_name:'',date:'',time:'',latitude:'',longitude:'',location:'',category_id:'',description:'', share_with:'public'};
+  eventJson:any={event_name:'',from_date:'',from_time:'',to_date:'',to_time:'',latitude:'',longitude:'',location:'',category_id:'',description:'', share_with:'public'};
   get_event_categories:any=[];
   get_locations:any=[];
   get_professions:any=[];
@@ -36,6 +36,10 @@ export class AddeventPage implements OnInit {
   event_images:any=[];
   disabled:boolean=false;
 
+  today: string = '';
+  maxDate: string = '';
+  maxToDate: string = '';
+
   constructor(private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private geolocation: Geolocation,
      private zone: NgZone, private actionSheetController: ActionSheetController,private camera: Camera, private router: Router) { 
     this.geocoder = new (google.maps.Geocoder as any);
@@ -48,8 +52,32 @@ export class AddeventPage implements OnInit {
     currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
+    const todayDate = new Date();
+    this.today = this.formatDate(todayDate); // Set today's date
+
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 30);
+    this.maxDate = this.formatDate(futureDate); // Set max date to 30 days from today
+
+    // Initialize values
+    this.eventJson.from_date = this.today;
+    this.updateToDate();
     this.load_event_category();
     this.get_location();
+  }
+
+  updateToDate() {
+    if (this.eventJson.from_date) {
+      let fromDate = new Date(this.eventJson.from_date);
+      let toDate = new Date(fromDate);
+      toDate.setDate(fromDate.getDate() + 30); // Add 30 days to fromdate
+      this.maxToDate = this.formatDate(toDate); // Update max date for todate
+      // this.eventJson.to_date = this.maxToDate; // Set new todate value
+    }
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
   }
 
   get_location() {
@@ -187,12 +215,20 @@ export class AddeventPage implements OnInit {
       this.commonService.showToastMessage('Please select category.', 'error-toast', 'top', 2000);
       return;
     }
-    if (this.eventJson.date == '') {
-      this.commonService.showToastMessage('Please select date.', 'error-toast', 'top', 2000);
+    if (this.eventJson.from_date == '') {
+      this.commonService.showToastMessage('Please select from date.', 'error-toast', 'top', 2000);
       return;
     }
-    if (this.eventJson.time == '') {
-      this.commonService.showToastMessage('Please select time.', 'error-toast', 'top', 2000);
+    if (this.eventJson.from_time == '') {
+      this.commonService.showToastMessage('Please select from time.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.eventJson.to_date == '') {
+      this.commonService.showToastMessage('Please select to date.', 'error-toast', 'top', 2000);
+      return;
+    }
+    if (this.eventJson.to_time == '') {
+      this.commonService.showToastMessage('Please select to time.', 'error-toast', 'top', 2000);
       return;
     }
     if (this.eventJson.location == '') {
@@ -227,8 +263,10 @@ export class AddeventPage implements OnInit {
     formData.append("event_name",this.eventJson.event_name),
     formData.append("category_id",this.eventJson.category_id),
     formData.append("description",this.eventJson.description),
-    formData.append("date",this.eventJson.date),
-    formData.append("time",this.eventJson.time),
+    formData.append("from_date",this.eventJson.from_date),
+    formData.append("from_time",this.eventJson.from_time),
+    formData.append("to_date",this.eventJson.to_date),
+    formData.append("to_time",this.eventJson.to_time),
     formData.append("location",this.eventJson.location),
     formData.append("latitude",this.eventJson.latitude),
     formData.append("longitude",this.eventJson.longitude),
@@ -248,6 +286,10 @@ export class AddeventPage implements OnInit {
         this.disabled = false;
         this.commonService.showToastMessage(respError, 'error-toast','', 2000);
       })
+  }
+
+  remove_image() {
+    this.selectedImage={name:'', data:''};
   }
 
   onRadioSelect(value: string) {

@@ -91,11 +91,11 @@
         <ion-grid>
           
           <ion-row *ngFor="let request of friend_request_list; let i = index">  <!--(click)="goToRequestMessage()"-->
-            <ion-col size="3" (click)="goToProfile(request)">
+            <ion-col size="3" (click)="goToProfile(request, 'reachin')">
               <img src="{{imageUrl}}{{request.SENDER__PROFILE_IMAGE}}" alt="" class="circle-img">
             </ion-col>
             <ion-col size="9" class="border-bottom" style="margin-top: 1px;">
-              <span class="name-text" (click)="goToProfile(request)">{{request.SENDER__NAME}}</span><br>
+              <span class="name-text" (click)="goToProfile(request, 'reachin')">{{request.SENDER__NAME}}</span><br>
               <ion-badge class="badge-color" mode="md" style="margin-top: -18px;" (click)="change_friend_request_status(request,'accept')">Accept</ion-badge>
               <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" (click)="change_friend_request_status(request,'reject')">Reject</ion-badge>
               <span class="designation-text">{{request.SENDER__PROFESSION__NAME}}</span>
@@ -168,12 +168,12 @@
         <ion-grid>
           
           <ion-row *ngFor="let request of filteredFriendRequestList; let i = index">  <!--(click)="goToRequestMessage()"-->
-            <ion-col size="3" (click)="goToProfile(request)">
+            <ion-col size="3" (click)="goToProfile(request, 'reachout')">
               <img src="{{imageUrl}}{{requestText=='Request-in'?request.SENDER__PROFILE_IMAGE:request.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestText=='Request-in'?request.SENDER__PROFILE_IMAGE:request.PROFILE_IMAGE">
               <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!request.SENDER__PROFILE_IMAGE:!request.PROFILE_IMAGE">
             </ion-col>
             <ion-col size="9" class="border-bottom" style="margin-top: 1px;">
-              <span class="name-text" (click)="goToProfile(request)">{{requestText=='Request-in'?request.SENDER__NAME:request.NAME}}</span><br>
+              <span class="name-text" (click)="goToProfile(request, 'reachout')">{{requestText=='Request-in'?request.SENDER__NAME:request.NAME}}</span><br>
               <ion-badge class="badge-color" mode="md" style="margin-top: -18px;" (click)="change_friend_request_status(request,'accept')" *ngIf="requestText=='Request-in'">Accept</ion-badge>
               <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" *ngIf="requestText=='Request-in'" (click)="change_friend_request_status(request,'reject')">Reject</ion-badge>
               <span class="designation-text">{{requestText=='Request-in'?request.SENDER__PROFESSION__NAME:request.PROFESSION__NAME}}</span><br>
@@ -247,18 +247,21 @@
       <ion-grid>
         
         <ion-row *ngFor="let request of filteredHandshakeList; let i = index" >  <!--(click)="goToRequestMessage()"-->
-          <ion-col size="3" (click)="goToProfile(request)">
-            <img src="{{imageUrl}}{{request.USER__PROFILE_IMAGE}}" alt="" class="circle-img"  *ngIf="request.USER__PROFILE_IMAGE">
-            <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!request.USER__PROFILE_IMAGE">
+          <ion-col size="3" (click)="goToProfile(request,'handshake')">
+            <!-- <img src="{{imageUrl}}{{request.USER__PROFILE_IMAGE}}" alt="" class="circle-img"  *ngIf="request.USER__PROFILE_IMAGE">
+            <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!request.USER__PROFILE_IMAGE"> -->
+            <img src="{{imageUrl}}{{requestHandshakeText=='Request-in'?request.USER__PROFILE_IMAGE:request.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestHandshakeText=='Request-in'?request.USER__PROFILE_IMAGE:request.PROFILE_IMAGE">
+              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="requestHandshakeText=='Request-in'?!request.USER__PROFILE_IMAGE:!request.PROFILE_IMAGE">
           </ion-col>
           <ion-col size="9" class="border-bottom" style="margin-top: 1px;">
-            <span class="name-text" (click)="goToProfile(request)">{{request.USER__NAME}}</span><br>
-            <ion-badge class="badge-color" mode="md" style="margin-top: -18px;" (click)="change_handshake_request_status(request,'accept')">Accept</ion-badge>
-              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" (click)="change_handshake_request_status(request,'reject')">Reject</ion-badge>
+            <span class="name-text" (click)="goToProfile(request, 'handshake')">{{requestHandshakeText=='Request-in'?request.USER__NAME:request.NAME}}</span><br>
+            <ion-badge class="badge-color" mode="md" style="margin-top: -18px;" *ngIf="requestHandshakeText=='Request-in'" (click)="change_handshake_request_status(request,'accept')">Accept</ion-badge>
+              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;" *ngIf="requestHandshakeText=='Request-in'" (click)="change_handshake_request_status(request,'reject')">Reject</ion-badge>
             <!-- <ion-badge class="shake-align" mode="md" style="margin-top: -18px;" (click)="change_handshake_request_status(request)"><ion-icon name="hand-left-outline" style="font-size: large;"></ion-icon></ion-badge> -->
-            <span class="designation-text">{{request.USER__PROFESSION__NAME}}</span>
-            <span class="message-text"  *ngIf="requestText=='Request-in'" (click)="viewHandShakeMessage()"><u>View Message</u></span><br>
-              <span class="view-message-text"  *ngIf="viewHandShakeMsgFlag">{{request.CUSTOM_MSG}}</span>
+            <span class="designation-text">{{requestHandshakeText=='Request-in'?request.USER__PROFESSION__NAME:request.PROFESSION__NAME}}</span><br>
+            <span class="designation-text" *ngIf="requestHandshakeText!='Request-in'">Status: {{requestHandshakeText=='Request-in'?'':request.REQUEST_STATUS | titlecase}}</span>
+            <!-- <span class="message-text"  *ngIf="requestText=='Request-in'" (click)="viewHandShakeMessage()"><u>View Message</u></span><br> -->
+              <!-- <span class="view-message-text"  *ngIf="viewHandShakeMsgFlag">{{request.CUSTOM_MSG}}</span> -->
           </ion-col>
         </ion-row>
         <!-- <ion-row (click)="goToProfile()">

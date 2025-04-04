@@ -51,7 +51,7 @@
         <ion-col size="12" style="text-align: center;">
           <div class="profile-img-wrapper"> <!--design-frame-->
             <!-- <img src="../../assets/Prasenjit_Chanda.png" class="profile-img-avatar border-white" alt="Profile Picture"/> -->
-            <img [src]="selectedImage.data" class="profile-img-avatar" alt="Profile Picture" *ngIf="selectedImage.data!='' && user_details?.PROFILE_IMAGE"/>
+            <img [src]="selectedImage.data" class="profile-img-avatar" alt="Profile Picture" *ngIf="selectedImage.data!=''"/>
             <!-- <img src="../../assets/avtar4.png" class="profile-img-avatar border-white" *ngIf="selectedImage.data==''"/> -->
             <img src="{{user_details?.PROFILE_IMAGE?imageUrl:imageURL}}{{user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" (click)="zoomImage(user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE)" *ngIf="(selectedImage.data=='' && user_details?.PROFILE_IMAGE) || search_user_details?.PROFILE_IMAGE!=null"/>
             <!-- <img src="{{imageUrl}}{{search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" *ngIf="search_user_details?.PROFILE_IMAGE && selectedImage.data==''"/> -->

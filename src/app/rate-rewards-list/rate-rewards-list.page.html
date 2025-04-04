@@ -41,7 +41,7 @@
               <span class="designation-text">{{data.PROFESSION__NAME}}</span>
             </ion-col>
             <ion-col  size="2" (click)="add_handshake(data)">
-              <ion-badge class="shake-align" mode="md" style="margin-top: -4px;" ><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
+              <ion-badge [ngClass]="{'accept-shake-align': data.handshake_status=='accept','reject-shake-align': data.handshake_status=='reject', 'shake-align': data.handshake_status=='pending'}" mode="md" style="margin-top: -4px;" ><img src="assets/accolades/deal.png" class="menu-icon1"></ion-badge>
             </ion-col>
           </ion-row>
         </ion-col>

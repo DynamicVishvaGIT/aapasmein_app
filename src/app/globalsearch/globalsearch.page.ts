@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, NavParams } from '@ionic/angular';
 import { GlobalsearchdetailsPage } from '../globalsearchdetails/globalsearchdetails.page';
+import { Subject, takeUntil } from 'rxjs';
+import { CommonService } from '../common.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-globalsearch',
@@ -10,21 +13,64 @@ import { GlobalsearchdetailsPage } from '../globalsearchdetails/globalsearchdeta
 })
 export class GlobalsearchPage implements OnInit {
 
+  private _unsubscribeAll: Subject<any>;
+
   // @Input() searchText!: string;
   // @Input() type!: string;
   searchText:string = '';
   type:string='';
+  currentUser:any;
+  convenience_list:any=[];
+  recent_search:any=[];
 
-  constructor(private modalCtrl: ModalController, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private modalCtrl: ModalController, private router: Router, private activatedRoute: ActivatedRoute,
+    private commonService: CommonService, private apiService: ApiService
+  ) { 
+    this._unsubscribeAll = new Subject();
+  }
 
   ngOnInit() {
+    let currentUser:any;
+    currentUser = localStorage.getItem('currentUser');
+    this.currentUser = JSON.parse(currentUser);
+    console.log(this.currentUser);
     this.activatedRoute.queryParams.subscribe(params => {
       this.searchText = params['searchText'];
       console.log(this.searchText);
       this.type = params['type'];
     });
+    this.load_convenience_category();
+    this.load_recent_search();
     // this.searchText = this.navParams.get('searchText');  //for showing search text in listing page
     // this.type = this.navParams.get('type');
+  }
+
+  load_convenience_category() {
+    this.apiService.load_convenience_category()
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.convenience_list = response.data;
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  load_recent_search() {
+    this.recent_search = [];
+    // this.commonService.presentLoading();
+    this.apiService.load_recent_search(this.currentUser.user_id)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log('All Data',response);
+        this.recent_search = response.data;
+        this.commonService.dismissLoading();
+      },
+      respError => {
+        this.commonService.dismissLoading();
+        this.commonService.showToastMessage(respError, 'error-toast','', 2000);
+      })
   }
 
   async goToDetails(text:string) {

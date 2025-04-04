@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { ApiService } from '../api.service';
+import { CommonService } from '../common.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-aapasmein-accolades',
@@ -8,6 +11,8 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./aapasmein-accolades.page.scss'],
 })
 export class AapasmeinAccoladesPage implements OnInit {
+
+  private _unsubscribeAll: Subject<any>;
 
   @Input() connections: any;
   @Input() search_user_details!: string;
@@ -50,13 +55,36 @@ export class AapasmeinAccoladesPage implements OnInit {
   ];
 
   routeURL:string='';
+  currentUser:any;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private modalCtrl:ModalController) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private modalCtrl:ModalController, private apiService: ApiService, 
+    private commonService: CommonService) { 
+      this._unsubscribeAll = new Subject();
+    }
 
   ngOnInit() {
+    let currentUser:any;
+    currentUser = localStorage.getItem('currentUser');
+    this.currentUser = JSON.parse(currentUser);
+    console.log(this.currentUser);
     this.activatedRoute.queryParams.subscribe(params => {
       this.routeURL = params['routeURL'];
     });
+    this.awards_counts();
+  }
+
+  awards_counts() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    this.apiService.awards_counts(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
   }
 
   dismiss() {

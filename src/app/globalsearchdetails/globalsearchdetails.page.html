@@ -96,7 +96,8 @@
               </ion-row>
               <ion-row style="margin-top: 10px;">
                 <ion-col size="4">
-                  <img src="{{eventImageUrl}}{{event.USER__PROFILE_IMAGE}}" alt="" class="circle-img1">
+                  <img src="{{eventImageUrl}}{{event.USER__PROFILE_IMAGE}}" alt="" class="circle-img1" *ngIf="event.USER__PROFILE_IMAGE">
+                  <img src="../../assets/avtar4.png" alt="" class="circle-img1" *ngIf="!event.USER__PROFILE_IMAGE">
                 </ion-col>
                 <ion-col size="8">
                   <span style="margin-left: -38px;color:#0f1f49;font-size: 9px;">{{event.USER__NAME}}</span>

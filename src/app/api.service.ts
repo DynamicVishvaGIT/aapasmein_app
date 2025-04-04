@@ -15,7 +15,7 @@ export class ApiService {
     this.baseUrl = this.commonService.getBaseURL();
   }
 
-  login(user: any) {
+  login(user: any) {console.log(user);
     return this.httpClient.post(this.baseUrl + 'login', user)
     .pipe(
       retry(1),
@@ -126,6 +126,16 @@ export class ApiService {
     )
   }
 
+  load_recent_search(login_id:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('login_id', login_id);
+    return this.httpClient.get(this.baseUrl + 'load_recent_search?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   get_city() {
     return this.httpClient.get(this.baseUrl + 'load_city')
     .pipe(
@@ -226,6 +236,14 @@ export class ApiService {
     )
   }
 
+  sold_delete_mall_products(product: any) {
+    return this.httpClient.post(this.baseUrl + 'sold_delete_mall_products', product)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   get_user(id:string) {
     return this.httpClient.get(this.baseUrl + 'get_user/'+id)
     .pipe(
@@ -268,6 +286,14 @@ export class ApiService {
 
   add_event_list(event:any) {
     return this.httpClient.post(this.baseUrl + 'add_event_list',event)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  complete_and_delete_event(event: any) {
+    return this.httpClient.post(this.baseUrl + 'complete_and_delete_event', event)
     .pipe(
       retry(1),
       catchError(this.errorHandler)
@@ -451,9 +477,12 @@ export class ApiService {
     )
   }
 
-  get_handshake(mobile_no:string,type:string,referral_code:string) {
+  get_handshake(mobile_no:string,user_id:string,type:string,referral_code:string) {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('mobile_no', mobile_no);
+    if(user_id){
+      urlSearchParams.append('loggedin_id',user_id);
+    }
     urlSearchParams.append('type', type);
     if(referral_code!=''){
       urlSearchParams.append('refer_code', referral_code);
@@ -534,6 +563,35 @@ export class ApiService {
 
   invite_to_whatsapp(invite: any) {
     return this.httpClient.post(this.baseUrl + 'invite_to_whatsapp', invite)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  awards_counts(awards:any) {
+    return this.httpClient.post(this.baseUrl + 'awards_counts', awards)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  load_notifications(mobile_no: string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('mobile_no', mobile_no);
+    return this.httpClient.get(this.baseUrl + 'load_notifications?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  approve_convenience(id:string, type:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('id', id);
+    urlSearchParams.append('type', type);
+    return this.httpClient.get(this.baseUrl + 'approve_convenience?'+urlSearchParams.toString())
     .pipe(
       retry(1),
       catchError(this.errorHandler)

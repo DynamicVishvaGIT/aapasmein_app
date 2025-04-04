@@ -55,10 +55,10 @@
                 </ion-card-header>
                   <ion-row (click)="goToDetails(event,'all')">
                     <ion-col size="6">
-                      <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.date | date:'dd MMMM, yyyy'}}</span>
+                      <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.from_date | date:'dd MMMM, yyyy'}}</span>
                     </ion-col>
                     <ion-col size="6" style="margin-top: -6px;">
-                      <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.date | date:'hh:mm a'}}</span>
+                      <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.from_time}}</span>
                     </ion-col>
                   </ion-row>
                   <ion-row style="margin-top: -9px;" (click)="goToDetails(event,'all')">
@@ -114,10 +114,10 @@
                 </ion-card-header>
                   <ion-row>
                     <ion-col size="6">
-                      <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.date | date:'dd MMMM, yyyy'}}</span>
+                      <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.from_date | date:'dd MMMM, yyyy'}}</span><!--{{event.date | date:'dd MMMM, yyyy'}}-->
                     </ion-col>
                     <ion-col size="6" style="margin-top: -6px;">
-                      <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.date | date:'hh:mm a'}}</span>
+                      <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.from_time}}</span>
                     </ion-col>
                   </ion-row>
                   <ion-row style="margin-top: -9px;">
@@ -173,10 +173,10 @@
                 </ion-card-header>
                   <ion-row (click)="goToDetails(event,'all')">
                     <ion-col size="6">
-                      <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.date | date:'dd MMMM, yyyy'}}</span>
+                      <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.from_date | date:'dd MMMM, yyyy'}}</span>
                     </ion-col>
                     <ion-col size="6" style="margin-top: -6px;">
-                      <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.date | date:'hh:mm a'}}</span>
+                      <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.from_time | date:'hh:mm a'}}</span>
                     </ion-col>
                   </ion-row>
                   <ion-row style="margin-top: -9px;" (click)="goToDetails(event,'all')">

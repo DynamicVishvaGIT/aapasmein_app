@@ -26,15 +26,16 @@
             <div class="input-container" [class.focused]="friend.mobile_no || inputFocused">
               <ion-label class="input-label required">Mobile Number</ion-label>
               <div class="input-group">
-                <ion-input class="input-box" type="number" [(ngModel)]="friend.mobile_no" (ionFocus)="onFocus()" (ionBlur)="onBlur()"></ion-input>
+                <ion-input class="input-box" type="number" [(ngModel)]="friend.mobile_no" (ionFocus)="onFocus()" (ionBlur)="onBlur()" (ngModelChange)="onChange()"></ion-input>
               </div>
             </div>
         </ion-col>
         <ion-col size="4" style="margin-top: 6px;">
           <ion-button  type="button" class="verify_button" (click)="verify()"><b>Verify</b></ion-button>
         </ion-col>
+        <ion-label style="color: red;margin-left: 8px;" *ngIf="errorMsg">{{errorMsg}}</ion-label>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="friend.mobile_no!=''">
         <ion-col size="12">
           <div class="ion-padding">
             <ion-card class="invited-card" *ngFor="let data of handshake_data">
@@ -55,8 +56,11 @@
         </ion-col>
       </ion-row>
       <ion-row>
+        <ion-label style="color: red;margin-left: 21px;margin-top: -15px;" *ngIf="handshake_data[0]?.message=='Can not send Handshake to Invited user'">{{handshake_data[0]?.message}}</ion-label>
+      </ion-row>
+      <ion-row>
         <ion-col size="12">
-          <ion-button  type="submit" class="custom_button" [disabled]="handshake_data.length==0" (click)="add_handshake()"><b>Send Handshake</b></ion-button>
+          <ion-button  type="submit" class="custom_button" [disabled]="handshake_data.length==0" *ngIf="handshake_data[0]?.message!='Can not send Handshake to Invited user'" (click)="add_handshake()"><b>Send Handshake</b></ion-button>
         </ion-col>
     </ion-row>
     </ion-grid>

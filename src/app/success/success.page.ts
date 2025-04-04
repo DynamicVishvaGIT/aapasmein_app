@@ -71,6 +71,7 @@ export class SuccessPage implements OnInit {
   invite_to_whatsapp() {
     let formData = new FormData();
     formData.append('mobile_no',this.friend_details.mobile_number);
+    formData.append('name',this.friend_details.full_name);
     formData.append('sender_id',this.currentUser.user_id);
     this.apiService.invite_to_whatsapp(formData)
     .pipe(takeUntil(this._unsubscribeAll))

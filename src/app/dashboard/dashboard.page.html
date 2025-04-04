@@ -68,7 +68,7 @@
         </ion-col> -->
         <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAppasmeinMall()">
           <!-- <img src="assets/icon/features/mall.svg" class="menu-icon1"> -->
-          <img src="assets/icon/features/deal.png" class="menu-icon1">
+          <img src="assets/icon/features/deal.svg" class="menu-icon1">
           <br>
           <span class="tool-text-mall"><b>aapasmein Deals</b></span>
         </ion-col>
@@ -93,7 +93,7 @@
           <span class="tool-text"><b>aapasmein Unwind</b></span>
         </ion-col> -->
         <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToSamvaad()">
-          <img src="assets/icon/features/samvaad.png" class="menu-icon1">
+          <img src="assets/icon/features/samvaad.svg" class="menu-icon1">
           <br>
           <span class="tool-text"><b>aapasmein Samvaad</b></span>
         </ion-col>
@@ -143,6 +143,7 @@
           <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==2"> 
           <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==3"> 
           <img src="../../../assets/icon/dashboard/electrician.svg" alt="" class="convenience-menu-icon" *ngIf="data.IMAGE==null && data.id==4">
+          <img src="../../assets/avtar4.png" alt="" class="convenience-menu-icon2" *ngIf="data.IMAGE==null && data.id==6">
           <span class="tool-text"><b>{{data.NAME}}</b></span>
           <!-- <ion-card class="yellow-pages-card" (click)="goToConvenienceDetails(data)">
             <ion-card-header>
@@ -305,10 +306,10 @@
             <!-- <ion-card-content style="margin-top: 10px;"> -->
               <ion-row>
                 <ion-col size="6">
-                  <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.date | date:'dd MMMM, yyyy'}}</span>
+                  <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.from_date | date:'dd MMMM, yyyy'}}</span>
                 </ion-col>
                 <ion-col size="6" style="margin-top: -6px;">
-                  <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.date | date:'hh:mm a'}}</span>
+                  <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.from_time}}</span>
                 </ion-col>
               </ion-row>
               <ion-row style="margin-top: -9px;">

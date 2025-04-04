@@ -7,11 +7,11 @@
           <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
         </ion-col>
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
-          <!-- <strong class="header" style="color:white;">Events</strong> -->
+          <strong class="header" style="color:white;">Event Details</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -57,11 +57,24 @@
           <ion-icon slot="icon-only" name="time-outline" style="color:white"></ion-icon>
         </ion-button>
       </ion-col>
-      <ion-col size="4">
-        <span style="float:left;margin-top: 9px;margin-left: -10px;font-size: smaller;color:#ffffff;font-weight: 500;">{{event_details.DATE | date:'dd MMMM, yyyy'}}</span>
+      <ion-col size="6">
+        <span style="float:left;margin-top: 9px;margin-left: -10px;font-size: smaller;color:#ffffff;font-weight: 500;">From Date: {{event_details.FROM_DATE | date:'dd MMMM, yyyy'}}</span>
       </ion-col>
-      <ion-col size="3" style="margin-top: 6px;">
-        <span style="font-size: smaller;color:#ee6737;font-weight: 500;">{{event_details.DATE | date:'hh:mm a'}}</span>
+      <ion-col size="4" style="margin-top: 6px;">
+        <span style="font-size: smaller;color:#ee6737;font-weight: 500;">{{event_details.FROM_TIME}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-button class="button-time-icon" size="small">
+          <ion-icon slot="icon-only" name="time-outline" style="color:white"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <span style="float:left;margin-top: 9px;margin-left: -10px;font-size: smaller;color:#ffffff;font-weight: 500;">To Date: {{event_details.TO_DATE | date:'dd MMMM, yyyy'}}</span>
+      </ion-col>
+      <ion-col size="4" style="margin-top: 6px;">
+        <span style="font-size: smaller;color:#ee6737;font-weight: 500;">{{event_details.TO_TIME}}</span>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="type=='myevent'">
@@ -100,8 +113,18 @@
     </ion-row>
   </div>
   <div class="card-gap4">
-    <ion-row>
-      <ion-button  type="submit" class="login-btn" *ngIf="type=='all'" [color]="event_details.interested_Status==true?'danger':'tertiary'" (click)="add_interested_event()"><b>{{event_details.interested_Status==true?'Cancelled':'Interested'}}</b></ion-button>
+    <ion-row *ngIf="event_details.USER__id==currentUser.user_id">
+      <ion-col size="12">
+          <ion-button  type="submit" [color]="complete_incomplete_text=='Event Completed'?'success':'tertiary'" class="login-btn" (click)="complete_and_delete_event()"><b>{{complete_incomplete_text}}</b></ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="event_details.USER__id==currentUser.user_id">
+      <ion-col size="12">
+          <ion-button  type="submit" color="danger" class="delete-btn" (click)="delete_event()"><b>Delete My Event</b></ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="event_details.USER__id!=currentUser.user_id">
+      <ion-button  type="submit" class="login-btn" *ngIf="type=='all'" [color]="event_details.interested_Status==true?'danger':'tertiary'" (click)="add_interested_event()"><b>{{event_details.interested_Status==true?'Remove Interest':'Interested'}}</b></ion-button>
     </ion-row>
     &nbsp;&nbsp;
     &nbsp;&nbsp;

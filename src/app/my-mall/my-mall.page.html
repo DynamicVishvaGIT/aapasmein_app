@@ -60,6 +60,9 @@
                       <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
                     </ion-col>
                   </ion-row>
+                  <ion-row>
+                    <ion-badge class="sold-badge-color" mode="ios" *ngIf="data.is_sold">SOLD</ion-badge>
+                  </ion-row>
                 </ion-card-content>
               </ion-card>
             </ion-col>

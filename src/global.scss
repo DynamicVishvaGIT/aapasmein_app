@@ -280,3 +280,16 @@ ion-searchbar.custom {
 ion-searchbar.ios.custom {
    --cancel-button-color: #19422d;
 }
+
+.custom-alert-buttons .alert-button-group {
+  display: flex;
+  justify-content: space-between; /* Moves Cancel to left and Reachout to right */
+}
+
+.custom-alert-buttons .cancel-button {
+  order: -1; /* Ensures Cancel stays on the left */
+}
+
+.custom-alert-buttons .reachout-button {
+  order: 1; /* Ensures Reachout stays on the right */
+}

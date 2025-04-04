@@ -173,7 +173,8 @@ export class EditProfilePage implements OnInit {
     formData.append("edit_mobile_no",this.user.edit_mobile_no),
     formData.append("edit_email_id",this.user.edit_email_id),
     formData.append("edit_profession",this.user.edit_profession),
-    formData.append("edit_specialization",this.user.edit_specialization)
+    formData.append("edit_specialization",this.user.edit_specialization),
+    formData.append("type",'edit_details')
     // for(let i=0;i<this.user.edit_interest.length;i++){
     //   formData.append('edit_interest' , this.user.edit_interest[i]); 
     // }

@@ -20,6 +20,12 @@ export class ActivitiesPage implements OnInit {
   searchQuery: string = '';
   isFooterVisible: boolean = true;
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+  categoryLabels = [
+    { key: 'today', label: 'Today' },
+    { key: 'yesterday', label: 'Yesterday' },
+    { key: 'last7days', label: 'Last 7 Days' },
+    { key: 'older', label: 'Older' }
+  ];
   categorizedData: any = {
     today: [],
     yesterday: [],
@@ -126,7 +132,7 @@ export class ActivitiesPage implements OnInit {
     };
 
     this.activity_list.forEach((item:any) => {
-      const createdDate = new Date(item.CREATED_DATE); // Convert to Date object
+      const createdDate = new Date(item.UPDATED_DATE); // Convert to Date object
       const diffTime = today.getTime() - createdDate.getTime(); // Difference in milliseconds
       const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // Convert to days
 
@@ -149,6 +155,16 @@ export class ActivitiesPage implements OnInit {
     return date1.getFullYear() === date2.getFullYear() &&
            date1.getMonth() === date2.getMonth() &&
            date1.getDate() === date2.getDate();
+  }
+
+  formatCategory(category: string): string {
+    const labels: { [key: string]: string } = {
+      today: 'Today',
+      yesterday: 'Yesterday',
+      last7days: 'Last 7 Days',
+      older: 'Older'
+    };
+    return labels[category] || category;
   }
 
   clearNotifications() {

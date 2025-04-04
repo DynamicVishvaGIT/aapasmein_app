@@ -87,6 +87,7 @@
             <ion-col size="9">
               <span class="name-text" (click)="goToProfile(data)">{{data.NAME}}</span><br>
               <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.MOBILE_NO)" ></ion-icon>
+              <ion-badge [ngClass]="{'accept-shake-align': data.HANDSHAKE_STATUS=='accept','reject-shake-align': data.HANDSHAKE_STATUS=='reject', 'shake-align': data.HANDSHAKE_STATUS=='pending'}" mode="md" style="margin-top: -9px;" ><img src="assets/accolades/deal.png" class="menu-icon1" (click)="add_handshake(data)"></ion-badge>
               <span class="designation-text">{{data.PROFESSION__NAME}}</span><br>
               <!-- <span class="name-text">{{requestText=='Request-in'?data.SENDER__NAME:data.NAME}}</span><br>
               <span class="designation-text">{{requestText=='Request-in'?data.SENDER__PROFESSION__NAME:data.PROFESSION__NAME}}</span><br> -->
@@ -145,12 +146,12 @@
         <ion-grid>
           <ion-row class="border-bottom" *ngFor="let data of filteredHandshakeList">
             <ion-col size="3" (click)="goToProfile(data)">
-              <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img"  *ngIf="data.USER__PROFILE_IMAGE">
-              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.USER__PROFILE_IMAGE" >
+              <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img"  *ngIf="data.PROFILE_IMAGE">
+              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
             </ion-col>
             <ion-col size="9">
-              <span class="name-text" (click)="goToProfile(data)">{{data.USER__NAME}}</span><br>
-              <span class="designation-text">{{data.USER__PROFESSION__NAME}}</span><br>
+              <span class="name-text" (click)="goToProfile(data)">{{data.NAME}}</span><br>
+              <span class="designation-text">{{data.PROFESSION__NAME}}</span><br>
             </ion-col>
           </ion-row>
         </ion-grid>

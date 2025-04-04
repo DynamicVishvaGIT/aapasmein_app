@@ -20,6 +20,7 @@ export class SendHandshakePage implements OnInit {
   inputFocused:boolean=false;
   handshake_data:any=[];
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+  errorMsg:string='';
 
 
   constructor(private router: Router, private keyboardService: KeyboardService, private apiService: ApiService, private commonService: CommonService) { 
@@ -38,15 +39,25 @@ export class SendHandshakePage implements OnInit {
       this.commonService.showToastMessage('Please enter mobile number.', 'error-toast', 'top', 2000);
       return;
     }
-    this.apiService.get_handshake(this.friend.mobile_no,'handshake','')
+    this.handshake_data = [];
+    this.errorMsg = '';
+    this.apiService.get_handshake(this.friend.mobile_no,this.currentUser.user_id,'handshake','')
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.handshake_data = response;
     },
     respError => {
-      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      this.errorMsg = respError;
+      // this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  onChange() {console.log(this.friend.mobile_no);
+    if(this.friend.mobile_no==null){
+      this.handshake_data = [];
+      this.errorMsg = '';
+    }
   }
 
   onFocus() {

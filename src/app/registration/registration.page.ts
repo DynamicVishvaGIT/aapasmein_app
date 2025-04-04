@@ -70,7 +70,7 @@ export class RegistrationPage implements OnInit {
 
   get_handshake() {
     this.commonService.presentLoading();
-    this.apiService.get_handshake(this.mobile_no, 'register', this.referral_code)
+    this.apiService.get_handshake(this.mobile_no,'', 'register', this.referral_code)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);

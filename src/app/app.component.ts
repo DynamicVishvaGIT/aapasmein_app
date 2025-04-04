@@ -52,12 +52,22 @@ export class AppComponent {
     }
     this.platform.ready().then(() => {
       this.platform.backButton.subscribeWithPriority(9999, () => {
-        if ((this.router.url.includes('dashboard') || this.router.url.includes('login-agreement')) ) {
-          (navigator as any).app.exitApp().exitApp();
-        }
-        else{
+        const currentUrl = this.router.url.split('?')[0]; // Remove query parameters
+        if (currentUrl === '/dashboard' || currentUrl === '/login-agreement') {
+          (navigator as any).app.exitApp();
+        } 
+        else if (currentUrl === '/feedback-modal' || currentUrl === '/request-send' || currentUrl === '/convenience-details' || currentUrl === '/event-details') {
+          this.router.navigate(['/dashboard']); // Navigate back to dashboard instead of exiting
+        } 
+        else {
           this.navCtrl.pop();
         }
+        // if ((this.router.url.includes('dashboard') || this.router.url.includes('login-agreement')) ) {
+        //   (navigator as any).app.exitApp().exitApp();
+        // }
+        // else{
+        //   this.navCtrl.pop();
+        // }
       });
     })
   }
