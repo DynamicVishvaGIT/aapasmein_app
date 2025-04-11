@@ -21,12 +21,14 @@
     </ion-grid>
   </div>
   <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
+  <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList($event)" placeholder="Search Convenience" (click)="hideFooter()"></ion-searchbar>
+
   <ion-row style="margin-left: 28px;margin-top: 12px;">
     <span style="color:white;font-size: small;">{{profession}}</span>
   </ion-row>
-  <div class="gap" *ngIf="dataLoaded && list.length > 0">
+  <div class="gap" *ngIf="dataLoaded && filteredList.length > 0">
     <ion-grid>
-      <ion-row class="border-bottom" *ngFor="let data of list">
+      <ion-row class="border-bottom" *ngFor="let data of filteredList">
         <ion-col size="3">
           <img src="../../../assets/avtar4.png" alt="" class="circle-img">
         </ion-col>
@@ -121,7 +123,7 @@
       </ion-row> -->
     </ion-grid>
   </div>
-  <div class="no-data" *ngIf="dataLoaded && list.length == 0">
+  <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
     <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
     <span class="no-data-text">No Convenience Data</span>
   </div>

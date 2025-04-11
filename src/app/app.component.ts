@@ -61,7 +61,7 @@ export class AppComponent {
         else if (currentUrl === '/feedback-modal' || (currentUrl === '/request-send' && !this.commonService.currentPage.includes('/mall-details')) || currentUrl === '/convenience-details' || (currentUrl === '/event-details' && !this.commonService.currentPage.includes('/event-details'))) {
           this.router.navigate(['/dashboard']); // Navigate back to dashboard instead of exiting
         } 
-        else if(this.commonService.currentPage.includes('/add-mall') || this.commonService.currentPage.includes('/more-details')){
+        else if(this.commonService.currentPage.includes('/add-mall') || this.commonService.currentPage.includes('/more-details') || this.commonService.currentPage.includes('/connection') || this.commonService.currentPage.includes('/edit-profile') || this.commonService.currentPage.includes('/setting-modal') || this.commonService.currentPage.includes('/add-rate')){
           this.modalCtrl.dismiss();
         }
         else {

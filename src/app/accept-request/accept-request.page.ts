@@ -205,7 +205,7 @@ export class AcceptRequestPage implements OnInit {
     console.log(this.sender_id);
     if(this.routeURL=='profile'){
       if(this.sender_id){
-        this.router.navigate(['/profile'], {queryParams:{sender_id: this.sender_id, REQUEST_STATUS:'pending'}});
+        this.router.navigate(['/profile'], {queryParams:{sender_id: this.sender_id, REQUEST_STATUS:'pending', routeURL: 'acceptrequest'}});
       }
       else{
         this.router.navigate(['/profile']);

@@ -188,6 +188,7 @@ export class ProfilePage implements OnInit {
         else{
           this.addAdvantage = false;
         }
+        this.commonService.showToastMessage(response.message, 'info-toast','', 3000);
         // this.goToadvantageDetails();
       },
       respError => {
@@ -205,6 +206,7 @@ export class ProfilePage implements OnInit {
   }
 
   async openModal() {
+    this.commonService.currentPage = '/setting-modal';
     const modal = await this.modalCtrl.create({
       component: SettingmodalPage,
       breakpoints: [0, 0.3, 0.5, 0.8],
@@ -227,6 +229,7 @@ export class ProfilePage implements OnInit {
   async goToConnections() {
     // this.connectionFlag = true;
     if(this.search_id){
+      this.commonService.currentPage = '/connection';
       console.log(this.connection_details);
       let modal = await this.modalCtrl.create({ component: ConnectionsPage, componentProps:{connections: this.connection_details, search_name:this.search_user_details.NAME }});
       modal.onDidDismiss().then((modalItem) => {
@@ -264,6 +267,7 @@ export class ProfilePage implements OnInit {
   }
 
   async editProfile() {
+    this.commonService.currentPage = '/edit-profile';
     let modal = await this.modalCtrl.create({ component: EditProfilePage});
     modal.onDidDismiss().then((modalItem) => {console.log(modalItem);
       if (modalItem) {
@@ -368,7 +372,7 @@ export class ProfilePage implements OnInit {
       this.router.navigate(['/request']);
     }
     else if(this.routeURL=='acceptrequest'){
-      this.router.navigate(['/accept-request'], { queryParams: { segment_type: this.segment_type} });
+      this.router.navigate(['/accept-request'], { queryParams: { segment_type: this.segment_type, routeURL:'profile'} });
       // this.router.navigate(['/accept-request'], { queryParams: { segment_type: this.segment_type, routeURL: 'profile'} });
     }
     // else if(this.routeURL=='activity'){

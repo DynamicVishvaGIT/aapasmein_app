@@ -83,6 +83,13 @@ ion-toolbar, ion-content, ion-header, ion-footer, ion-title, ion-label, ion-butt
   --color: white;
   // }
 }
+
+.info-toast {
+  // > div{
+  --background: var(--ion-color-info) !important;
+  --color: white;
+  // }
+}
 .required:after {
   content:" *";
   color: red;

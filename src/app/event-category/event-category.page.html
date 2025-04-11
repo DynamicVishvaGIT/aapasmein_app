@@ -108,7 +108,7 @@
           </ion-row>
           <ion-row class="scroll" >
             <ion-col size="8"  *ngFor="let event of data.events">
-              <ion-card class="event-card" (click)="goToDetails(event,'myevent')">
+              <ion-card class="my-event-card" (click)="goToDetails(event,'myevent')"><!--[ngClass]="{'my-event-card': event.completed, 'event-card': !event.completed}" -->
                 <ion-card-header class="card-header-img"> 
                   <img src="{{imageUrl}}{{event.event_image}}" alt="" class="img-banner1">
                 </ion-card-header>
@@ -124,9 +124,9 @@
                     <ion-col>
                       <span style="float:left;font-size:small;color:#000000;font-weight: 700;">{{event.event_name}}</span>
                     </ion-col>
-                    <ion-col style="text-align: center;" *ngIf="event.completed">
-                      <ion-badge class="sold-wish-badge-color" mode="ios">Event Completed</ion-badge>
-                    </ion-col>
+                    <!-- <ion-col style="text-align: center;" *ngIf="event.completed">
+                      <ion-badge class="sold-wish-badge-color" mode="ios">Completed</ion-badge>
+                    </ion-col> -->
                   </ion-row>
                   <ion-row style="margin-top: 10px;">
                     <ion-col size="4">
@@ -140,6 +140,14 @@
                       <!-- <ion-button class="interested-button" color="tertiary">
                         <ion-icon name="calendar-outline"></ion-icon>&nbsp;<span style="font-size: 10px;">Interested</span>
                       </ion-button> -->
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="6" >
+                      <ion-badge mode="ios" class="share-badge-color">{{event.share_with}}</ion-badge>
+                    </ion-col>
+                    <ion-col size="6" *ngIf="event.completed" >
+                      <ion-badge class="sold-wish-badge-color" mode="ios">Completed</ion-badge>
                     </ion-col>
                   </ion-row>
               </ion-card>

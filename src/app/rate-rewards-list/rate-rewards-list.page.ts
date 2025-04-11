@@ -90,6 +90,7 @@ export class RateRewardsListPage implements OnInit {
   }
 
   async addRateRewardsPage(id:string) {
+    this.commonService.currentPage = '/add-rate';
     const modal = await this.modalCtrl.create({
       component: AddRateRewardsPage,
       componentProps:{ratee: id },

@@ -22,6 +22,9 @@ export class ConvenienceDetailsPage implements OnInit {
   list:any=[];
   convenience_id:string='';
   dataLoaded:boolean=false;
+  searchQuery: string = '';
+  filteredList: any[] = [];
+  isFooterVisible: boolean = true;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private callNumber: CallNumber, private platform: Platform,
     private apiService: ApiService, private commonService: CommonService) { 
@@ -61,13 +64,34 @@ export class ConvenienceDetailsPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.list = response.data;
+      this.filteredList = [...this.list]; // Initialize filtered list
       this.dataLoaded = true;
+      this.isFooterVisible = true;
       this.commonService.dismissLoading();
     },
     respError => {
       this.commonService.dismissLoading();
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterList(event: any) {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      this.filteredList = [...this.list];
+      this.isFooterVisible = true;
+    } else {
+      this.filteredList = this.list.filter((item:any) =>
+        item.CONVENIENCE_NAME.toLowerCase().includes(query) ||
+        item.PROFESSION.toLowerCase().includes(query) ||
+        item.LOCATION.toLowerCase().includes(query)
+      );
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
   }
 
   makeCall(phoneNumber: string) {
