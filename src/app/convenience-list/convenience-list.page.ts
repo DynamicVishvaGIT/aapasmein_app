@@ -41,6 +41,14 @@ export class ConvenienceListPage implements OnInit {
     this.load_convenience_category();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_convenience_category();
+      event.target.complete();
+    }, 100);
+  }
+
   load_convenience_category() {
     this.dataLoaded = false;
     this.commonService.presentLoading();

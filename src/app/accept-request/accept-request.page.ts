@@ -66,6 +66,22 @@ export class AcceptRequestPage implements OnInit {
     // this.load_handshake_request();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      if(this.info=='accept'){
+        this.load_friend_request('accept');
+      }
+      else if(this.info=='handshake'){
+        this.load_handshake_request();
+      }
+      else{
+        this.load_friend_request('invite');
+      }
+      event.target.complete();
+    }, 100);
+  }
+
   makeCall(phoneNumber: string) {
     this.platform.ready().then(() => {
       this.callNumber.callNumber(phoneNumber, true)

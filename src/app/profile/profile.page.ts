@@ -103,6 +103,20 @@ export class ProfilePage implements OnInit {
     // this.search_id = this.navParams.get('search_id');
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      if(this.search_id!=undefined){
+        this.search_keyword_details();
+      }
+      else{
+        this.search_user_details={};
+        this.get_user_details();
+      }
+      event.target.complete();
+    }, 100);
+  }
+
   // Update this variable based on user profile or other logic
   // updateFrameType(type: string) {
   //   this.frameType = type;

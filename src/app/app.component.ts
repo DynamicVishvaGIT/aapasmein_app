@@ -1,6 +1,7 @@
 import { Component, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { ModalController, NavController, Platform } from '@ionic/angular';
+import { CommonService } from './common.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { NavController, Platform } from '@ionic/angular';
 export class AppComponent {
   currentUser:any;
 
-  constructor(private router: Router, private renderer: Renderer2, private platform: Platform, private navCtrl: NavController) {
+  constructor(private router: Router, private renderer: Renderer2, private platform: Platform, private navCtrl: NavController, 
+    private commonService: CommonService, private modalCtrl: ModalController) {
     this.initializeApp();
   }
 
@@ -53,12 +55,15 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.platform.backButton.subscribeWithPriority(9999, () => {
         const currentUrl = this.router.url.split('?')[0]; // Remove query parameters
-        if (currentUrl === '/dashboard' || currentUrl === '/login-agreement') {
+        if ((currentUrl === '/dashboard' && !this.commonService.currentPage.includes('/more-details')) || currentUrl === '/login-agreement') {
           (navigator as any).app.exitApp();
         } 
-        else if (currentUrl === '/feedback-modal' || currentUrl === '/request-send' || currentUrl === '/convenience-details' || currentUrl === '/event-details') {
+        else if (currentUrl === '/feedback-modal' || (currentUrl === '/request-send' && !this.commonService.currentPage.includes('/mall-details')) || currentUrl === '/convenience-details' || (currentUrl === '/event-details' && !this.commonService.currentPage.includes('/event-details'))) {
           this.router.navigate(['/dashboard']); // Navigate back to dashboard instead of exiting
         } 
+        else if(this.commonService.currentPage.includes('/add-mall') || this.commonService.currentPage.includes('/more-details')){
+          this.modalCtrl.dismiss();
+        }
         else {
           this.navCtrl.pop();
         }

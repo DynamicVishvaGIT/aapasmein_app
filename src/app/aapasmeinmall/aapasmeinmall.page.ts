@@ -145,11 +145,14 @@ export class AapasmeinmallPage implements OnInit {
   }
 
   async addMall() {
+    // this.router.navigate(['/addmall']);
+    this.commonService.currentPage = '/add-mall';
     let modal = await this.modalCtrl.create({ component: AddmallPage});
     modal.onDidDismiss().then((modalItem) => {
       if (modalItem) {
         
       }
+      this.commonService.currentPage = '/aapasmeinmall-list';
     })
     return await modal.present();
   }
@@ -174,6 +177,7 @@ export class AapasmeinmallPage implements OnInit {
   }
 
   goToMallDetails(data:any, route:string) {
+    this.commonService.currentPage = '/mall-details';
     this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
   }
 

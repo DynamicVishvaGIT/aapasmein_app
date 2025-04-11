@@ -10,6 +10,7 @@ export class CommonService {
 
   baseUrl = 'https://aapasmein.dvadminpanel.in/'; //Dev API
   isLoading = false;
+  currentPage: string = '';
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private loadingController: LoadingController, private toastCtrl: ToastController) { }
 

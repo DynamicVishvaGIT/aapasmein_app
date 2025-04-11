@@ -57,6 +57,16 @@ export class AllEventListPage implements OnInit {
     this.load_my_interested_events();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_events();
+      this.load_my_events();
+      this.load_my_interested_events();
+      event.target.complete();
+    }, 100);
+  }
+
   load_events() {
     // let formData = new FormData();
     // formData.append("mobile_no",this.currentUser.mobile_no),

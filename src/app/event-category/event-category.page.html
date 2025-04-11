@@ -124,6 +124,9 @@
                     <ion-col>
                       <span style="float:left;font-size:small;color:#000000;font-weight: 700;">{{event.event_name}}</span>
                     </ion-col>
+                    <ion-col style="text-align: center;" *ngIf="event.completed">
+                      <ion-badge class="sold-wish-badge-color" mode="ios">Event Completed</ion-badge>
+                    </ion-col>
                   </ion-row>
                   <ion-row style="margin-top: 10px;">
                     <ion-col size="4">
@@ -183,6 +186,9 @@
                     <ion-col>
                       <span style="float:left;font-size:small;color:#000000;font-weight: 700;">{{event.event_name}}</span>
                     </ion-col>
+                    <ion-col style="text-align: center;" *ngIf="event.completed">
+                      <ion-badge class="sold-wish-badge-color" mode="ios">Event Completed</ion-badge>
+                    </ion-col>
                   </ion-row>
                   <ion-row style="margin-top: 10px;">
                     <ion-col size="4">
@@ -198,6 +204,11 @@
                       </ion-button>
                     </ion-col>
                   </ion-row>
+                  <!-- <ion-row>
+                    <ion-col style="text-align: center;" *ngIf="event.completed">
+                      <ion-badge class="sold-wish-badge-color" mode="ios">Completed</ion-badge>
+                    </ion-col>
+                  </ion-row> -->
               </ion-card>
             </ion-col>
           </ion-row>
@@ -224,4 +235,4 @@
   <br>
 </ion-content>
 
-<app-commonfooter *ngIf="isFooterVisible"></app-commonfooter>
+<app-commonfooter *ngIf="isFooterVisible" [activeEventColor]="true"></app-commonfooter>

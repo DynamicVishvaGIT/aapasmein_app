@@ -42,6 +42,14 @@ export class RateRewardsListPage implements OnInit {
     this.load_recognition();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_recognition();
+      event.target.complete();
+    }, 100);
+  }
+
   load_recognition() {
     this.commonService.presentLoading();
     this.apiService.load_recognition(this.currentUser.mobile_no)

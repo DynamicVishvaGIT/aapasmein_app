@@ -42,6 +42,14 @@ export class BroadcastDetailsPage implements OnInit {
     this.get_broadcast_details();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.get_broadcast_details();
+      event.target.complete();
+    }, 100);
+  }
+
   get_broadcast_details() {
     let formData = new FormData();
     formData.append('user_id',this.currentUser.user_id);

@@ -48,6 +48,14 @@ export class EventDetailsPage implements OnInit {
     this.get_event_details();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.get_event_details();
+      event.target.complete();
+    }, 100);
+  }
+
   get_event_details() {
     let formData = new FormData();
     formData.append("user_id",this.currentUser.user_id),
@@ -147,24 +155,25 @@ export class EventDetailsPage implements OnInit {
   }
 
   async goToReport() {
-    const modal = await this.modalCtrl.create({
-      component: ReportReasonPage,
-      componentProps:{routeURL: 'eventdetails', id: this.event_details.id },
-      // breakpoints: [0, 0.3, 0.5, 0.8],
-      // initialBreakpoint: 0.6,
-      // cssClass: 'custom-modal'
-    });
-    modal.onDidDismiss().then((modalItem) => {
-      if (modalItem) {
-        console.log(modalItem);
-        if(modalItem.data!==undefined){
+    this.router.navigate(['/report-reason'], { queryParams: { routeURL: 'eventdetails', id: this.event_details.id, product_id: this.event_id, url: this.url} });
+    // const modal = await this.modalCtrl.create({
+    //   component: ReportReasonPage,
+    //   componentProps:{routeURL: 'eventdetails', id: this.event_details.id },
+    //   // breakpoints: [0, 0.3, 0.5, 0.8],
+    //   // initialBreakpoint: 0.6,
+    //   // cssClass: 'custom-modal'
+    // });
+    // modal.onDidDismiss().then((modalItem) => {
+    //   if (modalItem) {
+    //     console.log(modalItem);
+    //     if(modalItem.data!==undefined){
           
-        }
-        else{
-        }
-      }
-    })
-    return await modal.present();
+    //     }
+    //     else{
+    //     }
+    //   }
+    // })
+    // return await modal.present();
   }
 
   async zoomImage(image:string) {

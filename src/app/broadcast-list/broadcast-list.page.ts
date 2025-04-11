@@ -52,6 +52,14 @@ export class BroadcastListPage implements OnInit {
     this.load_broadcast_list();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_broadcast_list();
+      event.target.complete();
+    }, 100);
+  }
+
   load_broadcast_list() {
     this.commonService.presentLoading();
     // let formData = new FormData();

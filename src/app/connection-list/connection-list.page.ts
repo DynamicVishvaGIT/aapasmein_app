@@ -41,6 +41,14 @@ export class ConnectionListPage implements OnInit {
     // this.load_handshake_request();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.search_keyword_details();
+      event.target.complete();
+    }, 100);
+  }
+
   search_keyword_details() {
     this.commonService.presentLoading();
     this.dataLoaded = false;

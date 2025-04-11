@@ -14,8 +14,12 @@ export class ReportReasonPage implements OnInit {
 
   private _unsubscribeAll: Subject<any>;
 
-  @Input() routeURL!: string;
-  @Input() id!: string;
+  // @Input() routeURL!: string;
+  // @Input() id!: string;
+  routeURL:string='';
+  id:string='';
+  product_id:string='';
+  url:string='';
   currentUser:any;
   heading: string='';
   subHeading: string='';
@@ -35,6 +39,14 @@ export class ReportReasonPage implements OnInit {
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
     console.log(this.id);
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.routeURL = params['routeURL'];
+      console.log(this.routeURL);
+      this.id = params['id'];
+      console.log(this.id);
+      this.product_id = params['product_id'];
+      this.url = params['url'];
+    });
     this.initializeReasons();
     // this.activatedRoute.queryParams.subscribe(params => {
     //   this.routeURL = params['routeURL'];
@@ -157,7 +169,8 @@ export class ReportReasonPage implements OnInit {
         console.log(response);
         // this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
         this.commonService.showToastMessage('Thanks for your feedback ! We will do our best to solve your report, thanks again !', 'success-toast','', 4000);
-        this.modalCtrl.dismiss();
+        // this.modalCtrl.dismiss();
+        this.dismissModal();
       },
       respError => {
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -181,7 +194,13 @@ export class ReportReasonPage implements OnInit {
   // }
 
   dismissModal() {
-    this.modalCtrl.dismiss();
+    // this.modalCtrl.dismiss();
+    if(this.routeURL=='malldetails'){
+      this.router.navigate(['/request-send'], { queryParams: { mall_id: this.product_id, routeURL: 'malllist'} });
+    }
+    else if(this.routeURL == 'eventdetails'){
+      this.router.navigate(['/event-details'], { queryParams: { event_id: this.product_id, url: this.url} });
+    }
   }
 
   dismiss() {

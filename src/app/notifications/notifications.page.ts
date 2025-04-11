@@ -49,6 +49,14 @@ export class NotificationsPage implements OnInit {
     this.load_notifications();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_notifications();
+      event.target.complete();
+    }, 100);
+  }
+
   load_notifications() {
     this.commonService.presentLoading();
     this.dataLoaded = false;
@@ -65,7 +73,6 @@ export class NotificationsPage implements OnInit {
       }
       this.filteredNotificationList = [...this.notification_list]; // Initialize filtered list
       this.isFooterVisible = true;
-      this.dataLoaded = true;
       this.segregateData(); // Call segregation function
       this.commonService.dismissLoading();
     },
@@ -142,7 +149,7 @@ export class NotificationsPage implements OnInit {
         this.categorizedData.older.push(item);
       }
     });
-
+    this.dataLoaded = true;
     console.log(this.categorizedData); // Check in console
   }
 

@@ -10,11 +10,24 @@ import { InvitationPage } from '../invitation/invitation.page';
 import { KeyboardService } from '../keyboard.service';
 import { ProfilePage } from '../profile/profile.page';
 import { YellowpagesPage } from '../yellowpages/yellowpages.page';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 
 @Component({
   selector: 'app-commonfooter',
   templateUrl: './commonfooter.component.html',
   styleUrls: ['./commonfooter.component.scss'],
+  // animations: [
+  //   trigger('buttonScale', [
+  //     state('normal', style({
+  //       transform: 'scale(1)'
+  //     })),
+  //     state('scaled', style({
+  //       transform: 'scale(1.2)'
+  //     })),
+  //     transition('normal <=> scaled', animate('100ms ease-out'))
+  //   ])
+  // ]
 })
 export class CommonfooterComponent  implements OnInit, OnDestroy {
 
@@ -31,6 +44,18 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
   showFab:boolean = true;
   pollingSubscription: Subscription | null = null;
   request_list:any=[];
+
+  @Input() activeHomeColor!: boolean;
+  @Input() activeDealColor!: boolean;
+  @Input() activeEventColor!: boolean;
+
+
+  active = true;
+  active1 = false;
+  active2 = false;
+  // buttonState: string = 'normal';
+  // buttonState1: string = 'normal';
+  // buttonState2: string = 'normal';
 
   constructor(private router: Router, private modalCtrl: ModalController, private keyboardService: KeyboardService, private apiService: ApiService,
     private commonService: CommonService) { 
@@ -66,6 +91,24 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
     this.pollingSubscription = interval(POLLING_INTERVAL).subscribe(() => {
       // this.load_friend_request();
     });
+    if(this.activeHomeColor!=undefined){
+      this.active = this.activeHomeColor;
+      this.active1 = false;
+      this.active2 = false;
+      // this.buttonState = (this.buttonState === 'normal') ? 'scaled' : 'normal';
+    }
+    else if(this.activeDealColor!=undefined){
+      this.active1 = this.activeDealColor;
+      this.active = false;
+      this.active2 = false;
+      // this.buttonState = (this.buttonState === 'normal') ? 'scaled' : 'normal';
+    }
+    else{
+      this.active2 = this.activeEventColor;
+      this.active = false;
+      this.active1 = false;
+      // this.buttonState = (this.buttonState === 'normal') ? 'scaled' : 'normal';
+    }
   }
 
   load_friend_request() {
@@ -112,6 +155,10 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
   }
 
   goToHome() {
+    this.active = true;
+    this.active1 = false;
+    this.active2 = false;
+    // this.buttonState = (this.buttonState === 'normal') ? 'scaled' : 'normal';
     this.router.navigate(['/dashboard']);
   }
 
@@ -138,6 +185,7 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
   }
 
   async openFooter() {
+    this.commonService.currentPage = '/more-details';
     // this.showFlag = false;
     const modal = await this.modalCtrl.create({
       component: FooterModalPage,
@@ -154,15 +202,24 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
         else{
           
         }
+        this.commonService.currentPage = '/dashboard';
       }
     })
     return await modal.present();
   }
 
   goToMall() {
+    this.active = false;
+    this.active1 = true;
+    this.active2 = false;
+    // this.buttonState1 = (this.buttonState1 === 'normal') ? 'scaled' : 'normal';
     this.router.navigate(['/aapasmeinmall']);
   }
   goToEvents() {
+    this.active = false;
+    this.active1 = false;
+    this.active2 = true;
+    // this.buttonState2 = (this.buttonState2 === 'normal') ? 'scaled' : 'normal';
     this.router.navigate(['/event-category']);
   }
 

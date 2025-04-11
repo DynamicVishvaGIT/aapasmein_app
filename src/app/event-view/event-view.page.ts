@@ -45,6 +45,14 @@ export class EventViewPage implements OnInit {
     this.load_events();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_events();
+      event.target.complete();
+    }, 100);
+  }
+
   load_events() {
     this.apiService.load_events(this.currentUser.mobile_no,this.category_id)
     .pipe(takeUntil(this._unsubscribeAll))
@@ -66,6 +74,7 @@ export class EventViewPage implements OnInit {
   }
 
   goToDetails(data:any, type:string) {
+    this.commonService.currentPage = '/event-details';
     this.router.navigate(['/event-details'],{ queryParams: {event_id: data.id, type: type, url: 'eventlist'}});
   }
 

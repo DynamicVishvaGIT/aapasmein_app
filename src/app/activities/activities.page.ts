@@ -45,6 +45,14 @@ export class ActivitiesPage implements OnInit {
     this.get_activities();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.get_activities();
+      event.target.complete();
+    }, 100);
+  }
+
   get_activities() {
     this.commonService.presentLoading();
     this.dataLoaded = false;
@@ -57,7 +65,7 @@ export class ActivitiesPage implements OnInit {
       this.activity_list = response.data;
       this.filteredActivityList = [...this.activity_list]; // Initialize filtered list
       this.isFooterVisible = true;
-      this.dataLoaded = true;
+      // this.dataLoaded = true;
       this.segregateData(); // Call segregation function
       this.commonService.dismissLoading();
     },
@@ -146,7 +154,7 @@ export class ActivitiesPage implements OnInit {
         this.categorizedData.older.push(item);
       }
     });
-
+    this.dataLoaded = true;
     console.log(this.categorizedData); // Check in console
   }
 

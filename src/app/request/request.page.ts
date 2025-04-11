@@ -52,6 +52,15 @@ export class RequestPage implements OnInit {
     this.load_handshake_request();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_friend_request();
+      this.load_handshake_request();
+      event.target.complete();
+    }, 100);
+  }
+
   showSearch(){
     this.searchFlag = !this.searchFlag;
   }

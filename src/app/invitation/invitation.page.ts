@@ -24,6 +24,7 @@ export class InvitationPage implements OnInit {
   inputFocused:boolean=false;
   invitedFriends:any=[];
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
+  showTooltip = false;
 
   constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private keyboardService: KeyboardService) { 
     this._unsubscribeAll = new Subject();
@@ -47,6 +48,17 @@ export class InvitationPage implements OnInit {
   onBlur() {
     // Notify the service that the keyboard is closed
     this.keyboardService.setKeyboardStatus(false);
+  }
+
+  toggleTooltip() {
+    this.showTooltip = !this.showTooltip;
+  
+    // Auto-hide after 3 seconds (optional)
+    if (this.showTooltip) {
+      setTimeout(() => {
+        this.showTooltip = false;
+      }, 3000);
+    }
   }
 
   get_city() {
@@ -98,12 +110,13 @@ export class InvitationPage implements OnInit {
       this.commonService.showToastMessage('Please enter name.', 'error-toast', 'top', 2000);
       return;
     }
-    if(this.friend.city == '') {
-      this.commonService.showToastMessage('Please enter city.', 'error-toast', 'top', 2000);
+    if(this.friend.email == '') {
+      this.commonService.showToastMessage('Please enter email.', 'error-toast', 'top', 2000);
       return;
     }
-    if(this.friend.location == '') {
-      this.commonService.showToastMessage('Please enter location.', 'error-toast', 'top', 2000);
+    let epattern = /[A-Za-z0-9._%+-]{1,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})/;
+    if (!epattern.test(this.friend.email)) {
+      this.commonService.showToastMessage('Please enter email in correct format.', 'error-toast', 'top', 2000);
       return;
     }
     if(this.friend.mobile_number == '') {
@@ -115,13 +128,12 @@ export class InvitationPage implements OnInit {
       this.commonService.showToastMessage('Please enter phone number in correct format.', 'error-toast', 'top', 2000);
       return;
     }
-    if(this.friend.email == '') {
-      this.commonService.showToastMessage('Please enter email.', 'error-toast', 'top', 2000);
+    if(this.friend.city == '') {
+      this.commonService.showToastMessage('Please select district.', 'error-toast', 'top', 2000);
       return;
     }
-    let epattern = /[A-Za-z0-9._%+-]{1,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})/;
-    if (!epattern.test(this.friend.email)) {
-      this.commonService.showToastMessage('Please enter email in correct format.', 'error-toast', 'top', 2000);
+    if(this.friend.location == '') {
+      this.commonService.showToastMessage('Please select city.', 'error-toast', 'top', 2000);
       return;
     }
     this.router.navigate(['/questionnaire'], { queryParams: { friend_details: JSON.stringify(this.friend)} });

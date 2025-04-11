@@ -244,7 +244,18 @@ export class EventCategoryPage implements OnInit {
   }
 
   goToDetails(data:any, type:string) {
-    this.router.navigate(['/event-details'], { queryParams: {event_id: data.id, type: type, url: 'categorylist'} });
+    this.commonService.currentPage = '/event-details';
+    if(type=='myevent' || type=='myinterest'){
+      if(!data.completed){
+        this.router.navigate(['/event-details'], { queryParams: {event_id: data.id, type: type, url: 'categorylist'} });
+      }
+      else{
+        this.commonService.showToastMessage('This event has been completed.', 'error-toast','', 4000);
+      }
+    }
+    else{
+      this.router.navigate(['/event-details'], { queryParams: {event_id: data.id, type: type, url: 'categorylist'} });
+    }
   }
 
   goToEventList(data:any, url:string) {console.log(data);
@@ -256,7 +267,7 @@ export class EventCategoryPage implements OnInit {
     let modal = await this.modalCtrl.create({ component: AddeventPage});
     modal.onDidDismiss().then((modalItem) => {
       if (modalItem) {
-        
+        this.load_events();
       }
     })
     return await modal.present();

@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="honeycomb-overlay"></div>
   <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
     <ion-grid>
@@ -21,37 +24,44 @@
   </div> -->
 
   <!-- Dynamic Activity Categories -->
-  <ng-container *ngFor="let category of categoryLabels">
-    <div class="gap" *ngIf="categorizedData[category.key]?.length">
-      <span style="color:#ffffff;font-size: medium;margin-top: 3px;font-weight: 500;">{{ category.label }}</span><br>
-    </div>
-
-    <ng-container *ngFor="let activity of categorizedData[category.key]">
-      <div class="gap1">
-        <ion-grid class="row-card1">
-          <ion-row style="margin-left: 10px;">
-            <ion-col size="1">
-              <div class="blue-dot"></div>
-            </ion-col>
-            <ion-col size="2">
-              <img src="{{imageUrl}}{{activity.request_type=='received_handshake_accepted_reject'?activity.USER__PROFILE_IMAGE:activity.request_type=='received_reachout_accepted_rejected'?activity.SENDER__PROFILE_IMAGE:activity.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="activity.request_type=='received_handshake_accepted_reject'?activity.USER__PROFILE_IMAGE:activity.request_type=='received_reachout_accepted_rejected'?activity.SENDER__PROFILE_IMAGE:activity.PROFILE_IMAGE">
-              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="activity.request_type=='received_handshake_accepted_reject'?!activity.USER__PROFILE_IMAGE:activity.request_type=='received_reachout_accepted_rejected'?!activity.SENDER__PROFILE_IMAGE:!activity.PROFILE_IMAGE" >
-            </ion-col>
-            <ion-col size="9" style="margin-left: -30px;">
-              <span style="float:left;font-size: 14px;color:white;font-weight: 600;">{{ activity.request_type=='received_handshake_accepted_reject'?activity.USER__NAME:activity.request_type=='received_reachout_accepted_rejected'?activity.SENDER__NAME:activity.NAME}}</span>
-              <span style="float:right;margin-top: 4px;margin-right: -15px;font-size: x-small;color:white;">{{ activity.UPDATED_DATE | date:'dd MMM yyyy hh:mm a'}}</span>
-              <br>
-              <span style="float:left;font-size: x-small;color:white;">{{ activity.request_type=='received_handshake_accepted_reject'?activity.REQUEST_STATUS=='accept'?"Handshake request you’ve accepted . Aapasmein connect now! ":"Handshake request you’ve declined. ":activity.request_type=='sent_handshake_accepted_reject'?activity.REQUEST_STATUS=='accept'?"Accepted your handshake request. Aapasmein connect now! ":"Declined your handshake request. You can try again later! ":activity.request_type=='accepted_invitation'?activity.NAME+" accepted your invitation. You're now Aapasmein connected!":activity.request_type=='received_reachout_accepted_rejected'?activity.REQUEST_STATUS=='accept'?"Reach-out request you’ve accepted. Now " +activity.SENDER__NAME+" can connect with you!":"Reach-out request you’ve declined.":activity.request_type=='sent_reachout_accepted_rejected'?activity.REQUEST_STATUS=='accept'?"Accepted your reach-out request. Connect now. ":"Has declined your reach-out request. Try reach out later. ":"" }}</span>
-              <br><br>
-              <ion-badge class="badge-color" mode="md">{{activity.request_type=='accepted_invitation'?'Invitation':(activity.request_type=='received_handshake_accepted_reject' || activity.request_type=='sent_handshake_accepted_reject')?'Handshake':(activity.request_type=='sent_reachout_accepted_rejected' || activity.request_type=='received_reachout_accepted_rejected')?'Reach Out':''}}</ion-badge>
-              <!-- <span style="float:left;font-size: x-small;color:#1568fa;" (click)="markAsRead(activity)">Mark as Read</span>
-              <span style="float:right;font-size: x-small;color:#1568fa;margin-right: 130px;" (click)="deleteNotification(activity)">Delete</span> -->
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+  <div *ngIf="dataLoaded && (categorizedData.today.length > 0 || categorizedData.yesterday.length > 0 || categorizedData.last7days.length > 0 || categorizedData.older.length > 0)">
+    <ng-container *ngFor="let category of categoryLabels">
+      <div class="gap" *ngIf="categorizedData[category.key]?.length">
+        <span style="color:#ffffff;font-size: medium;margin-top: 3px;font-weight: 500;">{{ category.label }}</span><br>
       </div>
+
+      <ng-container *ngFor="let activity of categorizedData[category.key]">
+        <div class="gap1">
+          <ion-grid class="row-card1">
+            <ion-row style="margin-left: 10px;">
+              <ion-col size="1">
+                <div class="blue-dot"></div>
+              </ion-col>
+              <ion-col size="2">
+                <img src="{{imageUrl}}{{activity.request_type=='received_handshake_accepted_reject'?activity.USER__PROFILE_IMAGE:activity.request_type=='received_reachout_accepted_rejected'?activity.SENDER__PROFILE_IMAGE:activity.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="activity.request_type=='received_handshake_accepted_reject'?activity.USER__PROFILE_IMAGE:activity.request_type=='received_reachout_accepted_rejected'?activity.SENDER__PROFILE_IMAGE:activity.PROFILE_IMAGE">
+                <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="activity.request_type=='received_handshake_accepted_reject'?!activity.USER__PROFILE_IMAGE:activity.request_type=='received_reachout_accepted_rejected'?!activity.SENDER__PROFILE_IMAGE:!activity.PROFILE_IMAGE" >
+              </ion-col>
+              <ion-col size="9" style="margin-left: -30px;">
+                <span style="float:left;font-size: 14px;color:white;font-weight: 600;">{{ activity.request_type=='received_handshake_accepted_reject'?activity.USER__NAME:activity.request_type=='received_reachout_accepted_rejected'?activity.SENDER__NAME:activity.NAME}}</span>
+                <span style="float:right;margin-top: 4px;margin-right: -15px;font-size: x-small;color:white;">{{ activity.UPDATED_DATE | date:'dd MMM yyyy hh:mm a'}}</span>
+                <br>
+                <span style="float:left;font-size: x-small;color:white;">{{ activity.request_type=='received_handshake_accepted_reject'?activity.REQUEST_STATUS=='accept'?"Handshake request you’ve accepted . Aapasmein connect now! ":"Handshake request you’ve declined. ":activity.request_type=='sent_handshake_accepted_reject'?activity.REQUEST_STATUS=='accept'?"Accepted your handshake request. Aapasmein connect now! ":"Declined your handshake request. You can try again later! ":activity.request_type=='accepted_invitation'?activity.NAME+" accepted your invitation. You're now Aapasmein connected!":activity.request_type=='received_reachout_accepted_rejected'?activity.REQUEST_STATUS=='accept'?"Reach-out request you’ve accepted. Now " +activity.SENDER__NAME+" can connect with you!":"Reach-out request you’ve declined.":activity.request_type=='sent_reachout_accepted_rejected'?activity.REQUEST_STATUS=='accept'?"Accepted your reach-out request. Connect now. ":"Has declined your reach-out request. Try reach out later. ":activity.request_type=='sended_by'?"invitation you've accepted. You're now Aapasmein connected!":"" }}</span>
+                <br><br>
+                <ion-badge class="badge-color" mode="md">{{activity.request_type=='accepted_invitation'?'Invitation':(activity.request_type=='received_handshake_accepted_reject' || activity.request_type=='sent_handshake_accepted_reject')?'Handshake':(activity.request_type=='sent_reachout_accepted_rejected' || activity.request_type=='received_reachout_accepted_rejected')?'Reach Out':''}}</ion-badge>
+                <!-- <span style="float:left;font-size: x-small;color:#1568fa;" (click)="markAsRead(activity)">Mark as Read</span>
+                <span style="float:right;font-size: x-small;color:#1568fa;margin-right: 130px;" (click)="deleteNotification(activity)">Delete</span> -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
+  <div class="no-data" *ngIf="dataLoaded && categorizedData.today.length == 0 && categorizedData.yesterday.length == 0 && categorizedData.last7days.length == 0 && categorizedData.older.length == 0">
+    <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+    <span class="no-data-text">No aapasmein Connect Log Found
+      It looks like there’s no activity to display right now. Once you start connecting with others, your log history will appear here.</span>
+  </div>
 
   <br><br>
 </ion-content>

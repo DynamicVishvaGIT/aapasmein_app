@@ -39,11 +39,11 @@
 <ion-toolbar class="footer-toolbar">
   <ion-tabs>
     <ion-tab-bar>
-      <ion-tab-button (click)="goToHome()">
+      <ion-tab-button (click)="goToHome()" [class]="active?'bottom_sheet':''" >
         <ion-icon name="home-outline"></ion-icon>
         <ion-label>Home</ion-label>
       </ion-tab-button>
-      <ion-tab-button (click)="goToMall()">
+      <ion-tab-button (click)="goToMall()" [class]="active1?'bottom_sheet':''">
         <!-- <ion-icon name="megaphone-outline"></ion-icon> -->
         <!-- <ion-label>Yellow Pages</ion-label> -->
         <ion-icon name="cart-outline"></ion-icon>
@@ -53,7 +53,7 @@
         <ion-icon name="cart-outline"></ion-icon>
         <ion-label>Mail</ion-label>
       </ion-tab-button> -->
-      <ion-tab-button (click)="goToEvents()" class="left_align">  <!--style="margin-left: 100px;"-->
+      <ion-tab-button (click)="goToEvents()" class="left_align" [class]="active2?'bottom_sheet':''" >  <!--style="margin-left: 100px;"-->
         <!-- <ion-icon name="person-outline"></ion-icon> -->
         <!-- <ion-label>Profile</ion-label> -->
         <ion-icon name="calendar-number-outline"></ion-icon>

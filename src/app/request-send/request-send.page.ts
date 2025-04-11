@@ -50,6 +50,14 @@ export class RequestSendPage implements OnInit {
     });
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.get_mall_products();
+      event.target.complete();
+    }, 100);
+  }
+
   get_mall_products() {
     let formData = new FormData();
     formData.append('user_id',this.currentUser.user_id);
@@ -133,6 +141,28 @@ export class RequestSendPage implements OnInit {
       respError => {
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
       })
+  }
+
+  async showDeleteDialog() {
+    const confirm = await this.alertCtrl.create({
+      header: 'Delete My Deal',
+      message: 'Do you want to delete your own deal?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Ok, delete it',
+          handler: () => {
+            this.delete_mall_products();
+          }
+        }
+      ]
+    });
+   await  confirm.present();
   }
 
   delete_mall_products() {
@@ -244,24 +274,26 @@ export class RequestSendPage implements OnInit {
   // }
 
   async goToReport() {
-    const modal = await this.modalCtrl.create({
-      component: ReportReasonPage,
-      componentProps:{routeURL: 'malldetails', id: this.mall_data.id },
-      // breakpoints: [0, 0.3, 0.5, 0.8],
-      // initialBreakpoint: 0.6,
-      // cssClass: 'custom-modal'
-    });
-    modal.onDidDismiss().then((modalItem) => {
-      if (modalItem) {
-        console.log(modalItem);
-        if(modalItem.data!==undefined){
+    this.router.navigate(['/report-reason'], { queryParams: { routeURL: 'malldetails', id: this.mall_data.id, product_id: this.product_id} });
+    // this.commonService.currentPage = '/deal-report';
+    // const modal = await this.modalCtrl.create({
+    //   component: ReportReasonPage,
+    //   componentProps:{routeURL: 'malldetails', id: this.mall_data.id },
+    //   // breakpoints: [0, 0.3, 0.5, 0.8],
+    //   // initialBreakpoint: 0.6,
+    //   // cssClass: 'custom-modal'
+    // });
+    // modal.onDidDismiss().then((modalItem) => {
+    //   if (modalItem) {
+    //     console.log(modalItem);
+    //     if(modalItem.data!==undefined){
           
-        }
-        else{
-        }
-      }
-    })
-    return await modal.present();
+    //     }
+    //     else{
+    //     }
+    //   }
+    // })
+    // return await modal.present();
   }
 
   async zoomImage(image:string) {
@@ -281,6 +313,9 @@ export class RequestSendPage implements OnInit {
     }
     else if(this.routeURL=='dashboard'){
       this.router.navigate(['/dashboard']);
+    }
+    else if(this.routeURL=='saveditem'){
+      this.router.navigate(['/saved-items-list']);
     }
     else if(this.routeURL=='search'){
       this.router.navigate(['/globalsearchdetails'], { queryParams: { searchText: this.searchText} });

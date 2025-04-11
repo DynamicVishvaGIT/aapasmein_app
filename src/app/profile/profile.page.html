@@ -21,6 +21,10 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div>
     <div class="honeycomb-overlay"></div>
     <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
@@ -45,7 +49,7 @@
         </ion-row> -->
       </ion-grid>
     </div>
-    <div id="{{(search_id || (search_id==undefined && REQUEST_STATUS=='pending')) ? 'container1' : 'container'}}">
+    <div id="{{((search_id && currentUser.user_id!=search_user_details?.id) || (search_id==undefined && REQUEST_STATUS=='pending')) ? 'container1' : 'container'}}">
       <!-- <div class="honeycomb-overlay"></div> -->
       <ion-row>
         <ion-col size="12" style="text-align: center;">
@@ -91,7 +95,7 @@
       <ion-row>
         <ion-col >
           <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'">Send a message</ion-button>
-          <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="(search_id!=undefined && search_user_details?.REACHOUT=='no') || (search_id==undefined && REQUEST_STATUS=='pending')" (click)="showReachoutDialog()">Reach-out</ion-button>
+          <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="(search_id!=undefined && search_user_details?.REACHOUT=='no' && currentUser.user_id!=search_user_details?.id) || (search_id==undefined && REQUEST_STATUS=='pending')" (click)="showReachoutDialog()">Reach-out</ion-button>
         </ion-col>
         <!-- <ion-col size="6">
           <ion-button fill="outline" class="custom_button no-uppercase" (click)="add_advantage()">Add Advantage</ion-button>
@@ -126,7 +130,7 @@
       </ion-row>
     </div>
   </div>
-  <div class="ion-padding" [ngClass]="{'prof-margin1': search_id, 'prof-margin': !search_id}" *ngIf="(search_id==undefined && REQUEST_STATUS!='pending') || (search_id!=undefined && search_user_details?.REACHOUT=='yes')">
+  <div class="ion-padding" [ngClass]="{'prof-margin1': search_id, 'prof-margin': !search_id}" *ngIf="(search_id==undefined && REQUEST_STATUS!='pending') || (search_id!=undefined && search_user_details?.REACHOUT=='yes') || (search_id!=undefined && search_user_details?.REACHOUT=='no' && currentUser.user_id==search_user_details?.id)">
     <ion-grid>
       <!-- <ion-row>
         <ion-col size="6">
@@ -246,7 +250,7 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="info-row">
+      <!-- <ion-row class="info-row">
         <ion-col size="12" class="info-col">
           <ion-icon name="heart-outline" class="icon"></ion-icon>
           <div class="info-text">
@@ -254,7 +258,7 @@
             <span class="text1">{{search_id!=undefined?search_user_details?.INTEREST_NAME?search_user_details?.INTEREST_NAME:'No Data':user_details?.INTEREST_NAME?user_details?.INTEREST_NAME:'No Data'}}</span>
           </div>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
       <ion-row style="margin-left: -7px;" *ngIf="(currentUser.user_id==search_id || currentUser.user_id==user_details?.id || currentUser.user_id==sender_id)">
         <ion-col size="12">
           <ion-chip (click)="add_advantage()">

@@ -104,12 +104,15 @@ ion-tab-bar {
     }
   }
 
-  .menu-icon1{
-    color: #fff;
-    width: 100%;
-    aspect-ratio: 2.5 / 1.5;
-    object-fit: contain;
-  }
+.menu-icon1{
+  color: #fff;
+  width: 100%;
+  aspect-ratio: 2.5 / 1.5;
+  object-fit: contain;
+}
+.bottom_sheet{
+  color:#0657A8;
+}
 // .custom-fab{
 //     --background: #ff8730; /* Custom background color */
 //   --color: #fff; /* Custom icon color */

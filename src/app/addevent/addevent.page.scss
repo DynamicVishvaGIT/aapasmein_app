@@ -52,6 +52,11 @@ ion-content {
     border-style: dotted;
     text-align: center;
 }
+.mall-photo{
+    height: 118px;
+    width: 120px;
+    border-radius: 11px;
+}
 .icon-center {
     position: absolute;
     top: 0;
@@ -188,14 +193,13 @@ ion-select::part(select-text) {
 
 .close-button{
     position: relative;
-    // top: 257px;
-    top: -142px;
-    left: 46px;
-    //right: 278px;
+    top: -123px;
+    left: 47px;
     width: 20px;
     height: 20px;
     text-align: center;
     line-height: 30px;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
+    border-radius: 11px;
 }

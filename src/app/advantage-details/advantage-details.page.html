@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <!-- <div class="honeycomb-overlay"></div> -->
   <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
     <ion-grid>
@@ -9,9 +12,9 @@
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
           <strong class="header" style="color:white;">aapasmein Advantage</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -25,12 +28,14 @@
       </ion-row>
     </ion-grid>
   </div> -->
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
-  <div class="gap"  *ngIf="dataLoaded && advantage_list.length > 0">
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
+  <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" style="padding: 12px;" (ionInput)="filterList()" placeholder="Search Profession" (click)="hideFooter()"></ion-searchbar>
+  <div class="gap"  *ngIf="dataLoaded && filteredList.length > 0">
     <ion-grid>
-      <ion-row class="border-bottom" *ngFor="let data of advantage_list">
+      <ion-row class="border-bottom" *ngFor="let data of filteredList">
         <ion-col size="3">
-          <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img">
+          <img src="{{imageUrl}}{{data.USER__PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.USER__PROFILE_IMAGE">
+          <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.USER__PROFILE_IMAGE">
         </ion-col>
         <ion-col size="9">
           <span class="name-text">{{data.USER__NAME}}</span><br>
@@ -114,7 +119,7 @@
       </ion-row> -->
     </ion-grid>
   </div>
-  <div class="no-data" *ngIf="dataLoaded && advantage_list.length == 0">
+  <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
     <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
     <span class="no-data-text">No Data Found!</span>
   </div>

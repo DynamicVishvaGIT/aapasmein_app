@@ -33,6 +33,7 @@ export class RegistrationPage implements OnInit {
   mobile_no:string='';
   referral_code:string='';
   handshake_data:any;
+  sender_id:string='';
 
   constructor(private toastController: ToastController, private router:Router, private apiService: ApiService, private commonService: CommonService,
     private actionSheetController: ActionSheetController,private camera: Camera, private activatedRoute: ActivatedRoute) { 
@@ -43,7 +44,8 @@ export class RegistrationPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.mobile_no = params['mobile_no'];
       this.referral_code = params['referral_code'];
-      // console.log(this.user_details);
+      this.sender_id = params['sender_id'];
+      console.log(this.sender_id);
     });
     this.get_handshake();
     this.get_city();
@@ -226,11 +228,11 @@ export class RegistrationPage implements OnInit {
       return;
     }
     if(this.user.city == '') {
-      this.commonService.showToastMessage('Please enter city.', 'error-toast', 'top', 2000);
+      this.commonService.showToastMessage('Please select city.', 'error-toast', 'top', 2000);
       return;
     }
     if(this.user.location == '') {
-      this.commonService.showToastMessage('Please enter location.', 'error-toast', 'top', 2000);
+      this.commonService.showToastMessage('Please select location.', 'error-toast', 'top', 2000);
       return;
     }
     if(this.user.mobile_no == '') {
@@ -252,7 +254,7 @@ export class RegistrationPage implements OnInit {
       return;
     }
     if(this.user.profession == '') {
-      this.commonService.showToastMessage('Please enter Profession.', 'error-toast', 'top', 2000);
+      this.commonService.showToastMessage('Please select Profession.', 'error-toast', 'top', 2000);
       return;
     }
     if(this.user.specialization == '') {
@@ -282,6 +284,7 @@ export class RegistrationPage implements OnInit {
       formData.append('profile_img' , blob, this.selectedImage.name); 
     }
     formData.append('user_status','user');
+    formData.append('sender_id',this.sender_id);
     formData.append('apptype',this.apiService.apptype);
     this.apiService.add_user(formData)
     .pipe(takeUntil(this._unsubscribeAll))

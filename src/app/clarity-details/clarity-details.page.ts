@@ -42,6 +42,14 @@ export class ClarityDetailsPage implements OnInit {
     this.load_clarity();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_clarity();
+      event.target.complete();
+    }, 100);
+  }
+
   toggleContent(questionId: number) {
     // Check if the selected question is currently visible
     const isCurrentlyVisible = this.isContentVisible[questionId];

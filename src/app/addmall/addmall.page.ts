@@ -199,6 +199,7 @@ export class AddmallPage implements OnInit {
 
   dismiss() {
     this.modalCtrl.dismiss();
+    // this.router.navigate(['/aapasmein-mall']);
   }
 
 }

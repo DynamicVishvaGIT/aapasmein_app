@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { IonPopover, ModalController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
@@ -14,6 +14,8 @@ export class EditProfilePage implements OnInit {
 
   private _unsubscribeAll: Subject<any>;
 
+  @ViewChild('professionPopover') professionPopover!: IonPopover;
+
   currentUser:any;
   user_details:any;
   searchFlag = false;
@@ -26,6 +28,11 @@ export class EditProfilePage implements OnInit {
   get_specializations:any = [];
   get_interests:any = [];
 
+  selectedProfessionName = '';
+  searchTerm = '';
+  filteredProfessions :any[] = [];
+  isPopoverOpen = false;
+
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private modalCtrl: ModalController) { 
     this._unsubscribeAll = new Subject();
   }
@@ -36,7 +43,7 @@ export class EditProfilePage implements OnInit {
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
     this.get_city();
-    this.get_location();
+    // this.get_location();
     this.get_profession();
     this.get_specialization();
     // this.get_interest();
@@ -55,8 +62,8 @@ export class EditProfilePage implements OnInit {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }
-  get_location() {
-    this.apiService.get_location()
+  load_location() {
+    this.apiService.load_location(this.user.edit_city)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
@@ -73,11 +80,28 @@ export class EditProfilePage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_professions = response.data;
+      this.filteredProfessions = [...this.get_professions];
       // this.get_professions.unshift({id:'',NAME:'Select Profession'});
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterProfessions() {
+    this.filteredProfessions = this.get_professions.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  selectProfession(item: any) {console.log(item);
+    this.user.edit_profession = item.id;
+    this.selectedProfessionName = item.NAME;
+    this.isPopoverOpen = false;
+  }
+
+  openPopover(event: Event) {
+    this.isPopoverOpen = true;
   }
   get_specialization() {
     this.apiService.get_specialization()
@@ -112,11 +136,14 @@ export class EditProfilePage implements OnInit {
         this.user_details = response.user_data[0];
         this.user.edit_name = this.user_details.NAME;
         this.user.edit_city = this.user_details.CITY__id;
+        this.load_location();
         this.user.edit_location = this.user_details.LOCATION__id;
         this.user.edit_mobile_no = this.user_details.MOBILE_NO;
         this.user.edit_email_id = this.user_details.EMAIL_ID;
         this.user.edit_profession = this.user_details.PROFESSION__id;
-        this.user.edit_specialization = this.user_details.SPECIALIZATION__NAME;
+        this.selectedProfessionName = this.user_details.PROFESSION__NAME;
+        // this.user.edit_specialization = this.user_details.SPECIALIZATION__NAME;
+        this.user.edit_specialization = this.user_details.SPECIALIZATION;
         // if (typeof this.user_details.USER_INTEREST_ID === 'string') {
         //   this.user.edit_interest = this.user_details.USER_INTEREST_ID.split(',').map(Number);
         // }
@@ -133,11 +160,11 @@ export class EditProfilePage implements OnInit {
       return;
     }
     if (this.user.edit_city == '') {
-      this.commonService.showToastMessage('Please select city.', 'error-toast', 'top', 2000);
+      this.commonService.showToastMessage('Please select district.', 'error-toast', 'top', 2000);
       return;
     }
     if (this.user.edit_location == '') {
-      this.commonService.showToastMessage('Please select location.', 'error-toast', 'top', 2000);
+      this.commonService.showToastMessage('Please select city.', 'error-toast', 'top', 2000);
       return;
     }
     if (this.user.edit_mobile_no == '') {

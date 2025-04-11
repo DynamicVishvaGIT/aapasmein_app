@@ -53,6 +53,14 @@ export class SavedItemsListPage implements OnInit {
     this.load_saved_products();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_saved_products();
+      event.target.complete();
+    }, 100);
+  }
+
   async setSwiperInstance(swiper: Swiper) {
     if(swiper){
       setInterval(() => {
@@ -117,7 +125,12 @@ export class SavedItemsListPage implements OnInit {
   }
 
   goToMallDetails(data:any, route:string) {
-    this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
+    if(!data.is_sold){
+      this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
+    }
+    else{
+      this.commonService.showToastMessage('This deals has been sold-out.', 'error-toast','', 4000);
+    }
   }
 
   showSearch() {

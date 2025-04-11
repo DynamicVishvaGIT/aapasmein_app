@@ -43,6 +43,14 @@ export class AdvantageListPage implements OnInit {
     this.get_profession();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.get_profession();
+      event.target.complete();
+    }, 100);
+  }
+
   get_profession() {
     this.dataLoaded = false;
     this.commonService.presentLoading();

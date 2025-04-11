@@ -42,6 +42,14 @@ export class ConvenienceDetailsPage implements OnInit {
     this.load_convenience();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_convenience();
+      event.target.complete();
+    }, 100);
+  }
+
   load_convenience() {
     // let formData = new FormData();
     // formData.append("convenience_category_id",this.convenience_id),

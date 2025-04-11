@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, NavParams } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,7 +11,7 @@ import { NavigationService } from '../navigation.service';
   templateUrl: './otp-verification.page.html',
   styleUrls: ['./otp-verification.page.scss'],
 })
-export class OtpVerificationPage implements OnInit {
+export class OtpVerificationPage implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any>;
 
@@ -19,6 +19,12 @@ export class OtpVerificationPage implements OnInit {
   mobile_no:any;
   user_otp:string='';
   referral_code:string='';
+
+  timer: number = 30;
+  interval: any;
+  resendCount = 0;
+  maxResendLimit = 3;
+  isActive = true;
 
   constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService,
     private commonService: CommonService, private activatedRoute: ActivatedRoute, private navigationService: NavigationService) { 
@@ -35,6 +41,55 @@ export class OtpVerificationPage implements OnInit {
     // this.user_details = this.navParams.get('user_details');
     console.log(this.mobile_no);
     console.log(this.user_otp);
+    this.startCountdown();
+  }
+
+  startCountdown() {
+    this.timer = 30;
+    this.interval = setInterval(() => {
+      this.timer--;
+      if (this.timer === 0) {
+        clearInterval(this.interval);
+        if (this.isActive && this.resendCount < this.maxResendLimit){
+          this.resendOtp(); // 🔁 Auto call resend when countdown ends
+        }
+      }
+    }, 1000);
+  }
+
+  resendOtp() {
+    console.log('OTP resent automatically');
+    this.resendCount++;
+    // 👉 Call your resend OTP API here
+    this.resendOTP();
+    // Restart countdown
+    // Restart countdown only if within limit
+    if (this.resendCount < this.maxResendLimit && this.isActive) {
+      this.startCountdown();
+    }
+  }
+
+  ngOnDestroy() {
+    this.isActive = false; // 👈 stop any future resend logic
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  resendOTP() {
+    let formData = new FormData();
+    formData.append('mobile_no',this.mobile_no);
+    formData.append('apptype',this.apiService.apptype);
+    this.apiService.login(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.commonService.showToastMessage('The OTP is '+response.message, 'success-toast','', 4000);
+      this.user_otp = response.message;
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
   }
 
   onChangeOTP(otp:any) {
@@ -54,13 +109,14 @@ export class OtpVerificationPage implements OnInit {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
         console.log(response);
+        this.isActive = false; // 👈 stop any future resend logic
         if(response.existing==true){
           localStorage.setItem('currentUser',JSON.stringify(response.user_data));
           this.navigationService.justLoggedIn = true;
           this.router.navigate(['/dashboard']);
         }
         else{
-          this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:''} });
+          this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:'',sender_id: response.sender_id} });
         }
         // localStorage.setItem('currentUser',JSON.stringify(response.user_data));
         // this.commonService.setLoggedInUser(JSON.stringify(response.user_data));

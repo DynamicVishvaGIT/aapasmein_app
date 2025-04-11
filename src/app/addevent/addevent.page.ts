@@ -240,10 +240,10 @@ export class AddeventPage implements OnInit {
       return;
     }
     console.log(this.eventJson);
-    if (this.event_images.length== 0) {
-      this.commonService.showToastMessage('Please upload at least one product image.', 'error-toast', 'top', 2000);
-      return;
-    }
+    // if (this.event_images.length== 0) {
+    //   this.commonService.showToastMessage('Please upload at least one product image.', 'error-toast', 'top', 2000);
+    //   return;
+    // }
     if (this.eventJson.share_with == '') {
       this.commonService.showToastMessage('Please select share with.', 'error-toast', 'top', 2000);
       return;

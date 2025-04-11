@@ -182,7 +182,7 @@ ion-segment-button {
 .mall-card {
     // margin-top: -8px;
     // height: auto;
-    height: 282px;
+    height: 292px;
     margin-left: 0px;
     margin-right: 2px;
     border-radius:8px;
@@ -201,12 +201,19 @@ ion-segment-button {
 }
 
 .sold-badge-color{
-    background: green;
+    background: #42c142;
     height: 22px;
     --padding-end: 9px;
     --padding-start: 8px;
     --padding-top: 5px;
     margin-left: 30%;
+}
+
+.sold-wish-badge-color{
+    background: #42c142;
+    height: 20px;
+    --padding-end: 10px;
+    --padding-start: 8px;
 }
 
 .no-data {

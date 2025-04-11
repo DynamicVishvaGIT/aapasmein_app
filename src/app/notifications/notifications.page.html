@@ -1,4 +1,8 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="honeycomb-overlay"></div>
   <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
     <ion-grid>
@@ -21,42 +25,49 @@
   </div> -->
 
   <!-- Dynamic Activity Categories -->
-  <ng-container *ngFor="let category of categoryLabels">
-    <div class="gap" *ngIf="categorizedData[category.key]?.length">
-      <span style="color:#ffffff;font-size: medium;margin-top: 3px;font-weight: 500;">{{ category.label }}</span><br>
-    </div>
-
-    <ng-container *ngFor="let notification of categorizedData[category.key]">
-      <div class="gap1">
-        <ion-grid class="row-card1">
-          <ion-row style="margin-left: 10px;">
-            <ion-col size="1">
-              <div class="blue-dot"></div>
-            </ion-col>
-            <ion-col size="2">
-              <img src="{{imageURL}}{{notification.type=='accepted_convenience'?notification.image:notification.user_img}}" class="circle-img" *ngIf="notification.type=='accepted_convenience'?notification.image:notification.user_img">
-              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="notification.type=='accepted_convenience'?!notification.image:!notification.user_img">
-            </ion-col>
-            <ion-col size="9" style="margin-left: -30px;">
-              <span style="float:left;font-size: 14px;color:white;font-weight: 600;">{{ notification.type=='accepted_convenience'?notification.CONVENIENCE_NAME:notification.user_name}}</span>
-              <span style="float:right;margin-top: 4px;margin-right: -15px;font-size: x-small;color:white;">{{ notification.CREATED_DATE | date:'dd MMM yyyy hh:mm a'}}</span>
-              <br>
-              <span style="float:left;font-size: x-small;color:white;" *ngIf="notification.type!='accepted_convenience'">{{ notification.message}}</span>
-              <br><br>
-              <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.accept_text == 'Accepted'" >{{notification.accept_text}}</ion-badge>
-              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;"  *ngIf="notification.type=='accepted_convenience' && notification.reject_text == 'Rejected'">{{notification.reject_text}}</ion-badge>
-
-              <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'accept', category.key)">Accept</ion-badge>
-              <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;"  *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'reject', category.key)">Reject</ion-badge>
-              <!-- <ion-badge class="badge-color" mode="md">{{activity.request_type=='accepted_invitation'?'Invitation':(activity.request_type=='received_handshake_accepted_reject' || activity.request_type=='sent_handshake_accepted_reject')?'Handshake':(activity.request_type=='sent_reachout_accepted_rejected' || activity.request_type=='received_reachout_accepted_rejected')?'Reach Out':''}}</ion-badge> -->
-              <!-- <span style="float:left;font-size: x-small;color:#1568fa;" (click)="markAsRead(activity)">Mark as Read</span>
-              <span style="float:right;font-size: x-small;color:#1568fa;margin-right: 130px;" (click)="deleteNotification(activity)">Delete</span> -->
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+  <div *ngIf="dataLoaded && (categorizedData.today.length > 0 || categorizedData.yesterday.length > 0 || categorizedData.last7days.length > 0 || categorizedData.older.length > 0)">
+    <ng-container *ngFor="let category of categoryLabels">
+      <div class="gap" *ngIf="categorizedData[category.key]?.length">
+        <span style="color:#ffffff;font-size: medium;margin-top: 3px;font-weight: 500;">{{ category.label }}</span><br>
       </div>
+
+      <ng-container *ngFor="let notification of categorizedData[category.key]">
+        <div class="gap1">
+          <ion-grid class="row-card1">
+            <ion-row style="margin-left: 10px;">
+              <ion-col size="1">
+                <div class="blue-dot"></div>
+              </ion-col>
+              <ion-col size="2">
+                <img src="{{imageURL}}{{notification.type=='accepted_convenience'?notification.image:notification.user_img}}" class="circle-img" *ngIf="notification.type=='accepted_convenience'?notification.image:notification.user_img">
+                <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="notification.type=='accepted_convenience'?!notification.image:!notification.user_img">
+              </ion-col>
+              <ion-col size="9" style="margin-left: -30px;">
+                <span style="float:left;font-size: 14px;color:white;font-weight: 600;">{{ notification.type=='accepted_convenience'?notification.CONVENIENCE_NAME:notification.user_name}}</span>
+                <span style="float:right;margin-top: 4px;margin-right: -15px;font-size: x-small;color:white;">{{ notification.CREATED_DATE | date:'dd MMM yyyy hh:mm a'}}</span>
+                <br>
+                <span style="float:left;font-size: x-small;color:white;" *ngIf="notification.type!='accepted_convenience'">{{ notification.message}}</span>
+                <span style="float:left;font-size: x-small;color:white;" *ngIf="notification.type=='accepted_convenience'">{{notification.CONVENIENCE_NAME}} has accepted your convenience request. Please take an appropriate decision.</span>
+                <br><br>
+                <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.accept_text == 'Accepted'" >{{notification.accept_text}}</ion-badge>
+                <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;"  *ngIf="notification.type=='accepted_convenience' && notification.reject_text == 'Rejected'">{{notification.reject_text}}</ion-badge>
+
+                <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'accept', category.key)">Accept</ion-badge>
+                <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;"  *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'reject', category.key)">Reject</ion-badge>
+                <!-- <ion-badge class="badge-color" mode="md">{{activity.request_type=='accepted_invitation'?'Invitation':(activity.request_type=='received_handshake_accepted_reject' || activity.request_type=='sent_handshake_accepted_reject')?'Handshake':(activity.request_type=='sent_reachout_accepted_rejected' || activity.request_type=='received_reachout_accepted_rejected')?'Reach Out':''}}</ion-badge> -->
+                <!-- <span style="float:left;font-size: x-small;color:#1568fa;" (click)="markAsRead(activity)">Mark as Read</span>
+                <span style="float:right;font-size: x-small;color:#1568fa;margin-right: 130px;" (click)="deleteNotification(activity)">Delete</span> -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
+  <div class="no-data" *ngIf="dataLoaded && categorizedData.today.length == 0 && categorizedData.yesterday.length == 0 && categorizedData.last7days.length == 0 && categorizedData.older.length == 0">
+    <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+    <span class="no-data-text">No Notification Data</span>
+  </div>
 
   <br><br>
 </ion-content>

@@ -35,7 +35,7 @@
       <div class="gap" *ngSwitchCase="'myproduct'">
         <ion-grid *ngIf="mallDataLoaded && filteredList.length > 0">
           <ion-row>
-            <ion-col size="6" *ngFor="let data of filteredList;" (click)="goToMallDetails(data,'mymall')">
+            <ion-col size="6" *ngFor="let data of filteredList;" (click)="goToMallDetails(data,'mymall','myproduct')">
               <ion-card class="mall-card">
                 <ion-card-header> 
                   <ion-card-title>
@@ -109,7 +109,7 @@
       <div class="gap" *ngSwitchCase="'mywishlist'">
         <ion-grid *ngIf="wishListDataLoaded && filteredWishList.length > 0">
           <ion-row>
-            <ion-col size="6" *ngFor="let data of filteredWishList;" (click)="goToMallDetails(data,'mymall')">
+            <ion-col size="6" *ngFor="let data of filteredWishList;" (click)="goToMallDetails(data,'mymall','mywishlist')">
               <ion-card class="mall-card">
                 <ion-card-header> 
                   <ion-card-title>
@@ -132,6 +132,9 @@
                     </ion-col>
                     <ion-col>
                       <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                    </ion-col>
+                    <ion-col style="text-align: center;" *ngIf="data.is_sold">
+                      <ion-badge class="sold-wish-badge-color" mode="ios">Sold</ion-badge>
                     </ion-col>
                   </ion-row>
                 </ion-card-content>

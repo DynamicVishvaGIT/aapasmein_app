@@ -43,6 +43,14 @@ export class CommunityChatboxPage implements OnInit {
     this.load_Community_messages();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_Community_messages();
+      event.target.complete();
+    }, 100);
+  }
+
   load_Community_messages() {
     let formData = new FormData();
     formData.append('community_id',this.community_id);

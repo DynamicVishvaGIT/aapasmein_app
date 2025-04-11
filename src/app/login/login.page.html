@@ -11,8 +11,8 @@
           <div class="login-input-container">
             <ion-label class="login-input-label">Phone Number</ion-label>
             <div class="login-input-group">
-              <app-flag-option></app-flag-option>
-              <ion-input class="login-input-box" type="number" [(ngModel)]="user.mobile_no"></ion-input>
+              <!-- <app-flag-option></app-flag-option> -->
+              <ion-input class="login-input-box" type="text" inputmode="numeric" maxLength="10" [(ngModel)]="user.mobile_no"></ion-input>
               <!-- <ion-icon name="checkmark-circle" style="float:right;color: #00b81e;font-size: xx-large;margin-right: 7px;" *ngIf="invite_code!=''"></ion-icon> -->
             </div>
             <div class="login-input-group" style="margin-top:10px;" *ngIf="referralFlag">

@@ -19,6 +19,9 @@ export class AdvantageDetailsPage implements OnInit {
   profession_id:string='';
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
   dataLoaded: boolean = false;
+  isFooterVisible: boolean = true;
+  filteredList: any[] = [];
+  searchQuery: string = '';
   // advantage_list=[{name:'Prasenjit Chanda', occupation:'Developer', image:'../../../assets/Prasenjit_Chanda.png'},
   //                     {name:'Mamta Dalvi', occupation:'Tester', image:'../../../assets/avtar6.avif'},
   //                     {name:'Akash Tupsaminder', occupation:'Developer', image:'../../../assets/avtar3.png'},
@@ -52,6 +55,14 @@ export class AdvantageDetailsPage implements OnInit {
     this.load_advantage();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_advantage();
+      event.target.complete();
+    }, 100);
+  }
+
   load_advantage() {
     this.dataLoaded = false;
     this.commonService.presentLoading();
@@ -63,6 +74,8 @@ export class AdvantageDetailsPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.advantage_list = response.data;
+      this.filteredList = [...this.advantage_list]; // Initialize filtered list
+      this.isFooterVisible = true;
       this.dataLoaded = true;
       this.commonService.dismissLoading();
     },
@@ -71,6 +84,23 @@ export class AdvantageDetailsPage implements OnInit {
       this.commonService.dismissLoading();
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterList() {
+    const query = this.searchQuery.toLowerCase();
+    if (query.trim() === '') {
+      this.filteredList = [...this.advantage_list]; // Reset when search is empty
+      this.isFooterVisible = true;
+    } else {
+      this.filteredList = this.advantage_list.filter((item:any) => 
+        item.USER__NAME.toLowerCase().includes(query)
+      );
+      this.isFooterVisible = true;
+    }
+  }
+
+  hideFooter() {
+    this.isFooterVisible = false;
   }
 
   showSearch() {

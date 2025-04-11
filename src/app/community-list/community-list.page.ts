@@ -37,6 +37,14 @@ export class CommunityListPage implements OnInit {
     this.load_Community();
   }
 
+  doRefresh(event:any){
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.load_Community();
+      event.target.complete();
+    }, 100);
+  }
+
   load_Community() {
     this.commonService.presentLoading();
     // let formData = new FormData();

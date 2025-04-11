@@ -1151,6 +1151,11 @@ export class LoginPage implements OnInit {
       this.commonService.showToastMessage('Please enter mobile number.', 'error-toast', 'top', 2000);
       return;
     }
+    let mpattern = /(^\d{10}$)/;
+    if (!mpattern.test(this.user.mobile_no)) {
+      this.commonService.showToastMessage('Please enter phone number in correct format.', 'error-toast', 'top', 2000);
+      return;
+    }
     let formData = new FormData();
     formData.append('mobile_no',this.user.mobile_no);
     formData.append('apptype',this.apiService.apptype);
