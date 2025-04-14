@@ -22,6 +22,7 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
 
   timer: number = 30;
   interval: any;
+  canResend: boolean = false; // 👈 controls when button shows
   resendCount = 0;
   maxResendLimit = 3;
   isActive = true;
@@ -46,28 +47,49 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
 
   startCountdown() {
     this.timer = 30;
+    this.canResend = false; // hide the link
     this.interval = setInterval(() => {
       this.timer--;
       if (this.timer === 0) {
         clearInterval(this.interval);
-        if (this.isActive && this.resendCount < this.maxResendLimit){
-          this.resendOtp(); // 🔁 Auto call resend when countdown ends
-        }
+        this.canResend = true; // 👈 show "Resend OTP" link
       }
     }, 1000);
   }
-
-  resendOtp() {
-    console.log('OTP resent automatically');
+  
+  onClickResend() {
+    if (!this.canResend || this.resendCount >= this.maxResendLimit) return;
+  
     this.resendCount++;
-    // 👉 Call your resend OTP API here
-    this.resendOTP();
-    // Restart countdown
-    // Restart countdown only if within limit
-    if (this.resendCount < this.maxResendLimit && this.isActive) {
-      this.startCountdown();
-    }
+    this.canResend = false; // Hide the link while waiting
+    this.resendOTP(); // Call API
+    this.startCountdown(); // Restart timer
   }
+
+  // startCountdown() {
+  //   this.timer = 30;
+  //   this.interval = setInterval(() => {
+  //     this.timer--;
+  //     if (this.timer === 0) {
+  //       clearInterval(this.interval);
+  //       if (this.isActive && this.resendCount < this.maxResendLimit){
+  //         this.resendOtp(); // 🔁 Auto call resend when countdown ends
+  //       }
+  //     }
+  //   }, 1000);
+  // }
+
+  // resendOtp() {
+  //   console.log('OTP resent automatically');
+  //   this.resendCount++;
+  //   // 👉 Call your resend OTP API here
+  //   this.resendOTP();
+  //   // Restart countdown
+  //   // Restart countdown only if within limit
+  //   if (this.resendCount < this.maxResendLimit && this.isActive) {
+  //     this.startCountdown();
+  //   }
+  // }
 
   ngOnDestroy() {
     this.isActive = false; // 👈 stop any future resend logic

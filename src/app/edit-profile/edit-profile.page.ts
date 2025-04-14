@@ -20,7 +20,7 @@ export class EditProfilePage implements OnInit {
   user_details:any;
   searchFlag = false;
   // user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:'',edit_interest:''};
-  user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:''};
+  user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:'', edit_interest:''};
   inputFocused: boolean = false;
   get_cities:any = [];
   get_locations:any = [];
@@ -46,7 +46,7 @@ export class EditProfilePage implements OnInit {
     // this.get_location();
     this.get_profession();
     this.get_specialization();
-    // this.get_interest();
+    this.get_interest();
     this.get_user_details();
   }
 
@@ -144,9 +144,9 @@ export class EditProfilePage implements OnInit {
         this.selectedProfessionName = this.user_details.PROFESSION__NAME;
         // this.user.edit_specialization = this.user_details.SPECIALIZATION__NAME;
         this.user.edit_specialization = this.user_details.SPECIALIZATION;
-        // if (typeof this.user_details.USER_INTEREST_ID === 'string') {
-        //   this.user.edit_interest = this.user_details.USER_INTEREST_ID.split(',').map(Number);
-        // }
+        if (typeof this.user_details.USER_INTEREST_ID === 'string') {
+          this.user.edit_interest = this.user_details.USER_INTEREST_ID.split(',').map(Number);
+        }
 
       },
       respError => {
@@ -202,9 +202,9 @@ export class EditProfilePage implements OnInit {
     formData.append("edit_profession",this.user.edit_profession),
     formData.append("edit_specialization",this.user.edit_specialization),
     formData.append("type",'edit_details')
-    // for(let i=0;i<this.user.edit_interest.length;i++){
-    //   formData.append('edit_interest' , this.user.edit_interest[i]); 
-    // }
+    for(let i=0;i<this.user.edit_interest.length;i++){
+      formData.append('edit_interest' , this.user.edit_interest[i]); 
+    }
     // formData.append("edit_interest",this.user.edit_interest),
     this.apiService.edit_user(this.currentUser.user_id, formData)
     .pipe(takeUntil(this._unsubscribeAll))

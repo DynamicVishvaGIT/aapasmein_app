@@ -38,7 +38,11 @@
       }
     }">
     </ng-otp-input>
-    <p class="resend_otp"><span style="color:white;font-size: smaller;" *ngIf="timer > 0">Resend OTP in {{timer}}s...</span></p>
+    <p class="resend_otp">
+      <span style="color:white;font-size: smaller;" *ngIf="timer > 0">Resend OTP in {{timer}}s...</span>
+      <span *ngIf="timer === 0 && canResend" (click)="onClickResend()" style="text-decoration: underline; cursor: pointer;color: #FFD700;font-size: smaller;">Resend OTP</span>
+      <!-- <span style="color:white;font-size: smaller;" *ngIf="timer > 0">Resend OTP in {{timer}}s...</span> -->
+    </p>
   </div>
 </ion-content>
 <ion-footer class="ion-no-border" style="padding: 10px;background: #071947;">

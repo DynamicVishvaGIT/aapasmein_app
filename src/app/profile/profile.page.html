@@ -243,14 +243,14 @@
       </ion-row>
       <ion-row class="info-row">
         <ion-col size="12" class="info-col">
-          <ion-icon name="card-outline" class="icon" ></ion-icon>
+          <ion-icon name="medal-outline" class="icon" ></ion-icon>
           <div class="info-text">
             <span class="text">Specialization</span>
             <span class="text1">{{search_id!=undefined?search_user_details?.SPECIALIZATION__NAME?search_user_details?.SPECIALIZATION__NAME:'No Data':user_details?.SPECIALIZATION}}</span>
           </div>
         </ion-col>
       </ion-row>
-      <!-- <ion-row class="info-row">
+      <ion-row class="info-row">
         <ion-col size="12" class="info-col">
           <ion-icon name="heart-outline" class="icon"></ion-icon>
           <div class="info-text">
@@ -258,7 +258,7 @@
             <span class="text1">{{search_id!=undefined?search_user_details?.INTEREST_NAME?search_user_details?.INTEREST_NAME:'No Data':user_details?.INTEREST_NAME?user_details?.INTEREST_NAME:'No Data'}}</span>
           </div>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
       <ion-row style="margin-left: -7px;" *ngIf="(currentUser.user_id==search_id || currentUser.user_id==user_details?.id || currentUser.user_id==sender_id)">
         <ion-col size="12">
           <ion-chip (click)="add_advantage()">

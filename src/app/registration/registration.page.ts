@@ -17,7 +17,7 @@ export class RegistrationPage implements OnInit {
 
   @ViewChild('professionPopover') professionPopover!: IonPopover;
 
-  user:any={name:'',city:'', location:'',mobile_no:'',email_id:'',profession:'',specialization:''};
+  user:any={name:'',city:'', location:'',mobile_no:'',email_id:'',profession:'',specialization:'', interest:''};
   get_cities:any = [];
   get_locations:any = [];
   get_professions:any = [];
@@ -261,10 +261,10 @@ export class RegistrationPage implements OnInit {
       this.commonService.showToastMessage('Please enter specialization.', 'error-toast', 'top', 2000);
       return;
     }
-    // if(this.user.interest == '') {
-    //   this.commonService.showToastMessage('Please enter interest.', 'error-toast', 'top', 2000);
-    //   return;
-    // }
+    if(this.user.interest == '') {
+      this.commonService.showToastMessage('Please enter interest.', 'error-toast', 'top', 2000);
+      return;
+    }
     // console.log(this.user.interest);
     let formData = new FormData();
     formData.append('name',this.user.name);
@@ -275,6 +275,9 @@ export class RegistrationPage implements OnInit {
     formData.append('profession',this.user.profession);
     formData.append('specialization',this.user.specialization);
     // formData.append('interest',this.user.interest);
+    for(let i=0;i<this.user.interest.length;i++){
+      formData.append('interest' , this.user.interest[i]); 
+    }
     let response = await fetch(this.selectedImage.data);
     let blob = await response.blob();
     if(this.selectedImage.name==''){
