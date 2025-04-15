@@ -76,6 +76,7 @@ export class ConnectionListPage implements OnInit {
 
   goToProfileDetails(search_id:string, mobile_no:string) {
     // this.modalCtrl.dismiss();
+    this.commonService.currentPage = '/connection-list';
     this.router.navigate(['/profile'], { queryParams: { search_id: search_id, routeURL:'connections', searchText: this.searchText, mobile_no: mobile_no} });
   }
 

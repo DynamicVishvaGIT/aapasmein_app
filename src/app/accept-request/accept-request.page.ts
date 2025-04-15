@@ -197,6 +197,7 @@ export class AcceptRequestPage implements OnInit {
   }
 
   goToProfile(data:any) {console.log(data);
+    this.commonService.currentPage = '/accept-request';
     this.router.navigate(['/profile'], { queryParams: { routeURL: 'acceptrequest', sender_id: data.id, segment_type: this.info } });
   }
 

@@ -240,6 +240,7 @@ export class ProfilePage implements OnInit {
       return await modal.present();
     }
     else{
+      this.commonService.currentPage = '/accept-request';
       this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'profile', sender_id: this.sender_id } });
     }
   }
@@ -311,7 +312,8 @@ export class ProfilePage implements OnInit {
       sourceType: sourceType,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true   // ✅ Add this line
     };
 
     this.camera.getPicture(options).then((imageData) => {

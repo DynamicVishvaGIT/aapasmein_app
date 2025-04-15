@@ -58,12 +58,22 @@ export class AppComponent {
         if ((currentUrl === '/dashboard' && !this.commonService.currentPage.includes('/more-details')) || currentUrl === '/login-agreement') {
           (navigator as any).app.exitApp();
         } 
-        else if (currentUrl === '/feedback-modal' || (currentUrl === '/request-send' && !this.commonService.currentPage.includes('/mall-details')) || currentUrl === '/convenience-details' || (currentUrl === '/event-details' && !this.commonService.currentPage.includes('/event-details'))) {
+        else if (currentUrl === '/feedback-modal' || (currentUrl === '/request-send' && !this.commonService.currentPage.includes('/mall-details')) || (currentUrl === '/convenience-details' && !this.commonService.currentPage.includes('/convenience-details')) || (currentUrl === '/event-details' && !this.commonService.currentPage.includes('/event-details') || (currentUrl === '/profile' && this.commonService.currentPage.includes('/profile')) )) {
           this.router.navigate(['/dashboard']); // Navigate back to dashboard instead of exiting
         } 
-        else if(this.commonService.currentPage.includes('/add-mall') || this.commonService.currentPage.includes('/more-details') || this.commonService.currentPage.includes('/connection') || this.commonService.currentPage.includes('/edit-profile') || this.commonService.currentPage.includes('/setting-modal') || this.commonService.currentPage.includes('/add-rate')){
+        else if(this.commonService.currentPage.includes('/add-mall') || this.commonService.currentPage.includes('/add-event') || this.commonService.currentPage.includes('/more-details') || this.commonService.currentPage.includes('/connection') || this.commonService.currentPage.includes('/edit-profile') || this.commonService.currentPage.includes('/setting-modal') || this.commonService.currentPage.includes('/add-rate')){
           this.modalCtrl.dismiss();
         }
+        else if((currentUrl === '/profile' && this.commonService.currentPage.includes('/accept-request'))){
+          this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'profile' } });
+        }
+        else if((currentUrl === '/accept-request' && this.commonService.currentPage.includes('/accept-request'))){
+          this.commonService.currentPage = '/profile';
+          this.router.navigate(['/profile']);
+        }
+        // else if((currentUrl === '/profile' && this.commonService.currentPage.includes('/connection-list'))){
+        //   this.router.navigate(['/connection-list']);
+        // }
         else {
           this.navCtrl.pop();
         }

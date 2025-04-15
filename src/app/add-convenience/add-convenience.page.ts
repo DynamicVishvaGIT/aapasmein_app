@@ -149,7 +149,8 @@ export class AddConveniencePage implements OnInit {
       sourceType: sourceType,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true   // ✅ Add this line
     };
 
     this.camera.getPicture(options).then((imageData) => {
@@ -178,6 +179,11 @@ export class AddConveniencePage implements OnInit {
     }
     if (this.convenienceJson.mobile_no == '') {
       this.commonService.showToastMessage('Please enter mobile number.', 'error-toast', 'top', 2000);
+      return;
+    }
+    let mpattern = /(^\d{10}$)/;
+    if (!mpattern.test(this.convenienceJson.mobile_no)) {
+      this.commonService.showToastMessage('Please enter phone number in correct format.', 'error-toast', 'top', 2000);
       return;
     }
     if (this.convenienceJson.location == '') {

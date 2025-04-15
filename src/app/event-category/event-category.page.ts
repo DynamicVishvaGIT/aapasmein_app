@@ -264,6 +264,7 @@ export class EventCategoryPage implements OnInit {
   }
 
   async addEvent() {
+    this.commonService.currentPage = '/add-event';
     let modal = await this.modalCtrl.create({ component: AddeventPage});
     modal.onDidDismiss().then((modalItem) => {
       if (modalItem) {

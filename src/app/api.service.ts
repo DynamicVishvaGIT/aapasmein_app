@@ -136,6 +136,16 @@ export class ApiService {
     )
   }
 
+  clear_recent_search(login_id:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('login_id', login_id);
+    return this.httpClient.get(this.baseUrl + 'clear_recent_search?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   get_city() {
     return this.httpClient.get(this.baseUrl + 'load_city')
     .pipe(

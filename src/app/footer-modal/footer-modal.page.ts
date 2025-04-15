@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FeedbackModalPage } from '../feedback-modal/feedback-modal.page';
+import { CommonService } from '../common.service';
 
 @Component({
   selector: 'app-footer-modal',
@@ -10,7 +11,7 @@ import { FeedbackModalPage } from '../feedback-modal/feedback-modal.page';
 })
 export class FooterModalPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private router: Router) { }
+  constructor(private modalCtrl: ModalController, private router: Router, private commonService: CommonService) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,7 @@ export class FooterModalPage implements OnInit {
 
   goToProfile() {
     this.closeModal();
+    this.commonService.currentPage = '/profile';
     this.router.navigate(['/profile']);
   }
 

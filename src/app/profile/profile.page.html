@@ -130,7 +130,7 @@
       </ion-row>
     </div>
   </div>
-  <div class="ion-padding" [ngClass]="{'prof-margin1': search_id, 'prof-margin': !search_id}" *ngIf="(search_id==undefined && REQUEST_STATUS!='pending') || (search_id!=undefined && search_user_details?.REACHOUT=='yes') || (search_id!=undefined && search_user_details?.REACHOUT=='no' && currentUser.user_id==search_user_details?.id)">
+  <div class="ion-padding" [ngClass]="{'prof-margin1': search_id, 'prof-margin': !search_id}" *ngIf="(search_id==undefined && REQUEST_STATUS!='pending') || (search_id!=undefined && (search_user_details?.REACHOUT=='yes' || search_user_details?.HANDSHAKE=='yes')) || (search_id!=undefined && search_user_details?.REACHOUT=='no' && currentUser.user_id==search_user_details?.id)">
     <ion-grid>
       <!-- <ion-row>
         <ion-col size="6">

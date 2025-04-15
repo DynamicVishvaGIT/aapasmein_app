@@ -65,7 +65,23 @@ export class GlobalsearchPage implements OnInit {
     .subscribe((response:any) => {
         console.log('All Data',response);
         this.recent_search = response.data;
+        // this.commonService.dismissLoading();
+      },
+      respError => {
         this.commonService.dismissLoading();
+        this.commonService.showToastMessage(respError, 'error-toast','', 2000);
+      })
+  }
+
+  clear_recent_search() {
+    // this.recent_search = [];
+    // this.commonService.presentLoading();
+    this.apiService.clear_recent_search(this.currentUser.user_id)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log('All Data',response);
+        this.recent_search = [];
+        // this.commonService.dismissLoading();
       },
       respError => {
         this.commonService.dismissLoading();

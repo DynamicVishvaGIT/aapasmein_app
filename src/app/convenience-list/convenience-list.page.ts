@@ -119,6 +119,7 @@ export class ConvenienceListPage implements OnInit {
   }
 
   viewConvenienceDetails(data:any) {
+    this.commonService.currentPage = '/convenience-details';
     this.router.navigate(['/convenience-details'], { queryParams: { url: 'list', type: data.NAME, convenience_id: data.id} });
   }
 

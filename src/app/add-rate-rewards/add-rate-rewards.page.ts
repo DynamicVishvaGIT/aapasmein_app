@@ -105,7 +105,7 @@ export class AddRateRewardsPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.disabled = false;
-      this.commonService.showToastMessage('You have rated successfully.', 'error-toast','', 4000);
+      this.commonService.showToastMessage('You have rated successfully.', 'success-toast','', 4000);
       this.closeModal();
     },
     respError => {

@@ -102,7 +102,7 @@ export class AddmallPage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      // correctOrientation: true   // ✅ Add this line
+      correctOrientation: true   // ✅ Add this line
     };
 
     this.camera.getPicture(options).then((imageData) => {
