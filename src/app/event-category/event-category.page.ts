@@ -270,6 +270,7 @@ export class EventCategoryPage implements OnInit {
       if (modalItem) {
         this.load_events();
       }
+      this.commonService.currentPage = '/event-category';
     })
     return await modal.present();
   }
