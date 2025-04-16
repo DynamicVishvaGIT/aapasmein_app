@@ -144,9 +144,11 @@ export class EditProfilePage implements OnInit {
         this.selectedProfessionName = this.user_details.PROFESSION__NAME;
         // this.user.edit_specialization = this.user_details.SPECIALIZATION__NAME;
         this.user.edit_specialization = this.user_details.SPECIALIZATION;
-        if (typeof this.user_details.USER_INTEREST_ID === 'string') {
-          this.user.edit_interest = this.user_details.USER_INTEREST_ID.split(',').map(Number);
-        }
+        // this.user.edit_interest = this.user_details.INTEREST_NAME;
+        this.user.edit_interest = this.user_details.INTEREST_NAME.split(',').map((interest:any) => interest.trim());
+        // if (typeof this.user_details.INTEREST_NAME === 'string') {
+        //   this.user.edit_interest = this.user_details.INTEREST_NAME.split(',').map(Number);
+        // }
 
       },
       respError => {

@@ -29,6 +29,7 @@ export class RequestSendPage implements OnInit {
   bookmarkFlag:boolean = false;
   productListStatus = '';
   sold_unsold_text:string='';
+  enquiryFlag:boolean=false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService, private commonService: CommonService,
     private alertCtrl: AlertController, private modalCtrl: ModalController) { 
@@ -66,6 +67,7 @@ export class RequestSendPage implements OnInit {
     .subscribe((response:any) => {
         console.log(response);
         this.mall_data = response.data.Mall_products[0];
+        this.enquiryFlag = response.data.enquiry;
         this.mall_data_images = response.data.Product_images;
         this.wishListStatus= response.data.wishlist_product_status;
         if(this.mall_data.IS_SOLD==true){
@@ -267,6 +269,53 @@ export class RequestSendPage implements OnInit {
 
   showSearch() {
     this.searchFlag = !this.searchFlag;
+  }
+
+  async showEnquiryDialog() {
+    const confirm = await this.alertCtrl.create({
+      // header: 'Delete Scheme',
+      cssClass: 'custom-alert',
+      message: 'Are you sure you want to send an enquiry? Your mobile number will be shared with the seller after confirmation. ',
+      buttons: [
+        {
+          text: 'No',
+          cssClass: 'no-button',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          cssClass: 'yes-button',
+          handler: () => {
+            this.add_user_enquiry();
+          }
+        }
+      ]
+    });
+   await  confirm.present();
+  }
+
+  add_user_enquiry() {
+    let formData = new FormData();
+    formData.append("product_id",this.product_id),
+    formData.append("user_id",this.currentUser.user_id),
+    this.apiService.add_user_enquiry(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+        console.log(response);
+        if(response.message=='Details Shared'){
+          this.enquiryFlag = true;
+        }
+      },
+      respError => {
+        this.commonService.dismissLoading();
+        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+      })
+  }
+
+  go_to_contacted_list() {
+    this.router.navigate(['/enquiry-user-list'], { queryParams: { product_id: this.product_id, routeURL: 'malllist'} });
   }
 
   // goToReport() {

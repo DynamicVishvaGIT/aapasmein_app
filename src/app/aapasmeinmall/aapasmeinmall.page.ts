@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import Swiper, { SwiperOptions } from 'swiper';
 import { AddmallPage } from '../addmall/addmall.page';
@@ -36,7 +36,8 @@ export class AapasmeinmallPage implements OnInit {
   isFooterVisible: boolean = true;
   dataLoaded:boolean = false;
 
-  constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService, private commonService: CommonService, private activatedRoute: ActivatedRoute) { 
+  constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService, private commonService: CommonService,
+     private activatedRoute: ActivatedRoute, private alertCtrl: AlertController) { 
     this._unsubscribeAll = new Subject();
   }
 

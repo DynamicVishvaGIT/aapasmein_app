@@ -35,7 +35,7 @@
       <div class="gap" *ngSwitchCase="'myproduct'">
         <ion-grid *ngIf="mallDataLoaded && filteredList.length > 0">
           <ion-row>
-            <ion-col size="6" *ngFor="let data of filteredList;" (click)="goToMallDetails(data,'mymall','myproduct')">
+            <ion-col size="6" *ngFor="let data of filteredList;" >
               <ion-card class="mall-card">
                 <ion-card-header> 
                   <ion-card-title>
@@ -46,7 +46,7 @@
                       </ng-template>
                     </swiper>
                   </ion-card-title>
-                  <span style="color:black;font-size: medium;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
+                  <span style="color:black;font-size: 15px;margin-top: 3px;font-weight: 500;">{{data.product_name.substring(0,15)}}<span *ngIf="data.product_name.length>=15">...</span></span><br>
                 </ion-card-header>
                 <ion-card-content style="margin-top: -28px;">
                   <span style="float:left;font-size: smaller;">{{data.description.substring(0,18)}}<span *ngIf="data.description.length>=18">...</span></span><br>
@@ -57,11 +57,14 @@
                       <span style="float:left;font-size: x-small;color:#37b630;margin-left: -5px;">Rs.{{data.price}}/-</span><!--₹-->
                     </ion-col>
                     <ion-col>
-                      <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
+                      <ion-badge class="badge-color" mode="ios" (click)="goToMallDetails(data,'mymall','myproduct')"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
                     </ion-col>
                   </ion-row>
                   <ion-row>
                     <ion-badge class="sold-badge-color" mode="ios" *ngIf="data.is_sold">SOLD</ion-badge>
+                  </ion-row>
+                  <ion-row>
+                    <ion-badge class="contacted-badge" mode="ios" (click)="go_to_contacted_list(data.id)">List of Enquiries</ion-badge>
                   </ion-row>
                 </ion-card-content>
               </ion-card>

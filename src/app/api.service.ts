@@ -246,6 +246,22 @@ export class ApiService {
     )
   }
 
+  get_enquiry_user_details(id:string) {
+    return this.httpClient.get(this.baseUrl + 'get_enquiry_user_details/'+id)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  add_user_enquiry(product: any) {
+    return this.httpClient.post(this.baseUrl + 'add_user_enquiry', product)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   sold_delete_mall_products(product: any) {
     return this.httpClient.post(this.baseUrl + 'sold_delete_mall_products', product)
     .pipe(

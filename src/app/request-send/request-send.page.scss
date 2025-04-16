@@ -71,6 +71,15 @@ ion-content {
     color: #ffffff;
     font-weight: 500;
 }
+.contacted-badge{
+    background: violet;
+    height: 22px;
+    --padding-end: 9px;
+    --padding-start: 8px;
+    --padding-top: 5px;
+    margin-top: 6px;
+    font-size: smaller;
+}
 .border-bottom {
     border-bottom: 1px solid white;
     margin-top: 6px;

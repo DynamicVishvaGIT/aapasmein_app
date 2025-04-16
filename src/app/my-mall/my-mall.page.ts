@@ -130,6 +130,10 @@ export class MyMallPage implements OnInit {
     }
   }
 
+  go_to_contacted_list(product_id:string) {
+    this.router.navigate(['/enquiry-user-list'], { queryParams: { product_id: product_id, routeURL: 'mymall'} });
+  }
+
   hideFooter() {
     this.isFooterVisible = false;
   }

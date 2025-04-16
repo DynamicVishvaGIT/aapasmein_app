@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 import { CommonService } from './common.service';
 
@@ -53,37 +53,187 @@ export class AppComponent {
       this.router.navigateByUrl('login-agreement');
     }
     this.platform.ready().then(() => {
+      // Track current base route (without query params)
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          this.commonService.currentPage = event.urlAfterRedirects.split('?')[0];
+        }
+      });
+    
       this.platform.backButton.subscribeWithPriority(9999, () => {
-        const currentUrl = this.router.url.split('?')[0]; // Remove query parameters
-        if ((currentUrl === '/dashboard' && !this.commonService.currentPage.includes('/more-details')) || currentUrl === '/login-agreement') {
+        const currentUrlWithQuery = this.router.url;
+        const currentUrl = currentUrlWithQuery.split('?')[0]; // base route
+        const prevUrl = this.commonService.currentPage;
+    
+        // ✅ Exit app from globalsearch
+        if (currentUrl === '/dashboard' || currentUrl === '/login-agreement') {
           (navigator as any).app.exitApp();
-        } 
-        else if (currentUrl === '/feedback-modal' || (currentUrl === '/request-send' && !this.commonService.currentPage.includes('/mall-details')) || (currentUrl === '/convenience-details' && !this.commonService.currentPage.includes('/convenience-details')) || (currentUrl === '/event-details' && !this.commonService.currentPage.includes('/event-details') || (currentUrl === '/profile' && this.commonService.currentPage.includes('/profile')) )) {
-          this.router.navigate(['/dashboard']); // Navigate back to dashboard instead of exiting
-        } 
-        else if(this.commonService.currentPage.includes('/add-mall') || this.commonService.currentPage.includes('/add-event') || this.commonService.currentPage.includes('/more-details') || this.commonService.currentPage.includes('/connection') || this.commonService.currentPage.includes('/edit-profile') || this.commonService.currentPage.includes('/setting-modal') || this.commonService.currentPage.includes('/add-rate')){
+        }
+    
+      
+        // ✅ Profile → Accept Request or Connection List → Profile logic
+        else if (currentUrl === '/profile') {
+          const urlParams = new URLSearchParams(currentUrlWithQuery.split('?')[1] || '');
+          const routeURL = urlParams.get('routeURL');
+          // alert(JSON.stringify('routeURL'+routeURL));
+          // alert(JSON.stringify('prevUrl'+prevUrl));
+          if (routeURL === 'acceptrequest') {
+            // Keep going back to accept-request as long as we came from there
+            this.router.navigate(['/accept-request'], { queryParams: { routeURL: 'profile' } });
+          } else if (routeURL === 'connections' && prevUrl === '/profile') {
+            this.router.navigate(['/connection-list'], { queryParamsHandling: 'preserve' });
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+        }
+    
+        // ✅ Connection List → Global Search Details
+        else if (currentUrl === '/connection-list') {
+          this.router.navigate(['/globalsearchdetails'], { queryParamsHandling: 'preserve' });
+        }
+    
+        // ✅ Global Search Details → Global Search
+        else if (currentUrl === '/globalsearchdetails') {
+          this.router.navigate(['/globalsearch']);
+        }
+        else if (currentUrl === '/globalsearch') {
+         this.router.navigate(['/dashboard']); // or exit if desired
+        }
+    
+    
+        // ✅ Accept Request → Profile
+        else if (currentUrl === '/accept-request') {
+          this.router.navigate(['/profile']);
+          // this.router.navigate(['/profile'], {
+          //   queryParams: { routeURL: 'acceptrequest' },
+          //   queryParamsHandling: 'merge'
+          // });
+        }
+    
+        // ✅ Other routes like modal/dismiss logic
+        else if (
+          currentUrl === '/feedback-modal' ||
+          (currentUrl === '/request-send' && !prevUrl.includes('/mall-details')) ||
+          (currentUrl === '/convenience-details' && !prevUrl.includes('/convenience-details')) ||
+          (currentUrl === '/event-details' && !prevUrl.includes('/event-details')) ||
+          (currentUrl === '/profile' && prevUrl.includes('/profile'))
+        ) {
+          this.router.navigate(['/dashboard']);
+        }
+    
+        else if (
+          prevUrl.includes('/add-mall') || prevUrl.includes('/add-event') || prevUrl.includes('/more-details') ||
+          prevUrl.includes('/connection') || prevUrl.includes('/edit-profile') ||
+          prevUrl.includes('/setting-modal') || prevUrl.includes('/add-rate')
+        ) {
           this.modalCtrl.dismiss();
         }
-        else if((currentUrl === '/profile' && this.commonService.currentPage.includes('/accept-request'))){
-          this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'profile' } });
-        }
-        else if((currentUrl === '/accept-request' && this.commonService.currentPage.includes('/accept-request'))){
-          this.commonService.currentPage = '/profile';
-          this.router.navigate(['/profile']);
-        }
-        // else if((currentUrl === '/profile' && this.commonService.currentPage.includes('/connection-list'))){
-        //   this.router.navigate(['/connection-list']);
-        // }
+    
+        // ✅ Fallback: Go one step back in navigation stack
         else {
           this.navCtrl.pop();
         }
-        // if ((this.router.url.includes('dashboard') || this.router.url.includes('login-agreement')) ) {
-        //   (navigator as any).app.exitApp().exitApp();
-        // }
-        // else{
-        //   this.navCtrl.pop();
-        // }
       });
-    })
+    });
+    // this.platform.ready().then(() => {
+    //   this.router.events.subscribe(event => {
+    //     if (event instanceof NavigationEnd) {
+    //       this.commonService.currentPage = event.urlAfterRedirects.split('?')[0];
+    //     }
+    //   });
+    
+    //   this.platform.backButton.subscribeWithPriority(9999, () => {
+    //     const currentUrl = this.router.url.split('?')[0]; // Get current route path
+    //     const prevUrl = this.commonService.currentPage;    // Last route before current
+    
+    //     // Exit app from initial page
+    //     if (currentUrl === '/dashboard' || currentUrl === '/login-agreement') {
+    //       (navigator as any).app.exitApp();
+    //     }
+    
+    //     // Global Search back logic
+    //     else if (currentUrl === '/profile') {
+    //       this.router.navigate(['/connection-list'], {
+    //         queryParamsHandling: 'preserve'
+    //       });
+    //     } else if (currentUrl === '/connection-list') {
+    //       this.router.navigate(['/globalsearchdetails'], {
+    //         queryParamsHandling: 'preserve'
+    //       });
+    //     } else if (currentUrl === '/globalsearchdetails') {
+    //       this.router.navigate(['/globalsearch']);
+    //     } else if (currentUrl === '/globalsearch') {
+    //       this.router.navigate(['/dashboard']); // or exit if desired
+    //     }
+    
+    //     // Custom routes for modals or other conditions
+    //     else if (
+    //       currentUrl === '/feedback-modal' ||
+    //       (currentUrl === '/request-send' && !prevUrl.includes('/mall-details')) ||
+    //       (currentUrl === '/convenience-details' && !prevUrl.includes('/convenience-details')) ||
+    //       (currentUrl === '/event-details' && !prevUrl.includes('/event-details')) ||
+    //       (currentUrl === '/profile' && prevUrl.includes('/profile'))
+    //     ) {
+    //       this.router.navigate(['/dashboard']);
+    //     }
+    
+    //     else if (
+    //       prevUrl.includes('/add-mall') || prevUrl.includes('/add-event') || prevUrl.includes('/more-details') ||
+    //       prevUrl.includes('/connection') || prevUrl.includes('/edit-profile') ||
+    //       prevUrl.includes('/setting-modal') || prevUrl.includes('/add-rate')
+    //     ) {
+    //       this.modalCtrl.dismiss();
+    //     }
+    
+    //     else if (currentUrl === '/profile' && prevUrl.includes('/accept-request')) {
+    //       this.router.navigate(['/accept-request'], { queryParams: { routeURL: 'profile' } });
+    //     }
+    
+    //     else if (currentUrl === '/accept-request' && prevUrl.includes('/accept-request')) {
+    //       this.commonService.currentPage = '/profile';
+    //       this.router.navigate(['/profile']);
+    //     }
+    
+    //     // Default fallback
+    //     else {
+    //       this.navCtrl.pop();
+    //     }
+    //   });
+    // });
+
+
+    // this.platform.ready().then(() => {
+    //   this.platform.backButton.subscribeWithPriority(9999, () => {
+    //     const currentUrl = this.router.url.split('?')[0]; // Remove query parameters
+    //     if ((currentUrl === '/dashboard' && !this.commonService.currentPage.includes('/more-details')) || currentUrl === '/login-agreement') {
+    //       (navigator as any).app.exitApp();
+    //     } 
+    //     else if (currentUrl === '/feedback-modal' || (currentUrl === '/request-send' && !this.commonService.currentPage.includes('/mall-details')) || (currentUrl === '/convenience-details' && !this.commonService.currentPage.includes('/convenience-details')) || (currentUrl === '/event-details' && !this.commonService.currentPage.includes('/event-details') || (currentUrl === '/profile' && this.commonService.currentPage.includes('/profile')) )) {
+    //       this.router.navigate(['/dashboard']); // Navigate back to dashboard instead of exiting
+    //     } 
+    //     else if(this.commonService.currentPage.includes('/add-mall') || this.commonService.currentPage.includes('/add-event') || this.commonService.currentPage.includes('/more-details') || this.commonService.currentPage.includes('/connection') || this.commonService.currentPage.includes('/edit-profile') || this.commonService.currentPage.includes('/setting-modal') || this.commonService.currentPage.includes('/add-rate')){
+    //       this.modalCtrl.dismiss();
+    //     }
+    //     else if((currentUrl === '/profile' && this.commonService.currentPage.includes('/accept-request'))){
+    //       this.router.navigate(['/accept-request'],  { queryParams: { routeURL: 'profile' } });
+    //     }
+    //     else if((currentUrl === '/accept-request' && this.commonService.currentPage.includes('/accept-request'))){
+    //       this.commonService.currentPage = '/profile';
+    //       this.router.navigate(['/profile']);
+    //     }
+    //     // else if((currentUrl === '/profile' && this.commonService.currentPage.includes('/connection-list'))){
+    //     //   this.router.navigate(['/connection-list']);
+    //     // }
+    //     else {
+    //       this.navCtrl.pop();
+    //     }
+    //     // if ((this.router.url.includes('dashboard') || this.router.url.includes('login-agreement')) ) {
+    //     //   (navigator as any).app.exitApp().exitApp();
+    //     // }
+    //     // else{
+    //     //   this.navCtrl.pop();
+    //     // }
+    //   });
+    // })
   }
 }
