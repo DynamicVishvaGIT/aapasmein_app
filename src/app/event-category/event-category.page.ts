@@ -246,7 +246,7 @@ export class EventCategoryPage implements OnInit {
   goToDetails(data:any, type:string) {
     this.commonService.currentPage = '/event-details';
     if(type=='myevent' || type=='myinterest'){
-      if(!data.completed){
+      if(!data.completed || (data.completed && data.user_id ==this.currentUser.user_id)){
         this.router.navigate(['/event-details'], { queryParams: {event_id: data.id, type: type, url: 'categorylist'} });
       }
       else{
