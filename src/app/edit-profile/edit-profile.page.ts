@@ -20,7 +20,7 @@ export class EditProfilePage implements OnInit {
   user_details:any;
   searchFlag = false;
   // user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:'',edit_interest:''};
-  user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:'', edit_interest:''};
+  user:any={edit_name:'', edit_city:'',edit_location:'',edit_mobile_no:'',edit_email_id:'',edit_profession:'',edit_specialization:'', edit_interest:[]};
   inputFocused: boolean = false;
   get_cities:any = [];
   get_locations:any = [];
@@ -32,6 +32,13 @@ export class EditProfilePage implements OnInit {
   searchTerm = '';
   filteredProfessions :any[] = [];
   isPopoverOpen = false;
+
+  // selectedInterestName = '';
+  searchInterestTerm = '';
+  filteredInterests :any[] = [];
+  isInterestPopoverOpen = false;
+  // Selected interests
+  selectedInterests: any[] = [];
 
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private modalCtrl: ModalController) { 
     this._unsubscribeAll = new Subject();
@@ -120,12 +127,101 @@ export class EditProfilePage implements OnInit {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
+      for(let i=0;i<response.data.length;i++){
+        response.data[i].iFlag = false;
+      }
       this.get_interests = response.data;
+      this.filteredInterests = [...this.get_interests];
       // this.get_interests.unshift({id:'',NAME:'Select Interest'});
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterInterests() {
+    this.filteredInterests = this.get_interests.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchInterestTerm.toLowerCase())
+    );
+  }
+
+  // selectInterest(item: any) {console.log(item);
+  //   this.user.edit_interest = item.id;
+  //   this.selectedInterestName = item.NAME;
+  //   this.isInterestPopoverOpen = false;
+  // }
+
+  openInterestPopover(event: Event) {
+    // this.filteredInterests = [...this.get_interests];
+    // this.isInterestPopoverOpen = true;
+    this.filteredInterests = this.get_interests.map((item:any) => ({
+      ...item,
+      iFlag: this.selectedInterests.some(selected => selected.id === item.id)
+    }));
+    this.isInterestPopoverOpen = true;
+  }
+
+  get selectedInterestName(): string {
+    return this.selectedInterests.map(i => i.NAME).join(', ');
+  }
+
+  // Check if item is already selected
+  isSelected(item: any): boolean {console.log(item);
+    return this.selectedInterests.some(i => i.id === item.id);
+  }
+  
+  // Toggle selection on checkbox click
+  toggleSelection(item: any) { console.log(item);
+    // const index = this.selectedInterests.findIndex(i => i.id === item.id);
+    // if (index > -1) {
+    //   this.selectedInterests.splice(index, 1);
+    // } else {
+      // let interestIndex = this.commonService.findItem(this.selectedInterests,'id',item.id);
+      // console.log(interestIndex);
+      // if(interestIndex==-1){
+      //   this.selectedInterests.push(item);
+      // }
+      // else{
+      //   this.selectedInterests.splice(interestIndex, 1);
+      // }
+    // }
+    // let interestIndex = this.commonService.findItem(this.selectedInterests,'id',item.id);
+    // if(interestIndex==-1){
+    //   if(item.iFlag){
+    //     this.selectedInterests.push(item);
+    //   }
+    //   else{
+    //     item.iFlag = false;
+    //   }
+    // }
+    // else{
+    //   this.selectedInterests.splice(interestIndex,1);
+    // }
+    const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
+
+    if (item.iFlag && index === -1) {
+      // Add to selectedInterests if not already there
+      this.selectedInterests.push(item);
+    } else if (!item.iFlag && index !== -1) {
+      // Remove from selectedInterests if it's there
+      this.selectedInterests.splice(index, 1);
+    }
+    this.user.edit_interest=[];
+    for(let i = 0; i<this.selectedInterests.length;i++){
+      this.user.edit_interest.push(this.selectedInterests[i].NAME)
+    }
+    console.log(this.user.edit_interest);
+    console.log(this.selectedInterests);
+  }
+
+  // Also allows item click to toggle checkbox
+  selectInterest(item: any) {
+    this.toggleSelection(item);
+  }
+
+  // Close popover
+  closePopover() {
+    this.isInterestPopoverOpen = false;
   }
 
   get_user_details() {
@@ -146,6 +242,17 @@ export class EditProfilePage implements OnInit {
         this.user.edit_specialization = this.user_details.SPECIALIZATION;
         // this.user.edit_interest = this.user_details.INTEREST_NAME;
         this.user.edit_interest = this.user_details.INTEREST_NAME.split(',').map((interest:any) => interest.trim());
+        // Assuming get_interests is already loaded with full interest list
+        const selectedNames = this.user_details.INTEREST_NAME.split(',').map((name:any) => name.trim());
+
+        this.selectedInterests = this.get_interests.filter((item:any) =>
+          selectedNames.includes(item.NAME)
+        );
+
+        // Optionally set iFlag on these items so checkboxes are marked when the popover opens
+        this.get_interests.forEach((item:any) => {
+          item.iFlag = selectedNames.includes(item.NAME);
+        });
         // if (typeof this.user_details.INTEREST_NAME === 'string') {
         //   this.user.edit_interest = this.user_details.INTEREST_NAME.split(',').map(Number);
         // }
@@ -195,6 +302,7 @@ export class EditProfilePage implements OnInit {
       this.commonService.showToastMessage('Please enter specialization.', 'error-toast', 'top', 2000);
       return;
     }
+    
     let formData = new FormData();
     formData.append("edit_name",this.user.edit_name),
     formData.append("edit_city",this.user.edit_city),

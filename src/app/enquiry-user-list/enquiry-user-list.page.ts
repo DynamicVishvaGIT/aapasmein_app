@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonService } from '../common.service';
 import { ApiService } from '../api.service';
+import { Platform } from '@ionic/angular';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 @Component({
   selector: 'app-enquiry-user-list',
@@ -23,7 +25,9 @@ export class EnquiryUserListPage implements OnInit {
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
   routeURL:string='';
 
-  constructor(private activatedRoute: ActivatedRoute, private commonService: CommonService, private apiService: ApiService, private router: Router) { 
+  constructor(private activatedRoute: ActivatedRoute, private commonService: CommonService, private apiService: ApiService, private router: Router,
+    private callNumber: CallNumber, private platform: Platform
+  ) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -83,6 +87,14 @@ export class EnquiryUserListPage implements OnInit {
       this.get_enquiry_user_details();
       event.target.complete();
     }, 100);
+  }
+
+  makeCall(phoneNumber: string) {
+    this.platform.ready().then(() => {
+      this.callNumber.callNumber(phoneNumber, true)
+        .then(res => console.log('Dialing succeeded!', res))
+        .catch(err => console.log('Dialing failed', err));
+    });
   }
 
   dismiss() {

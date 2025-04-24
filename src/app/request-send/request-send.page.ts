@@ -111,6 +111,30 @@ export class RequestSendPage implements OnInit {
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
       })
   }
+
+  async showSoldDialog() {
+    const confirm = await this.alertCtrl.create({
+      // header: this.sold_unsold_text=='Mark as Sold'?'Mark as Sold':'Mark as Unsold',
+      header: 'Mark My Deal',
+      message: this.sold_unsold_text=='Mark as Sold'?'Do you want mark your deal as Sold?':'Do you want mark your deal as Unsold?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: this.sold_unsold_text=='Mark as Sold'?'Ok, Sold it':'Ok, Unsold it',
+          handler: () => {
+            this.sold_delete_mall_products();
+          }
+        }
+      ]
+    });
+   await  confirm.present();
+  }
+
   sold_delete_mall_products() {
     let status = '';
     let type = '';

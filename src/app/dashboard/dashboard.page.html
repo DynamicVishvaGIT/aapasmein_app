@@ -68,7 +68,7 @@
         </ion-col> -->
         <ion-col size="3" style="text-align: center;" class="col-height" (click)="goToAppasmeinMall()">
           <!-- <img src="assets/icon/features/mall.svg" class="menu-icon1"> -->
-          <img src="assets/icon/features/deal.svg" class="menu-icon1">
+          <img src="assets/icon/features/deal.svg" class="menu-icon1" style="margin-left: 5px;">
           <br>
           <span class="tool-text-mall"><b>aapasmein Deals</b></span>
         </ion-col>
@@ -194,7 +194,7 @@
   <div class="card-gap">
     <ion-grid>
       <ion-row class="scroll">
-        <ion-col size="6" *ngFor="let data of mall_list_data;" >
+        <ion-col size="6" *ngFor="let data of mall_list_data;" (click)="goToMallDetails(data,'dashboard')">
           <ion-card class="mall-card" >
             <ion-card-header> 
               <ion-card-title>
@@ -212,7 +212,7 @@
                 <ion-col size="10">
                   <span style="float:left;font-size: 8px;color:blue;">{{data.date}}</span>
                 </ion-col>
-                <ion-col size="2" (click)="goToMallDetails(data,'dashboard')">
+                <ion-col size="2" >
                   <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
                 </ion-col>
               </ion-row>

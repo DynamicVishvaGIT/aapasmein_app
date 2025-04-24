@@ -17,13 +17,13 @@
         <div class="input-container">
           <ion-label class="input-label required">Categories</ion-label>
           <div class="input-group">
-            <ion-select class="ion-select" [(ngModel)]="category_id">
+            <ion-select class="ion-select" [(ngModel)]="category_id" (ionChange)="onFilter()">
               <ion-select-option *ngFor="let item of get_categories" [value]="item.id">{{item.NAME}}</ion-select-option>
             </ion-select>
           </div>
         </div>
       </ion-col>
     </ion-row>
-    <ion-button expand="block" class="submit-button" (click)="onFilter()">Submit</ion-button>
+    <!-- <ion-button expand="block" class="submit-button" (click)="onFilter()">Submit</ion-button> -->
   </div>
 </ion-content>

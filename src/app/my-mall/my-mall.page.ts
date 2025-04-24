@@ -63,6 +63,7 @@ export class MyMallPage implements OnInit {
   }
 
   get_mall_products() {
+    this.searchQuery = '';
     this.commonService.presentLoading();
     this.mallDataLoaded = false; 
     let formData = new FormData();
@@ -84,6 +85,7 @@ export class MyMallPage implements OnInit {
   }
 
   load_wishlist_product() {
+    this.searchQuery = '';
     this.commonService.presentLoading();
     this.wishListDataLoaded = false; 
     let formData = new FormData();

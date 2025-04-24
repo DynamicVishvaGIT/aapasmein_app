@@ -274,4 +274,13 @@ ion-select::part(select-text) {
     background-size: cover;
     opacity: 0.6;
     z-index: 2;
-  }
+}
+
+.fixed-done-button {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}

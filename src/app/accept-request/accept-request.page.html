@@ -24,6 +24,9 @@
   <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <div style="margin-left: 5px;">
     <ion-segment value="accept" [(ngModel)]="info" scrollable>
+      <ion-segment-button value="all" (click)="load_friend_request('accept')">
+        <ion-label style="font-size: x-small;color:white;">All</ion-label>
+      </ion-segment-button>
       <ion-segment-button value="accept" (click)="load_friend_request('accept')">
         <ion-label style="font-size: x-small;color:white;">Accept Reachout</ion-label>
       </ion-segment-button>
@@ -36,6 +39,32 @@
     </ion-segment>
   </div>
   <div [ngSwitch]="info">
+    <div  class="gap" *ngSwitchCase="'all'">
+      <div *ngIf="friendRequestDataLoaded && filteredFriendRequestList.length > 0">
+        <ion-grid>
+          <ion-row class="border-bottom" *ngFor="let data of filteredFriendRequestList">
+            <ion-col size="3" (click)="goToProfile(data)">
+              <img src="{{imageUrl}}{{data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.PROFILE_IMAGE" >
+              <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.PROFILE_IMAGE" >
+              <!-- <img src="{{imageUrl}}{{requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE">
+              <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!data.SENDER__PROFILE_IMAGE:!data.PROFILE_IMAGE"> -->
+            </ion-col>
+            <ion-col size="9">
+              <span class="name-text" (click)="goToProfile(data)">{{data.NAME}}</span><br>
+              <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.MOBILE_NO)" ></ion-icon>
+              <ion-badge [ngClass]="{'accept-shake-align': data.HANDSHAKE_STATUS=='accept','reject-shake-align': data.HANDSHAKE_STATUS=='reject', 'shake-align': data.HANDSHAKE_STATUS=='pending'}" mode="md" style="margin-top: -9px;" ><img src="assets/accolades/deal.png" class="menu-icon1" (click)="add_handshake(data)"></ion-badge>
+              <span class="designation-text">{{data.PROFESSION__NAME}}</span><br>
+              <!-- <span class="name-text">{{requestText=='Request-in'?data.SENDER__NAME:data.NAME}}</span><br>
+              <span class="designation-text">{{requestText=='Request-in'?data.SENDER__PROFESSION__NAME:data.PROFESSION__NAME}}</span><br> -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="no-data" *ngIf="friendRequestDataLoaded && filteredFriendRequestList.length == 0">
+        <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+        <span class="no-data-text">No Request Accepted Data</span>
+      </div>
+    </div>
     <div class="gap" *ngSwitchCase="'accept'">
       <!-- <div>
         <ion-grid>

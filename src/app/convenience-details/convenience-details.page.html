@@ -30,7 +30,8 @@
     <ion-grid>
       <ion-row class="border-bottom" *ngFor="let data of filteredList">
         <ion-col size="3">
-          <img src="../../../assets/avtar4.png" alt="" class="circle-img">
+          <img src="{{imageUrl}}{{data.CONVENIENCE_IMAGE}}"  class="circle-img" *ngIf="data.CONVENIENCE_IMAGE"/>
+          <img src="../../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.CONVENIENCE_IMAGE">
         </ion-col>
         <ion-col size="9">
           <span class="name-text">{{data.CONVENIENCE_NAME}}</span><br>

@@ -154,6 +154,7 @@ export class DashboardPage implements OnInit {
     // let formData = new FormData();
     // formData.append('mobile_no',this.currentUser.mobile_no);
     // formData.append('apptype',this.apiService.apptype);
+    this.mall_list_data = [];
     this.apiService.load_mall_products(this.currentUser.mobile_no)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {

@@ -30,6 +30,7 @@
             <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!data.SENDER__PROFILE_IMAGE:!data.PROFILE_IMAGE"> -->
           </ion-col>
           <ion-col size="9">
+            <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.USER__MOBILE_NO)" ></ion-icon>
             <span class="name-text">{{data.USER__NAME}}</span><br>
             <span class="designation-text">{{data.USER__MOBILE_NO}}</span><br>
             <!-- <span class="name-text">{{requestText=='Request-in'?data.SENDER__NAME:data.NAME}}</span><br>

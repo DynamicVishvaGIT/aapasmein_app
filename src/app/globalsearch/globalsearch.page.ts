@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavParams } from '@ionic/angular';
 import { GlobalsearchdetailsPage } from '../globalsearchdetails/globalsearchdetails.page';
-import { Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { CommonService } from '../common.service';
 import { ApiService } from '../api.service';
 
@@ -38,6 +38,14 @@ export class GlobalsearchPage implements OnInit {
       this.searchText = params['searchText'];
       console.log(this.searchText);
       this.type = params['type'];
+    });
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
+      ).subscribe((event: NavigationEnd) => {
+        if (event.url === '/globalsearch') { // Check if user navigated back to a specific URL
+          this.load_convenience_category();
+          this.load_recent_search();
+        }
     });
     this.load_convenience_category();
     this.load_recent_search();

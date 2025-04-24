@@ -162,7 +162,7 @@ export class AapasmeinmallPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: FilterMallPage,
       breakpoints: [0, 0.3, 0.5, 0.8],
-      initialBreakpoint: 0.3
+      initialBreakpoint: 0.2
     });
     modal.onDidDismiss().then((modalItem) => {
       if (modalItem) {

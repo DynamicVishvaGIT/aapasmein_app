@@ -25,6 +25,7 @@ export class ConvenienceDetailsPage implements OnInit {
   searchQuery: string = '';
   filteredList: any[] = [];
   isFooterVisible: boolean = true;
+  imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private callNumber: CallNumber, private platform: Platform,
     private apiService: ApiService, private commonService: CommonService) { 

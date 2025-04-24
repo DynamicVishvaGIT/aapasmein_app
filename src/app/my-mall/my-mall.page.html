@@ -116,7 +116,6 @@
               <ion-card class="mall-card">
                 <ion-card-header> 
                   <ion-card-title>
-                    <!-- <img src="../../../assets/laptop.jpg" alt="" class="img-banner"> -->
                     <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
                       <ng-template swiperSlide *ngFor="let img of data.images">
                         <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
@@ -131,7 +130,7 @@
                   <span style="font-size: x-small;color: #272790;">{{data.status=='your_connection'?'Your Connection':'Public'}}</span>
                   <ion-row>
                     <ion-col>
-                      <span style="float:left;font-size: x-small;color:#37b630;margin-left: -5px;">Rs.{{data.price}}/-</span><!--₹-->
+                      <span style="float:left;font-size: x-small;color:#37b630;margin-left: -5px;">Rs.{{data.price}}/-</span>
                     </ion-col>
                     <ion-col>
                       <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
