@@ -22,7 +22,7 @@ export class AcceptRequestPage implements OnInit {
   handshake_request_list:any=[];
   friendRequestDataLoaded: boolean = false;
   handshakeDataLoaded:boolean=false;
-  info = 'all';
+  info = 'accept';
   selectedRadio:string='1st';
   requestText:string='Request-in';
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
