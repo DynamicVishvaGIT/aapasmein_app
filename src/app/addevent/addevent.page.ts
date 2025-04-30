@@ -22,8 +22,9 @@ export class AddeventPage implements OnInit {
   inputFocused:boolean=false;
   acceptTerms:boolean=false;
   currentUser:any;
-  eventJson:any={event_name:'',from_date:'',from_time:'',to_date:'',to_time:'',latitude:'',longitude:'',location:'',category_id:'',description:'', share_with:'public'};
+  eventJson:any={event_name:'',from_date:'',from_time:'',to_date:'',to_time:'',latitude:'',longitude:'',location:'',category_id:'',sub_category_id:'',description:'', share_with:'public'};
   get_event_categories:any=[];
+  get_event_sub_categories:any=[];
   get_locations:any=[];
   get_professions:any=[];
   map: any;
@@ -98,6 +99,18 @@ export class AddeventPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_event_categories = response.data;
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  load_event_subcategory() {
+    this.apiService.load_event_subcategory(this.eventJson.category_id)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.get_event_sub_categories = response.data;
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -216,6 +229,10 @@ export class AddeventPage implements OnInit {
       this.commonService.showToastMessage('Please select category.', 'error-toast', 'top', 2000);
       return;
     }
+    if (this.eventJson.sub_category_id == '') {
+      this.commonService.showToastMessage('Please select sub category.', 'error-toast', 'top', 2000);
+      return;
+    }
     if (this.eventJson.from_date == '') {
       this.commonService.showToastMessage('Please select from date.', 'error-toast', 'top', 2000);
       return;
@@ -263,6 +280,7 @@ export class AddeventPage implements OnInit {
     }
     formData.append("event_name",this.eventJson.event_name),
     formData.append("category_id",this.eventJson.category_id),
+    formData.append("sub_category_id",this.eventJson.sub_category_id),
     formData.append("description",this.eventJson.description),
     formData.append("from_date",this.eventJson.from_date),
     formData.append("from_time",this.eventJson.from_time),

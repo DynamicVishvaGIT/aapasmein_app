@@ -214,6 +214,16 @@ export class ApiService {
     )
   }
 
+  load_mall_subcategory(mall_cat_id:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('mall_cat_id', mall_cat_id);
+    return this.httpClient.get(this.baseUrl + 'load_mall_subcategory?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   add_mall_products(mall: any) {
     return this.httpClient.post(this.baseUrl + 'add_mall_products', mall)
     .pipe(
@@ -304,6 +314,16 @@ export class ApiService {
 
   load_event_category() {
     return this.httpClient.get(this.baseUrl + 'load_event_category')
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  load_event_subcategory(event_cat_id:string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('event_cat_id', event_cat_id);
+    return this.httpClient.get(this.baseUrl + 'load_event_subcategory?'+urlSearchParams.toString())
     .pipe(
       retry(1),
       catchError(this.errorHandler)

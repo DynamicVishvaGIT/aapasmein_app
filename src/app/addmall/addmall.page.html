@@ -20,8 +20,20 @@
         <div class="input-container">
           <ion-label class="input-label required">Category</ion-label>
             <div class="input-group">
-              <ion-select class="ion-select" [(ngModel)]="mallJson.category_id">
+              <ion-select class="ion-select" [(ngModel)]="mallJson.category_id" (ionChange)="load_mall_subcategory()">
                 <ion-select-option *ngFor="let item of get_categories" [value]="item.id">{{item.NAME}}</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <div class="input-container">
+          <ion-label class="input-label required">Sub Category</ion-label>
+            <div class="input-group">
+              <ion-select class="ion-select" [(ngModel)]="mallJson.sub_category_id">
+                <ion-select-option *ngFor="let item of get_mall_sub_categories" [value]="item.id">{{item.NAME}}</ion-select-option>
               </ion-select>
             </div>
           </div>

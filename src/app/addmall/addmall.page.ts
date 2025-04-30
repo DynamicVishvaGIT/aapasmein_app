@@ -16,9 +16,10 @@ export class AddmallPage implements OnInit {
   private _unsubscribeAll: Subject<any>;
 
   currentUser:any;
-  mallJson:any={category_id:'',product_name:'',description:'',price:'',location_id:'',share_with:'public'};
+  mallJson:any={category_id:'',sub_category_id:'',product_name:'',description:'',price:'',location_id:'',share_with:'public'};
   get_locations:any=[];
   get_categories:any=[];
+  get_mall_sub_categories:any=[];
   // selectedRadio:string='public';
   acceptTerms:boolean=false;
   selectedImage1:any={name:'', data:''};
@@ -59,6 +60,18 @@ export class AddmallPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_categories = response.data;
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  load_mall_subcategory() {
+    this.apiService.load_mall_subcategory(this.mallJson.category_id)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.get_mall_sub_categories = response.data;
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -134,6 +147,10 @@ export class AddmallPage implements OnInit {
       this.commonService.showToastMessage('Please select category.', 'error-toast', 'top', 2000);
       return;
     }
+    if (this.mallJson.sub_category_id == '') {
+      this.commonService.showToastMessage('Please select sub category.', 'error-toast', 'top', 2000);
+      return;
+    }
     if (this.mallJson.product_name == '') {
       this.commonService.showToastMessage('Please enter product name.', 'error-toast', 'top', 2000);
       return;
@@ -171,6 +188,7 @@ export class AddmallPage implements OnInit {
       }
     }
     formData.append("category_id",this.mallJson.category_id),
+    formData.append("sub_category_id",this.mallJson.sub_category_id),
     formData.append("product_name",this.mallJson.product_name),
     formData.append("description",this.mallJson.description),
     formData.append("price",this.mallJson.price),
