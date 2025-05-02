@@ -92,6 +92,7 @@ export class ConvenienceListPage implements OnInit {
 
   async addConveniencePage() {
     // this.router.navigate(['/add-convenience']);
+    this.commonService.currentPage = '/add-convenience';
     const modal = await this.modalCtrl.create({
       component: AddConveniencePage,
       breakpoints: [0, 0.3, 0.5, 0.8],
@@ -104,6 +105,7 @@ export class ConvenienceListPage implements OnInit {
         if(modalItem.data!=undefined){
           
         }
+        this.commonService.currentPage = '/convenience-list';
       }
     })
     return await modal.present();
