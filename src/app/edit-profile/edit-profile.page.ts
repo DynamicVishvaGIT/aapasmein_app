@@ -233,6 +233,7 @@ export class EditProfilePage implements OnInit {
         this.user.edit_name = this.user_details.NAME;
         this.user.edit_city = this.user_details.CITY__id;
         this.load_location();
+        this.get_interest();
         this.user.edit_location = this.user_details.LOCATION__id;
         this.user.edit_mobile_no = this.user_details.MOBILE_NO;
         this.user.edit_email_id = this.user_details.EMAIL_ID;
@@ -244,11 +245,12 @@ export class EditProfilePage implements OnInit {
         this.user.edit_interest = this.user_details.INTEREST_NAME.split(',').map((interest:any) => interest.trim());
         // Assuming get_interests is already loaded with full interest list
         const selectedNames = this.user_details.INTEREST_NAME.split(',').map((name:any) => name.trim());
-
+        console.log('selectedNames',selectedNames);
+        console.log('get_interests', this.get_interests);
         this.selectedInterests = this.get_interests.filter((item:any) =>
           selectedNames.includes(item.NAME)
         );
-
+        console.log(this.selectedInterests);
         // Optionally set iFlag on these items so checkboxes are marked when the popover opens
         this.get_interests.forEach((item:any) => {
           item.iFlag = selectedNames.includes(item.NAME);
