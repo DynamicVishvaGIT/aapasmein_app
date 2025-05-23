@@ -3,6 +3,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 import { CommonService } from './common.service';
 
+declare var cordova: any; // Declare cordova to use the plugin
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -53,6 +55,12 @@ export class AppComponent {
       this.router.navigateByUrl('login-agreement');
     }
     this.platform.ready().then(() => {
+      if (cordova && cordova.plugins && cordova.plugins.preventscreenshot) {
+        cordova.plugins.preventscreenshot.enable(
+          () => console.log('Screenshot prevention enabled'),
+          (error:any) => console.error('Error enabling screenshot prevention', error)
+        );
+      }
       // Track current base route (without query params)
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {

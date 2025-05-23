@@ -59,6 +59,7 @@
     "cordova-plugin-inappbrowser": "^6.0.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
+    "cordova-plugin-prevent-screenshot": "^1.0.3",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "eslint": "^8.57.0",
@@ -89,7 +90,8 @@
         "GPS_REQUIRED": "true"
       },
       "mx.ferreyra.callnumber": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-prevent-screenshot": {}
     },
     "platforms": [
       "android"
