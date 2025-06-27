@@ -116,7 +116,9 @@
       <ion-row align-self-center>
         <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner1')">
           <ng-template swiperSlide  *ngFor="let img of banner1_images">
-            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+            <a [href]="img.url" target="_blank">
+              <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a>
           </ng-template>
           <!-- <ng-template swiperSlide *ngFor="let item of items">
             <div class="content">{{item.title}}</div>
@@ -179,7 +181,9 @@
             <div class="content">{{item.title}}</div>
           </ng-template> -->
           <ng-template swiperSlide  *ngFor="let img of banner2_images">
-            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+            <a [href]="img.url" target="_blank">
+              <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a>
           </ng-template>
           <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
           <ng-template swiperSlide><img src="assets/icon/banner/banner3.webp" alt="" class="banner"></ng-template>
@@ -279,7 +283,9 @@
             <div class="content">{{item.title}}</div>
           </ng-template> -->
           <ng-template swiperSlide  *ngFor="let img of banner3_images">
-            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+            <a [href]="img.url" target="_blank">
+              <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a>
           </ng-template>
           <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
           <ng-template swiperSlide><img src="assets/icon/banner/banner3.webp" alt="" class="banner"></ng-template>
@@ -424,7 +430,9 @@
             <div class="content">{{item.title}}</div>
           </ng-template> -->
           <ng-template swiperSlide  *ngFor="let img of banner4_images">
-            <img src="{{eventImageUrl}}{{img}}" alt="" class="banner">
+            <a [href]="img.url" target="_blank">
+              <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a>
           </ng-template>
           <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
           <ng-template swiperSlide><img src="assets/icon/banner/banner3.webp" alt="" class="banner"></ng-template>
@@ -577,7 +585,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <h4 class="message"><b>ho jayega !!!</b></h4>
+        <ion-col class="text-details" size="12">
+          <h4 class="message"><b>ho jayega !!!</b></h4>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </div>

@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
 
   selectedCountry:string='';
   invite_code:string='';
+  showreset:boolean = false;
   countries = [ 
     {
     "name": "Afghanistan",
@@ -1216,6 +1217,10 @@ export class LoginPage implements OnInit {
   hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+  }
+
+  logout() {
+
   }
 
 

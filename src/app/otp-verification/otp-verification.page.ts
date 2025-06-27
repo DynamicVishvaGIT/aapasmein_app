@@ -5,6 +5,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
 import { NavigationService } from '../navigation.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-otp-verification',
@@ -26,9 +28,11 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
   resendCount = 0;
   maxResendLimit = 3;
   isActive = true;
+  address:string='';
 
   constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService,
-    private commonService: CommonService, private activatedRoute: ActivatedRoute, private navigationService: NavigationService) { 
+    private commonService: CommonService, private activatedRoute: ActivatedRoute, private navigationService: NavigationService,
+    private geolocation: Geolocation, private http: HttpClient) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -42,7 +46,47 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
     // this.user_details = this.navParams.get('user_details');
     console.log(this.mobile_no);
     console.log(this.user_otp);
+    this.getCurrentLocation();
     this.startCountdown();
+  }
+
+  getCurrentLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      const lat = resp.coords.latitude;
+      const lng = resp.coords.longitude;
+
+      this.reverseGeocode(lat, lng);
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+  }
+
+  reverseGeocode(lat: number, lng: number) {
+    const apiKey = 'AIzaSyDinqEFwSCs66zyeb1WwpjmklkC8pio99k';
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+    this.http.get(url).subscribe((result: any) => {
+      if (result.status === 'OK') {
+        const addressComponents = result.results[0].formatted_address;
+
+        // Remove Plus Code if present
+        this.address = this.filterPlusCode(addressComponents);
+        // alert(JSON.stringify(this.address));
+        console.log(this.address);
+      } else {
+        this.address = 'Location not found';
+      }
+    }, (error) => {
+      console.log('Error with reverse geocoding:', error);
+      this.address = 'Error retrieving location';
+    });
+  }
+
+  filterPlusCode(address: string): string {
+    // This regex will filter out Plus Codes like 'M3QM+2RJ'
+    // return address.replace(/^[A-Z0-9]+\+\w+\s*/, '');
+    const cleanedAddress = address.replace(/^[A-Z0-9]+\+\w+,\s*/, '');
+    return cleanedAddress.trim();
   }
 
   startCountdown() {
@@ -124,6 +168,7 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
     formData.append('mobile_no',this.mobile_no);
     formData.append('user_otp',this.otp_no);
     formData.append('apptype',this.apiService.apptype);
+    formData.append('location', this.address);
     if(this.referral_code!=''){
       formData.append('referral_code',this.referral_code);
     }

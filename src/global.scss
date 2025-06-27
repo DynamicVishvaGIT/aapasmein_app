@@ -273,6 +273,14 @@ ion-toolbar, ion-content, ion-header, ion-footer, ion-title, ion-label, ion-butt
   --background: #5261d5;
 }
 
+.custom_logout_button {
+  width: 100%;
+  --border-radius: 9px;
+  margin-left: 0px;
+  height: 42px;
+  font-family: "Poppins-Regular";
+}
+
 ion-searchbar.custom {
   --background: #fff;
   --color: #00000096;

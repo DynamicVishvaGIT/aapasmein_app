@@ -24,9 +24,13 @@
     <div class="input-container">
       <ion-label class="input-label required">Reason</ion-label>
       <div class="input-group">
-        <ion-textarea class="input-box" type="text" rows="5" maxlength="50" [(ngModel)]="otherReasonText"></ion-textarea>
+        <ion-textarea class="input-box" type="text" rows="5" maxlength="200" [(ngModel)]="otherReasonText"></ion-textarea> <!--maxlength="50"-->
       </div>
     </div>
+    <!-- Show character counter -->
+    <ion-text style="float: right;" [ngClass]="{ 'over-limit': (otherReasonText.length || 0) >= 200 }">
+      {{ otherReasonText.length || 0 }}/200
+    </ion-text>
     <!-- <ion-textarea
       placeholder="Please specify your reason"
       [(ngModel)]="otherReasonText"

@@ -74,7 +74,7 @@
         </ion-button>
       </ion-col>
       <ion-col size="8" style="margin-top: 3px;">
-        <span style="float:left;margin-left: -18px;font-size: smaller;color:#39ce3e;font-weight: 500;">Rs.{{mall_data.PRICE}}/-</span>
+        <span style="float:left;font-size: smaller;color:#39ce3e;font-weight: 500;">Rs.{{mall_data.PRICE}}/-</span><!--margin-left: -18px;-->
       </ion-col>
       <ion-col size="2" style="margin-top: 8px;">
         <ion-button class="button-icon" size="small" *ngIf="wishlistFlag" (click)="showWishListDialog('added')">
@@ -95,7 +95,7 @@
         </ion-button>
       </ion-col>
       <ion-col size="10" style="margin-top: 3px;">
-        <span style="float:left;margin-left: -18px;font-size: smaller;color:#ffffff;font-weight: 500;">{{mall_data.LOCATION__NAME}}</span>
+        <span style="float:left;font-size: smaller;color:#ffffff;font-weight: 500;">{{mall_data.LOCATION__NAME}}</span><!--margin-left: -18px;-->
       </ion-col>
     </ion-row>
     <ion-row style="margin-top: -9px;">
@@ -105,7 +105,7 @@
         </ion-button>
       </ion-col>
       <ion-col size="4">
-        <span style="float:left;margin-top: 9px;margin-left: -18px;font-size: smaller;color:#ffffff;font-weight: 500;">{{mall_data.CREATED_DATE | date:'dd MMMM, yyyy'}}</span>
+        <span style="float:left;margin-top: 9px;font-size: smaller;color:#ffffff;font-weight: 500;">{{mall_data.CREATED_DATE | date:'dd MMMM, yyyy'}}</span><!--margin-left: -18px;-->
       </ion-col>
     </ion-row>
   </div>

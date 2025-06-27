@@ -119,11 +119,20 @@
         <div class="input-container">
           <ion-label class="input-label required">Description</ion-label>
           <div class="input-group">
-            <ion-textarea class="input-box" type="text" rows="10" [(ngModel)]="eventJson.description"></ion-textarea>
+            <ion-textarea class="input-box" type="text" rows="10" maxlength="500" [(ngModel)]="eventJson.description"></ion-textarea>
           </div>
         </div>
       </ion-col>
     </ion-row>
+    <!-- Show character counter -->
+    <ion-text [ngClass]="{ 'over-limit': (eventJson.description?.length || 0) >= 500 }"style="float: right;">
+      {{ eventJson.description?.length || 0 }}/500
+    </ion-text>
+
+    <!-- Show validation error -->
+    <!-- <ion-text color="danger" *ngIf="desc.invalid && desc.touched">
+      <p *ngIf="desc.errors?.['maxlength']">Maximum 500 characters allowed.</p>
+    </ion-text> -->
     <ion-row style="margin-left: 7px;margin-top: 14px;">
       <span style="color:black" class="required">Upload Image</span>
     </ion-row>

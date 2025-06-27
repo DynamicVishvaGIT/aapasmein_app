@@ -321,6 +321,28 @@ ion-toolbar {
   margin-top: 4px; /* Align icon properly */
 }
 
+.delete_account{
+  // background: red;
+  // color: white;
+  // background: #ff00008a;
+  background: rgb(255 0 0 / 32%);
+  color: red;
+}
+
+.delete_icon{
+  color:red;
+  font-size: 15px;
+}
+
+.chip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.label{
+  font-size: 12px;
+}
+
 // strong {
 //   font-size: smaller;
 //   color: 00000087;

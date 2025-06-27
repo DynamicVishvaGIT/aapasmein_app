@@ -34,9 +34,9 @@ ion-content {
 }
 .saved-items-card {
     margin-top: -8px;
-    // height: 260px;
-    height:auto;
-    min-height: 273px;
+    // height:auto;
+    max-height: 292px;
+    min-height: 292px;
     margin-left: 0px;
     margin-right: 2px;
     border-radius:8px;

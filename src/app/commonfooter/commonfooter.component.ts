@@ -121,7 +121,7 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
     .subscribe((response:any) => {
       console.log(response);
       this.request_list = response.data;
-      if(this.request_list.length>=4){
+      if(this.request_list.length>=4 && this.currentUser.mobile_no!='7718092699'){
         this.handShake = true;
       }
       else{
