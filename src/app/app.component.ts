@@ -2,6 +2,8 @@ import { Component, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 import { CommonService } from './common.service';
+import { ApiService } from './api.service';
+import { Subject, takeUntil } from 'rxjs';
 
 declare var cordova: any; // Declare cordova to use the plugin
 
@@ -11,10 +13,14 @@ declare var cordova: any; // Declare cordova to use the plugin
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
+  private _unsubscribeAll: Subject<any>;
+
   currentUser:any;
 
   constructor(private router: Router, private renderer: Renderer2, private platform: Platform, private navCtrl: NavController, 
-    private commonService: CommonService, private modalCtrl: ModalController) {
+    private commonService: CommonService, private modalCtrl: ModalController, private apiService: ApiService) {
+      this._unsubscribeAll = new Subject();
     this.initializeApp();
   }
 
@@ -49,7 +55,7 @@ export class AppComponent {
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
     if(this.currentUser!=null){
-      this.router.navigateByUrl('dashboard');
+      this.check_user_logged_in();
     }
     else{
       this.router.navigateByUrl('login-agreement');
@@ -143,6 +149,7 @@ export class AppComponent {
         }
       });
     });
+
     // this.platform.ready().then(() => {
     //   this.router.events.subscribe(event => {
     //     if (event instanceof NavigationEnd) {
@@ -243,5 +250,51 @@ export class AppComponent {
     //     // }
     //   });
     // })
+  }
+
+  check_user_logged_in() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    this.apiService.check_user_logged_in(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      if(response.loggedin){
+        this.logoutMyDevice();
+      }
+      else{
+        this.router.navigateByUrl('dashboard');
+      }
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  logoutMyDevice() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('logout_type', 'single');
+    this.apiService.logout(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.logout();
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  logout() {
+    this.dismiss();
+    localStorage.removeItem('currentUser');
+    localStorage.clear();  // Clear all local storage data
+    sessionStorage.clear(); // Clear session storage
+    this.router.navigate(['/welcome']);
+  }
+
+  dismiss() {
+    this.modalCtrl.dismiss();
   }
 }

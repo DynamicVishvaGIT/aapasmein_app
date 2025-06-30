@@ -29,6 +29,9 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
   maxResendLimit = 3;
   isActive = true;
   address:string='';
+  showreset:boolean = false;
+  user_id:string='';
+  logged_in_user:any;
 
   constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService,
     private commonService: CommonService, private activatedRoute: ActivatedRoute, private navigationService: NavigationService,
@@ -177,13 +180,20 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
     .subscribe((response:any) => {
         console.log(response);
         this.isActive = false; // 👈 stop any future resend logic
-        if(response.existing==true){
-          localStorage.setItem('currentUser',JSON.stringify(response.user_data));
-          this.navigationService.justLoggedIn = true;
-          this.router.navigate(['/dashboard']);
+        this.logged_in_user = response;
+        if(!response.logged_in){
+          if(response.existing==true){
+            localStorage.setItem('currentUser',JSON.stringify(response.user_data));
+            this.navigationService.justLoggedIn = true;
+            this.router.navigate(['/dashboard']);
+          }
+          else{
+            this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:'',sender_id: response.sender_id} });
+          }
         }
         else{
-          this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:'',sender_id: response.sender_id} });
+          this.showreset = true;
+          this.user_id = response.user_data.user_id;
         }
         // localStorage.setItem('currentUser',JSON.stringify(response.user_data));
         // this.commonService.setLoggedInUser(JSON.stringify(response.user_data));
@@ -195,6 +205,29 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
       })
     // this.router.navigate(['/agreement']);
+  }
+
+  logoutFromAllDevices() {
+    let formData = new FormData();
+    formData.append('user_id',this.user_id);
+    formData.append('apptype',this.apiService.apptype);
+    formData.append('logout_type', 'all');
+    this.apiService.logout(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      if(this.logged_in_user.existing==true){
+        localStorage.setItem('currentUser',JSON.stringify(this.logged_in_user.user_data));
+        this.navigationService.justLoggedIn = true;
+        this.router.navigate(['/dashboard']);
+      }
+      else{
+        this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:'',sender_id: this.logged_in_user.sender_id} });
+      }
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
   }
 
   dismiss() {

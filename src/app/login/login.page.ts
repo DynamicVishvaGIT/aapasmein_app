@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
 
   selectedCountry:string='';
   invite_code:string='';
-  showreset:boolean = false;
+  // showreset:boolean = false;
   countries = [ 
     {
     "name": "Afghanistan",
@@ -1173,6 +1173,13 @@ export class LoginPage implements OnInit {
         // else {
           this.commonService.showToastMessage('The OTP is '+response.message, 'success-toast','', 4000);
           this.router.navigate(['/otp-verification'], { queryParams: { mobile_no:this.user.mobile_no, user_otp: response.message, referral_code: this.referral_code!=''?this.referral_code:''} });
+        // if(!response.logged_in){
+        //   this.commonService.showToastMessage('The OTP is '+response.message, 'success-toast','', 4000);
+        //   this.router.navigate(['/otp-verification'], { queryParams: { mobile_no:this.user.mobile_no, user_otp: response.message, referral_code: this.referral_code!=''?this.referral_code:''} });
+        // }
+        // else{
+        //   this.showreset = true;
+        // }
           // this.verify_OTP(response.message);
         // }
         // localStorage.setItem('currentUser',JSON.stringify(response.user_data));

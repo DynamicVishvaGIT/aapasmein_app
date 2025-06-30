@@ -22,6 +22,20 @@ export class ApiService {
       catchError(this.errorHandler)
     )
   }
+  logout(user: any) {console.log(user);
+    return this.httpClient.post(this.baseUrl + 'logout', user)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+  check_user_logged_in(user: any) {console.log(user);
+    return this.httpClient.post(this.baseUrl + 'check_user_logged_in', user)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
   load_banners() {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('apptype', this.apptype);

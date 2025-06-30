@@ -48,5 +48,11 @@
 <ion-footer class="ion-no-border" style="padding: 10px;background: #071947;">
   <ion-toolbar position="bottom">
     <ion-button class="custom_button align" (click)="verifyOTP()">Verify</ion-button>
+    <ion-button class="custom_logout_button align" (click)="logoutFromAllDevices()" color="secondary" *ngIf="showreset === true"><b>Logout from other devices</b></ion-button>
   </ion-toolbar>
+
+
+  <!-- <ion-button (click)="logout()" class="custom_logout_button" *ngIf="showreset === true" color="secondary" expand="block">
+    <b>Logout from other devices</b>
+  </ion-button> -->
 </ion-footer>
