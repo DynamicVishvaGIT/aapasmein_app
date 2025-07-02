@@ -4,6 +4,7 @@ import { ModalController, NavController, Platform } from '@ionic/angular';
 import { CommonService } from './common.service';
 import { ApiService } from './api.service';
 import { Subject, takeUntil } from 'rxjs';
+import { NetworkService } from './network.service';
 
 declare var cordova: any; // Declare cordova to use the plugin
 
@@ -17,9 +18,10 @@ export class AppComponent {
   private _unsubscribeAll: Subject<any>;
 
   currentUser:any;
+  isConnected: boolean = true;
 
   constructor(private router: Router, private renderer: Renderer2, private platform: Platform, private navCtrl: NavController, 
-    private commonService: CommonService, private modalCtrl: ModalController, private apiService: ApiService) {
+    private commonService: CommonService, private modalCtrl: ModalController, private apiService: ApiService, private networkService: NetworkService) {
       this._unsubscribeAll = new Subject();
     this.initializeApp();
   }
@@ -61,6 +63,10 @@ export class AppComponent {
       this.router.navigateByUrl('login-agreement');
     }
     this.platform.ready().then(() => {
+      // Subscribe to connectivity changes
+      this.networkService.currentStatus.subscribe(status => {
+        this.isConnected = status;
+      });
       if (cordova && cordova.plugins && cordova.plugins.preventscreenshot) {
         cordova.plugins.preventscreenshot.enable(
           () => console.log('Screenshot prevention enabled'),

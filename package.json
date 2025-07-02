@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^17.0.2",
     "@angular/router": "^17.0.2",
     "@awesome-cordova-plugins/call-number": "^6.9.0",
+    "@awesome-cordova-plugins/network": "^8.0.2",
     "@ionic-native/camera": "^5.36.0",
     "@ionic-native/geolocation": "^5.36.0",
     "@ionic-native/in-app-browser": "^5.36.0",
@@ -59,6 +60,7 @@
     "cordova-plugin-inappbrowser": "^6.0.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
+    "cordova-plugin-network-information": "^3.0.0",
     "cordova-plugin-prevent-screenshot": "^1.0.3",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
@@ -91,7 +93,8 @@
       },
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-prevent-screenshot": {}
+      "cordova-plugin-prevent-screenshot": {},
+      "cordova-plugin-network-information": {}
     },
     "platforms": [
       "android"

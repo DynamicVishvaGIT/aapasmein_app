@@ -12,12 +12,13 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,ReactiveFormsModule,FormsModule, HttpClientModule, SwiperModule],
-  providers: [Camera, Geolocation, CallNumber, InAppBrowser, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [Camera, Geolocation, CallNumber, InAppBrowser, Network, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

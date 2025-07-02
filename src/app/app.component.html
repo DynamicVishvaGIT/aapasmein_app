@@ -1,3 +1,10 @@
 <ion-app>
+  <!-- Global No Internet Overlay -->
+  <div *ngIf="!isConnected" class="no-internet-overlay">
+    <div class="no-internet-content">
+      <img src="assets/no-internet-connection.jpg" alt="No Internet Connection">
+      <p>No Internet Connection</p>
+    </div>
+  </div>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

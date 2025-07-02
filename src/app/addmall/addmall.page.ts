@@ -124,22 +124,49 @@ export class AddmallPage implements OnInit {
       var d = new Date(),
       n = d.getTime(),
       fileName = n + ".jpg";
-      if(this.imageIndex==1){
-        this.selectedImage1 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
-        this.product_images.push(this.selectedImage1);
-      }
-      else if(this.imageIndex==2){
-        this.selectedImage2 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
-        this.product_images.push(this.selectedImage2);
-      }
-      else if(this.imageIndex==3){
-        this.selectedImage3 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
-        this.product_images.push(this.selectedImage3);
-      }
+      this.checkImageSizeAndUpload(fileName,imageData);
+      // if(this.imageIndex==1){
+      //   this.selectedImage1 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      //   this.product_images.push(this.selectedImage1);
+      // }
+      // else if(this.imageIndex==2){
+      //   this.selectedImage2 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      //   this.product_images.push(this.selectedImage2);
+      // }
+      // else if(this.imageIndex==3){
+      //   this.selectedImage3 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      //   this.product_images.push(this.selectedImage3);
+      // }
       //alert(JSON.stringify(this.album_images));
     }, (err) => {
       console.log('Error obtaining picture', err);
     });
+  }
+
+  async checkImageSizeAndUpload(fileName:string,imageData:any) {
+    // Convert base64 data URL to Blob
+    let response = await fetch(`data:image/jpeg;base64,${imageData}`);
+    let blob = await response.blob();
+  
+    const maxSizeMB = 5;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+    if (blob.size > maxSizeBytes) {
+      this.commonService.showToastMessage(`Image size exceeds ${maxSizeMB} MB. Please select a smaller image.`, 'error-toast', '', 4000);
+      return;
+    }
+    // Proceed with upload if size is acceptable
+    if(this.imageIndex==1){
+      this.selectedImage1 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      this.product_images.push(this.selectedImage1);
+    }
+    else if(this.imageIndex==2){
+      this.selectedImage2 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      this.product_images.push(this.selectedImage2);
+    }
+    else if(this.imageIndex==3){
+      this.selectedImage3 = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      this.product_images.push(this.selectedImage3);
+    }
   }
 
   async add_mall_products() {

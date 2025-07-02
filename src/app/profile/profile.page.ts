@@ -322,8 +322,9 @@ export class ProfilePage implements OnInit {
       var d = new Date(),
       n = d.getTime(),
       fileName = n + ".jpg";
-      this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
-      this.upload_image();
+      // this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+      // this.upload_image();
+      this.checkImageSizeAndUpload(fileName,imageData);
       // this.album_images.push(this.selectedImage1);
       //alert(JSON.stringify(this.album_images));
     }, (err) => {
@@ -331,10 +332,26 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  async upload_image() {
-    let formData = new FormData();
-    let response = await fetch(this.selectedImage.data);
+  async checkImageSizeAndUpload(fileName:string,imageData:any) {
+    // Convert base64 data URL to Blob
+    let response = await fetch(`data:image/jpeg;base64,${imageData}`);
     let blob = await response.blob();
+  
+    const maxSizeMB = 5;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+    if (blob.size > maxSizeBytes) {
+      this.commonService.showToastMessage(`Image size exceeds ${maxSizeMB} MB. Please select a smaller image.`, 'error-toast', '', 4000);
+      return;
+    }
+    this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+    // Proceed with upload if size is acceptable
+    this.upload_image(blob);
+  }
+
+  async upload_image(blob: Blob) {
+    let formData = new FormData();
+    // let response = await fetch(this.selectedImage.data);
+    // let blob = await response.blob();
     if(this.selectedImage.name==''){
       formData.append('profile_img','');
     }
