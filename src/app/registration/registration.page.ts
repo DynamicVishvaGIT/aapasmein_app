@@ -30,6 +30,17 @@ export class RegistrationPage implements OnInit {
   searchTerm = '';
   filteredProfessions :any[] = [];
   isPopoverOpen = false;
+
+  selectedLocationName = '';
+  searchLocationTerm = '';
+  filteredLocations :any[] = [];
+  isLocationPopoverOpen = false;
+
+  selectedInterestName = '';
+  searchInterestTerm = '';
+  filteredInterests :any[] = [];
+  isInterestPopoverOpen = false;
+
   mobile_no:string='';
   referral_code:string='';
   handshake_data:any;
@@ -68,6 +79,14 @@ export class RegistrationPage implements OnInit {
 
   openPopover(event: Event) {
     this.isPopoverOpen = true;
+  }
+
+  openLocationPopover(event: Event) {
+    this.isLocationPopoverOpen = true;
+  }
+
+  openInterestPopover(event: Event) {
+    this.isInterestPopoverOpen = true;
   }
 
   get_handshake() {
@@ -109,10 +128,12 @@ export class RegistrationPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_locations = response.data;
+      this.filteredLocations = [...this.get_locations];
       if(this.handshake_data.LOCATION_id){
         let index= this.commonService.findItem(this.get_locations,'id',this.handshake_data.LOCATION_id);
         if(index!=-1){
           this.user.location=this.get_locations[index].id;
+          this.selectedLocationName = this.get_locations[index].NAME;
         }
       }
       // this.get_locations.unshift({id:'',NAME:'Select Location'});
@@ -121,6 +142,19 @@ export class RegistrationPage implements OnInit {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }
+
+  filterLocations() {
+    this.filteredLocations = this.get_locations.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchLocationTerm.toLowerCase())
+    );
+  }
+
+  selectLocation(item: any) {
+    this.user.location = item.id;
+    this.selectedLocationName = item.NAME;
+    this.isLocationPopoverOpen = false;
+  }
+
   get_profession() {
     this.apiService.get_profession()
     .pipe(takeUntil(this._unsubscribeAll))
@@ -164,11 +198,24 @@ export class RegistrationPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_interests = response.data;
+      this.filteredInterests = [...this.get_interests];
       // this.get_interests.unshift({id:'',NAME:'Select Interest'});
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterInterests() {
+    this.filteredInterests = this.get_interests.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchInterestTerm.toLowerCase())
+    );
+  }
+
+  selectInterest(item: any) {
+    this.user.interest = item.id;
+    this.selectedInterestName = item.NAME;
+    this.isInterestPopoverOpen = false;
   }
 
   async presentActionSheet() {

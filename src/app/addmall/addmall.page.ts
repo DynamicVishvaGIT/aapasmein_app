@@ -21,7 +21,8 @@ export class AddmallPage implements OnInit {
   get_categories:any=[];
   get_mall_sub_categories:any=[];
   // selectedRadio:string='public';
-  acceptTerms:boolean=false;
+  ownershipTerms:boolean=false;
+  disclaimerTerms:boolean=false;
   selectedImage1:any={name:'', data:''};
   selectedImage2:any={name:'', data:''};
   selectedImage3:any={name:'', data:''};

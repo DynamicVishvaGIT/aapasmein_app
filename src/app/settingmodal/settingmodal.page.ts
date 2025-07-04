@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { ApiService } from '../api.service';
+import { CommonService } from '../common.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-settingmodal',
@@ -9,9 +12,36 @@ import { ModalController } from '@ionic/angular';
 })
 export class SettingmodalPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private router: Router) { }
+  private _unsubscribeAll: Subject<any>;
+
+  currentUser:any;
+
+  constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService,private commonService: CommonService ) { 
+    this._unsubscribeAll = new Subject();
+  }
 
   ngOnInit() {
+    let currentUser:any;
+    currentUser = localStorage.getItem('currentUser');
+    this.currentUser = JSON.parse(currentUser);
+    console.log(this.currentUser);
+  }
+
+  logoutMyDevice() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('apptype','mobile');
+    formData.append('logout_type', 'single');
+    formData.append('session_id', this.currentUser.session_id);
+    this.apiService.logout(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.logout();
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
   }
 
   logout() {

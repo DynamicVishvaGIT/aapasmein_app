@@ -212,6 +212,7 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
     formData.append('user_id',this.user_id);
     formData.append('apptype',this.apiService.apptype);
     formData.append('logout_type', 'all');
+    formData.append('session_id', this.logged_in_user.user_data.session_id);
     this.apiService.logout(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {

@@ -20,7 +20,9 @@ export class AddeventPage implements OnInit {
 
   selectedRadio:string='public';
   inputFocused:boolean=false;
-  acceptTerms:boolean=false;
+  // acceptTerms:boolean=false;
+  ownershipTerms:boolean=false;
+  disclaimerTerms:boolean=false;
   currentUser:any;
   eventJson:any={event_name:'',from_date:'',from_time:'',to_date:'',to_time:'',latitude:'',longitude:'',location:'',category_id:'',sub_category_id:'',description:'', share_with:'public'};
   get_event_categories:any=[];

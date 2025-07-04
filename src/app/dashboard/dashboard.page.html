@@ -116,8 +116,12 @@
       <ion-row align-self-center>
         <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, 'banner1')">
           <ng-template swiperSlide  *ngFor="let img of banner1_images">
-            <a [href]="img.url" target="_blank">
+            <!-- <a [href]="img.url" target="_blank">
               <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a> -->
+            <a [attr.href]="img.url && img.url.trim() !== '' ? img.url : null" target="_blank"
+              [ngClass]="{'disabled-link': !img.url || img.url.trim() === ''}">
+              <img [src]="eventImageUrl + img.image" alt="" class="banner">
             </a>
           </ng-template>
           <!-- <ng-template swiperSlide *ngFor="let item of items">
@@ -181,8 +185,12 @@
             <div class="content">{{item.title}}</div>
           </ng-template> -->
           <ng-template swiperSlide  *ngFor="let img of banner2_images">
-            <a [href]="img.url" target="_blank">
+            <!-- <a [href]="img.url" target="_blank">
               <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a> -->
+            <a [attr.href]="img.url && img.url.trim() !== '' ? img.url : null" target="_blank"
+              [ngClass]="{'disabled-link': !img.url || img.url.trim() === ''}">
+              <img [src]="eventImageUrl + img.image" alt="" class="banner">
             </a>
           </ng-template>
           <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
@@ -283,8 +291,12 @@
             <div class="content">{{item.title}}</div>
           </ng-template> -->
           <ng-template swiperSlide  *ngFor="let img of banner3_images">
-            <a [href]="img.url" target="_blank">
+            <!-- <a [href]="img.url" target="_blank">
               <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a> -->
+            <a [attr.href]="img.url && img.url.trim() !== '' ? img.url : null" target="_blank"
+              [ngClass]="{'disabled-link': !img.url || img.url.trim() === ''}">
+              <img [src]="eventImageUrl + img.image" alt="" class="banner">
             </a>
           </ng-template>
           <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>
@@ -430,8 +442,12 @@
             <div class="content">{{item.title}}</div>
           </ng-template> -->
           <ng-template swiperSlide  *ngFor="let img of banner4_images">
-            <a [href]="img.url" target="_blank">
+            <!-- <a [href]="img.url" target="_blank">
               <img src="{{eventImageUrl}}{{img.image}}" alt="" class="banner">
+            </a> -->
+            <a [attr.href]="img.url && img.url.trim() !== '' ? img.url : null" target="_blank"
+              [ngClass]="{'disabled-link': !img.url || img.url.trim() === ''}">
+              <img [src]="eventImageUrl + img.image" alt="" class="banner">
             </a>
           </ng-template>
           <!-- <ng-template swiperSlide><img src="assets/icon/banner/banner2.png" alt="" class="banner"></ng-template>

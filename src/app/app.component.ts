@@ -261,11 +261,12 @@ export class AppComponent {
   check_user_logged_in() {
     let formData = new FormData();
     formData.append('user_id',this.currentUser.user_id);
+    formData.append('session_id', this.currentUser.session_id);
     this.apiService.check_user_logged_in(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      if(response.loggedin){
+      if(!response.loggedin){
         this.logoutMyDevice();
       }
       else{
@@ -280,7 +281,9 @@ export class AppComponent {
   logoutMyDevice() {
     let formData = new FormData();
     formData.append('user_id',this.currentUser.user_id);
+    formData.append('apptype','mobile');
     formData.append('logout_type', 'single');
+    formData.append('session_id', this.currentUser.session_id);
     this.apiService.logout(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
@@ -297,7 +300,8 @@ export class AppComponent {
     localStorage.removeItem('currentUser');
     localStorage.clear();  // Clear all local storage data
     sessionStorage.clear(); // Clear session storage
-    this.router.navigate(['/welcome']);
+    // this.router.navigate(['/welcome']);
+    this.router.navigate(['/login-agreement']);
   }
 
   dismiss() {

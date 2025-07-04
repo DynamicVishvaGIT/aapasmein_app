@@ -465,3 +465,7 @@ ion-content {
     padding-right: 10px;
     color:#3180ea
   }
+  .disabled-link {
+    pointer-events: none;
+    cursor: default;
+  }
