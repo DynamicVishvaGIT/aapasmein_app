@@ -479,6 +479,70 @@ export class ProfilePage implements OnInit {
     await confirm.present();
   }
 
+  async delete_dialog() {
+    const confirm = await this.alertCtrl.create({
+      // header: this.sold_unsold_text=='Mark as Sold'?'Mark as Sold':'Mark as Unsold',
+      header: 'Delete My Account',
+      message: 'Do you want delete your account.?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Ok, Delete it',
+          handler: () => {
+            this.delete_user_account();
+          }
+        }
+      ]
+    });
+   await  confirm.present();
+  }
+
+  delete_user_account() {
+    let formData = new FormData();
+    formData.append("user_id",this.currentUser.user_id)
+    this.apiService.delete_user(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log('delete_user',response);
+      this.logoutMyDevice();
+    },
+    respError => {
+      this.addAdvantage = true;
+      this.commonService.showToastMessage(respError, 'error-toast','', 2000);
+    })
+  }
+
+  logoutMyDevice() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('apptype','mobile');
+    formData.append('logout_type', 'single');
+    formData.append('session_id', this.currentUser.session_id);
+    this.apiService.logout(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.logout();
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  logout() {
+    this.dismiss();
+    localStorage.removeItem('currentUser');
+    localStorage.clear();  // Clear all local storage data
+    sessionStorage.clear(); // Clear session storage
+    // this.router.navigate(['/welcome']);
+    this.router.navigate(['/login-agreement']);
+  }
+
   
 
   goToSavedItems() {

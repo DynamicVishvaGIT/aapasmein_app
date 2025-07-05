@@ -36,6 +36,15 @@ export class ApiService {
       catchError(this.errorHandler)
     )
   }
+
+  delete_user(user: any) {
+    return this.httpClient.post(this.baseUrl + 'delete_user', user)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+  
   load_banners() {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('apptype', this.apptype);
