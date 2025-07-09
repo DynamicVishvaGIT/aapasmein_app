@@ -87,7 +87,7 @@ export class ConvenienceDetailsPage implements OnInit {
         item.PROFESSION.toLowerCase().includes(query) ||
         item.LOCATION.toLowerCase().includes(query)
       );
-      this.isFooterVisible = true;
+      this.isFooterVisible = false;
     }
   }
 

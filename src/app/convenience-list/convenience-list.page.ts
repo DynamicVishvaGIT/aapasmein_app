@@ -78,7 +78,7 @@ export class ConvenienceListPage implements OnInit {
       this.filteredList = this.list.filter((item:any) => 
         item.NAME.toLowerCase().includes(query)
       );
-      this.isFooterVisible = true;
+      this.isFooterVisible = false;
     }
   }
 

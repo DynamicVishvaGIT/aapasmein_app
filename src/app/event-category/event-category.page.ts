@@ -65,6 +65,7 @@ export class EventCategoryPage implements OnInit {
   load_events() {
     this.commonService.presentLoading();
     this.dataLoaded = false;
+    this.searchQuery = '';
     // let formData = new FormData();
     // formData.append("mobile_no",this.currentUser.mobile_no),
     // formData.append('apptype',this.apiService.apptype);
@@ -97,6 +98,7 @@ export class EventCategoryPage implements OnInit {
   load_my_events() {
     this.commonService.presentLoading();
     this.myEventDataLoaded = false;
+    this.searchQuery = '';
     // let formData = new FormData();
     // formData.append("user_id",this.currentUser.user_id),
     // formData.append('apptype',this.apiService.apptype);
@@ -119,6 +121,7 @@ export class EventCategoryPage implements OnInit {
   load_my_interested_events() {
     this.commonService.presentLoading();
     this.myInterestDataLoaded = false;
+    this.searchQuery = '';
     let formData = new FormData();
     formData.append("user_id",this.currentUser.user_id),
     this.apiService.load_my_interested_events(formData)
@@ -221,7 +224,7 @@ export class EventCategoryPage implements OnInit {
         }))
         .filter((item:any) => item.events.length > 0);
       }
-      this.isFooterVisible = true;
+      this.isFooterVisible = false;
     }
   }
 

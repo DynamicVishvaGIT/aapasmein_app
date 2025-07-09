@@ -55,24 +55,75 @@
       <ion-row>
         <ion-col size="6">
             <div class="input-container" [class.focused]="friend.city || inputFocused">
-                <ion-label class="input-label required">District</ion-label>
+                <ion-label class="input-label required">State</ion-label>
                 <div class="input-group">
-                    <ion-select class="ion-select" [(ngModel)]="friend.city" (ionChange)="load_location()">
+                    <!-- <ion-select class="ion-select" [(ngModel)]="friend.city" (ionChange)="load_location()">
                       <ion-select-option *ngFor="let item of get_cities" [value]="item.id">{{item.NAME}}</ion-select-option>
-                    </ion-select>
+                    </ion-select> -->
+                    <ion-input [value]="selectedStateName" readonly (click)="openStatePopover($event)"></ion-input>
                 </div>
             </div>
         </ion-col>
+        <!-- Popover for Searchable Dropdown -->
+        <ion-popover #statePopover [isOpen]="isStatePopoverOpen" (didDismiss)="isStatePopoverOpen = false">
+          <ng-template>
+            <ion-content class="popover-content">
+                <ion-searchbar [(ngModel)]="searchStateTerm" (ionInput)="filterStates()"></ion-searchbar>
+                <ion-list>
+                <ion-item *ngFor="let item of filteredStates" (click)="selectState(item)">
+                    {{ item.NAME }}
+                </ion-item>
+                </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
         <ion-col size="6">
             <div class="input-container" [class.focused]="friend.location || inputFocused">
-                <ion-label class="input-label required">City</ion-label>
+                <ion-label class="input-label required">District</ion-label>
                 <div class="input-group">
-                    <ion-select class="ion-select" [(ngModel)]="friend.location">
+                    <!-- <ion-select class="ion-select" [(ngModel)]="friend.location">
                       <ion-select-option *ngFor="let item of get_locations" [value]="item.id">{{item.NAME}}</ion-select-option>
-                    </ion-select>
+                    </ion-select> -->
+                    <ion-input [value]="selectedDistrictName" readonly (click)="openDistrictPopover($event)"></ion-input>
                 </div>
             </div>
         </ion-col>
+        <!-- Popover for Searchable Dropdown -->
+        <ion-popover #districtPopover [isOpen]="isDistrictPopoverOpen" (didDismiss)="isDistrictPopoverOpen = false" *ngIf="filteredDistricts.length>0">
+          <ng-template>
+            <ion-content class="popover-content">
+                <ion-searchbar [(ngModel)]="searchDistrictTerm" (ionInput)="filterDistricts()"></ion-searchbar>
+                <ion-list>
+                <ion-item *ngFor="let item of filteredDistricts" (click)="selectDistrict(item)">
+                    {{ item.NAME }}
+                </ion-item>
+                </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+
+        <!-- <ion-col size="6">
+          <div class="input-container" [class.focused]="selectedInterests.length > 0 || inputFocused">
+            <ion-label class="input-label required">Interest</ion-label>
+            <div class="input-group">
+              <ion-input [value]="selectedInterestNames" readonly (click)="openInterestPopover($event)"></ion-input>
+            </div>
+          </div>
+        </ion-col>
+        <ion-popover #interestPopover [isOpen]="isInterestPopoverOpen" (didDismiss)="closeInterestPopover()">
+          <ng-template>
+            <ion-content class="popover-content">
+              <ion-searchbar [(ngModel)]="searchInterestTerm" (ionInput)="filterInterests()"></ion-searchbar>
+              <ion-list>
+                <ion-item *ngFor="let item of filteredInterests" (click)="toggleInterestSelection(item)">
+                  <ion-checkbox slot="start" [checked]="isSelected(item)"></ion-checkbox>
+                  <ion-label>{{ item.NAME }}</ion-label>
+                </ion-item>
+              </ion-list>
+              <ion-button expand="full" (click)="closeInterestPopover()">Done</ion-button>
+            </ion-content>
+          </ng-template>
+        </ion-popover> -->
       </ion-row>
       <ion-row>
         <ion-col size="12">

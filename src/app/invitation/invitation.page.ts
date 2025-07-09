@@ -17,7 +17,7 @@ export class InvitationPage implements OnInit {
   private _unsubscribeAll: Subject<any>;
 
   currentUser:any;
-  friend:any={full_name:'',city:'', location:'',mobile_number:'',email:''};
+  friend:any={full_name:'',city:'', location:'',mobile_number:'',email:'', interest:''};
   get_cities:any = [];
   get_locations:any = [];
   accepted_data:any=[];
@@ -25,6 +25,21 @@ export class InvitationPage implements OnInit {
   invitedFriends:any=[];
   imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
   showTooltip = false;
+
+  selectedStateName = '';
+  searchStateTerm = '';
+  filteredStates :any[] = [];
+  isStatePopoverOpen = false;
+
+  selectedDistrictName = '';
+  searchDistrictTerm = '';
+  filteredDistricts :any[] = [];
+  isDistrictPopoverOpen = false;
+
+  // selectedInterests: any[] = [];
+  // searchInterestTerm = '';
+  // filteredInterests: any = [];
+  // isInterestPopoverOpen = false;
 
   constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private keyboardService: KeyboardService) { 
     this._unsubscribeAll = new Subject();
@@ -38,6 +53,80 @@ export class InvitationPage implements OnInit {
     this.get_city();
     // this.get_location();
     this.load_friend_request();
+  }
+
+
+  // openInterestPopover(event: Event) {
+  //   this.isInterestPopoverOpen = true;
+  //   this.filteredInterests = [...this.get_cities];
+  // }
+  
+  // filterInterests() {
+  //   const term = this.searchInterestTerm.toLowerCase();
+  //   this.filteredInterests = this.get_cities.filter((item: any) =>
+  //     item.NAME.toLowerCase().includes(term)
+  //   );
+  // }
+  
+  // toggleInterestSelection(item: any) {
+  //   const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
+  //   if (index > -1) {
+  //     this.selectedInterests.splice(index, 1);
+  //   } else {
+  //     this.selectedInterests.push(item);
+  //   }
+  //   this.friend.interest = this.selectedInterests.map(d => d.id);
+  // }
+  
+  // isSelected(item: any): boolean {
+  //   return this.selectedInterests.some(selected => selected.id === item.id);
+  // }
+  
+  // closeInterestPopover() {
+  //   this.isInterestPopoverOpen = false;
+  // }
+  
+  // get selectedInterestNames() {
+  //   if (this.selectedInterests && this.selectedInterests.length > 0) {
+  //     return this.selectedInterests.map(d => d.NAME).join(', ');
+  //   } 
+  //   else {
+  //     return '';
+  //   }
+  // }
+
+
+  openStatePopover(event: Event) {
+    this.isStatePopoverOpen = true;
+  }
+
+  filterStates() {
+    this.filteredStates = this.get_cities.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchStateTerm.toLowerCase())
+    );
+  }
+
+  selectState(item: any) {
+    this.friend.city = item.id;
+    this.selectedStateName = item.NAME;
+    this.isStatePopoverOpen = false;
+    this.load_location();
+  }
+
+  openDistrictPopover(event: Event) {
+    this.isDistrictPopoverOpen = true;
+  }
+
+  filterDistricts() {
+    this.filteredDistricts = this.get_cities.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchDistrictTerm.toLowerCase())
+    );
+  }
+
+  selectDistrict(item: any) {
+    this.friend.location = item.id;
+    this.selectedDistrictName = item.NAME;
+    this.isDistrictPopoverOpen = false;
   }
 
   onFocus() {
@@ -67,6 +156,7 @@ export class InvitationPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_cities = response.data;
+      this.filteredStates = [...this.get_cities];
       // this.get_cities.unshift({id:'',NAME:'Select City'});
     },
     respError => {
@@ -79,6 +169,7 @@ export class InvitationPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_locations = response.data;
+      this.filteredDistricts = [...this.get_locations];
       // this.get_locations.unshift({id:'',NAME:'Select Location'});
     },
     respError => {

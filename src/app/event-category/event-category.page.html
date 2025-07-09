@@ -71,7 +71,7 @@
                       <img src="{{imageUrl}}{{event.event_created_image}}" alt="" class="circle-img1" *ngIf="event.event_created_image">
                       <img src="../../assets/avtar4.png" alt="" class="circle-img1" *ngIf="!event.event_created_image">
                     </ion-col>
-                    <ion-col size="4">
+                    <ion-col size="6">
                       <span style="color:#0f1f49;font-size: 9px;">{{event.event_created_by}}</span><!--margin-left: -50px;-->
                     </ion-col>
                     <ion-col size="4">
@@ -133,7 +133,7 @@
                       <img src="{{imageUrl}}{{event.event_created_image}}" alt="" class="circle-img1" *ngIf="event.event_created_image">
                       <img src="../../assets/avtar4.png" alt="" class="circle-img1" *ngIf="!event.event_created_image">
                     </ion-col>
-                    <ion-col size="4">
+                    <ion-col size="6">
                       <span style="color:#0f1f49;font-size: 9px;">{{event.event_created_by}}</span><!--margin-left: -50px;-->
                     </ion-col>
                     <ion-col size="4">
@@ -182,7 +182,7 @@
                 <ion-card-header class="card-header-img" (click)="goToDetails(event,'myinterest')"> 
                   <img src="{{imageUrl}}{{event.event_image}}" alt="" class="img-banner1">
                 </ion-card-header>
-                  <ion-row (click)="goToDetails(event,'all')">
+                  <ion-row (click)="goToDetails(event,'myinterest')">
                     <ion-col size="6">
                       <span style="float:left;font-size: 9px;color:#000000;font-weight: 500;">{{event.from_date | date:'dd MMMM, yyyy'}}</span>
                     </ion-col>
@@ -190,7 +190,7 @@
                       <span style="font-size: 9px;color:#ee6737;font-weight: 500;">{{event.from_time | date:'hh:mm a'}}</span>
                     </ion-col>
                   </ion-row>
-                  <ion-row style="margin-top: -9px;" (click)="goToDetails(event,'all')">
+                  <ion-row style="margin-top: -9px;" (click)="goToDetails(event,'myinterest')">
                     <ion-col>
                       <span style="float:left;font-size:small;color:#000000;font-weight: 700;">{{event.event_name}}</span>
                     </ion-col>
@@ -199,11 +199,11 @@
                     </ion-col>
                   </ion-row>
                   <ion-row style="margin-top: 10px;">
-                    <ion-col size="2">
+                    <ion-col size="2" (click)="goToDetails(event,'myinterest')">
                       <img src="{{imageUrl}}{{event.event_created_image}}" alt="" class="circle-img1" *ngIf="event.event_created_image">
                       <img src="../../assets/avtar4.png" alt="" class="circle-img1" *ngIf="!event.event_created_image">
                     </ion-col>
-                    <ion-col size="4">
+                    <ion-col size="6" (click)="goToDetails(event,'myinterest')">
                       <span style="color:#0f1f49;font-size: 9px;">{{event.event_created_by}}</span><!--margin-left: -50px;-->
                     </ion-col>
                     <ion-col size="4">

@@ -274,6 +274,7 @@ export class ProfilePage implements OnInit {
       if (modalItem) {
         this.get_user_details();
       }
+      this.commonService.currentPage = '/profile';
     })
     return await modal.present();
   }

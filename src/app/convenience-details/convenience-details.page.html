@@ -24,7 +24,7 @@
   <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList($event)" placeholder="Search Convenience" (click)="hideFooter()"></ion-searchbar>
 
   <ion-row style="margin-left: 28px;margin-top: 12px;">
-    <span style="color:white;font-size: small;">{{profession}}</span>
+    <span style="color:white;font-size: 16px;">{{profession}}</span>
   </ion-row>
   <div class="gap" *ngIf="dataLoaded && filteredList.length > 0">
     <ion-grid>

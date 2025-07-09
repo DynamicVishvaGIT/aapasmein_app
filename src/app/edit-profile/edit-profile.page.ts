@@ -133,6 +133,18 @@ export class EditProfilePage implements OnInit {
       this.get_interests = response.data;
       this.filteredInterests = [...this.get_interests];
       // this.get_interests.unshift({id:'',NAME:'Select Interest'});
+      
+      const selectedNames = this.user_details.INTEREST_NAME.split(',').map((name:any) => name.trim());
+        console.log('selectedNames',selectedNames);
+        console.log('get_interests', this.get_interests);
+        this.selectedInterests = this.get_interests.filter((item:any) =>
+          selectedNames.includes(item.NAME)
+        );
+        console.log(this.selectedInterests);
+        // Optionally set iFlag on these items so checkboxes are marked when the popover opens
+        this.get_interests.forEach((item:any) => {
+          item.iFlag = selectedNames.includes(item.NAME);
+        });
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -244,17 +256,17 @@ export class EditProfilePage implements OnInit {
         // this.user.edit_interest = this.user_details.INTEREST_NAME;
         this.user.edit_interest = this.user_details.INTEREST_NAME.split(',').map((interest:any) => interest.trim());
         // Assuming get_interests is already loaded with full interest list
-        const selectedNames = this.user_details.INTEREST_NAME.split(',').map((name:any) => name.trim());
-        console.log('selectedNames',selectedNames);
-        console.log('get_interests', this.get_interests);
-        this.selectedInterests = this.get_interests.filter((item:any) =>
-          selectedNames.includes(item.NAME)
-        );
-        console.log(this.selectedInterests);
-        // Optionally set iFlag on these items so checkboxes are marked when the popover opens
-        this.get_interests.forEach((item:any) => {
-          item.iFlag = selectedNames.includes(item.NAME);
-        });
+        // const selectedNames = this.user_details.INTEREST_NAME.split(',').map((name:any) => name.trim());
+        // console.log('selectedNames',selectedNames);
+        // console.log('get_interests', this.get_interests);
+        // this.selectedInterests = this.get_interests.filter((item:any) =>
+        //   selectedNames.includes(item.NAME)
+        // );
+        // console.log(this.selectedInterests);
+        // // Optionally set iFlag on these items so checkboxes are marked when the popover opens
+        // this.get_interests.forEach((item:any) => {
+        //   item.iFlag = selectedNames.includes(item.NAME);
+        // });
         // if (typeof this.user_details.INTEREST_NAME === 'string') {
         //   this.user.edit_interest = this.user_details.INTEREST_NAME.split(',').map(Number);
         // }

@@ -36,9 +36,14 @@ export class RegistrationPage implements OnInit {
   filteredLocations :any[] = [];
   isLocationPopoverOpen = false;
 
-  selectedInterestName = '';
+  // selectedInterestName = '';
+  // searchInterestTerm = '';
+  // filteredInterests :any[] = [];
+  // isInterestPopoverOpen = false;
+
+  selectedInterests: any[] = []; // store selected district objects
   searchInterestTerm = '';
-  filteredInterests :any[] = [];
+  filteredInterests: any = [];
   isInterestPopoverOpen = false;
 
   mobile_no:string='';
@@ -85,8 +90,51 @@ export class RegistrationPage implements OnInit {
     this.isLocationPopoverOpen = true;
   }
 
+  // openInterestPopover(event: Event) {
+  //   this.isInterestPopoverOpen = true;
+  // }
+
   openInterestPopover(event: Event) {
     this.isInterestPopoverOpen = true;
+    this.filteredInterests = [...this.get_interests]; // refresh filtered list
+  }
+  
+  filterInterests() {
+    const term = this.searchInterestTerm.toLowerCase();
+    this.filteredInterests = this.get_interests.filter((item: any) =>
+      item.NAME.toLowerCase().includes(term)
+    );
+  }
+  
+  toggleInterestSelection(item: any) {
+    const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
+    if (index > -1) {
+      // already selected, remove it
+      this.selectedInterests.splice(index, 1);
+    } else {
+      // not selected, add it
+      this.selectedInterests.push(item);
+    }
+    // update friend.interest with selected IDs
+    this.user.interest = this.selectedInterests.map(d => d.NAME);
+  }
+  
+  isSelected(item: any): boolean {
+    return this.selectedInterests.some(selected => selected.id === item.id);
+  }
+  
+  closeInterestPopover() {
+    this.isInterestPopoverOpen = false;
+  }
+  
+  // Getter to display selected interests in input safely
+  get selectedInterestNames() {
+    if (this.selectedInterests && this.selectedInterests.length > 0) {
+      return this.selectedInterests.map(d => d.NAME).join(', ');
+    } 
+    else {
+      return '';
+    }
   }
 
   get_handshake() {
@@ -206,17 +254,17 @@ export class RegistrationPage implements OnInit {
     })
   }
 
-  filterInterests() {
-    this.filteredInterests = this.get_interests.filter((item:any) =>
-      item.NAME.toLowerCase().includes(this.searchInterestTerm.toLowerCase())
-    );
-  }
+  // filterInterests() {
+  //   this.filteredInterests = this.get_interests.filter((item:any) =>
+  //     item.NAME.toLowerCase().includes(this.searchInterestTerm.toLowerCase())
+  //   );
+  // }
 
-  selectInterest(item: any) {
-    this.user.interest = item.id;
-    this.selectedInterestName = item.NAME;
-    this.isInterestPopoverOpen = false;
-  }
+  // selectInterest(item: any) {
+  //   this.user.interest = item.id;
+  //   this.selectedInterestName = item.NAME;
+  //   this.isInterestPopoverOpen = false;
+  // }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
@@ -350,7 +398,8 @@ export class RegistrationPage implements OnInit {
     else{
       formData.append('profile_img' , blob, this.selectedImage.name); 
     }
-    formData.append('user_status','user');
+    // formData.append('user_status','user');
+    formData.append('user_choice','user');
     formData.append('sender_id',this.sender_id);
     formData.append('apptype',this.apiService.apptype);
     this.apiService.add_user(formData)

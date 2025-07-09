@@ -10,15 +10,15 @@
           <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;" (click)="dismiss()"></ion-icon>
         </ion-col>
         <ion-col size="9" style="text-align: center; margin-top: -3px;">
-          <strong class="header" style="color:white;">aapasmein Clarity</strong>
+          <strong class="header" style="color:white;">{{clarity_title?.TITLE.toLowerCase()}}</strong>
         </ion-col>
-        <ion-col style="text-align: end;" (click)="showSearch()">
+        <!-- <ion-col style="text-align: end;" (click)="showSearch()">
           <ion-icon name="search-outline" style="color:white; margin-right: 7px;"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
-  <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch>
+  <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <div>
     <ion-grid>
       <ion-row>
@@ -38,7 +38,7 @@
             <!-- <ion-icon name="calendar-number-outline" *ngIf="clarity_id=='5'"></ion-icon> -->
             <img src="assets/icon/features/community.svg" alt="" class="menu-icon1" *ngIf="clarity_id=='6'">
             <!-- <ion-icon name="snow-outline" *ngIf="clarity_id=='6'"></ion-icon> -->
-            <img src="assets/icon/features/deal.png" class="menu-icon1" *ngIf="clarity_id=='7'">
+            <img src="assets/icon/features/deal.svg" class="menu-icon1" *ngIf="clarity_id=='7'">
             <!-- <ion-icon name="cart-outline" *ngIf="clarity_id=='7'"></ion-icon> -->
             <img src="assets/icon/features/rate.svg" alt="" class="menu-icon1" *ngIf="clarity_id=='8'">
             <!-- <ion-icon name="star-outline" *ngIf="clarity_id=='8'"></ion-icon> -->
@@ -49,7 +49,7 @@
             <!-- <ion-icon name="help-outline" *ngIf="clarity_id=='11'"></ion-icon>
             <ion-icon name="help-outline" *ngIf="clarity_id=='12'"></ion-icon> -->
             <img src="assets/icon/features/unwind.png" class="menu-icon1" *ngIf="clarity_id=='11'">
-            <img src="assets/icon/features/samvaad.png" class="menu-icon1" *ngIf="clarity_id=='12'">
+            <img src="assets/icon/features/samvaad.svg" class="menu-icon1" *ngIf="clarity_id=='12'">
           </div>
         </ion-col>
       </ion-row>

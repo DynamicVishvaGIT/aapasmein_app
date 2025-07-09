@@ -129,7 +129,11 @@ export class AppComponent {
           //   queryParamsHandling: 'merge'
           // });
         }
-    
+        // else if (
+        //   (currentUrl === '/request-send' && !prevUrl.includes('/saveditem'))
+        // ) {
+        //   this.router.navigate(['/dashboard']);
+        // }
         // ✅ Other routes like modal/dismiss logic
         else if (
           currentUrl === '/feedback-modal' ||
