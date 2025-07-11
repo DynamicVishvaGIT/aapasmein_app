@@ -28,7 +28,7 @@
       <ion-row>
           <ion-col size="6">
               <div class="input-container" [class.focused]="user.edit_city || inputFocused">
-                  <ion-label class="input-label required">District</ion-label>
+                  <ion-label class="input-label required">State</ion-label>
                   <div class="input-group">
                       <ion-select class="ion-select" [(ngModel)]="user.edit_city" (ionChange)="load_location()">
                           <ion-select-option *ngFor="let item of get_cities" [value]="item.id">{{item.NAME}}</ion-select-option>
@@ -39,7 +39,7 @@
           </ion-col>
           <ion-col size="6">
               <div class="input-container" [class.focused]="user.edit_location || inputFocused">
-                  <ion-label class="input-label required">City</ion-label>
+                  <ion-label class="input-label required">District</ion-label>
                   <div class="input-group">
                       <ion-select class="ion-select" [(ngModel)]="user.edit_location">
                           <ion-select-option *ngFor="let item of get_locations" [value]="item.id">{{item.NAME}}</ion-select-option>
@@ -146,11 +146,12 @@
             <ion-content class="popover-content">
                 <ion-searchbar [(ngModel)]="searchInterestTerm" (ionInput)="filterInterests()"></ion-searchbar>
                 <ion-list>
-                    <ion-item *ngFor="let item of filteredInterests" >  <!--(click)="selectInterest(item)"-->
+                    <ion-item *ngFor="let item of filteredInterests" (click)="toggleSelection(item)">  <!--(click)="selectInterest(item)"-->
                         <ion-checkbox
                             slot="start"
                             [(ngModel)]="item.iFlag"
-                            (ionChange)="toggleSelection(item)">
+                            (click)="$event.stopPropagation()"
+                            >
                         </ion-checkbox><!--[checked]="isSelected(item)"-->
                         <ion-label>{{ item.NAME }}</ion-label>
                     </ion-item>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
 
@@ -40,16 +40,22 @@ export class RequestPage implements OnInit {
   }
 
   ngOnInit() {
-    let currentUser:any;
-    currentUser = localStorage.getItem('currentUser');
-    this.currentUser = JSON.parse(currentUser);
-    console.log(this.currentUser);
     this.activatedRoute.queryParams.subscribe(params => {
       this.routeURL = params['routeURL'];
       console.log(this.routeURL);
+      let currentUser:any;
+      currentUser = localStorage.getItem('currentUser');
+      this.currentUser = JSON.parse(currentUser);
+      console.log(this.currentUser);
     });
-    this.load_friend_request();
-    this.load_handshake_request();
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
+      ).subscribe((event: NavigationEnd) => {
+        if (event.url === '/request') { // Check if user navigated back to a specific URL
+          this.load_friend_request();
+          this.load_handshake_request();
+        }
+    });
   }
 
   doRefresh(event:any){
@@ -142,7 +148,7 @@ export class RequestPage implements OnInit {
   }
 
   load_handshake_request() {
-    this.commonService.presentLoading();
+    // this.commonService.presentLoading();
     this.handshakeDataLoaded = false;
     this.viewHandShakeMsgFlag = false;
     let formData = new FormData();
@@ -156,7 +162,7 @@ export class RequestPage implements OnInit {
       this.handshake_request_list = response.data;
       this.filteredHandshakeList = [...this.handshake_request_list]; // Initialize filtered list
       this.handshakeDataLoaded = true;
-      this.commonService.dismissLoading();
+      // this.commonService.dismissLoading();
     },
     respError => {
       this.commonService.dismissLoading();

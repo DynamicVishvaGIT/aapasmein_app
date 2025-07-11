@@ -75,11 +75,11 @@ export class ProfilePage implements OnInit {
     }
 
   ngOnInit() {
-    let currentUser:any;
-    currentUser = localStorage.getItem('currentUser');
-    this.currentUser = JSON.parse(currentUser);
-    console.log(this.currentUser);
     this.activatedRoute.queryParams.subscribe(params => {
+      let currentUser:any;
+      currentUser = localStorage.getItem('currentUser');
+      this.currentUser = JSON.parse(currentUser);
+      console.log(this.currentUser);
       this.search_id = params['search_id'];
       this.routeURL = params['routeURL'];
       this.searchText = params['searchText'];
@@ -268,6 +268,7 @@ export class ProfilePage implements OnInit {
   }
 
   async editProfile() {
+    // this.router.navigate(['/edit-profile']);
     this.commonService.currentPage = '/edit-profile';
     let modal = await this.modalCtrl.create({ component: EditProfilePage});
     modal.onDidDismiss().then((modalItem) => {console.log(modalItem);

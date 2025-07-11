@@ -57,7 +57,7 @@
         <ion-row>
             <ion-col size="6">
                 <div class="input-container" [class.focused]="user.city || inputFocused">
-                    <ion-label class="input-label required">City</ion-label>
+                    <ion-label class="input-label required">District</ion-label>
                     <div class="input-group">
                         <ion-select class="ion-select" [(ngModel)]="user.city" (ionChange)="load_location()">
                             <ion-select-option *ngFor="let item of get_cities" [value]="item.id">{{item.NAME}}</ion-select-option>
@@ -200,8 +200,13 @@
                     <ion-label>{{ item.NAME }}</ion-label>
                   </ion-item>
                 </ion-list>
-                <ion-button expand="full" (click)="closeInterestPopover()">Done</ion-button>
+                <!-- <ion-button expand="full" (click)="closeInterestPopover()">Done</ion-button> -->
               </ion-content>
+              <ion-footer>
+                <div class="fixed-footer">
+                    <ion-button expand="full" (click)="closeInterestPopover()">Done</ion-button>
+                </div>
+            </ion-footer>
             </ng-template>
           </ion-popover>
         <ion-row>

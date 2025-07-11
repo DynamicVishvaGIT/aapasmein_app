@@ -34,7 +34,7 @@ export class DashboardPage implements OnInit {
   // Store interval references for each swiper instance
   intervals: { [key: string]: any } = {};
   // Store interval references for each mall item
-  mallIntervals: { [key: string]: any } = {}; 
+  mallInterval: any; 
   convenience_list:any=[];
   mall_list_data:any=[];
   event_list:any=[];
@@ -50,6 +50,7 @@ export class DashboardPage implements OnInit {
   showFooter:boolean = false;
   isBackNavigation = false;
   today = new Date();
+  notificationCount: number = 0;
 
   constructor(private router: Router, private modalCtrl: ModalController, private geolocation: Geolocation, private http: HttpClient,
     private apiService: ApiService, private commonService: CommonService, private loadingCtrl: LoadingController, private navigationService: NavigationService) { 
@@ -79,6 +80,7 @@ export class DashboardPage implements OnInit {
           this.load_events();
           this.load_broadcast_list(); // Call your desired function
           this.load_banners();
+          this.load_notifications();
         }
     });
     // this.getCurrentLocation();
@@ -101,7 +103,30 @@ export class DashboardPage implements OnInit {
     this.load_events();
     this.load_broadcast_list(); // Call your desired function
     this.load_banners();
+    this.load_notifications();
     event.target.complete();
+  }
+
+  load_notifications() {
+    this.notificationCount = 0;
+    this.apiService.load_notifications(this.currentUser.mobile_no)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      // Reset count
+      this.notificationCount = 0;
+      // Count unread notifications
+      for (let i = 0; i < response.data.length; i++) {
+        if (response.data[i].is_read === false) {
+          this.notificationCount++;
+        }
+      }
+    },
+    respError => {
+      this.commonService.dismissLoading();
+      console.log(respError);
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
   }
 
   async presentLoading() {   // Call this For Advertisement Banner
@@ -247,6 +272,18 @@ export class DashboardPage implements OnInit {
   //   });
   // }
 
+  ngOnDestroy() {
+    // Clear all intervals when page is destroyed
+    for (const key in this.intervals) {
+      if (this.intervals[key]) {
+        clearInterval(this.intervals[key]);
+      }
+    }
+    if (this.mallInterval) {
+      clearInterval(this.mallInterval);
+    }
+  }
+
   async setSwiperInstance(swiper: Swiper, bannerType: 'banner1' | 'banner2' | 'banner3' | 'banner4') {
     let imagesArray = this.getImagesArray(bannerType);
   
@@ -275,10 +312,10 @@ export class DashboardPage implements OnInit {
   async setMallSwiperInstance(swiper: Swiper, mallId: string, images: string[]) {
     if (swiper && images.length > 1) {
       // Clear any existing interval for this mall item
-      if (this.mallIntervals[mallId]) clearInterval(this.mallIntervals[mallId]);
+      if (this.mallInterval) clearInterval(this.mallInterval);
   
       // Start sliding only if more than one image exists
-      this.mallIntervals[mallId] = setInterval(() => {
+      this.mallInterval = setInterval(() => {
         swiper.slideNext();
       }, 4000);
     }

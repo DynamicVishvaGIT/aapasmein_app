@@ -172,6 +172,15 @@ ion-segment-button {
     font-size: 10px;
 }
 
+.delete-badge-color{
+    background: red;
+    height: 20px;
+    --padding-end: 10px;
+    --padding-start: 8px;
+    // float: right;
+    font-size: 10px;
+}
+
 .share-badge-color{
     background: #3838d9f2;
     height: 20px;
@@ -203,6 +212,20 @@ ion-segment-button {
     margin-top: 2px;;
     // height: auto;
     height: 246px;
+    margin-left: 0px;
+    margin-right: 2px;
+    border-radius:10px;
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    position: relative; /* Needed for positioning the button */
+}
+
+.myinterest-event-card {
+    // margin-top: -4px;
+    margin-top: 2px;;
+    // height: auto;
+    height: auto;
     margin-left: 0px;
     margin-right: 2px;
     border-radius:10px;

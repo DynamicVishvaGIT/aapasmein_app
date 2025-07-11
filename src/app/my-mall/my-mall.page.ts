@@ -34,6 +34,8 @@ export class MyMallPage implements OnInit {
   filteredWishList: any[] = [];
   isFooterVisible: boolean = true;
 
+  interval:any;
+
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService) { 
     this._unsubscribeAll = new Subject();
   }
@@ -54,9 +56,28 @@ export class MyMallPage implements OnInit {
     // this.load_wishlist_product();
   }
 
-  async setSwiperInstance(swiper: Swiper) {
-    if(swiper){
-      setInterval(() => {
+  // async setSwiperInstance(swiper: Swiper) {
+  //   if(swiper){
+  //     setInterval(() => {
+  //       swiper.slideNext();
+  //     }, 4000);
+  //   }
+  // }
+
+  ngOnDestroy() {
+    // Clear the interval when page is destroyed
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  async setSwiperInstance(swiper: Swiper, imagesArray: any[]) {
+    if (swiper && imagesArray.length > 1) {
+      // Clear existing interval if it exists
+      if (this.interval) clearInterval(this.interval);
+  
+      // Start sliding only if more than one image exists
+      this.interval = setInterval(() => {
         swiper.slideNext();
       }, 4000);
     }

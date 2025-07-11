@@ -41,7 +41,7 @@
             <ion-card class="saved-items-card">
               <ion-card-header> 
                 <ion-card-title>
-                  <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event)">
+                  <swiper class="mySwiper" data-loop="true" [config]="config" (swiper)="setSwiperInstance($event, data.images)">
                     <ng-template swiperSlide *ngFor="let img of data.images">
                       <img src="{{imageUrl}}{{img}}" alt="" class="img-banner">
                     </ng-template>
@@ -64,6 +64,11 @@
                   </ion-col>
                   <ion-col style="text-align: center;" *ngIf="data.is_sold">
                     <ion-badge class="sold-badge-color" mode="ios">Sold</ion-badge>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col style="text-align: center;"  *ngIf="data.is_delete">
+                    <span class="badge badge-danger">Deal Deleted</span>
                   </ion-col>
                 </ion-row>
               </ion-card-content>

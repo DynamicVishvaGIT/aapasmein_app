@@ -21,11 +21,16 @@
           <!-- <ion-icon ios="ios-log-out" name="log-out-outline" class="notificationIcon" style="margin-left: 10px;color: white;" (click)="logout()"></ion-icon> -->
           <!-- <ion-icon name="megaphone-outline" class="notificationIcon" style="margin-left: 10px;color: white;" (click)="goToBroadcastList()"></ion-icon> -->
           <!-- <ion-icon name="star-outline" class="notificationIcon" style="margin-left: 10px;color: white;" (click)="goToRewards()"></ion-icon> -->
-          <ion-icon name="notifications-outline" class="notificationIcon" style="color: white;" (click)="goToNotification()"></ion-icon>
+          <ion-button fill="clear" class="notification-button" (click)="goToNotification()">
+            <ion-icon name="notifications-outline" slot="icon-only"></ion-icon>
+            <div class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</div>
+          </ion-button>
+          <!-- <ion-icon name="notifications-outline" class="notificationIcon" style="color: white;" (click)="goToNotification()"></ion-icon> -->
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
+
   <!-- <div style="text-align: center;color:white"></div> -->
   <app-commonsearch class="animated-display" [URL]="true"></app-commonsearch>
   <!-- <ion-row style="margin-left: 22px;margin-top: 12px;">

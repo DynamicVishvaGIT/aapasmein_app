@@ -178,7 +178,7 @@
           </ion-row>
           <ion-row class="scroll" >
             <ion-col size="8"  *ngFor="let event of data.events; let rindex = index;">
-              <ion-card class="event-card">
+              <ion-card class="myinterest-event-card">
                 <ion-card-header class="card-header-img" (click)="goToDetails(event,'myinterest')"> 
                   <img src="{{imageUrl}}{{event.event_image}}" alt="" class="img-banner1">
                 </ion-card-header>
@@ -212,11 +212,11 @@
                       </ion-button>
                     </ion-col>
                   </ion-row>
-                  <!-- <ion-row>
-                    <ion-col style="text-align: center;" *ngIf="event.completed">
-                      <ion-badge class="sold-wish-badge-color" mode="ios">Completed</ion-badge>
+                  <ion-row *ngIf="event.is_delete">
+                    <ion-col style="text-align: center;" ><!--*ngIf="event.is_delete"-->
+                      <ion-badge class="delete-badge-color" mode="ios">Event Deleted</ion-badge>
                     </ion-col>
-                  </ion-row> -->
+                  </ion-row>
               </ion-card>
             </ion-col>
           </ion-row>

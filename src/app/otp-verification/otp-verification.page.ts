@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController, NavParams } from '@ionic/angular';
+import { AlertController, ModalController, NavParams } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
@@ -35,7 +35,7 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
 
   constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService,
     private commonService: CommonService, private activatedRoute: ActivatedRoute, private navigationService: NavigationService,
-    private geolocation: Geolocation, private http: HttpClient) { 
+    private geolocation: Geolocation, private http: HttpClient, private alertCtrl: AlertController) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -194,6 +194,7 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
         else{
           this.showreset = true;
           this.user_id = response.user_data.user_id;
+          this.logout_dialog();
         }
         // localStorage.setItem('currentUser',JSON.stringify(response.user_data));
         // this.commonService.setLoggedInUser(JSON.stringify(response.user_data));
@@ -205,6 +206,30 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
         this.commonService.showToastMessage(respError, 'error-toast','', 4000);
       })
     // this.router.navigate(['/agreement']);
+  }
+
+  async logout_dialog() {
+    const confirm = await this.alertCtrl.create({
+      // header: this.sold_unsold_text=='Mark as Sold'?'Mark as Sold':'Mark as Unsold',
+      header: 'Logout Account',
+      message: 'Your account is currently active on another device. Do you want to log out from the other device and continue here?',
+      backdropDismiss:false,
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Ok, Logout All',
+          handler: () => {
+            this.logoutFromAllDevices();
+          }
+        }
+      ]
+    });
+   await  confirm.present();
   }
 
   logoutFromAllDevices() {

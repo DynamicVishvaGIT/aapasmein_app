@@ -149,7 +149,7 @@ export class AdvantageListPage implements OnInit {
   // }
 
   viewAdvantageDetails(data:any) {
-    this.router.navigate(['/advantage-details'], { queryParams: { url: 'list', profession_id: data.id} });
+    this.router.navigate(['/advantage-details'], { queryParams: { url: 'list',type: data.NAME, profession_id: data.id} });
   }
 
 }

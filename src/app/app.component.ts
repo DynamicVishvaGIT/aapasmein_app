@@ -84,6 +84,9 @@ export class AppComponent {
         const currentUrlWithQuery = this.router.url;
         const currentUrl = currentUrlWithQuery.split('?')[0]; // base route
         const prevUrl = this.commonService.currentPage;
+
+        // alert(JSON.stringify('currentUrl'+currentUrl));
+        // alert(JSON.stringify('prevUrl'+prevUrl));
     
         // ✅ Exit app from globalsearch
         if (currentUrl === '/dashboard' || currentUrl === '/login-agreement') {
@@ -102,7 +105,12 @@ export class AppComponent {
             this.router.navigate(['/accept-request'], { queryParams: { routeURL: 'profile' } });
           } else if (routeURL === 'connections' && prevUrl === '/profile') {
             this.router.navigate(['/connection-list'], { queryParamsHandling: 'preserve' });
-          } else {
+          } 
+          else if (routeURL == null && prevUrl == '/edit-profile') {
+            // this.router.navigate(['/profile']);
+            this.modalCtrl.dismiss();
+          }
+          else {
             this.router.navigate(['/dashboard']);
           }
         }
@@ -129,11 +137,6 @@ export class AppComponent {
           //   queryParamsHandling: 'merge'
           // });
         }
-        // else if (
-        //   (currentUrl === '/request-send' && !prevUrl.includes('/saveditem'))
-        // ) {
-        //   this.router.navigate(['/dashboard']);
-        // }
         // ✅ Other routes like modal/dismiss logic
         else if (
           currentUrl === '/feedback-modal' ||
@@ -144,7 +147,22 @@ export class AppComponent {
         ) {
           this.router.navigate(['/dashboard']);
         }
-    
+        // else if (
+        //   currentUrl === '/feedback-modal' ||
+        //   (currentUrl === '/convenience-details' && !prevUrl.includes('/convenience-details')) ||
+        //   (currentUrl === '/event-details' && !prevUrl.includes('/event-details')) ||
+        //   (currentUrl === '/profile' && prevUrl.includes('/profile'))
+        // ) {alert('7');
+        //   this.router.navigate(['/dashboard']);
+        // }
+        // else if((currentUrl === '/request-send' && !prevUrl.includes('/mall-details'))){
+        //   if ((currentUrl === '/request-send' && prevUrl.includes('/request-send'))) {alert('8');
+        //     this.router.navigate(['/saved-items-list']);
+        //   }
+        //   else{
+        //     this.router.navigate(['/dashboard']);
+        //   }
+        // }
         else if (
           prevUrl.includes('/add-mall') || prevUrl.includes('/add-event') || prevUrl.includes('/more-details') ||
           prevUrl.includes('/connection') || prevUrl.includes('/edit-profile') ||
@@ -270,7 +288,7 @@ export class AppComponent {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      if(!response.loggedin){
+      if(!response.loggedin || !response.user_active){
         this.logoutMyDevice();
       }
       else{

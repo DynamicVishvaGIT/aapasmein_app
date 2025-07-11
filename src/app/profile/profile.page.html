@@ -60,7 +60,7 @@
             <img src="{{user_details?.PROFILE_IMAGE?imageUrl:imageURL}}{{user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" (click)="zoomImage(user_details?.PROFILE_IMAGE? user_details?.PROFILE_IMAGE:search_user_details?.PROFILE_IMAGE)" *ngIf="(selectedImage.data=='' && user_details?.PROFILE_IMAGE) || search_user_details?.PROFILE_IMAGE!=null"/>
             <!-- <img src="{{imageUrl}}{{search_user_details?.PROFILE_IMAGE}}"  class="profile-img-avatar" *ngIf="search_user_details?.PROFILE_IMAGE && selectedImage.data==''"/> -->
             <img src="../../assets/avtar4.png" alt="" class="profile-img-avatar"  *ngIf="search_user_details?.PROFILE_IMAGE==null && selectedImage.data=='' && !user_details?.PROFILE_IMAGE">
-            <ion-icon name="camera" class="camera-icon" (click)="presentActionSheet()"></ion-icon>
+            <ion-icon name="camera" class="camera-icon" (click)="presentActionSheet()" *ngIf="(currentUser.user_id==search_id || currentUser.user_id==user_details?.id || currentUser.user_id==sender_id)"></ion-icon>
             <!-- <div class="ribbon">{{search_id!=undefined?profile_details?.NAME?profile_details?.NAME:'Prasenjit Chanda':user_details?.NAME}}</div> -->
           </div>
         </ion-col>

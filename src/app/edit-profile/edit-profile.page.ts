@@ -184,46 +184,31 @@ export class EditProfilePage implements OnInit {
   
   // Toggle selection on checkbox click
   toggleSelection(item: any) { console.log(item);
-    // const index = this.selectedInterests.findIndex(i => i.id === item.id);
-    // if (index > -1) {
+    // Toggle the flag first
+  item.iFlag = !item.iFlag;
+  const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
+  if (item.iFlag && index === -1) {
+    this.selectedInterests.push(item);
+  } else if (!item.iFlag && index !== -1) {
+    // Remove from selectedInterests if it's there
+    this.selectedInterests.splice(index, 1);
+  }
+  // Update user.edit_interest with selected names
+  this.user.edit_interest = this.selectedInterests.map(sel => sel.NAME);
+  console.log(this.user.edit_interest);
+  console.log(this.selectedInterests);
+    // const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
+    // if (item.iFlag && index === -1) {
+    //   this.selectedInterests.push(item);
+    // } else if (!item.iFlag && index !== -1) {
     //   this.selectedInterests.splice(index, 1);
-    // } else {
-      // let interestIndex = this.commonService.findItem(this.selectedInterests,'id',item.id);
-      // console.log(interestIndex);
-      // if(interestIndex==-1){
-      //   this.selectedInterests.push(item);
-      // }
-      // else{
-      //   this.selectedInterests.splice(interestIndex, 1);
-      // }
     // }
-    // let interestIndex = this.commonService.findItem(this.selectedInterests,'id',item.id);
-    // if(interestIndex==-1){
-    //   if(item.iFlag){
-    //     this.selectedInterests.push(item);
-    //   }
-    //   else{
-    //     item.iFlag = false;
-    //   }
+    // this.user.edit_interest=[];
+    // for(let i = 0; i<this.selectedInterests.length;i++){
+    //   this.user.edit_interest.push(this.selectedInterests[i].NAME)
     // }
-    // else{
-    //   this.selectedInterests.splice(interestIndex,1);
-    // }
-    const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
-
-    if (item.iFlag && index === -1) {
-      // Add to selectedInterests if not already there
-      this.selectedInterests.push(item);
-    } else if (!item.iFlag && index !== -1) {
-      // Remove from selectedInterests if it's there
-      this.selectedInterests.splice(index, 1);
-    }
-    this.user.edit_interest=[];
-    for(let i = 0; i<this.selectedInterests.length;i++){
-      this.user.edit_interest.push(this.selectedInterests[i].NAME)
-    }
-    console.log(this.user.edit_interest);
-    console.log(this.selectedInterests);
+    // console.log(this.user.edit_interest);
+    // console.log(this.selectedInterests);
   }
 
   // Also allows item click to toggle checkbox

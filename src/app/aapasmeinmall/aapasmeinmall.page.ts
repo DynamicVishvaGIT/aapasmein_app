@@ -36,6 +36,8 @@ export class AapasmeinmallPage implements OnInit {
   isFooterVisible: boolean = true;
   dataLoaded:boolean = false;
 
+  interval: any;
+
   constructor(private modalCtrl: ModalController, private router: Router, private apiService: ApiService, private commonService: CommonService,
      private activatedRoute: ActivatedRoute, private alertCtrl: AlertController) { 
     this._unsubscribeAll = new Subject();
@@ -62,9 +64,28 @@ export class AapasmeinmallPage implements OnInit {
     // this.load_mall_products();
   }
 
-  async setSwiperInstance(swiper: Swiper) {
-    if(swiper){
-      setInterval(() => {
+  ngOnDestroy() {
+    // Clear the interval when page is destroyed
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  // async setSwiperInstance(swiper: Swiper) {
+  //   if(swiper){
+  //     setInterval(() => {
+  //       swiper.slideNext();
+  //     }, 4000);
+  //   }
+  // }
+
+  async setSwiperInstance(swiper: Swiper, imagesArray: any[]) {
+    if (swiper && imagesArray.length > 1) {
+      // Clear existing interval if it exists
+      if (this.interval) clearInterval(this.interval);
+  
+      // Start sliding only if more than one image exists
+      this.interval = setInterval(() => {
         swiper.slideNext();
       }, 4000);
     }

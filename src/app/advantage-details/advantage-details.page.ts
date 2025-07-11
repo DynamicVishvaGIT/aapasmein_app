@@ -22,6 +22,7 @@ export class AdvantageDetailsPage implements OnInit {
   isFooterVisible: boolean = true;
   filteredList: any[] = [];
   searchQuery: string = '';
+  profession:string='';
   // advantage_list=[{name:'Prasenjit Chanda', occupation:'Developer', image:'../../../assets/Prasenjit_Chanda.png'},
   //                     {name:'Mamta Dalvi', occupation:'Tester', image:'../../../assets/avtar6.avif'},
   //                     {name:'Akash Tupsaminder', occupation:'Developer', image:'../../../assets/avtar3.png'},
@@ -51,6 +52,7 @@ export class AdvantageDetailsPage implements OnInit {
       console.log(this.routeURL);
       this.profession_id = params['profession_id'];
       console.log(this.profession_id);
+      this.profession = params['type'];
     });
     this.load_advantage();
   }
