@@ -67,12 +67,14 @@ export class AppComponent {
       this.networkService.currentStatus.subscribe(status => {
         this.isConnected = status;
       });
-      if (cordova && cordova.plugins && cordova.plugins.preventscreenshot) {
-        cordova.plugins.preventscreenshot.enable(
-          () => console.log('Screenshot prevention enabled'),
-          (error:any) => console.error('Error enabling screenshot prevention', error)
-        );
-      }
+
+      // if (cordova && cordova.plugins && cordova.plugins.preventscreenshot) {
+      //   cordova.plugins.preventscreenshot.enable(
+      //     () => console.log('Screenshot prevention enabled'),
+      //     (error:any) => console.error('Error enabling screenshot prevention', error)
+      //   );
+      // }
+      
       // Track current base route (without query params)
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {

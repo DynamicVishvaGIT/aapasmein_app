@@ -177,7 +177,12 @@ export class MyMallPage implements OnInit {
   goToMallDetails(data:any, route:string, type:string) {
     if(type=='mywishlist'){
       if(!data.is_sold){
-        this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
+        if(data.is_delete){
+          this.commonService.showToastMessage('This deals has been deleted.', 'error-toast','', 4000);
+        }
+        else{
+          this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
+        }
       }
       else{
         this.commonService.showToastMessage('This deals has been sold-out.', 'error-toast','', 4000);

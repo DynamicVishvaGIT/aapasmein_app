@@ -121,7 +121,7 @@
           <ion-button  type="submit" [color]="complete_incomplete_text=='Event Completed'?'success':'tertiary'" class="login-btn" (click)="complete_and_delete_event()"><b>{{complete_incomplete_text}}</b></ion-button>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="event_details.USER__id==currentUser.user_id">
+    <ion-row *ngIf="(event_details.USER__id==currentUser.user_id && !event_details.COMPLETED)">
       <ion-col size="12">
           <ion-button  type="submit" color="danger" class="delete-btn" (click)="delete_event()"><b>Delete My Event</b></ion-button>
       </ion-col>

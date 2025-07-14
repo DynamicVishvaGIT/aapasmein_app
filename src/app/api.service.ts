@@ -22,6 +22,13 @@ export class ApiService {
       catchError(this.errorHandler)
     )
   }
+  resend_otp(user: any) {console.log(user);
+    return this.httpClient.post(this.baseUrl + 'resend_otp', user)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
   logout(user: any) {console.log(user);
     return this.httpClient.post(this.baseUrl + 'logout', user)
     .pipe(

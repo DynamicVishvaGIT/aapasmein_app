@@ -250,7 +250,12 @@ export class EventCategoryPage implements OnInit {
     this.commonService.currentPage = '/event-details';
     if(type=='myevent' || type=='myinterest'){
       if(!data.completed || (data.completed && data.user_id ==this.currentUser.user_id)){
-        this.router.navigate(['/event-details'], { queryParams: {event_id: data.id, type: type, url: 'categorylist'} });
+        if(data.is_delete){
+          this.commonService.showToastMessage('This event has been deleted.', 'error-toast','', 4000);
+        }
+        else{
+          this.router.navigate(['/event-details'], { queryParams: {event_id: data.id, type: type, url: 'categorylist'} });
+        }
       }
       else{
         this.commonService.showToastMessage('This event has been completed.', 'error-toast','', 4000);

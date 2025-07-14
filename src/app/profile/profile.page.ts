@@ -506,11 +506,13 @@ export class ProfilePage implements OnInit {
 
   delete_user_account() {
     let formData = new FormData();
-    formData.append("user_id",this.currentUser.user_id)
+    formData.append("user_id",this.currentUser.user_id);
+    formData.append("apptype",'mobile')
     this.apiService.delete_user(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log('delete_user',response);
+      this.commonService.showToastMessage(response.message, 'error-toast','', 4000);
       this.logoutMyDevice();
     },
     respError => {

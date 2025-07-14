@@ -137,7 +137,7 @@
           <ion-button  type="submit" [color]="sold_unsold_text=='Mark as Sold'?'success':'tertiary'" class="login-btn" (click)="showSoldDialog()"><b>{{sold_unsold_text}}</b></ion-button>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="mall_data.USER__id==currentUser.user_id">
+    <ion-row *ngIf="(mall_data.USER__id==currentUser.user_id && !mall_data.IS_SOLD)">
       <ion-col size="12">
           <ion-button  type="submit" color="danger" class="delete-btn" (click)="showDeleteDialog()"><b>Delete My Ad</b></ion-button>
       </ion-col>

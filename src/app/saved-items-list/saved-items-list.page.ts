@@ -147,9 +147,14 @@ export class SavedItemsListPage implements OnInit {
 
   goToMallDetails(data:any, route:string) {
     if(!data.is_sold){
-      this.commonService.currentPage = '/mall-details';
+      // this.commonService.currentPage = '/mall-details';
       // alert(JSON.stringify(this.commonService.currentPage));
-      this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
+      if(data.is_delete){
+        this.commonService.showToastMessage('This deals has been deleted.', 'error-toast','', 4000);
+      }
+      else{
+        this.router.navigate(['/request-send'], { queryParams: { mall_id: data.id, routeURL: route} });
+      }
     }
     else{
       this.commonService.showToastMessage('This deals has been sold-out.', 'error-toast','', 4000);

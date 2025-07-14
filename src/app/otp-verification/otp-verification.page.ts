@@ -148,8 +148,8 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
   resendOTP() {
     let formData = new FormData();
     formData.append('mobile_no',this.mobile_no);
-    formData.append('apptype',this.apiService.apptype);
-    this.apiService.login(formData)
+    // formData.append('apptype',this.apiService.apptype);
+    this.apiService.resend_otp(formData)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
