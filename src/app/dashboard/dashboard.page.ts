@@ -117,7 +117,7 @@ export class DashboardPage implements OnInit {
       this.notificationCount = 0;
       // Count unread notifications
       for (let i = 0; i < response.data.length; i++) {
-        if (response.data[i].is_read === false) {
+        if (response.data[i].read === false) {
           this.notificationCount++;
         }
       }

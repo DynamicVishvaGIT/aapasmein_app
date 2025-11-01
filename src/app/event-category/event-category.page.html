@@ -153,7 +153,7 @@
               </ion-card>
             </ion-col>
           </ion-row>
-          <div *ngIf="data.events.length>1">
+          <div >
             <ion-row (click)="goToEventList(data, 'myevent')">
               <ion-col size="11" style="float:right;">
                 <h6 class="view-but">View All &nbsp;</h6>
@@ -220,7 +220,7 @@
               </ion-card>
             </ion-col>
           </ion-row>
-          <div *ngIf="data.events.length>1">
+          <div *ngIf="data.events.length>1"><!--*ngIf="data.events.length>1"-->
             <ion-row (click)="goToEventList(data, 'myinterest')">
               <ion-col size="11" style="float:right;">
                 <h6 class="view-but">View All &nbsp;</h6>

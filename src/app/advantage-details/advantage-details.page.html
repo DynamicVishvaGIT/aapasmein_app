@@ -43,9 +43,9 @@
         <ion-col size="9">
           <span class="name-text">{{data.USER__NAME}}</span><br>
           <!-- <ion-badge class="badge-color" mode="md">Request</ion-badge> -->
-          <!-- <ion-icon name="call-outline" class="icon-align"></ion-icon> -->
+          <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.USER__MOBILE_NO)"></ion-icon>
           <span class="designation-text">{{data.USER__PROFESSION__NAME}}</span><br>
-          <!-- <span class="designation-text">9434478921</span> -->
+          <span class="designation-text">{{data.USER__MOBILE_NO}}</span>
         </ion-col>
       </ion-row>
       <!-- <ion-row style="margin-top: 10px;" class="border-bottom">

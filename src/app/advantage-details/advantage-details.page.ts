@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
+import { AlertController, Platform } from '@ionic/angular';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 @Component({
   selector: 'app-advantage-details',
@@ -33,7 +35,9 @@ export class AdvantageDetailsPage implements OnInit {
   //                     {name:'Mamta Dalvi', occupation:'Tester', image:'../../../assets/avtar6.avif'},
   //                     {name:'Satyam Bandbe', occupation:'Developer', image:'../../../assets/avtar6.webp'}];
 
-  constructor(private router: Router, private activatedRoute:ActivatedRoute, private apiService: ApiService, private commonService: CommonService) { 
+  constructor(private router: Router, private activatedRoute:ActivatedRoute, private apiService: ApiService, private commonService: CommonService,
+    private alertController: AlertController, private callNumber: CallNumber, private platform: Platform
+  ) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -54,7 +58,13 @@ export class AdvantageDetailsPage implements OnInit {
       console.log(this.profession_id);
       this.profession = params['type'];
     });
-    this.load_advantage();
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
+      ).subscribe((event: NavigationEnd) => {
+        if (event.url.startsWith('/advantage-details')) { // Check if user navigated back to a specific URL
+          this.load_advantage();  
+        }
+    });
   }
 
   doRefresh(event:any){
@@ -99,6 +109,56 @@ export class AdvantageDetailsPage implements OnInit {
       );
       this.isFooterVisible = true;
     }
+  }
+
+  async makeCall(phoneNumber: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirm Call',
+      message: `Do you want to call ${phoneNumber}?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Call',
+          handler: () => {
+            this.platform.ready().then(() => {
+              this.callNumber.callNumber(phoneNumber, true)
+                .then(res => console.log('Dialing succeeded!', res))
+                .catch(err => {
+                  console.log('Dialing failed', err);
+                  // Check for permission error (based on plugin error messages)
+                  if (JSON.stringify(err) === '20') {
+                    this.showPermissionError();
+                  } else {
+                    this.showGeneralError(err);
+                  }
+                });
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  
+  async showPermissionError() {
+    const alert = await this.alertController.create({
+      header: 'Permission Required',
+      message: 'This app does not have permission to make calls. Please grant the CALL_PHONE permission in settings.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+  
+  async showGeneralError(error: any) {
+    const alert = await this.alertController.create({
+      header: 'Call Failed',
+      message: 'Unable to place the call. Error: ' + JSON.stringify(error),
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   hideFooter() {

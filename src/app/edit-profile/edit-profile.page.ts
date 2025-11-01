@@ -40,6 +40,16 @@ export class EditProfilePage implements OnInit {
   // Selected interests
   selectedInterests: any[] = [];
 
+  selectedStateName = '';
+  searchStateTerm = '';
+  filteredStates :any[] = [];
+  isStatePopoverOpen = false;
+
+  selectedDistrictName = '';
+  searchDistrictTerm = '';
+  filteredDistricts :any[] = [];
+  isDistrictPopoverOpen = false;
+
   constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private modalCtrl: ModalController) { 
     this._unsubscribeAll = new Subject();
   }
@@ -57,12 +67,46 @@ export class EditProfilePage implements OnInit {
     this.get_user_details();
   }
 
+  openStatePopover(event: Event) {
+    this.isStatePopoverOpen = true;
+  }
+
+  filterStates() {
+    this.filteredStates = this.get_cities.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchStateTerm.toLowerCase())
+    );
+  }
+
+  selectState(item: any) {
+    this.user.edit_city = item.id;
+    this.selectedStateName = item.NAME;
+    this.isStatePopoverOpen = false;
+    this.load_location();
+  }
+
+  openDistrictPopover(event: Event) {
+    this.isDistrictPopoverOpen = true;
+  }
+
+  filterDistricts() {
+    this.filteredDistricts = this.get_locations.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchDistrictTerm.toLowerCase())
+    );
+  }
+
+  selectDistrict(item: any) {
+    this.user.edit_location = item.id;
+    this.selectedDistrictName = item.NAME;
+    this.isDistrictPopoverOpen = false;
+  }
+
   get_city() {
     this.apiService.get_city()
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.get_cities = response.data;
+      this.filteredStates = [...this.get_cities];
       // this.get_cities.unshift({id:'',NAME:'Select City'});
     },
     respError => {
@@ -75,6 +119,7 @@ export class EditProfilePage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_locations = response.data;
+      this.filteredDistricts = [...this.get_locations];
       // this.get_locations.unshift({id:'',NAME:'Select Location'});
     },
     respError => {
@@ -229,9 +274,11 @@ export class EditProfilePage implements OnInit {
         this.user_details = response.user_data[0];
         this.user.edit_name = this.user_details.NAME;
         this.user.edit_city = this.user_details.CITY__id;
+        this.selectedStateName = this.user_details.CITY__NAME;
         this.load_location();
         this.get_interest();
         this.user.edit_location = this.user_details.LOCATION__id;
+        this.selectedDistrictName = this.user_details.LOCATION__NAME;
         this.user.edit_mobile_no = this.user_details.MOBILE_NO;
         this.user.edit_email_id = this.user_details.EMAIL_ID;
         this.user.edit_profession = this.user_details.PROFESSION__id;

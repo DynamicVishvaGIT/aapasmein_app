@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
@@ -17,6 +17,7 @@ declare var google: any;
 export class AddeventPage implements OnInit {
 
   private _unsubscribeAll: Subject<any>;
+  @Input() type!: string;
 
   selectedRadio:string='public';
   inputFocused:boolean=false;
@@ -51,6 +52,7 @@ export class AddeventPage implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.type);
     let currentUser:any;
     currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(currentUser);
@@ -318,7 +320,7 @@ export class AddeventPage implements OnInit {
         this.disabled = false;
         this.commonService.showToastMessage(response.message, 'success-toast','', 2000);
         this.dismiss();
-        this.router.navigate(['/event-category']);
+        // this.router.navigate(['/event-category']);
       },
       respError => {
         this.disabled = false;
@@ -335,9 +337,11 @@ export class AddeventPage implements OnInit {
     console.log(this.eventJson.share_with);
   }
 
-  dismiss() {
+  dismiss() {console.log(this.type);
     // this.router.navigate(['/all-event-list']);
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss({
+      type: this.type // or updated type value
+    });
   }
 
 }

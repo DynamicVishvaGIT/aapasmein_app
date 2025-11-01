@@ -20,7 +20,7 @@
   </div>
   <!-- <app-commonsearch class="animated-display" *ngIf="searchFlag"></app-commonsearch> -->
   <div >
-    <ion-button class="button-property" size="small" color="tertiary" (click)="addConveniencePage()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
+    <ion-button class="button-property" size="small" color="tertiary" (click)="termsCondition()"><ion-icon name="add-outline"></ion-icon>Add</ion-button>
   </div>
   <div class="card-gap">
     <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList($event)" placeholder="Search Convenience" (click)="hideFooter()"></ion-searchbar>

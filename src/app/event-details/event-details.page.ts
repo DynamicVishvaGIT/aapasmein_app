@@ -189,7 +189,7 @@ export class EventDetailsPage implements OnInit {
 
   dismiss() {
     if(this.url=='categorylist'){
-      this.router.navigate(['/event-category']);
+      this.router.navigate(['/event-category'], { queryParams: {type: this.type}});
     }
     else if(this.url=='search'){
       this.router.navigate(['/globalsearchdetails'], { queryParams: { searchText: this.searchText} });

@@ -32,6 +32,7 @@ export class EventCategoryPage implements OnInit {
   dataLoaded: boolean = false;
   today = new Date();
   routeURL:string='';
+  type:string='all';
   isFooterVisible: boolean = true;
   // lists=[{catname:'Music',events:[{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'},{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'}]},{catname:'Sports',events:[{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'},{date:'8/9/9807',time:'2:20pm',productname:'swiggy',name:'prasenjit chanda'}]}];
 
@@ -40,21 +41,31 @@ export class EventCategoryPage implements OnInit {
   }
 
   ngOnInit() {
-    let currentUser:any;
-    currentUser = localStorage.getItem('currentUser');
-    this.currentUser = JSON.parse(currentUser);
-    console.log(this.currentUser);
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.routeURL = params['routeURL'];
-      if(this.routeURL=='features'){
-        this.load_events();
-      }
-    });
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
       ).subscribe((event: NavigationEnd) => {
-        if (event.url === '/event-category') { // Check if user navigated back to a specific URL
-          this.load_events(); // Call your desired function
+        if (event.url.startsWith('/event-category')) { // Check if user navigated back to a specific URL
+          let currentUser:any;
+          currentUser = localStorage.getItem('currentUser');
+          this.currentUser = JSON.parse(currentUser);
+          console.log(this.currentUser);
+          this.activatedRoute.queryParams.subscribe(params => {
+            this.routeURL = params['routeURL'];
+            this.type = params['type'];
+            if(this.routeURL=='features'){
+              this.load_events();
+            }
+          });
+          console.log(this.type);
+          if(this.type==undefined || this.type=='all'){
+            this.load_events(); // Call your desired function
+          }
+          else if(this.type=='myevent'){
+            this.load_my_events();
+          }
+          else{
+            this.load_my_interested_events();
+          }
         }
     });
     // this.load_events();
@@ -272,11 +283,20 @@ export class EventCategoryPage implements OnInit {
   }
 
   async addEvent() {
+    console.log(this.type)
     this.commonService.currentPage = '/add-event';
-    let modal = await this.modalCtrl.create({ component: AddeventPage});
-    modal.onDidDismiss().then((modalItem) => {
+    let modal = await this.modalCtrl.create({ component: AddeventPage, componentProps:{type:this.info }});
+    modal.onDidDismiss().then((modalItem) => {console.log(modalItem);
       if (modalItem) {
-        this.load_events();
+        if(modalItem.data.type==undefined || modalItem.data.type=='allevent'){
+          this.load_events();
+        }
+        else if(modalItem.data.type=='myevent'){
+          this.load_my_events();
+        }
+        else{
+          this.load_my_interested_events();
+        }
       }
       this.commonService.currentPage = '/event-category';
     })

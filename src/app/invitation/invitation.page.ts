@@ -118,7 +118,7 @@ export class InvitationPage implements OnInit {
   }
 
   filterDistricts() {
-    this.filteredDistricts = this.get_cities.filter((item:any) =>
+    this.filteredDistricts = this.get_locations.filter((item:any) =>
       item.NAME.toLowerCase().includes(this.searchDistrictTerm.toLowerCase())
     );
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { CommonService } from '../common.service';
 import { ApiService } from '../api.service';
 
@@ -46,7 +46,13 @@ export class NotificationsPage implements OnInit {
     currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
-    this.load_notifications();
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
+      ).subscribe((event: NavigationEnd) => {
+        if (event.url === '/notifications') { // Check if user navigated back to a specific URL
+          this.load_notifications();
+        }
+    });
   }
 
   doRefresh(event:any){
@@ -56,6 +62,24 @@ export class NotificationsPage implements OnInit {
       event.target.complete();
     }, 100);
   }
+
+  // read_notifications() {
+  //   // this.commonService.presentLoading();
+  //   let formData = new FormData();
+  //   formData.append('user_id',this.currentUser.user_id);
+  //   this.apiService.read_notifications(formData)
+  //   .pipe(takeUntil(this._unsubscribeAll))
+  //   .subscribe((response:any) => {
+  //     console.log('read_notifications',response);
+  //     this.load_notifications();
+  //     // this.commonService.dismissLoading();
+  //   },
+  //   respError => {
+  //     // this.commonService.dismissLoading();
+  //     console.log(respError);
+  //     this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+  //   })
+  // }
 
   load_notifications() {
     this.commonService.presentLoading();

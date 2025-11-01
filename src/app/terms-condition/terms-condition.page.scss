@@ -1,0 +1,51 @@
+ion-content {
+    --background: none;
+    background-color: #ffffff;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .login-btn {
+    width: 89%;
+    --border-radius: 9px;
+    margin-left: 19px;
+    font-family: "Poppins-Regular";
+  }
+  
+  .footer {
+    padding: 10px;
+    background: #ffffff;
+  }
+  
+  .anchor_tag {
+    color: #8b8bde !important;
+    cursor: pointer !important;
+    text-decoration: underline;
+  }
+// ion-content {
+//     --background: none;
+//     // background-image: url('../../assets/dashboard-bg.png');
+//     // background-color: #F8F8F8;
+//     background-color: #ffffff;
+//     // background-color: #071947;
+//     background-position: center top;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+// }
+
+// .login-btn {
+//     width: 89%;
+//     --border-radius: 9px;
+//     margin-left: 19px;
+//     font-family: "Poppins-Regular";
+// }
+// .footer{
+//     padding: 10px;
+//     background: #ffffff;
+//     // background: #061947;
+// }
+// .anchor_tag{
+//     color: #8b8bde !important;
+//     cursor: pointer !important;
+// }

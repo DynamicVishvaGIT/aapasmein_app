@@ -31,6 +31,11 @@ export class RegistrationPage implements OnInit {
   filteredProfessions :any[] = [];
   isPopoverOpen = false;
 
+  selectedStateName = '';
+  searchStateTerm = '';
+  filteredStates :any[] = [];
+  isStatePopoverOpen = false;
+
   selectedLocationName = '';
   searchLocationTerm = '';
   filteredLocations :any[] = [];
@@ -81,6 +86,23 @@ export class RegistrationPage implements OnInit {
   //     this.inputFocused = false;
   //   }
   // }
+
+  openStatePopover(event: Event) {
+    this.isStatePopoverOpen = true;
+  }
+
+  filterStates() {
+    this.filteredStates = this.get_cities.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchStateTerm.toLowerCase())
+    );
+  }
+
+  selectState(item: any) {
+    this.user.city = item.id;
+    this.selectedStateName = item.NAME;
+    this.isStatePopoverOpen = false;
+    this.load_location();
+  }
 
   openPopover(event: Event) {
     this.isPopoverOpen = true;
@@ -146,6 +168,7 @@ export class RegistrationPage implements OnInit {
       this.handshake_data = response[0];
       this.user.name=this.handshake_data.FULL_NAME;
       this.user.city=this.handshake_data.CITY_id;
+      this.selectedStateName = this.handshake_data.CITY__NAME;
       this.load_location();
       // this.user.location=this.handshake_data.LOCATION_id;
       this.user.mobile_no=this.handshake_data.MOBILE_NO;
@@ -164,6 +187,7 @@ export class RegistrationPage implements OnInit {
     .subscribe((response:any) => {
       console.log(response);
       this.get_cities = response.data;
+      this.filteredStates = [...this.get_cities];
       // this.get_cities.unshift({id:'',NAME:'Select City'});
     },
     respError => {

@@ -295,6 +295,10 @@ const routes: Routes = [
     path: 'enquiry-user-list',
     loadChildren: () => import('./enquiry-user-list/enquiry-user-list.module').then( m => m.EnquiryUserListPageModule)
   },
+  {
+    path: 'terms-condition',
+    loadChildren: () => import('./terms-condition/terms-condition.module').then( m => m.TermsConditionPageModule)
+  },
 ];
 
 @NgModule({

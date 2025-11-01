@@ -26,18 +26,39 @@
           </ion-col>
       </ion-row>
       <ion-row>
-          <ion-col size="6">
+          <!-- <ion-col size="6">
               <div class="input-container" [class.focused]="user.edit_city || inputFocused">
                   <ion-label class="input-label required">State</ion-label>
                   <div class="input-group">
                       <ion-select class="ion-select" [(ngModel)]="user.edit_city" (ionChange)="load_location()">
                           <ion-select-option *ngFor="let item of get_cities" [value]="item.id">{{item.NAME}}</ion-select-option>
-                          <!-- <ion-select-option>Durgapur</ion-select-option> -->
                       </ion-select>
                   </div>
               </div>
-          </ion-col>
+          </ion-col> -->
           <ion-col size="6">
+            <div class="input-container" [class.focused]="user.edit_city || inputFocused">
+                <!-- <ion-label class="input-label required">State</ion-label> -->
+                <ion-label class="input-label required">City</ion-label>
+                <div class="input-group">
+                    <ion-input [value]="selectedStateName" readonly (click)="openStatePopover($event)"></ion-input>
+                </div>
+            </div>
+        </ion-col>
+        <!-- Popover for Searchable Dropdown -->
+        <ion-popover #statePopover [isOpen]="isStatePopoverOpen" (didDismiss)="isStatePopoverOpen = false">
+          <ng-template>
+            <ion-content class="popover-content">
+                <ion-searchbar [(ngModel)]="searchStateTerm" (ionInput)="filterStates()"></ion-searchbar>
+                <ion-list>
+                <ion-item *ngFor="let item of filteredStates" (click)="selectState(item)">
+                    {{ item.NAME }}
+                </ion-item>
+                </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+          <!-- <ion-col size="6">
               <div class="input-container" [class.focused]="user.edit_location || inputFocused">
                   <ion-label class="input-label required">District</ion-label>
                   <div class="input-group">
@@ -46,7 +67,29 @@
                       </ion-select>
                   </div>
               </div>
-          </ion-col>
+          </ion-col> -->
+          <ion-col size="6">
+            <div class="input-container" [class.focused]="user.edit_location || inputFocused">
+                <!-- <ion-label class="input-label required">District</ion-label> -->
+                <ion-label class="input-label required">Location</ion-label>
+                <div class="input-group">
+                    <ion-input [value]="selectedDistrictName" readonly (click)="openDistrictPopover($event)"></ion-input>
+                </div>
+            </div>
+        </ion-col>
+        <!-- Popover for Searchable Dropdown -->
+        <ion-popover #districtPopover [isOpen]="isDistrictPopoverOpen" (didDismiss)="isDistrictPopoverOpen = false">
+          <ng-template>
+            <ion-content class="popover-content">
+                <ion-searchbar [(ngModel)]="searchDistrictTerm" (ionInput)="filterDistricts()"></ion-searchbar>
+                <ion-list>
+                <ion-item *ngFor="let item of filteredDistricts" (click)="selectDistrict(item)">
+                    {{ item.NAME }}
+                </ion-item>
+                </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
       </ion-row>
       <ion-row>
           <ion-col size="12">

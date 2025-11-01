@@ -23,7 +23,7 @@
   <!-- <div >
     <ion-button class="button-property" size="small" color="tertiary" (click)="addEvent()" style="text-transform: none;"><ion-icon name="add-outline"></ion-icon>Create Event</ion-button>
   </div> -->
-  <div class="gap">
+  <div class="gap" *ngIf="dataLoaded && list.length > 0">
     <ion-grid>
       <ion-row>
         <ion-col size="6" *ngFor="let data of list">
@@ -48,6 +48,10 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+  </div>
+  <div class="no-data" *ngIf="dataLoaded && list.length == 0">
+    <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+    <span class="no-data-text">Discover your passions! Start by adding your event interests to personalize your experience.</span>
   </div>
   <br>
   <br>

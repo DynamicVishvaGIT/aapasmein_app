@@ -1,0 +1,105 @@
+<ion-content [fullscreen]="true">
+  <div style="padding: 20px;">
+    <p style="color:#000000;font-size: 20px;">1. You get to recommend only 2 service providers to the ‘aapasmein convenience’ function of the platform.</p>
+    <p style="color:#000000;font-size: 20px;">2. You have personally used the service of the service provider you are recommending to the platform. </p>
+    <p style="color:#000000;font-size: 20px;">3. You do not have any direct / indirect employment relationship or any form of profit-sharing arrangement with the service provider you have recommended to the platform.</p>
+    <p style="color:#000000;font-size: 20px;">4. You have not charged any fee / commission to the service provider for recommending the service provider to the platform.</p>
+    <p style="color:#000000;font-size: 20px;">5. You will not actively promote the service provider with fellow platform users through events, deals and other means.</p>
+    <p style="color:#000000;font-size: 20px;">6. The service provider will be listed in ‘aapasmein convenience’ only after he / she has completed the registration process and the completed profile is approved by you.</p>
+    <p style="color:#000000;font-size: 20px;">7. The service provider will get ‘listing only’ facility on the platform and will not have access to the application as user.</p>
+
+    <hr style="margin: 25px 0; border-top: 2px solid #ccc;">
+
+    <h2 style="color:#000000;text-align:center;">Inactive aapasmein Convenience Service Provider Account Policy</h2>
+    <p style="color:#000000;font-size: 18px;">This policy applies to your ‘aapasmein’ listing-only service provider account. A listing-only account gives you access to the aapasmein platform in the form of listing only, and you do not have any access to the platform as a user.</p>
+
+    <h3 style="color:#000000;">Inactive Account Definition</h3>
+    <p style="color:#000000;font-size: 18px;">An inactive ‘service provider account’ is one that has not been used within a 6-month period. ‘aapasmein’ reserves the right to delete a service provider account and its data if inactive for at least 6 months.</p>
+
+    <h3 style="color:#000000;">Activity Definition</h3>
+    <ul style="color:#000000;font-size: 18px;">
+      <li>Your account is considered <b>active</b> if:
+        <ul>
+          <li>You receive a rating on the platform</li>
+          <li>A user views your contact details on the platform</li>
+        </ul>
+      </li>
+      <li>Your account is considered <b>inactive or blocked</b> if:
+        <ul>
+          <li>You receive a negative (2-star or below) rating</li>
+          <li>Your account is reported for violating the platform’s terms & conditions</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p style="color:#000000;font-size: 18px;">Once deemed inactive, all your content and data will be deleted. ‘aapasmein’ reserves the right to remove your data after six months of inactivity.</p>
+
+    <h3 style="color:#000000;">Deleting Your Account</h3>
+    <p style="color:#000000;font-size: 18px;">You can delete your ‘aapasmein’ service provider account anytime by following these steps:</p>
+    <ol style="color:#000000;font-size: 18px;">
+      <li><b>Step 1:</b> Understand that deleting your account means:
+        <ul>
+          <li>You lose access to all listing facilities</li>
+        </ul>
+      </li>
+      <li><b>Step 2:</b> You will lose:
+        <ul>
+          <li>All user interests received for your services</li>
+          <li>All personal data (only minimal data is retained for compliance)</li>
+        </ul>
+      </li>
+      <li><b>Step 3:</b> To delete your account:
+        <ul>
+          <li>Send an email from your registered ID to <b>support&#64;aapasmein.com</b></li>
+          <li>Use the subject line: “Delete service provider account – registered mobile number”</li>
+        </ul>
+      </li>
+    </ol>
+
+    <p style="color:#000000;font-size: 18px;">Once deletion is initiated, it cannot be stopped or reversed. Account and data removal may take some time due to compliance procedures.</p>
+
+    <h3 style="color:#000000;">Data Retention</h3>
+    <p style="color:#000000;font-size: 18px;">After deletion, minimal data may be retained temporarily for regulatory purposes. Aggregated data may be stored anonymously.</p>
+
+    <h3 style="color:#000000;">Communications from Us</h3>
+    <p style="color:#000000;font-size: 18px;">We may occasionally send service-related announcements (like maintenance or security updates) via SMS or app alerts. These are non-promotional and cannot be opted out of.</p>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border footer">
+  <ion-row style="padding: 10px;">
+    <ion-col size="12">
+      <ion-checkbox color="tertiary" [(ngModel)]="acceptTerms"></ion-checkbox>&nbsp;&nbsp;
+      <ion-label style="color:#000000;">
+        I have read the 
+        <a class="anchor_tag" href="https://aapasmein.com/terms-and-conditions.php" target="_blank">
+          <u>terms and conditions</u>
+        </a>
+        of the platform and will abide by them while using the platform.
+      </ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-button color="tertiary" class="login-btn" [disabled]="!acceptTerms" (click)="addConveniencePage()">
+    <b>Accept</b>
+  </ion-button>
+</ion-footer>
+<!-- <ion-content [fullscreen]="true">
+  <div style="padding: 20px;">
+    <p style="color:#000000;font-size: 20px;">1. You get to recommend only 2 service providers to the ‘aapasmein convenience’ function of the platform.</p>
+    <p style="color:#000000;font-size: 20px;">2. You have personally used the service of the service provider you are recommending to the platform. </p>
+    <p style="color:#000000;font-size: 20px;">3. You dot have any direct / indirect employment relationship or any form profit-sharing arrangement with the service provider you have recommended to the platform.</p>
+    <p style="color:#000000;font-size: 20px;">4. You have not charged any fee / commission to the service provider for recommending the service provider to the platform.</p>
+    <p style="color:#000000;font-size: 20px;">5. You will not actively promote the service provider with fellow platform users through events, deals and other means.</p>
+    <p style="color:#000000;font-size: 20px;">6. The service provider will be listed in ‘aapasmein convenience’ only after he / she has completed the registration process and the completed profile is approved by you.</p>
+    <p style="color:#000000;font-size: 20px;">7. The service provider will get ‘listing only’ facility on the platform and will not have access to the application as user.</p>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border footer">
+  <ion-row style="padding: 10px;">
+    <ion-col size="12">
+        <ion-checkbox color="tertiary" #same [(ngModel)]="acceptTerms"></ion-checkbox>&nbsp;&nbsp;
+        <ion-label style="color:#000000;">I have read  the <a  class="anchor_tag" href="https://aapasmein.com/terms-and-conditions.php"><u>terms and conditions</u></a> of the platform and will abide with them while using the platform.</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-button color="tertiary" class="login-btn" [disabled]="!acceptTerms" (click)="addConveniencePage()"><b>Accept</b></ion-button>
+</ion-footer> -->

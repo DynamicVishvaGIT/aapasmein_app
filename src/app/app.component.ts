@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 import { CommonService } from './common.service';
 import { ApiService } from './api.service';
-import { Subject, takeUntil } from 'rxjs';
+import { interval, Subject, Subscription, takeUntil } from 'rxjs';
 import { NetworkService } from './network.service';
 
 declare var cordova: any; // Declare cordova to use the plugin
@@ -19,6 +19,7 @@ export class AppComponent {
 
   currentUser:any;
   isConnected: boolean = true;
+  pollingSubscription: Subscription | null = null;
 
   constructor(private router: Router, private renderer: Renderer2, private platform: Platform, private navCtrl: NavController, 
     private commonService: CommonService, private modalCtrl: ModalController, private apiService: ApiService, private networkService: NetworkService) {
@@ -56,24 +57,31 @@ export class AppComponent {
     currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
-    if(this.currentUser!=null){
-      this.check_user_logged_in();
-    }
-    else{
-      this.router.navigateByUrl('login-agreement');
-    }
     this.platform.ready().then(() => {
       // Subscribe to connectivity changes
       this.networkService.currentStatus.subscribe(status => {
         this.isConnected = status;
+        if(this.currentUser!=null){
+          if(this.isConnected){
+            this.check_user_logged_in();
+          }
+        }
+        else{
+          this.router.navigateByUrl('login-agreement');
+        }
       });
 
-      // if (cordova && cordova.plugins && cordova.plugins.preventscreenshot) {
-      //   cordova.plugins.preventscreenshot.enable(
-      //     () => console.log('Screenshot prevention enabled'),
-      //     (error:any) => console.error('Error enabling screenshot prevention', error)
-      //   );
-      // }
+      if (cordova && cordova.plugins && cordova.plugins.preventscreenshot) {
+        cordova.plugins.preventscreenshot.enable(
+          () => {
+            console.log('Screenshot prevention enabled');
+            // if (window && window.location) {
+            //   window.location.reload(); // Reload the app to re-render without FLAG_SECURE
+            // }
+          },
+          (error:any) => console.error('Error enabling screenshot prevention', error)
+        );
+      }
       
       // Track current base route (without query params)
       this.router.events.subscribe(event => {
@@ -325,6 +333,7 @@ export class AppComponent {
     localStorage.clear();  // Clear all local storage data
     sessionStorage.clear(); // Clear session storage
     // this.router.navigate(['/welcome']);
+    this.currentUser=null;
     this.router.navigate(['/login-agreement']);
   }
 

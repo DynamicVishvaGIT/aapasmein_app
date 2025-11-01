@@ -36,7 +36,7 @@ export class ApiService {
       catchError(this.errorHandler)
     )
   }
-  check_user_logged_in(user: any) {console.log(user);
+  check_user_logged_in(user: any) {
     return this.httpClient.post(this.baseUrl + 'check_user_logged_in', user)
     .pipe(
       retry(1),
@@ -657,6 +657,14 @@ export class ApiService {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('mobile_no', mobile_no);
     return this.httpClient.get(this.baseUrl + 'load_notifications?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  read_notifications(notification:any) {
+    return this.httpClient.post(this.baseUrl + 'read_notifications', notification)
     .pipe(
       retry(1),
       catchError(this.errorHandler)

@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AddConveniencePage } from '../add-convenience/add-convenience.page';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
+import { TermsConditionPage } from '../terms-condition/terms-condition.page';
 
 @Component({
   selector: 'app-convenience-list',
@@ -88,6 +89,15 @@ export class ConvenienceListPage implements OnInit {
 
   showSearch() {
     this.searchFlag = !this.searchFlag;
+  }
+
+  async termsCondition() {
+    const modal = await this.modalCtrl.create({
+      component: TermsConditionPage,
+      presentingElement: await this.modalCtrl.getTop() 
+    });
+    await modal.present();
+    // this.router.navigate(['/terms-condition']);
   }
 
   async addConveniencePage() {

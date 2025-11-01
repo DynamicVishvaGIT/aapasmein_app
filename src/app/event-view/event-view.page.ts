@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { AddeventPage } from '../addevent/addevent.page';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
@@ -23,6 +23,7 @@ export class EventViewPage implements OnInit {
   imageUrl = 'https://aapasmein.dvadminpanel.in';
   urlType:string='';
   routeURL:string = '';
+  dataLoaded:boolean=false;
 
   constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService,
     private activatedRoute: ActivatedRoute) { 
@@ -42,7 +43,13 @@ export class EventViewPage implements OnInit {
     currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(currentUser);
     console.log(this.currentUser);
-    this.load_events();
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd) // Ensure the event is of type NavigationEnd
+      ).subscribe((event: NavigationEnd) => {
+        if (event.url.startsWith('/event-view')) { // Check if user navigated back to a specific URL
+          this.load_events();
+        }
+    });
   }
 
   doRefresh(event:any){
@@ -54,15 +61,22 @@ export class EventViewPage implements OnInit {
   }
 
   load_events() {
+    this.dataLoaded = false;
     this.apiService.load_events(this.currentUser.mobile_no,this.category_id)
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       // this.list = response.data[0].events;
-      let index = this.commonService.findItem(response.data,'category_id',this.category_id);
-      if(index!=-1){
-        this.list = response.data[index].events;
+      if(response.data.length>0){
+        let index = this.commonService.findItem(response.data,'category_id',this.category_id);
+        if(index!=-1){
+          this.list = response.data[index].events;
+        }
       }
+      else{
+        this.list=[];
+      }
+      this.dataLoaded = true;
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);

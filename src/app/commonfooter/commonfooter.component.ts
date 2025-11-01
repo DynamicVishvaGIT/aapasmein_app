@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { Subject, Subscription, takeUntil, interval } from 'rxjs';
 import { AddConveniencePage } from '../add-convenience/add-convenience.page';
 import { ApiService } from '../api.service';
@@ -11,6 +11,7 @@ import { KeyboardService } from '../keyboard.service';
 import { ProfilePage } from '../profile/profile.page';
 import { YellowpagesPage } from '../yellowpages/yellowpages.page';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { NetworkService } from '../network.service';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
   showFab:boolean = true;
   pollingSubscription: Subscription | null = null;
   request_list:any=[];
+  isConnected: boolean = true;
 
   @Input() activeHomeColor!: boolean;
   @Input() activeDealColor!: boolean;
@@ -58,13 +60,19 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
   // buttonState2: string = 'normal';
 
   constructor(private router: Router, private modalCtrl: ModalController, private keyboardService: KeyboardService, private apiService: ApiService,
-    private commonService: CommonService) { 
+    private commonService: CommonService, private networkService: NetworkService, private platform: Platform) { 
     this._unsubscribeAll = new Subject();
     this.keyboardSubscription = this.keyboardService.keyboardStatus$.subscribe(
       (status) => {
         this.isKeyboardOpen = status;
       }
     );
+    this.platform.ready().then(() => {
+      // Subscribe to connectivity changes
+      this.networkService.currentStatus.subscribe(status => {
+        this.isConnected = status;
+      });
+    });
   }
 
   ngOnInit() {
@@ -86,11 +94,20 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
       this.showFab = true;
     }
     this.load_friend_request();
-    const POLLING_INTERVAL = 5000; // 5 seconds
-    // Start polling
-    this.pollingSubscription = interval(POLLING_INTERVAL).subscribe(() => {
-      // this.load_friend_request();
-    });
+    // const POLLING_INTERVAL = 5000; // 5 seconds
+    // // Start polling
+    // this.pollingSubscription = interval(POLLING_INTERVAL).subscribe(() => {
+    //   // this.load_friend_request();
+    // });
+    if(this.currentUser!=null){
+      const POLLING_INTERVAL = 5000; // 5 seconds
+      // Start polling
+      this.pollingSubscription = interval(POLLING_INTERVAL).subscribe(() => {
+        if(this.isConnected){
+          this.check_user_logged_in();
+        }
+      });
+    }
     if(this.activeHomeColor!=undefined){
       this.active = this.activeHomeColor;
       this.active1 = false;
@@ -229,6 +246,57 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
       this.pollingSubscription.unsubscribe();
     }
     this.keyboardSubscription.unsubscribe();
+  }
+
+  check_user_logged_in() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('session_id', this.currentUser.session_id);
+    this.apiService.check_user_logged_in(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      // console.log(response);
+      if(!response.loggedin || !response.user_active){
+        this.logoutMyDevice();
+      }
+      // else{
+      //   this.router.navigateByUrl('dashboard');
+      // }
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  logoutMyDevice() {
+    let formData = new FormData();
+    formData.append('user_id',this.currentUser.user_id);
+    formData.append('apptype','mobile');
+    formData.append('logout_type', 'single');
+    formData.append('session_id', this.currentUser.session_id);
+    this.apiService.logout(formData)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((response:any) => {
+      console.log(response);
+      this.logout();
+    },
+    respError => {
+      this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+    })
+  }
+
+  logout() {
+    this.dismiss();
+    localStorage.removeItem('currentUser');
+    localStorage.clear();  // Clear all local storage data
+    sessionStorage.clear(); // Clear session storage
+    // this.router.navigate(['/welcome']);
+    this.currentUser=null;
+    this.router.navigate(['/login-agreement']);
+  }
+
+  dismiss() {
+    this.modalCtrl.dismiss();
   }
 
 }
