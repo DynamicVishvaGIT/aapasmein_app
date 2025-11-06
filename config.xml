@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.aapasmein" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ionic.aapasmein" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>aapasmein</name>
     <description>aapasmein app.</description>
     <author email="prasenjit@dynamicvishva.com" href="http://ionicframework.com/">Dynamic Vishva Technology Sollutions Pvt. Ltd.</author>
@@ -21,6 +21,9 @@
     <preference name="loadUrlTimeoutValue" value="70000" />
     <platform name="android">
         <preference name="Scheme" value="http" />
+        <preference name="android-minSdkVersion" value="24" />
+        <preference name="android-targetSdkVersion" value="35" />
+        <preference name="android-compileSdkVersion" value="35" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:allowBackup="false" android:fullBackupContent="false" android:networkSecurityConfig="@xml/network_security_config" />
         </edit-config>

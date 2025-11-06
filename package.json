@@ -53,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "call-number": "^1.0.1",
-    "cordova-android": "^12.0.0",
+    "cordova-android": "14.0.1",
     "cordova-plugin-camera": "^7.0.0",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-geolocation": "^5.0.0",
@@ -96,8 +96,6 @@
       "cordova-plugin-prevent-screenshot": {},
       "cordova-plugin-network-information": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }
