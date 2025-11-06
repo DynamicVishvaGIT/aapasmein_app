@@ -153,8 +153,8 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      this.commonService.showToastMessage('The OTP is '+response.message, 'success-toast','', 4000);
-      this.user_otp = response.message;
+      this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
+      // this.user_otp = response.message;
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);

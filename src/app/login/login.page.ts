@@ -1171,7 +1171,7 @@ export class LoginPage implements OnInit {
         //   this.router.navigate(['/agreement']);
         // }
         // else {
-          this.commonService.showToastMessage('The OTP is '+response.message, 'success-toast','', 4000);
+          this.commonService.showToastMessage(response.message, 'success-toast','', 4000);
           this.router.navigate(['/otp-verification'], { queryParams: { mobile_no:this.user.mobile_no, user_otp: response.message, referral_code: this.referral_code!=''?this.referral_code:''} });
         // if(!response.logged_in){
         //   this.commonService.showToastMessage('The OTP is '+response.message, 'success-toast','', 4000);
