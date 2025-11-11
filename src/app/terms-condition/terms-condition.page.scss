@@ -5,6 +5,16 @@ ion-content {
     background-repeat: no-repeat;
     background-size: cover;
   }
+
+  #header-icons{
+    text-align: right;
+    ion-icon{
+        // color: #fff;
+        color:#50537a;
+        font-size: 1.5rem;
+        //margin-left: 16px;
+    }
+  }
   
   .login-btn {
     width: 89%;

@@ -176,7 +176,7 @@ export class AppComponent {
         else if (
           prevUrl.includes('/add-mall') || prevUrl.includes('/add-event') || prevUrl.includes('/more-details') ||
           prevUrl.includes('/connection') || prevUrl.includes('/edit-profile') ||
-          prevUrl.includes('/setting-modal') || prevUrl.includes('/add-rate') || prevUrl.includes('add-convenience')
+          prevUrl.includes('/setting-modal') || prevUrl.includes('/add-rate') || prevUrl.includes('add-convenience') || prevUrl.includes('terms-condition')
         ) {
           this.modalCtrl.dismiss();
         }

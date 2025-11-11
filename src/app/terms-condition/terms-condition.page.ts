@@ -44,4 +44,8 @@ export class TermsConditionPage implements OnInit {
     this.router.navigate(['/welcome']);
   }
 
+  dismiss() {
+    this.modalCtrl.dismiss({});
+  }
+
 }
