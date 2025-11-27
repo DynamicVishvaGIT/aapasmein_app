@@ -15,6 +15,10 @@ export class LoginAgreementPage implements OnInit {
   ngOnInit() {
   }
 
+  redirect2TermsCondition() {
+    this.router.navigate(['/agreement-terms-conditions'])
+  }
+
   onAccept(){
     this.router.navigate(['/welcome']);
   }

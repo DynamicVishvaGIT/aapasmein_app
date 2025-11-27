@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
+import { ShareService } from '../share.service';
 
 @Component({
   selector: 'app-success',
@@ -19,7 +20,7 @@ export class SuccessPage implements OnInit {
   friend_details: any;
   show_whatsapp:boolean=false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private commonService: CommonService) { 
+  constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private commonService: CommonService, private shareService: ShareService) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -90,15 +91,27 @@ export class SuccessPage implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  inviteViaWhatsApp(msg:string) {
-    const message = encodeURIComponent(msg);
-    // const link = encodeURIComponent("https://your-app-link.com");
-    // const whatsappUrl = `https://wa.me/?text=${message} ${link}`;
-    const whatsappUrl = `https://wa.me/?text=${message}`;
-    
-    // window.open(whatsappUrl, '_blank');
-    window.open(whatsappUrl, '_system');
+  inviteViaWhatsApp(apiData:any) {console.log('apidata',apiData);
+    this.shareService.shareInvite(apiData.mobile_no, apiData)
+      .then(() => {
+        console.log("Invite sent successfully!");
+      })
+      .catch(err => {
+        console.log("Invite failed", err);
+      });
   }
+
+  // inviteViaWhatsApp(data:any) {
+  //   const message = encodeURIComponent(data.message);
+  //   const phoneNumber = data.mobile_no;
+  //   // const link = encodeURIComponent("https://your-app-link.com");
+  //   // const whatsappUrl = `https://wa.me/?text=${message} ${link}`;
+  //   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  //   // const whatsappUrl = `https://wa.me/?text=${message}`;
+    
+  //   // window.open(whatsappUrl, '_blank');
+  //   window.open(whatsappUrl, '_system');
+  // }
 
   // inviteViaWhatsApp(msg:string) {
   //   const message = encodeURIComponent(msg);

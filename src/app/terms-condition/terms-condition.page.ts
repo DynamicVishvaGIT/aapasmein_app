@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { CommonService } from '../common.service';
 import { AddConveniencePage } from '../add-convenience/add-convenience.page';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-terms-condition',
@@ -12,10 +13,31 @@ import { AddConveniencePage } from '../add-convenience/add-convenience.page';
 export class TermsConditionPage implements OnInit {
 
   acceptTerms:boolean = false;
+  backButtonSub!: Subscription;
 
-  constructor(private router: Router, private modalCtrl: ModalController, private commonService: CommonService) { }
+  constructor(private router: Router, private modalCtrl: ModalController, private commonService: CommonService,
+    private platform: Platform) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    // Handle hardware back button when modal is open
+    this.backButtonSub = this.platform.backButton.subscribeWithPriority(9999, () => {
+      this.modalCtrl.dismiss();
+    });
+  }
+
+  ionViewWillLeave() {
+    if (this.backButtonSub) {
+      this.backButtonSub.unsubscribe();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.backButtonSub) {
+      this.backButtonSub.unsubscribe();
+    }
   }
 
   async addConveniencePage() {

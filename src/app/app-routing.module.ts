@@ -299,6 +299,10 @@ const routes: Routes = [
     path: 'terms-condition',
     loadChildren: () => import('./terms-condition/terms-condition.module').then( m => m.TermsConditionPageModule)
   },
+  {
+    path: 'agreement-terms-conditions',
+    loadChildren: () => import('./agreement-terms-conditions/agreement-terms-conditions.module').then( m => m.AgreementTermsConditionsPageModule)
+  },
 ];
 
 @NgModule({

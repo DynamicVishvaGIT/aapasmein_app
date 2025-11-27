@@ -21,8 +21,10 @@
     "@angular/platform-browser": "^17.0.2",
     "@angular/platform-browser-dynamic": "^17.0.2",
     "@angular/router": "^17.0.2",
-    "@awesome-cordova-plugins/call-number": "^6.9.0",
+    "@awesome-cordova-plugins/call-number": "^8.0.2",
+    "@awesome-cordova-plugins/core": "^8.0.2",
     "@awesome-cordova-plugins/network": "^8.0.2",
+    "@awesome-cordova-plugins/social-sharing": "^8.1.0",
     "@ionic-native/camera": "^5.36.0",
     "@ionic-native/geolocation": "^5.36.0",
     "@ionic-native/in-app-browser": "^5.36.0",
@@ -53,7 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "call-number": "^1.0.1",
-    "cordova-android": "14.0.1",
+    "cordova-android": "^14.0.1",
     "cordova-plugin-camera": "^7.0.0",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-geolocation": "^5.0.0",
@@ -64,6 +66,8 @@
     "cordova-plugin-prevent-screenshot": "^1.0.3",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-x-socialsharing": "^6.0.4",
+    "es6-promise-plugin": "^4.2.2",
     "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.1",
@@ -94,8 +98,11 @@
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-prevent-screenshot": {},
-      "cordova-plugin-network-information": {}
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-x-socialsharing": {}
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }
