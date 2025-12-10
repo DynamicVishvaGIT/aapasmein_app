@@ -30,7 +30,7 @@ export class ShareService {
     // logo from API
     const logoUrl = encodeURI(apiData.app_logo);
     // const logoUrl = apiData.app_logo;
-
+    console.log(message);
     return this.socialSharing.shareViaWhatsAppToPhone(
       phone,
       message,
