@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-agreement-terms-conditions',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgreementTermsConditionsPage implements OnInit {
 
-  constructor() { }
+  route: string = '';
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.route = params['route'];
+    });
+  }
+
+  close(){
+    if(this.route=='login'){
+      this.router.navigate(['/login-agreement']);
+    }
+    else{
+      this.router.navigate(['/terms-condition']);
+    }
   }
 
 }

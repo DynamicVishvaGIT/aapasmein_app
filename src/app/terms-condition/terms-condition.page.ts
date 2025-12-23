@@ -70,4 +70,9 @@ export class TermsConditionPage implements OnInit {
     this.modalCtrl.dismiss({});
   }
 
+  redirect2TermsCondition() {
+    this.dismiss();
+    this.router.navigate(['/agreement-terms-conditions'], { queryParams: { route:'convenience'}})
+  }
+
 }

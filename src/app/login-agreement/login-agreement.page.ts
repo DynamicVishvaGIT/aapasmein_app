@@ -16,7 +16,7 @@ export class LoginAgreementPage implements OnInit {
   }
 
   redirect2TermsCondition() {
-    this.router.navigate(['/agreement-terms-conditions'])
+    this.router.navigate(['/agreement-terms-conditions'], { queryParams: { route:'login'}})
   }
 
   onAccept(){

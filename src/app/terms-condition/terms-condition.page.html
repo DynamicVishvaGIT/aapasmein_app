@@ -73,13 +73,15 @@
   <ion-row style="padding: 10px;">
     <ion-col size="12">
       <ion-checkbox color="tertiary" [(ngModel)]="acceptTerms"></ion-checkbox>&nbsp;&nbsp;
-      <ion-label style="color:#000000;">
+      <!-- <ion-label style="color:#000000;">
         I have read the 
         <a class="anchor_tag" href="https://aapasmein.com/terms-and-conditions.php" target="_blank">
           <u>terms and conditions</u>
         </a>
         of the platform and will abide by them while using the platform.
-      </ion-label>
+      </ion-label> -->
+      <ion-label style="color:#000000;">I have read  the <a  class="anchor_tag" href="javascript:void(0)" (click)="redirect2TermsCondition()"><u>terms and conditions</u></a> of the platform and will abide with them while using the platform.</ion-label> <!--https://aapasmein.com/terms-and-conditions.php-->
+
     </ion-col>
   </ion-row>
   <ion-button color="tertiary" class="login-btn" [disabled]="!acceptTerms" (click)="addConveniencePage()">
