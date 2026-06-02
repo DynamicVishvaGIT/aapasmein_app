@@ -153,7 +153,7 @@
               </ion-card>
             </ion-col>
           </ion-row>
-          <div >
+          <div *ngIf="data.events.length>1">
             <ion-row (click)="goToEventList(data, 'myevent')">
               <ion-col size="11" style="float:right;">
                 <h6 class="view-but">View All &nbsp;</h6>

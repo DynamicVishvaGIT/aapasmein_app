@@ -40,7 +40,7 @@
     <ion-row>
       <ion-col size="12">
         <div class="input-container">
-          <ion-label class="input-label required">Sub Category</ion-label>
+          <ion-label class="input-label required">Event Type</ion-label>
             <div class="input-group">
               <ion-select class="ion-select" [(ngModel)]="eventJson.sub_category_id">
                 <ion-select-option *ngFor="let item of get_event_sub_categories" [value]="item.id">{{item.NAME}}</ion-select-option>
@@ -145,9 +145,10 @@
       </ion-col>
       <ion-col size="4" *ngIf="selectedImage.name!=''"><!--*ngIf="selectedImage.name!=''"-->
         <div class="square-box">
-          <img [src]="selectedImage.data" alt="" class="mall-photo">
+          <ion-spinner name="lines-sharp" style="margin-top: 48px;" *ngIf="spinnerFlag"></ion-spinner>
+          <img [src]="selectedImage.data" alt="" class="mall-photo" *ngIf="!spinnerFlag">
           <!-- <img src="../../../assets/Prasenjit_Chanda.png" alt="" class="mall-photo"> -->
-          <ion-icon name="close-outline" class="close-button" (click)="remove_image()"></ion-icon>
+          <ion-icon name="close-outline" class="close-button" (click)="remove_image()" *ngIf="!spinnerFlag"></ion-icon>
         </div>
       </ion-col>
     </ion-row>

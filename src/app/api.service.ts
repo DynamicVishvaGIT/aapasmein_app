@@ -360,6 +360,14 @@ export class ApiService {
     )
   }
 
+  get_load_event_subcategory() {
+    return this.httpClient.get(this.baseUrl + 'load_event_subcategory')
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
   add_event_list(event:any) {
     return this.httpClient.post(this.baseUrl + 'add_event_list',event)
     .pipe(
@@ -395,6 +403,17 @@ export class ApiService {
   load_convenience(convenience_category_id:string) {
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('convenience_category_id', convenience_category_id);
+    urlSearchParams.append('apptype', this.apptype);
+    return this.httpClient.get(this.baseUrl + 'load_convenience?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+  load_convenience_for_notification(user_id:string, mobile_no: string) {
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('user_id', user_id);
+    urlSearchParams.append('mobile_no', mobile_no);
     urlSearchParams.append('apptype', this.apptype);
     return this.httpClient.get(this.baseUrl + 'load_convenience?'+urlSearchParams.toString())
     .pipe(
@@ -676,6 +695,14 @@ export class ApiService {
     urlSearchParams.append('id', id);
     urlSearchParams.append('type', type);
     return this.httpClient.get(this.baseUrl + 'approve_convenience?'+urlSearchParams.toString())
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
+  }
+
+  get_interested_event_peoples(id:string) {
+    return this.httpClient.get(this.baseUrl + 'get_interested_event_peoples/'+id)
     .pipe(
       retry(1),
       catchError(this.errorHandler)

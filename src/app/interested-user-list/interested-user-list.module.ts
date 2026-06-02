@@ -4,22 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import { InterestedUserListPageRoutingModule } from './interested-user-list-routing.module';
 
-import { ProfilePage } from './profile.page';
+import { InterestedUserListPage } from './interested-user-list.page';
 import { ShareModule } from '../share/share.module';
-
-import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule,
-    ShareModule,
-    ImageCropperComponent
+    InterestedUserListPageRoutingModule,
+    ShareModule
   ],
-  declarations: [ProfilePage]
+  declarations: [InterestedUserListPage]
 })
-export class ProfilePageModule {}
+export class InterestedUserListPageModule {}

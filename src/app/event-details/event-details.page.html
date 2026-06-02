@@ -129,6 +129,9 @@
     <ion-row *ngIf="event_details.USER__id!=currentUser.user_id">
       <ion-button  type="submit" class="login-btn" *ngIf="type=='all'" [color]="event_details.interested_Status==true?'danger':'tertiary'" (click)="add_interested_event()"><b>{{event_details.interested_Status==true?'Remove Interest':'Interested'}}</b></ion-button>
     </ion-row>
+    <ion-row *ngIf="event_details.USER__id==currentUser.user_id">
+      <ion-button  type="submit" class="login-btn" *ngIf="type=='all'" color="secondary" (click)="go_to_interested_list()"><b>List of Interested</b></ion-button>
+    </ion-row>
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     <ion-grid *ngIf="event_details.USER__id!=currentUser.user_id">

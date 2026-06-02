@@ -30,6 +30,11 @@ export class AddmallPage implements OnInit {
   imageIndex:number=-1;
   disabled:boolean=false;
 
+  selectedLocationName = '';
+  searchLocationTerm = '';
+  filteredLocations :any[] = [];
+  isLocationPopoverOpen = false;
+
   constructor(private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private actionSheetController: ActionSheetController,
     private camera: Camera, private router: Router ) { 
     this._unsubscribeAll = new Subject();
@@ -44,16 +49,33 @@ export class AddmallPage implements OnInit {
     this.get_category();
   }
 
+  openLocationPopover(event: Event) {
+    this.isLocationPopoverOpen = true;
+  }
+
   get_location() {
     this.apiService.get_location()
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
       this.get_locations = response.data;
+      this.filteredLocations = [...this.get_locations];
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
+  }
+
+  filterLocations() {
+    this.filteredLocations = this.get_locations.filter((item:any) =>
+      item.NAME.toLowerCase().includes(this.searchLocationTerm.toLowerCase())
+    );
+  }
+
+  selectLocation(item: any) {
+    this.mallJson.location_id = item.id;
+    this.selectedLocationName = item.NAME;
+    this.isLocationPopoverOpen = false;
   }
   get_category() {
     this.apiService.get_category()
@@ -242,6 +264,19 @@ export class AddmallPage implements OnInit {
   onRadioSelect(value: string) {
     this.mallJson.share_with = value;
     console.log(this.mallJson.share_with);
+  }
+
+  remove_image(type: string) {
+    if(type=='1'){
+      this.selectedImage1={name:'', data:''};
+    }
+    else if(type=='2'){
+      this.selectedImage2={name:'', data:''};
+    }
+    else{
+      this.selectedImage3={name:'', data:''};
+    }
+    this.product_images = [];
   }
 
   dismiss() {

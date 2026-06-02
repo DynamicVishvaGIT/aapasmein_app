@@ -21,24 +21,24 @@ export class TermsConditionPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
-    // Handle hardware back button when modal is open
-    this.backButtonSub = this.platform.backButton.subscribeWithPriority(9999, () => {
-      this.modalCtrl.dismiss();
-    });
-  }
+  // ionViewWillEnter() {
+  //   // Handle hardware back button when modal is open
+  //   this.backButtonSub = this.platform.backButton.subscribeWithPriority(9999, () => {
+  //     this.modalCtrl.dismiss();
+  //   });
+  // }
 
-  ionViewWillLeave() {
-    if (this.backButtonSub) {
-      this.backButtonSub.unsubscribe();
-    }
-  }
+  // ionViewWillLeave() {
+  //   if (this.backButtonSub) {
+  //     this.backButtonSub.unsubscribe();
+  //   }
+  // }
 
-  ngOnDestroy() {
-    if (this.backButtonSub) {
-      this.backButtonSub.unsubscribe();
-    }
-  }
+  // ngOnDestroy() {
+  //   if (this.backButtonSub) {
+  //     this.backButtonSub.unsubscribe();
+  //   }
+  // }
 
   async addConveniencePage() {
     // this.router.navigate(['/add-convenience']);
@@ -66,12 +66,17 @@ export class TermsConditionPage implements OnInit {
     this.router.navigate(['/welcome']);
   }
 
-  dismiss() {
-    this.modalCtrl.dismiss({});
+  async dismiss() {
+    // this.modalCtrl.dismiss({});
+  // const topModal = await this.modalCtrl.getTop();
+  // if (topModal) {
+  //   await topModal.dismiss();
+  // }
+  this.router.navigate(['/convenience-list']);
   }
 
   redirect2TermsCondition() {
-    this.dismiss();
+    // this.dismiss();
     this.router.navigate(['/agreement-terms-conditions'], { queryParams: { route:'convenience'}})
   }
 

@@ -39,6 +39,11 @@ export class SendHandshakePage implements OnInit {
       this.commonService.showToastMessage('Please enter mobile number.', 'error-toast', 'top', 2000);
       return;
     }
+    let mpattern = /(^\d{10}$)/;
+    if (!mpattern.test(this.friend.mobile_no)) {
+      this.commonService.showToastMessage('Please enter phone number in correct format.', 'error-toast', 'top', 2000);
+      return;
+    }
     this.handshake_data = [];
     this.errorMsg = '';
     this.apiService.get_handshake(this.friend.mobile_no,this.currentUser.user_id,'handshake','')
@@ -71,6 +76,15 @@ export class SendHandshakePage implements OnInit {
   }
 
   add_handshake() {
+    if(this.friend.mobile_no == '') {
+      this.commonService.showToastMessage('Please enter mobile number.', 'error-toast', 'top', 2000);
+      return;
+    }
+    let mpattern = /(^\d{10}$)/;
+    if (!mpattern.test(this.friend.mobile_no)) {
+      this.commonService.showToastMessage('Please enter phone number in correct format.', 'error-toast', 'top', 2000);
+      return;
+    }
     let formData = new FormData();
     formData.append('user_id',this.currentUser.user_id);
     formData.append('mobile_no',this.friend.mobile_no);

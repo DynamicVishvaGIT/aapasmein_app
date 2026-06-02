@@ -53,8 +53,10 @@
                   <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.accept_text == 'Accepted'" >{{notification.accept_text}}</ion-badge>
                   <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;"  *ngIf="notification.type=='accepted_convenience' && notification.reject_text == 'Rejected'">{{notification.reject_text}}</ion-badge>
 
-                  <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'accept', category.key)">Accept</ion-badge>
-                  <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;"  *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'reject', category.key)">Reject</ion-badge>
+                  <!-- <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'accept', category.key)">Accept</ion-badge>
+                  <ion-badge class="badge-color-reject" mode="md" style="margin-right: 6px;margin-top: -18px;"  *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="approve_convenience(notification, 'reject', category.key)">Reject</ion-badge> -->
+                  <ion-badge class="badge-color-accept" mode="md" style="margin-top: -18px;" *ngIf="notification.type=='accepted_convenience' && notification.USER_APPROVED == false" (click)="showConveniencePage(notification, category.key)">View</ion-badge>
+
                   <!-- <ion-badge class="badge-color" mode="md">{{activity.request_type=='accepted_invitation'?'Invitation':(activity.request_type=='received_handshake_accepted_reject' || activity.request_type=='sent_handshake_accepted_reject')?'Handshake':(activity.request_type=='sent_reachout_accepted_rejected' || activity.request_type=='received_reachout_accepted_rejected')?'Reach Out':''}}</ion-badge> -->
                   <!-- <span style="float:left;font-size: x-small;color:#1568fa;" (click)="markAsRead(activity)">Mark as Read</span>
                   <span style="float:right;font-size: x-small;color:#1568fa;margin-right: 130px;" (click)="deleteNotification(activity)">Delete</span> -->

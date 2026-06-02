@@ -46,6 +46,14 @@ export class ProfilePage implements OnInit {
   segment_type:string='';
   REQUEST_STATUS:string='';
 
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  showCropper = false;
+  tempFileName = '';
+
+  croppedBlob!: Blob;
+  croppedImagePreview: any;
+
   // scholarships = [
   //   { name: 'Scholarship 1', image: 'assets/accolades/badge.png' },
   //   { name: 'Scholarship 2', image: 'assets/accolades/shield.png' },
@@ -326,7 +334,12 @@ export class ProfilePage implements OnInit {
       fileName = n + ".jpg";
       // this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
       // this.upload_image();
-      this.checkImageSizeAndUpload(fileName,imageData);
+
+      // this.checkImageSizeAndUpload(fileName,imageData);
+
+      this.tempFileName = fileName;
+      this.imageChangedEvent = `data:image/jpeg;base64,${imageData}`;
+      this.showCropper = true;
       // this.album_images.push(this.selectedImage1);
       //alert(JSON.stringify(this.album_images));
     }, (err) => {
@@ -334,20 +347,42 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  async checkImageSizeAndUpload(fileName:string,imageData:any) {
-    // Convert base64 data URL to Blob
-    let response = await fetch(`data:image/jpeg;base64,${imageData}`);
-    let blob = await response.blob();
+  // async checkImageSizeAndUpload(fileName:string,imageData:any) {
+  //   // Convert base64 data URL to Blob
+  //   let response = await fetch(`data:image/jpeg;base64,${imageData}`);
+  //   let blob = await response.blob();
   
-    const maxSizeMB = 5;
-    const maxSizeBytes = maxSizeMB * 1024 * 1024;
-    if (blob.size > maxSizeBytes) {
-      this.commonService.showToastMessage(`Image size exceeds ${maxSizeMB} MB. Please select a smaller image.`, 'error-toast', '', 4000);
+  //   const maxSizeMB = 5;
+  //   const maxSizeBytes = maxSizeMB * 1024 * 1024;
+  //   if (blob.size > maxSizeBytes) {
+  //     this.commonService.showToastMessage(`Image size exceeds ${maxSizeMB} MB. Please select a smaller image.`, 'error-toast', '', 4000);
+  //     return;
+  //   }
+  //   this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
+  //   // Proceed with upload if size is acceptable
+  //   this.upload_image(blob);
+  // }
+
+  imageCropped(event: any) {
+    console.log(event);
+    this.croppedBlob = event.blob;
+    this.croppedImagePreview = event.objectUrl;
+  }
+
+  saveCroppedImage() {
+    if(!this.croppedBlob) {
+      this.commonService.showToastMessage('Please crop image first','error-toast','',3000);
       return;
     }
-    this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
-    // Proceed with upload if size is acceptable
-    this.upload_image(blob);
+    const maxSizeMB = 5;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+    if(this.croppedBlob.size > maxSizeBytes) {
+      this.commonService.showToastMessage(`Image size exceeds ${maxSizeMB} MB.`,'error-toast','',4000);
+      return;
+    }
+    this.selectedImage = {name: this.tempFileName,data: this.croppedImagePreview};
+    this.showCropper = false;
+    this.upload_image(this.croppedBlob);
   }
 
   async upload_image(blob: Blob) {
@@ -365,7 +400,7 @@ export class ProfilePage implements OnInit {
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
-      
+      this.commonService.showToastMessage('Image uploaded successfully','success-toast','',3000);
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);

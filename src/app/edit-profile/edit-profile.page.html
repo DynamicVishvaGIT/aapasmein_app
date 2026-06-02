@@ -184,18 +184,16 @@
     </ion-row>
     
     <!-- Popover for Searchable Dropdown -->
-    <ion-popover #professionPopover [isOpen]="isInterestPopoverOpen" (didDismiss)="isInterestPopoverOpen = false">
+    <ion-popover #interestPopover [isOpen]="isInterestPopoverOpen" (didDismiss)="isInterestPopoverOpen = false">
         <ng-template>
             <ion-content class="popover-content">
                 <ion-searchbar [(ngModel)]="searchInterestTerm" (ionInput)="filterInterests()"></ion-searchbar>
                 <ion-list>
-                    <ion-item *ngFor="let item of filteredInterests" (click)="toggleSelection(item)">  <!--(click)="selectInterest(item)"-->
+                    <ion-item *ngFor="let item of filteredInterests" (click)="toggleSelection(item)">
                         <ion-checkbox
                             slot="start"
-                            [(ngModel)]="item.iFlag"
-                            (click)="$event.stopPropagation()"
-                            >
-                        </ion-checkbox><!--[checked]="isSelected(item)"-->
+                            [checked]="item.iFlag">
+                        </ion-checkbox><!--[(ngModel)]="item.iFlag"-->
                         <ion-label>{{ item.NAME }}</ion-label>
                     </ion-item>
                 </ion-list>

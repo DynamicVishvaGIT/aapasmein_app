@@ -29,24 +29,33 @@
         <ion-col size="6" *ngFor="let data of filteredList">
           <ion-card class="mall-card" (click)="viewConvenienceDetails(data)">
             <div class="honeycomb-overlay"></div>
-            <ion-card-content>
-              <ion-row>
-                <ion-col size="12" style="text-align: center;">
+            <ion-card-content class="card-content-custom">
+              <div class="image-section">
+                  <!-- <img src="../../../assets/icon/dashboard/electrician_1.png" alt="" class="img-avatar">  -->
                   <img src="{{imageUrl}}{{data.IMAGE}}" alt="" class="img-avatar" *ngIf="data.IMAGE!=null">
                   <img src="../../../assets/icon/dashboard/doctor.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==1"> 
                   <img src="../../../assets/icon/dashboard/lawyer.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==2"> 
                   <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==3"> 
                   <img src="../../../assets/icon/dashboard/electrician.svg" alt="" class="img-avatar" *ngIf="data.IMAGE==null && data.id==4">
-                </ion-col>
-              </ion-row>
-              <ion-row style="margin-top: -23px;">
+              </div>
+              <div class="text-section">
+                <span class="text-align">{{ data.NAME }}</span>
+              </div>
+              <!-- <ion-row style="margin-top: -23px;">
                 <ion-col size="12" style="text-align: center;">
                   <span class="text-align">{{data.NAME}}</span></ion-col>
-              </ion-row>
-              <ion-row>
+              </ion-row> -->
+              <!-- BOTTOM BUTTON -->
+              <div class="bottom-section">
+                <ion-badge class="badge-color" mode="ios">
+                  <ion-icon  name="arrow-forward-outline" style="color: black;"></ion-icon>
+                </ion-badge>
+              </div>
+              <!-- <ion-row>
                 <ion-col style="text-align: center;">
                   <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
-                </ion-col></ion-row>
+                </ion-col>
+              </ion-row> -->
             </ion-card-content>
           </ion-card>
         </ion-col>

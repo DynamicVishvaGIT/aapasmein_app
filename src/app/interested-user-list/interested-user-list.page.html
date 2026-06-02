@@ -1,0 +1,52 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- <div class="honeycomb-overlay"></div> -->
+  <div class="ion-padding-top ion-padding-horizontal" style="background: #061947;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="text-align: start;" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline" style="color:white;font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: -3px;">
+          <strong class="header" style="color:white;">List of Enquiries</strong>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="searchbar_align">
+    <ion-searchbar [(ngModel)]="searchQuery" mode="ios" class="custom" (ionInput)="filterList()" placeholder="Search User" (click)="hideFooter()"></ion-searchbar>
+  </div>
+  
+  <div class="gap">
+    <div *ngIf="dataLoaded && filteredList.length > 0">
+      <ion-grid>
+        <ion-row class="border-bottom" *ngFor="let data of filteredList">
+          <ion-col size="3">
+            <img src="{{imageUrl}}{{data.INTERESTED_USER__PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="data.INTERESTED_USER__PROFILE_IMAGE" >
+            <img src="../../assets/avtar4.png" alt="" class="circle-img" *ngIf="!data.INTERESTED_USER__PROFILE_IMAGE" >
+            <!-- <img src="{{imageUrl}}{{requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE}}" alt="" class="circle-img" *ngIf="requestText=='Request-in'?data.SENDER__PROFILE_IMAGE:data.PROFILE_IMAGE">
+            <img src="../../assets/avtar3.jpeg" alt="" class="circle-img" *ngIf="requestText=='Request-in'?!data.SENDER__PROFILE_IMAGE:!data.PROFILE_IMAGE"> -->
+          </ion-col>
+          <ion-col size="9">
+            <ion-icon name="call-outline" class="icon-align" (click)="makeCall(data.INTERESTED_USER__MOBILE_NO)" ></ion-icon>
+            <span class="name-text">{{data.INTERESTED_USER__NAME}}</span><br>
+            <span class="designation-text">{{data.INTERESTED_USER__MOBILE_NO}}</span><br>
+            <!-- <span class="name-text">{{requestText=='Request-in'?data.SENDER__NAME:data.NAME}}</span><br>
+            <span class="designation-text">{{requestText=='Request-in'?data.SENDER__PROFESSION__NAME:data.PROFESSION__NAME}}</span><br> -->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="no-data" *ngIf="dataLoaded && filteredList.length == 0">
+      <img class="watermark-image" src="../../assets/no-data-found.png" alt="No Data">
+      <span class="no-data-text">No Enquiries Data</span>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+<app-commonfooter></app-commonfooter>

@@ -3,6 +3,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { CommonService } from '../common.service';
 import { ApiService } from '../api.service';
+import { NotificationConveniencePage } from '../notification-convenience/notification-convenience.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-notifications',
@@ -37,7 +39,7 @@ export class NotificationsPage implements OnInit {
   accept_text: string = 'Accept';
   reject_text: string = 'Reject';
 
-  constructor(private router: Router, private commonService: CommonService, private apiService: ApiService) { 
+  constructor(private router: Router, private commonService: CommonService, private apiService: ApiService, private modalCtrl: ModalController) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -192,6 +194,43 @@ export class NotificationsPage implements OnInit {
       older: 'Older'
     };
     return labels[category] || category;
+  }
+
+  async showConveniencePage(notification: any, categoryKey: string) {
+    // this.router.navigate(['/add-convenience']);
+    this.commonService.currentPage = '/show-convenience';
+    const modal = await this.modalCtrl.create({
+      component: NotificationConveniencePage,
+      componentProps: {
+        data: notification   // pass API data here
+      },
+      breakpoints: [0, 0.3, 0.5, 0.8],
+      initialBreakpoint: 0.8,
+      cssClass: 'custom-modal'
+    });
+    modal.onDidDismiss().then((modalItem) => {
+      if (modalItem) {
+        console.log(modalItem);
+        if (modalItem?.data) {
+          if (modalItem.data.action === 'Accepted') {
+            console.log('Accepted:', modalItem.data.data);
+            notification.USER_APPROVED = true;
+            notification.accept_text = 'Accepted';
+          } 
+          else if (modalItem.data.action === 'Rejected') {
+            console.log('Rejected:', modalItem.data.data);
+            notification.USER_APPROVED = true;
+            notification.reject_text = 'Rejected';
+            const index = this.categorizedData[categoryKey].indexOf(notification);
+            if (index > -1) {
+              this.categorizedData[categoryKey].splice(index, 1);
+            }
+          }
+        }
+        this.commonService.currentPage = '/notification';
+      }
+    })
+    return await modal.present();
   }
 
   dismiss() {

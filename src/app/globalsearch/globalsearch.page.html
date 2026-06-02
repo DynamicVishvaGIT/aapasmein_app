@@ -38,10 +38,13 @@
           <div class="button-card" (click)="goToDetails(data.NAME)">
             <ion-row>
               <ion-col size="4">
-                <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">
+                <!-- <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar"> -->
+                 <img src="{{imageUrl}}{{data.IMAGE}}" class="img-avatar">
               </ion-col>
               <ion-col size="8">
-                <span style="font-size: smaller;">{{data.NAME}}</span>
+                <span style="font-size: smaller;">{{ data.NAME.length > 13 
+                  ? (data.NAME | slice:0:13) + '...' 
+                  : data.NAME }}</span>
               </ion-col>
             </ion-row>
           </div>
@@ -145,15 +148,15 @@
       </ion-col>
     </ion-row>
   </div>
-  <div style="margin-left: 4%;" class="gsearch"> 
-    <ion-row class="ion-no-padding" *ngFor="let data of recent_search">
+  <div style="margin-left: 4%;" class="gsearch" > 
+    <ion-row class="ion-no-padding" *ngFor="let data of recent_search" (click)="goToDetails(data.KEYWORDS)">
       <ion-col size="2">
         <ion-icon name="time-outline" style="font-size: 15px;margin-top: 12px;margin-left: 5px;color: white;"></ion-icon>
       </ion-col>
       <ion-col size="6">
         <ion-card-title style="font-size: 11px;margin-top:12px;color: white;margin-left: -21px;">{{data.KEYWORDS}}</ion-card-title>
       </ion-col>
-      <ion-col size="4" (click)="goToDetails(data.KEYWORDS)">
+      <ion-col size="4" >
         <ion-icon name="trending-up-outline" style="font-size: 15px;margin-top:12px;float:right;color: white;margin-right:-15px;"></ion-icon>
       </ion-col>
     </ion-row>

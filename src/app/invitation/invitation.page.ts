@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../api.service';
 import { CommonService } from '../common.service';
@@ -41,7 +41,8 @@ export class InvitationPage implements OnInit {
   // filteredInterests: any = [];
   // isInterestPopoverOpen = false;
 
-  constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private keyboardService: KeyboardService) { 
+  constructor(private router: Router, private modalCtrl: ModalController, private apiService: ApiService,
+     private commonService: CommonService, private keyboardService: KeyboardService, private alertCtrl: AlertController) { 
     this._unsubscribeAll = new Subject();
   }
 
@@ -227,7 +228,8 @@ export class InvitationPage implements OnInit {
       this.commonService.showToastMessage('Please select city.', 'error-toast', 'top', 2000);
       return;
     }
-    this.router.navigate(['/questionnaire'], { queryParams: { friend_details: JSON.stringify(this.friend)} });
+    // this.router.navigate(['/questionnaire'], { queryParams: { friend_details: JSON.stringify(this.friend)} });
+    this.showSweetAlert();
     // let formData = new FormData();
     // formData.append('full_name',this.friend.full_name);
     // formData.append('city',this.friend.city);
@@ -246,6 +248,31 @@ export class InvitationPage implements OnInit {
     //   respError => {
     //     this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     //   })
+  }
+
+  async showSweetAlert() {console.log(this.friend);
+    const confirm = await this.alertCtrl.create({
+      header: 'Send Invitation',
+      message: 'Hi '+this.currentUser.user_name+' , before you invite '+this.friend.full_name+ ' to aapasmein, here is something to ponder. Please answer the following questions and we will know for sure!?',
+      // cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: 'Reject',
+          cssClass: 'alert-button-no',
+          handler: () => {
+            // console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Accept',
+          cssClass: 'alert-button-yes',
+          handler: () => {
+            this.router.navigate(['/questionnaire'], { queryParams: { friend_details: JSON.stringify(this.friend)} });
+          }
+        }
+      ]
+    });
+   await  confirm.present();
   }
 
   back() {

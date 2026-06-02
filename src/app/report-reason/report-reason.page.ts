@@ -26,6 +26,7 @@ export class ReportReasonPage implements OnInit {
   reasons: any=[];
   selectedReason: string='';
   otherReasonText: string = '';
+  convenience_id: string='';
 
   constructor(private modalCtrl: ModalController, private router: Router, private commonService: CommonService, private activatedRoute: ActivatedRoute,
     private apiService: ApiService
@@ -46,6 +47,8 @@ export class ReportReasonPage implements OnInit {
       console.log(this.id);
       this.product_id = params['product_id'];
       this.url = params['url'];
+      this.convenience_id = params['convenience_id'];
+      console.log(this.convenience_id);
     });
     this.initializeReasons();
     // this.activatedRoute.queryParams.subscribe(params => {
@@ -90,7 +93,7 @@ export class ReportReasonPage implements OnInit {
         ];
         break;
       case 'malldetails':
-        this.heading = 'Why are you reporting this Mall?';
+        this.heading = 'Why are you reporting this Deal?';
         this.subHeading =
           'Your report remains anonymous. If someone is at immediate risk, please contact local emergency services without delay.';
         this.reasons = [
@@ -124,6 +127,18 @@ export class ReportReasonPage implements OnInit {
           'Other',
         ];
         break;
+        case 'convenience':
+        this.heading = 'Why are you reporting this Convenience?';
+        this.subHeading =
+          'Your report remains anonymous. If someone is at immediate risk, please contact local emergency services without delay.';
+        this.reasons = [
+          'Not certified / qualified for the service',
+          'Proxy - Not the listed service provider',
+          'Incomplete service',
+          'Damage caused by service provider',
+          'Other',
+        ];
+        break;
       default:
         this.heading = 'Why are you reporting?';
         this.subHeading =
@@ -153,6 +168,9 @@ export class ReportReasonPage implements OnInit {
     }
     else if(this.routeURL=='broadcastdetails'){
       formData.append('broadcast_id',this.id);
+    }
+    else if(this.routeURL=='convenience'){
+      formData.append('convenience_id',this.id);
     }
     else{
       formData.append('community_id',this.id);
@@ -200,6 +218,9 @@ export class ReportReasonPage implements OnInit {
     }
     else if(this.routeURL == 'eventdetails'){
       this.router.navigate(['/event-details'], { queryParams: { event_id: this.product_id, url: this.url} });
+    }
+    else if(this.routeURL == 'convenience'){
+      this.router.navigate(['/convenience-details'], { queryParams: { url: 'list', type: this.product_id, convenience_id: this.convenience_id, } });
     }
   }
 

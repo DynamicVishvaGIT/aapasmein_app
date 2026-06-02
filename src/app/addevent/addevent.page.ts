@@ -43,6 +43,7 @@ export class AddeventPage implements OnInit {
   today: string = '';
   maxDate: string = '';
   maxToDate: string = '';
+  spinnerFlag = false;
 
   constructor(private modalCtrl: ModalController, private apiService: ApiService, private commonService: CommonService, private geolocation: Geolocation,
      private zone: NgZone, private actionSheetController: ActionSheetController,private camera: Camera, private router: Router) { 
@@ -110,7 +111,8 @@ export class AddeventPage implements OnInit {
   }
 
   load_event_subcategory() {
-    this.apiService.load_event_subcategory(this.eventJson.category_id)
+    // this.apiService.load_event_subcategory(this.eventJson.category_id)
+    this.apiService.get_load_event_subcategory()
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((response:any) => {
       console.log(response);
@@ -201,6 +203,7 @@ export class AddeventPage implements OnInit {
   }
 
   takePicture(sourceType: PictureSourceType) {
+    this.spinnerFlag = true;
     const options: CameraOptions = {
       quality: 100,
       sourceType: sourceType,
@@ -222,6 +225,7 @@ export class AddeventPage implements OnInit {
       //alert(JSON.stringify(this.album_images));
     }, (err) => {
       console.log('Error obtaining picture', err);
+      this.spinnerFlag = false;
     });
   }
 
@@ -239,6 +243,7 @@ export class AddeventPage implements OnInit {
     // Proceed with upload if size is acceptable
     this.selectedImage = { name: fileName, data: `data:image/jpeg;base64,${imageData}`};
     this.event_images.push(this.selectedImage);
+    this.spinnerFlag = false;
   }
 
   async add_event() {
@@ -279,10 +284,10 @@ export class AddeventPage implements OnInit {
       return;
     }
     console.log(this.eventJson);
-    // if (this.event_images.length== 0) {
-    //   this.commonService.showToastMessage('Please upload at least one product image.', 'error-toast', 'top', 2000);
-    //   return;
-    // }
+    if (this.event_images.length== 0) {
+      this.commonService.showToastMessage('Please upload at least one event image.', 'error-toast', 'top', 2000);
+      return;
+    }
     if (this.eventJson.share_with == '') {
       this.commonService.showToastMessage('Please select share with.', 'error-toast', 'top', 2000);
       return;
@@ -330,6 +335,7 @@ export class AddeventPage implements OnInit {
 
   remove_image() {
     this.selectedImage={name:'', data:''};
+    this.event_images = [];
   }
 
   onRadioSelect(value: string) {

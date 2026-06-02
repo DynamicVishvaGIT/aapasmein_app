@@ -22,6 +22,7 @@ export class GlobalsearchPage implements OnInit {
   currentUser:any;
   convenience_list:any=[];
   recent_search:any=[];
+  imageUrl = 'https://aapasmein.dvadminpanel.in/media/';
 
   constructor(private modalCtrl: ModalController, private router: Router, private activatedRoute: ActivatedRoute,
     private commonService: CommonService, private apiService: ApiService

@@ -121,7 +121,7 @@
       </ion-col>
       <ion-col size="12" *ngIf="mall_data.USER__id==currentUser.user_id">
         <ion-button  type="submit" color="secondary" class="login-btn" [disabled]="enquiryFlag"  (click)="go_to_contacted_list()"><b>List of Enquiries</b></ion-button>
-    </ion-col>
+      </ion-col>
     </ion-row>
     <!-- <br>
     <br>
@@ -166,4 +166,4 @@
   <br>
 </ion-content>
 
-<app-commonfooter [activeDealColor]="true"></app-commonfooter>
+<app-commonfooter *ngIf="isFooterVisible" [activeDealColor]="true"></app-commonfooter>

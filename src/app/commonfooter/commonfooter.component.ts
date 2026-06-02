@@ -264,6 +264,10 @@ export class CommonfooterComponent  implements OnInit, OnDestroy {
       // }
     },
     respError => {
+      //console.log(respError);
+      if(respError=='User not found'){
+        this.logoutMyDevice();
+      }
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }

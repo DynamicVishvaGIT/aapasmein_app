@@ -175,6 +175,18 @@ ion-toolbar, ion-content, ion-header, ion-footer, ion-title, ion-label, ion-butt
     min-height: 30px !important;
   }
 
+  .alert-button-no {
+    color: red !important; /* Change the color of the "No" button */
+    --background: red; /* Optional: change background color */
+    --button-color: black;
+  }
+  
+  .alert-button-yes {
+    color: green !important; /* Change the color of the "Yes" button */
+    --background: rgb(42, 240, 42); /* Optional: change background color */
+    --button-color: black;
+  }
+
 // ion-select::part(icon) {
 //     color: #ffff;
 //     margin-left: 120px !important;

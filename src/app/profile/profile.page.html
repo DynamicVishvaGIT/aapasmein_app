@@ -75,37 +75,14 @@
           <p class="name-txt1">{{search_id!=undefined?search_user_details?.PROFESSION__NAME?search_user_details?.PROFESSION__NAME:'No Profession':user_details?.PROFESSION__NAME}}</p>
         </ion-col>
       </ion-row>
-      <!-- Scholarship Section -->
-      <div class="scholarship-section">
-        <!-- <h3>Scholarships</h3> -->
-        <div class="scroll-container">
-          <!-- <button class="scroll-left" >&#9665;</button> -->
-          <ion-icon name="chevron-back-outline" class="forward-back-icon" (click)="scrollLeft()"></ion-icon>
-          <div class="scholarship-list" #scrollableContainer>
-            <div class="scholarship-item" *ngFor="let scholarship of scholarships">
-              <ion-icon name="{{scholarship.name}}" class="{{scholarship.classname}}"></ion-icon>
-              <!-- <img [src]="scholarship.image" alt="Scholarship Image" class="scholarship-img"> -->
-              <!-- <p>{{ scholarship.name }}</p> -->
-            </div>
-          </div>
-          <!-- <button class="scroll-right" (click)="scrollRight()">&#9655;</button> -->
-          <ion-icon name="chevron-forward-outline" class="forward-back-icon" (click)="scrollRight()"></ion-icon>
-        </div>
-      </div>
       <ion-row>
         <ion-col >
           <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'">Send a message</ion-button>
           <ion-button fill="outline" class="custom_button no-uppercase" *ngIf="(search_id!=undefined && search_user_details?.REACHOUT=='no' && currentUser.user_id!=search_user_details?.id) || (search_id==undefined && REQUEST_STATUS=='pending')" (click)="showReachoutDialog()">Reach-out</ion-button>
         </ion-col>
-        <!-- <ion-col size="6">
-          <ion-button fill="outline" class="custom_button no-uppercase" (click)="add_advantage()">Add Advantage</ion-button>
-        </ion-col> -->
+
       </ion-row>
-      <!-- <ion-row *ngIf="search_id==undefined">
-        <ion-col>
-          <ion-button fill="outline" class="custom_button no-uppercase" (click)="add_advantage()">Add Advantage</ion-button>
-        </ion-col>
-      </ion-row> -->
+
       <ion-row>
         <ion-col size="4" style="text-align: center;" (click)="goToConnections()" *ngIf="routeURL!='acceptrequest'">
           <ion-icon name="people-outline" style="font-size: xx-large; color: white;"></ion-icon>
@@ -115,89 +92,13 @@
           <ion-icon name="call-outline" style="font-size: xx-large; color: white;" (click)="makeCall()" *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'"></ion-icon>
           <p *ngIf="search_id!=undefined && search_user_details?.REACHOUT=='yes'">Want a Call</p>
         </ion-col>
-        <!-- <ion-col size="3" *ngIf="!search_id" style="text-align: center;" (click)="openActivity()"> 
-          <ion-icon name="briefcase-outline" style="font-size: x-large; color: white;"></ion-icon>
-          <p>Activity</p>
-        </ion-col>
-        <ion-col size="3" *ngIf="!search_id" style="text-align: center;" (click)="goToSavedItems()">
-          <ion-icon name="bookmark-outline" style="font-size: x-large; color: white;"></ion-icon>
-          <p>Saved Item</p>
-        </ion-col> -->
-        <ion-col size="4" style="text-align: center;" (click)="goToAccolade()">
-          <ion-icon name="trophy-outline" style="font-size: xx-large; color: white;"></ion-icon>
-          <p>Accolades</p>
-        </ion-col>
+
       </ion-row>
     </div>
   </div>
   <div class="ion-padding" [ngClass]="{'prof-margin1': search_id, 'prof-margin': !search_id}" *ngIf="(search_id==undefined && REQUEST_STATUS!='pending') || (search_id!=undefined && (search_user_details?.REACHOUT=='yes' || search_user_details?.HANDSHAKE=='yes')) || (search_id!=undefined && search_user_details?.REACHOUT=='no' && currentUser.user_id==search_user_details?.id)">
     <ion-grid>
-      <!-- <ion-row>
-        <ion-col size="6">
-          <span class="text">City</span> <br>
-        </ion-col>
-        <ion-col size="6">
-          <span class="text">Location</span> <br>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: -8px;">
-        <ion-col size="6">
-          <span class="text1">{{search_id!=undefined?search_user_details?.CITY__NAME?search_user_details?.CITY__NAME:'No City':user_details?.CITY__NAME?user_details?.CITY__NAME:'No Data'}}</span>
-        </ion-col>
-        <ion-col size="6">
-          <span class="text1">{{search_id!=undefined?search_user_details?.LOCATION__NAME?search_user_details?.LOCATION__NAME:'No Location':user_details?.LOCATION__NAME?user_details?.LOCATION__NAME:'No Location'}}</span>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <span class="text">Email Id</span> <br>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: -8px;">
-        <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.EMAIL_ID ? search_user_details?.EMAIL_ID : 'No Email':user_details?.EMAIL_ID?user_details?.EMAIL_ID:'No Email'}}</span>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <span class="text">Phone Number</span> <br>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: -8px;">
-        <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.MOBILE_NO ? search_user_details?.MOBILE_NO : 'No Data':user_details?.MOBILE_NO?user_details?.MOBILE_NO:'No Data'}}</span>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <span class="text">Profession</span> <br>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: -8px;">
-        <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.PROFESSION__NAME?search_user_details?.PROFESSION__NAME:'No Profession':user_details?.PROFESSION__NAME}}</span>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <span class="text">Specialization</span> <br>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: -8px;">
-        <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.SPECIALIZATION__NAME?search_user_details?.SPECIALIZATION__NAME:'No Data':user_details?.SPECIALIZATION}}</span>
-        </ion-col>
-      </ion-row>
-      <ion-row >
-        <ion-col size="12">
-          <span class="text">Interest</span> <br>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: -8px;">
-        <ion-col size="12">
-          <span class="text1">{{search_id!=undefined?search_user_details?.INTEREST_NAME?search_user_details?.INTEREST_NAME:'No Data':user_details?.INTEREST_NAME?user_details?.INTEREST_NAME:'No Data'}}</span>
-        </ion-col>
-      </ion-row> -->
+      
       <ion-row class="info-row">
         <ion-col size="6" class="info-col">
           <ion-icon name="business-outline" class="icon"></ion-icon>
@@ -281,22 +182,26 @@
           </div>
         </ion-col>
       </ion-row>
-      <!-- <ion-row style="margin-left: -7px;" *ngIf="(currentUser.user_id==search_id || currentUser.user_id==user_details?.id || currentUser.user_id==sender_id)">
-        <ion-col size="12">
-          <div class="chip-container">
-            <ion-chip class="delete_account">
-              <ion-icon name="trash" class="delete_icon"></ion-icon>
-              <ion-label>My Account</ion-label>
-            </ion-chip>
-          </div>
-        </ion-col>
-      </ion-row> -->
+
     </ion-grid>
   </div>
 </ion-content>
 
 <app-commonfooter></app-commonfooter>
 <!-- <app-connection [connection]="connection_details" *ngIf="connectionFlag"></app-connection> -->
+
+<!-- IMAGE CROPPER START -->
+<div *ngIf="showCropper" class="cropper-modal">
+  <div class="cropper-popup">
+    <div class="cropper-header">
+      <span>Crop Image</span>
+      <ion-icon name="close-outline" class="close-icon" (click)="showCropper = false"></ion-icon>
+    </div>
+    <image-cropper [imageBase64]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="jpeg" output="blob" (imageCropped)="imageCropped($event)"></image-cropper>
+    <ion-button expand="block" class="ion-margin-top" (click)="saveCroppedImage()">Upload Image</ion-button>
+  </div>
+</div>
+<!-- IMAGE CROPPER END -->
 
 
 

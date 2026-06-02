@@ -91,13 +91,13 @@ export class ConvenienceListPage implements OnInit {
     this.searchFlag = !this.searchFlag;
   }
 
-  async termsCondition() {
-    const modal = await this.modalCtrl.create({
-      component: TermsConditionPage,
-      presentingElement: await this.modalCtrl.getTop() 
-    });
-    await modal.present();
-    // this.router.navigate(['/terms-condition']);
+  termsCondition() {
+    // const modal = await this.modalCtrl.create({
+    //   component: TermsConditionPage,
+    //   presentingElement: await this.modalCtrl.getTop() 
+    // });
+    // await modal.present();
+    this.router.navigate(['/terms-condition']);
   }
 
   async addConveniencePage() {

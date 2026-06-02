@@ -154,6 +154,10 @@ export class EventDetailsPage implements OnInit {
     this.searchFlag = !this.searchFlag;
   }
 
+  go_to_interested_list() {
+    this.router.navigate(['/interested-user-list'], { queryParams: { event_id: this.event_id, routeURL: 'categorylist', type: this.type} });
+  }
+
   async goToReport() {
     this.router.navigate(['/report-reason'], { queryParams: { routeURL: 'eventdetails', id: this.event_details.id, product_id: this.event_id, url: this.url} });
     // const modal = await this.modalCtrl.create({

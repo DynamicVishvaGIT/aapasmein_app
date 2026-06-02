@@ -176,7 +176,7 @@ export class EditProfilePage implements OnInit {
         response.data[i].iFlag = false;
       }
       this.get_interests = response.data;
-      this.filteredInterests = [...this.get_interests];
+      // this.filteredInterests = [...this.get_interests];
       // this.get_interests.unshift({id:'',NAME:'Select Interest'});
       
       const selectedNames = this.user_details.INTEREST_NAME.split(',').map((name:any) => name.trim());
@@ -188,8 +188,10 @@ export class EditProfilePage implements OnInit {
         console.log(this.selectedInterests);
         // Optionally set iFlag on these items so checkboxes are marked when the popover opens
         this.get_interests.forEach((item:any) => {
-          item.iFlag = selectedNames.includes(item.NAME);
+          // item.iFlag = selectedNames.includes(item.NAME);
+          item.iFlag = this.selectedInterests.some(sel => sel.id === item.id);
         });
+        this.filteredInterests = [...this.get_interests];
     },
     respError => {
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
@@ -197,9 +199,18 @@ export class EditProfilePage implements OnInit {
   }
 
   filterInterests() {
-    this.filteredInterests = this.get_interests.filter((item:any) =>
-      item.NAME.toLowerCase().includes(this.searchInterestTerm.toLowerCase())
-    );
+    // this.filteredInterests = this.get_interests.filter((item:any) =>
+    //   item.NAME.toLowerCase().includes(this.searchInterestTerm.toLowerCase())
+    // );
+    const term = this.searchInterestTerm.toLowerCase();
+    this.filteredInterests = this.get_interests
+      .filter((item: any) =>
+        item.NAME.toLowerCase().includes(term)
+      )
+      .map((item: any) => ({
+        ...item,
+        iFlag: this.selectedInterests.some(sel => sel.id === item.id)
+      }));
   }
 
   // selectInterest(item: any) {console.log(item);
@@ -230,28 +241,30 @@ export class EditProfilePage implements OnInit {
   // Toggle selection on checkbox click
   toggleSelection(item: any) { console.log(item);
     // Toggle the flag first
-  item.iFlag = !item.iFlag;
-  const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
-  if (item.iFlag && index === -1) {
-    this.selectedInterests.push(item);
-  } else if (!item.iFlag && index !== -1) {
-    // Remove from selectedInterests if it's there
-    this.selectedInterests.splice(index, 1);
-  }
-  // Update user.edit_interest with selected names
-  this.user.edit_interest = this.selectedInterests.map(sel => sel.NAME);
-  console.log(this.user.edit_interest);
-  console.log(this.selectedInterests);
+    item.iFlag = !item.iFlag;
+    if (item.iFlag) {
+      // add if not exists
+      if (!this.selectedInterests.some(sel => sel.id === item.id)) {
+        this.selectedInterests.push(item);
+      }
+    } else {
+      // remove
+      this.selectedInterests = this.selectedInterests.filter(
+        sel => sel.id !== item.id
+      );
+    }
+    // update user model
+    this.user.edit_interest = this.selectedInterests.map(i => i.NAME);
+    // item.iFlag = !item.iFlag;
     // const index = this.selectedInterests.findIndex(selected => selected.id === item.id);
     // if (item.iFlag && index === -1) {
     //   this.selectedInterests.push(item);
     // } else if (!item.iFlag && index !== -1) {
+    //   // Remove from selectedInterests if it's there
     //   this.selectedInterests.splice(index, 1);
     // }
-    // this.user.edit_interest=[];
-    // for(let i = 0; i<this.selectedInterests.length;i++){
-    //   this.user.edit_interest.push(this.selectedInterests[i].NAME)
-    // }
+    // // Update user.edit_interest with selected names
+    // this.user.edit_interest = this.selectedInterests.map(sel => sel.NAME);
     // console.log(this.user.edit_interest);
     // console.log(this.selectedInterests);
   }

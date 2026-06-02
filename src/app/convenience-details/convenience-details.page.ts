@@ -143,6 +143,10 @@ export class ConvenienceDetailsPage implements OnInit {
     });
     await alert.present();
   }
+
+  async goToReport(data:any) {
+    this.router.navigate(['/report-reason'], { queryParams: { routeURL: 'convenience', id: data.id, product_id: this.profession, convenience_id: this.convenience_id} });
+  }
   
   async showPermissionError() {
     const alert = await this.alertController.create({

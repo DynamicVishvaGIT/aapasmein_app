@@ -303,6 +303,14 @@ const routes: Routes = [
     path: 'agreement-terms-conditions',
     loadChildren: () => import('./agreement-terms-conditions/agreement-terms-conditions.module').then( m => m.AgreementTermsConditionsPageModule)
   },
+  {
+    path: 'notification-convenience',
+    loadChildren: () => import('./notification-convenience/notification-convenience.module').then( m => m.NotificationConveniencePageModule)
+  },
+  {
+    path: 'interested-user-list',
+    loadChildren: () => import('./interested-user-list/interested-user-list.module').then( m => m.InterestedUserListPageModule)
+  },
 ];
 
 @NgModule({

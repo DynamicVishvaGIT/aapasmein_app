@@ -188,7 +188,8 @@ export class OtpVerificationPage implements OnInit, OnDestroy {
             this.router.navigate(['/dashboard']);
           }
           else{
-            this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:'',sender_id: response.sender_id} });
+            this.router.navigate(['/registration'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:'', sender_id: response.sender_id} });
+            // this.router.navigate(['/agreement'], { queryParams: { mobile_no:this.mobile_no, referral_code: this.referral_code!=''?this.referral_code:'',sender_id: response.sender_id} });
           }
         }
         else{

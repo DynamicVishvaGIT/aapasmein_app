@@ -14,11 +14,12 @@ import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,ReactiveFormsModule,FormsModule, HttpClientModule, SwiperModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,ReactiveFormsModule,FormsModule, HttpClientModule, SwiperModule, ImageCropperComponent],
   providers: [Camera, Geolocation, CallNumber, InAppBrowser, Network, SocialSharing, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -1,10 +1,11 @@
 import { Component, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { ModalController, NavController, Platform } from '@ionic/angular';
+import { AlertController, ModalController, NavController, Platform, PopoverController } from '@ionic/angular';
 import { CommonService } from './common.service';
 import { ApiService } from './api.service';
 import { interval, Subject, Subscription, takeUntil } from 'rxjs';
 import { NetworkService } from './network.service';
+import { Location } from '@angular/common';
 
 declare var cordova: any; // Declare cordova to use the plugin
 
@@ -21,8 +22,9 @@ export class AppComponent {
   isConnected: boolean = true;
   pollingSubscription: Subscription | null = null;
 
-  constructor(private router: Router, private renderer: Renderer2, private platform: Platform, private navCtrl: NavController, 
-    private commonService: CommonService, private modalCtrl: ModalController, private apiService: ApiService, private networkService: NetworkService) {
+  constructor(private router: Router, private renderer: Renderer2, private platform: Platform, private navCtrl: NavController, private location: Location,
+    private commonService: CommonService, private modalCtrl: ModalController, private apiService: ApiService, private networkService: NetworkService,
+    private popoverCtrl: PopoverController, private alertCtrl: AlertController) {
       this._unsubscribeAll = new Subject();
     this.initializeApp();
   }
@@ -90,7 +92,25 @@ export class AppComponent {
         }
       });
     
-      this.platform.backButton.subscribeWithPriority(9999, () => {
+      this.platform.backButton.subscribeWithPriority(9999, async () => {
+        // Close ion-select alert dropdown
+        const topAlert = await this.alertCtrl.getTop();
+        if (topAlert) {
+          await topAlert.dismiss();
+          return;
+        }
+        // 1️⃣ Close Popover if open
+        const topPopover = await this.popoverCtrl.getTop();
+        if (topPopover) {
+          await topPopover.dismiss();
+          return;
+        }
+        // 🔴 STEP 1: CLOSE MODAL IF OPEN
+        const topModal = await this.modalCtrl.getTop();
+        if (topModal) {
+          await topModal.dismiss();
+          return;
+        }
         const currentUrlWithQuery = this.router.url;
         const currentUrl = currentUrlWithQuery.split('?')[0]; // base route
         const prevUrl = this.commonService.currentPage;
@@ -102,8 +122,23 @@ export class AppComponent {
         if (currentUrl === '/dashboard' || currentUrl === '/login-agreement') {
           (navigator as any).app.exitApp();
         }
-    
-      
+
+        // ✅ AGREEMENT TERMS CONDITIONS (NEW LOGIC)
+        else if (currentUrl === '/agreement-terms-conditions') {
+          const urlParams = new URLSearchParams(currentUrlWithQuery.split('?')[1] || '');
+          const route = urlParams.get('route');
+
+          if (route === 'login') {
+            this.router.navigate(['/login-agreement']);
+          } 
+          else if (route === 'convenience') {
+            this.router.navigate(['/terms-condition']);
+          } 
+          else {
+            this.router.navigate(['/dashboard']);
+          }
+        }
+  
         // ✅ Profile → Accept Request or Connection List → Profile logic
         else if (currentUrl === '/profile') {
           const urlParams = new URLSearchParams(currentUrlWithQuery.split('?')[1] || '');
@@ -147,6 +182,13 @@ export class AppComponent {
           //   queryParamsHandling: 'merge'
           // });
         }
+        else if (currentUrl === '/terms-condition') {
+          this.router.navigate(['/convenience-list']);
+          // this.router.navigate(['/profile'], {
+          //   queryParams: { routeURL: 'acceptrequest' },
+          //   queryParamsHandling: 'merge'
+          // });
+        }
         // ✅ Other routes like modal/dismiss logic
         else if (
           currentUrl === '/feedback-modal' ||
@@ -176,7 +218,7 @@ export class AppComponent {
         else if (
           prevUrl.includes('/add-mall') || prevUrl.includes('/add-event') || prevUrl.includes('/more-details') ||
           prevUrl.includes('/connection') || prevUrl.includes('/edit-profile') ||
-          prevUrl.includes('/setting-modal') || prevUrl.includes('/add-rate') || prevUrl.includes('add-convenience') || prevUrl.includes('terms-condition')
+          prevUrl.includes('/setting-modal') || prevUrl.includes('/add-rate') || prevUrl.includes('add-convenience')
         ) {
           this.modalCtrl.dismiss();
         }
@@ -306,6 +348,9 @@ export class AppComponent {
       }
     },
     respError => {
+      if(respError=='User not found'){
+        this.logoutMyDevice();
+      }
       this.commonService.showToastMessage(respError, 'error-toast','', 4000);
     })
   }

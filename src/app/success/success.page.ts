@@ -66,7 +66,7 @@ export class SuccessPage implements OnInit {
         this.show_whatsapp = false;
         // this.message = 'Looks like '+ this.friend_details.full_name+' has already been added to the aapasmein network!';
         this.message = respError;
-        this.commonService.showToastMessage(respError, 'error-toast','', 4000);
+        // this.commonService.showToastMessage(respError, 'error-toast','', 4000);
       })
   }
 

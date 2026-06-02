@@ -30,6 +30,7 @@ export class RequestSendPage implements OnInit {
   productListStatus = '';
   sold_unsold_text:string='';
   enquiryFlag:boolean=false;
+  isFooterVisible: boolean = true;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService, private commonService: CommonService,
     private alertCtrl: AlertController, private modalCtrl: ModalController) { 

@@ -29,21 +29,35 @@
         <ion-col size="6" *ngFor="let data of filteredList">
           <ion-card class="mall-card" (click)="viewAdvantageDetails(data)">
             <div class="honeycomb-overlay"></div>
-            <ion-card-content>
-              <ion-row>
+            <ion-card-content  class="card-content-custom">
+              <!-- IMAGE -->
+              <div class="image-section">
+                <img  src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">
+              </div>
+              <!-- TEXT -->
+              <div class="text-section">
+                <span class="text-align">{{data.NAME}}</span>
+              </div>
+              <!-- BOTTOM BUTTON -->
+              <div class="bottom-section">
+                <ion-badge class="badge-color" mode="ios">
+                  <ion-icon name="arrow-forward-outline" style="color: black;"></ion-icon>
+                </ion-badge>
+              </div>
+              <!-- <ion-row>
                 <ion-col size="12" style="text-align: center;">
-                  <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">  <!--{{imageUrl}}{{data.IMAGE}}-->
+                  <img src="../../../assets/icon/dashboard/developer.svg" alt="" class="img-avatar">
                 </ion-col>
-              </ion-row>
-              <ion-row style="margin-top: -23px;">
+              </ion-row> -->
+              <!-- <ion-row style="margin-top: -23px;">
                 <ion-col size="12" style="text-align: center;">
                   <span class="text-align">{{data.NAME}}</span></ion-col>
-              </ion-row>
-              <ion-row>
+              </ion-row> -->
+              <!-- <ion-row>
                 <ion-col style="text-align: center;">
                   <ion-badge class="badge-color" mode="ios"><ion-icon name="arrow-forward-outline" style="float:right;color: black;"></ion-icon></ion-badge>
                 </ion-col>
-              </ion-row>
+              </ion-row> -->
             </ion-card-content>
           </ion-card>
         </ion-col>

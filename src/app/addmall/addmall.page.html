@@ -74,15 +74,29 @@
         </div>
       </ion-col>
       <ion-col size="6">
-        <div class="input-container">
+        <div class="input-container" [class.focused]="mallJson.location_id">
           <ion-label class="input-label required">Location</ion-label>
           <div class="input-group">
-            <ion-select [(ngModel)]="mallJson.location_id">
+            <ion-input [value]="selectedLocationName" readonly (click)="openLocationPopover($event)"></ion-input>
+            <!-- <ion-select [(ngModel)]="mallJson.location_id">
               <ion-select-option *ngFor="let item of get_locations" [value]="item.id">{{item.NAME}}</ion-select-option>
-            </ion-select>
+            </ion-select> -->
           </div>
         </div>
       </ion-col>
+       <!-- Popover for Searchable Dropdown -->
+       <ion-popover #locationPopover [isOpen]="isLocationPopoverOpen" (didDismiss)="isLocationPopoverOpen = false">
+        <ng-template>
+        <ion-content class="popover-content">
+            <ion-searchbar [(ngModel)]="searchLocationTerm" (ionInput)="filterLocations()"></ion-searchbar>
+            <ion-list>
+            <ion-item *ngFor="let item of filteredLocations" (click)="selectLocation(item)">
+                {{ item.NAME }}
+            </ion-item>
+            </ion-list>
+        </ion-content>
+        </ng-template>
+    </ion-popover>
     </ion-row>
     <ion-row style="margin-left: 7px;margin-top: 14px;">
       <span style="color:black" class="required">Upload Image</span>
@@ -97,6 +111,7 @@
       <ion-col size="4" *ngIf="selectedImage1.name!=''">
         <div class="square-box">
           <img [src]="selectedImage1.data" alt="" class="mall-photo">
+          <ion-icon name="close-outline" class="close-button" (click)="remove_image('1')"></ion-icon>
         </div>
       </ion-col>
       <ion-col size="4" *ngIf="selectedImage2.name==''" (click)="presentActionSheet(2)">
@@ -108,6 +123,7 @@
       <ion-col size="4" *ngIf="selectedImage2.name!=''">
         <div class="square-box">
           <img [src]="selectedImage2.data" alt="" class="mall-photo">
+          <ion-icon name="close-outline" class="close-button" (click)="remove_image('2')"></ion-icon>
         </div>
       </ion-col>
       <ion-col size="4" *ngIf="selectedImage3.name==''" (click)="presentActionSheet(3)">
@@ -119,6 +135,7 @@
       <ion-col size="4" *ngIf="selectedImage3.name!=''">
         <div class="square-box">
           <img [src]="selectedImage3.data" alt="" class="mall-photo">
+          <ion-icon name="close-outline" class="close-button" (click)="remove_image('3')"></ion-icon>
         </div>
       </ion-col>
     </ion-row>

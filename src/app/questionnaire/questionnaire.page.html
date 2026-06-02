@@ -33,11 +33,11 @@
 
 <ion-content class="ion-padding blue-background">
   <div class="honeycomb-overlay"></div>
-  <ion-row style="margin-left: 20px;">
+  <!-- <ion-row style="margin-left: 20px;">
     <ion-col>
       <strong style="color:white;">Before you Invite {{friend_details.full_name}} to aapasmein, here's something to ponder</strong>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
   <div *ngFor="let data of selectedQuestions; let i = index" [hidden]="currentQuestion !== i" style="margin-top: 70px;">
     <div class="card">
       <!-- <div class="watermark"></div> -->
